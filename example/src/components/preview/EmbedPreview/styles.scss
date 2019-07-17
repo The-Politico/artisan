@@ -1,0 +1,84 @@
+@import '~@politico/interactive-style/vars.scss';
+
+.styles :global {
+  background-color: $politico-line;
+  min-height: 100vh;
+
+  nav {
+    height: 30px;
+  }
+
+  input {
+    margin: 0 5px;
+    width: 50px;
+  }
+
+  .nav-item {
+    button {
+      cursor: pointer;
+      background-color: $politico-dark-red;
+      border: none;
+      width: 50px;
+      height: 30px;
+      margin: 0 5px;
+      padding: .3rem .6rem;
+      border-radius: .25rem;
+      svg {
+        height: 100%;
+        width: 100%;
+        fill: white;
+      }
+    }
+  }
+
+  .embed-preview-container {
+    margin: 10px;
+  }
+
+  .embed-preview {
+    margin: 0 auto;
+    max-width: 100%;
+    border: 1px solid #caccd4;
+    transition: width 0.5s ease;
+    background-color: white;
+  }
+  h2 {
+    margin: 30px 0 5px;
+  }
+
+  .embed-select,
+  .embed-code {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .embed-select {
+    margin: 50px auto 10px;
+    font-family: $din;
+
+    option {
+      text-transform: capitalize;
+    }
+  }
+
+  .embed-code {
+    max-width: 600px;
+    margin: 10px auto;
+
+    .label {
+      font-family: $din;
+      margin: 0;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+      font-weight: 500;
+    }
+
+    textarea {
+      width: 100%;
+      resize: none;
+      font-size: 16px;
+      font-family: monospace;
+    }
+  }
+}

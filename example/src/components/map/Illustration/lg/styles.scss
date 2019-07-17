@@ -1,0 +1,64 @@
+.styles :global {
+  #g-lg-box .g-artboard {
+    margin:0 auto;
+  }
+  #g-lg-box p {
+    margin:0;
+  }
+  .g-aiAbs {
+    position:absolute;
+  }
+  .g-aiImg {
+    display:block;
+    width:100% !important;
+  }
+  .g-aiSymbol {
+    position: absolute;
+    box-sizing: border-box;
+  }
+  .g-aiPointText p { white-space: nowrap; }
+  svg{ vector-effect: non-scaling-stroke; }
+  #g-Map-lg {
+    position:relative;
+    overflow:hidden;
+  }
+  #g-Map-lg p {
+    font-family:"Jubilat", Georgia, Times, "Times New Roman", serif;
+    font-weight:700;
+    font-size:27px;
+    line-height:30px;
+    height:auto;
+    filter:alpha(opacity=100);
+    -ms-filter:progid:DXImageTransform.Microsoft.Alpha(Opacity=100);
+    opacity:1;
+    letter-spacing:0em;
+    text-align:left;
+    color:rgb(0,0,0);
+    text-transform:none;
+    padding-bottom:0;
+    padding-top:0;
+    mix-blend-mode:normal;
+    font-style:normal;
+    position:static;
+  }
+  #g-Map-lg .g-pstyle0 {
+    height:30px;
+    text-align:center;
+  }
+  #g-Map-lg .g-pstyle1 {
+    font-family:"din-2014", Helvetica, Arial, sans-serif;
+    font-weight:400;
+    font-size:22px;
+    line-height:26px;
+    height:26px;
+    text-align:center;
+  }
+  #g-Map-lg .g-pstyle2 {
+    font-family:"din-2014", Helvetica, Arial, sans-serif;
+    font-weight:400;
+    font-size:19px;
+    line-height:23px;
+    height:23px;
+    text-align:center;
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "name": "interactive_ai2jsx",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "pib": {
+    "template": "dynamic",
+    "id": "rahDcEQD",
+    "pageName": "ai2jsx Example Page",
+    "site": "core",
+    "siteSection": "politics",
+    "pageType": "interactives",
+    "adUnitSection": "politics",
+    "freePaidContent": "free",
+    "publishPath": "interactives/2019/ai2jsx-example/",
+    "published": null,
+    "updated": null,
+    "authors": [
+      {
+        "link": "https://www.politico.com/",
+        "name": "Polly Politico"
+      }
+    ]
+  },
+  "dependencies": {
+    "@newswire/frames": "^0.3.1",
+    "@politico/interactive-style": "^1.2.0",
+    "@politico/interactive-style-sketch": "^1.0.0",
+    "ai2jsx": "../",
+    "file-loader": "^4.0.0",
+    "politico-style": "^3.0.14"
+  },
+  "devDependencies": {
+    "@politico/eslint-config-interactives": "latest",
+    "@politico/interactive-bin": "^1.0.0-beta.6",
+    "eslint": "latest",
+    "react": "^16.6.3",
+    "react-helmet": "^5.2.0"
+  },
+  "scripts": {
+    "start": "pib start",
+    "build": "pib build",
+    "preview": "pib preview",
+    "api": "pib api",
+    "pub": "pib publish"
+  }
+}
