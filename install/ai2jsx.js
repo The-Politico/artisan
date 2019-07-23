@@ -1153,22 +1153,17 @@ function main() {
   function convertStyleString(styleStr) {
     var styleStringParts = filter(styleStr.split(';'), function(s) { return s !== ' ' && s !== ''; });
 
-    var output = '{ ';
+    var output = {};
     forEach(styleStringParts, function(rule, idx) {
       var prop = convertCssProps(rule.split(':')[0]);
+      prop = prop.replace(/^\s*/, '');
+      prop = prop.replace(/\s*$/, '');
       var value = rule.split(':')[1];
 
-      var ruleStr = '';
-      ruleStr += prop + ': \'' + value + '\'';
-
-      if (idx !== styleStringParts.length - 1) {
-        ruleStr += ', ';
-      }
-      output += ruleStr;
+      output[prop] = value;
     });
-    output += ' }';
-    output = output.replace(/\s{2,}/g, ' ');
-    return output;
+    output = ' ' + JSON.stringify(output, null, 1) + ' ';
+    return output.replace(/\n/g, '');
   }
 
   function convertCssProps(prop) {

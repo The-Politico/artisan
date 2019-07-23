@@ -13,7 +13,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --ignore dist --ignore example --exec npm run build",
-    "build": "rollup --config config/rollup.es.js"
+    "build": "rollup --config config/rollup.es.js",
+    "install-script": "node ./dist/cli.js install"
   },
   "author": "",
   "license": "ISC",
