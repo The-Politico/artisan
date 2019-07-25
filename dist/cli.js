@@ -12,8 +12,6 @@ var chalk = _interopDefault(require('chalk'));
 var cli = _interopDefault(require('cli-progress'));
 var path = _interopDefault(require('path'));
 var fsExtra = require('fs-extra');
-require('@politico/interactive-templates');
-require('@politico/interactive-templates/dist/utils/getConfig.js');
 
 var Logger = function Logger() {
   var _this = this;
@@ -75,6 +73,8 @@ var Logger = function Logger() {
 };
 
 var defaultLogger = new Logger();
+
+// import getPitConfig from '@politico/interactive-templates/dist/utils/getConfig.js';
 
 var INSTALL_DIRECTORY = path.resolve(__dirname, '../install');
 function install (_x) {

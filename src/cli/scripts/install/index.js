@@ -2,8 +2,8 @@ import { Logger } from 'CLI/utils/console';
 import path from 'path';
 import chalk from 'chalk';
 import { writeFile, remove, copy } from 'fs-extra';
-import { register } from '@politico/interactive-templates';
-import getPitConfig from '@politico/interactive-templates/dist/utils/getConfig.js';
+// import { register } from '@politico/interactive-templates';
+// import getPitConfig from '@politico/interactive-templates/dist/utils/getConfig.js';
 
 const INSTALL_DIRECTORY = path.resolve(__dirname, '../install');
 
