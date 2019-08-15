@@ -11,7 +11,7 @@ $ npm install -g ai2jsx
 
 2. Find your Adobe Illustrator scripts folder. Go to your Adobe Illustrator folder, then navigate to `Presets/en-US/`. You should see a folder called `Scripts` inside of that.
 
-3. Install the `ai2jsx` script by running the CLI command and dragging the `Scripts` folder into the terminal. You'll probabaly need to `sudo` the command to have write access to that folder. See GIF below.
+3. Install the `ai2jsx` script by running the `ai2jsx install` command and dragging the `Scripts` folder into the terminal. You'll probabaly need to `sudo` the command to have write access to that folder. See GIF below.
 
 ```
 $ sudo ai2jsx install PATH_TO_YOUR_ILLUSTATOR_SCRIPTS
