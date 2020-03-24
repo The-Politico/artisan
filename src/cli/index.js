@@ -102,20 +102,4 @@ yargs // eslint-disable-line
     await which(args);
   })
 
-  // Test
-  .command('test', 'Creates a new embed project', (yargs) => {
-    yargs
-      .option('verbose', {
-        alias: 'v',
-        describe: 'Log to the console',
-        type: 'boolean',
-        default: true,
-      });
-  }, async function(args) {
-    console.log(process.pid);
-    require('child_process').exec('echo tty', {}, (err, data) => {
-      console.log('data', data);
-    });
-  })
-
   .argv;

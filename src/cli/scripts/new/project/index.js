@@ -9,6 +9,8 @@ import { log } from 'CLI/utils/console';
 
 import { PROJECTS_PATH } from 'CLI/constants/locations';
 
+import activate from 'CLI/scripts/activate/index.js';
+
 export default async() => {
   const conf = await readConf();
 
@@ -51,5 +53,9 @@ export default async() => {
   };
 
   await updateConf(newProjectConf);
+
+  log('Activate new project...', 'info');
+  await activate({ project: projectName });
+
   log(`New project "${projectName}" created and activated`, 'success');
 };

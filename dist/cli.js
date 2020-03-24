@@ -230,6 +230,7 @@ _regeneratorRuntime.mark(function _callee() {
   var opts,
       project,
       allProjects,
+      activeProject,
       inquiry,
       _args = arguments;
   return _regeneratorRuntime.wrap(function _callee$(_context) {
@@ -240,7 +241,7 @@ _regeneratorRuntime.mark(function _callee() {
           project = opts.project;
 
           if (project) {
-            _context.next = 10;
+            _context.next = 13;
             break;
           }
 
@@ -250,11 +251,18 @@ _regeneratorRuntime.mark(function _callee() {
         case 5:
           allProjects = _context.sent;
           _context.next = 8;
+          return getActiveProject();
+
+        case 8:
+          activeProject = _context.sent;
+          _context.next = 11;
           return inquirer.prompt([{
             type: 'list',
             name: 'projectName',
             message: 'Which project would you like to activate?',
-            choices: allProjects.map(function (p) {
+            choices: allProjects.filter(function (p) {
+              return activeProject ? activeProject.name !== p : true;
+            }).map(function (p) {
               return {
                 name: p,
                 value: p
@@ -262,20 +270,20 @@ _regeneratorRuntime.mark(function _callee() {
             })
           }]);
 
-        case 8:
+        case 11:
           inquiry = _context.sent;
           project = inquiry.projectName;
 
-        case 10:
-          _context.next = 12;
+        case 13:
+          _context.next = 15;
           return updateConf({
             active: project
           });
 
-        case 12:
+        case 15:
           log("\"".concat(project, "\" is now the active project."), 'success');
 
-        case 13:
+        case 16:
         case "end":
           return _context.stop();
       }
@@ -533,9 +541,16 @@ _regeneratorRuntime.mark(function _callee() {
           return updateConf(newProjectConf);
 
         case 28:
+          log('Activate new project...', 'info');
+          _context.next = 31;
+          return activate({
+            project: projectName
+          });
+
+        case 31:
           log("New project \"".concat(projectName, "\" created and activated"), 'success');
 
-        case 29:
+        case 32:
         case "end":
           return _context.stop();
       }
@@ -766,40 +781,5 @@ function () {
 
   return function (_x5) {
     return _ref5.apply(this, arguments);
-  };
-}()) // Test
-.command('test', 'Creates a new embed project', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
-/*#__PURE__*/
-function () {
-  var _ref6 = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee6(args) {
-    return _regeneratorRuntime.wrap(function _callee6$(_context6) {
-      while (1) {
-        switch (_context6.prev = _context6.next) {
-          case 0:
-            console.log(process.pid);
-
-            require('child_process').exec('echo tty', {}, function (err, data) {
-              console.log('data', data);
-            });
-
-          case 2:
-          case "end":
-            return _context6.stop();
-        }
-      }
-    }, _callee6);
-  }));
-
-  return function (_x6) {
-    return _ref6.apply(this, arguments);
   };
 }()).argv;
