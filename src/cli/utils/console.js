@@ -3,34 +3,37 @@ import cli from 'cli-progress';
 
 class Logger {
   constructor(config = {}) {
-    this.verbose = config.verbose;
     this.bar = new cli.Bar({ clearOnComplete: true }, cli.Presets.shades_classic);
+  }
+
+  verbose = () => {
+    return process.env.VERBOSE_MODE === 'true';
   }
 
   progress = {
     start: function(totalValue, startValue) {
-      if (this.verbose === false) {
+      if (this.verbose() === false) {
         return;
       }
       this.bar.start(totalValue, startValue);
     }.bind(this),
 
     update: function() {
-      if (this.verbose === false) {
+      if (this.verbose() === false) {
         return;
       }
       this.bar.update(arguments);
     }.bind(this),
 
     increment: function(amount) {
-      if (this.verbose === false) {
+      if (this.verbose() === false) {
         return;
       }
       this.bar.increment(amount);
     }.bind(this),
 
     stop: function() {
-      if (this.verbose === false) {
+      if (this.verbose() === false) {
         return;
       }
       this.bar.stop();
@@ -38,7 +41,7 @@ class Logger {
   }
 
   log = (message, type) => {
-    if (this.verbose === false) {
+    if (this.verbose() === false) {
       return;
     }
 
