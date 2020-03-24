@@ -453,22 +453,70 @@ function _ref2() {
   return _ref2.apply(this, arguments);
 }
 
-var installDeps = (function (dir) {
-  return new Promise(function (resolve, reject) {
-    var child = child_process.exec('npm install', {
-      cwd: dir
-    });
-    child.stdout.on('data', function (data) {
-      log(data);
-    });
-    child.on('close', function (error) {
-      if (error) {
-        reject(error);
-      } else {
-        resolve();
+var exec = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(cmd, dir) {
+    var activeProject;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (dir) {
+              _context.next = 10;
+              break;
+            }
+
+            _context.next = 3;
+            return getActiveProject();
+
+          case 3:
+            activeProject = _context.sent;
+
+            if (activeProject) {
+              _context.next = 9;
+              break;
+            }
+
+            log('There is no active project. Please activate a project using the "activate" command.', 'error');
+            throw new Error();
+
+          case 9:
+            dir = activeProject.path;
+
+          case 10:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              var child = child_process.exec(cmd, {
+                cwd: dir
+              });
+              child.stdout.on('data', function (data) {
+                log(data);
+              });
+              child.on('close', function (error) {
+                if (error) {
+                  reject(error);
+                } else {
+                  resolve();
+                }
+              });
+            }));
+
+          case 11:
+          case "end":
+            return _context.stop();
+        }
       }
-    });
-  });
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var installDeps = (function (dir) {
+  return exec('npm install', dir);
 });
 
 var newProject = /*#__PURE__*/
