@@ -40,7 +40,7 @@ export const getActiveDirectory = async() => {
   const activeProject = await getActiveProject();
 
   if (!activeProject) {
-    log('There is no active project. Please activate a project using the "activate" command.', 'error');
+    log('1 There is no active project. Please activate a project using the "activate" command.', 'error');
   } else {
     dir = activeProject.path;
   }
@@ -66,7 +66,7 @@ export const getActiveIllustrations = async() => {
   const activeProject = await getActiveProject();
 
   if (!activeProject) {
-    log('There is no active project. Please activate a project using the "activate" command.', 'error');
+    log('2 There is no active project. Please activate a project using the "activate" command.', 'error');
   } else {
     illustrations = activeProject.illustrations;
   }
@@ -103,7 +103,7 @@ export const updateConf = async(obj) => {
             if (val) {
               return merge(val, obj[k][item]);
             } else {
-              return val;
+              return obj[k][item];
             }
           },
         };
@@ -111,5 +111,41 @@ export const updateConf = async(obj) => {
     }
   });
 
-  return fs.outputJson(CONFIG_PATH, update(conf, updateSignature), { spaces: 2 });
+  return fs.outputJson(
+    CONFIG_PATH,
+    update(conf, updateSignature),
+    { spaces: 2 }
+  );
+};
+
+export const removeProjectFromConf = async(project, illustration) => {
+  const conf = await readConf();
+
+  const updateSignature = {};
+  updateSignature.projects = {
+    $unset: [project],
+  };
+
+  return fs.outputJson(
+    CONFIG_PATH,
+    update(conf, updateSignature),
+    { spaces: 2 }
+  );
+};
+
+export const removeIllustrationFromConf = async(project, illustration) => {
+  const conf = await readConf();
+
+  const updateSignature = {};
+  updateSignature.projects = {};
+  updateSignature.projects[project] = {};
+  updateSignature.projects[project].illustrations = {
+    $unset: [illustration],
+  };
+
+  return fs.outputJson(
+    CONFIG_PATH,
+    update(conf, updateSignature),
+    { spaces: 2 }
+  );
 };

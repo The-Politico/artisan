@@ -6,11 +6,11 @@ function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'defau
 var yargs = _interopDefault(require('yargs'));
 var _regeneratorRuntime = _interopDefault(require('@babel/runtime/regenerator'));
 var _asyncToGenerator = _interopDefault(require('@babel/runtime/helpers/asyncToGenerator'));
-var inquirer = _interopDefault(require('inquirer'));
 var _classCallCheck = _interopDefault(require('@babel/runtime/helpers/classCallCheck'));
 var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProperty'));
 var chalk = _interopDefault(require('chalk'));
 var cli = _interopDefault(require('cli-progress'));
+var inquirer = _interopDefault(require('inquirer'));
 var keys = _interopDefault(require('lodash/keys'));
 var merge = _interopDefault(require('lodash/merge'));
 var fs = _interopDefault(require('fs-extra'));
@@ -18,11 +18,11 @@ var update = _interopDefault(require('immutability-helper'));
 var path = _interopDefault(require('path'));
 var os = _interopDefault(require('os'));
 var child_process = require('child_process');
-var interactiveTemplates = require('@politico/interactive-templates');
-var slugify = _interopDefault(require('slugify'));
 require('@politico/interactive-bin/dist/scripts/env');
 var rest = require('@octokit/rest');
 var git = _interopDefault(require('simple-git'));
+var interactiveTemplates = require('@politico/interactive-templates');
+var slugify = _interopDefault(require('slugify'));
 
 var healthChecks = (function () {});
 
@@ -96,6 +96,74 @@ var Logger = function Logger() {
 
 var defaultLogger = new Logger();
 var log = defaultLogger.log;
+
+var selectProject = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(selection, projects, logs) {
+    var noneAvailable, question, doesNotExist, inquiry;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            noneAvailable = logs.noneAvailable, question = logs.question, doesNotExist = logs.doesNotExist;
+
+            if (!(projects.length === 0)) {
+              _context.next = 4;
+              break;
+            }
+
+            log(noneAvailable, 'info');
+            return _context.abrupt("return");
+
+          case 4:
+            if (selection) {
+              _context.next = 9;
+              break;
+            }
+
+            _context.next = 7;
+            return inquirer.prompt([{
+              type: 'list',
+              name: 'projectName',
+              message: question,
+              choices: projects.map(function (p) {
+                return {
+                  name: p,
+                  value: p
+                };
+              })
+            }]);
+
+          case 7:
+            inquiry = _context.sent;
+            selection = inquiry.projectName;
+
+          case 9:
+            if (!(projects.indexOf(selection) === -1)) {
+              _context.next = 12;
+              break;
+            }
+
+            log(doesNotExist(selection), 'error');
+            return _context.abrupt("return");
+
+          case 12:
+            return _context.abrupt("return", selection);
+
+          case 13:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})();
 
 var INSTALL_DIRECTORY = path.resolve(__dirname, '../install');
 var STATE_PATH = path.join(os.homedir(), ".ai2jsx");
@@ -200,7 +268,7 @@ function () {
             activeProject = _context3.sent;
 
             if (!activeProject) {
-              log('There is no active project. Please activate a project using the "activate" command.', 'error');
+              log('1 There is no active project. Please activate a project using the "activate" command.', 'error');
             } else {
               dir = activeProject.path;
             }
@@ -237,7 +305,7 @@ function () {
             activeProject = _context5.sent;
 
             if (!activeProject) {
-              log('There is no active project. Please activate a project using the "activate" command.', 'error');
+              log('2 There is no active project. Please activate a project using the "activate" command.', 'error');
             } else {
               illustrations = activeProject.illustrations;
             }
@@ -301,7 +369,7 @@ function () {
                       if (val) {
                         return merge(val, obj[k][item]);
                       } else {
-                        return val;
+                        return obj[k][item];
                       }
                     }
                   };
@@ -328,88 +396,138 @@ function () {
     return _ref6.apply(this, arguments);
   };
 }();
+var removeProjectFromConf =
+/*#__PURE__*/
+function () {
+  var _ref7 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee7(project, illustration) {
+    var conf, updateSignature;
+    return _regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            _context7.next = 2;
+            return readConf();
+
+          case 2:
+            conf = _context7.sent;
+            updateSignature = {};
+            updateSignature.projects = {
+              $unset: [project]
+            };
+            return _context7.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+              spaces: 2
+            }));
+
+          case 6:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function removeProjectFromConf(_x2, _x3) {
+    return _ref7.apply(this, arguments);
+  };
+}();
+var removeIllustrationFromConf =
+/*#__PURE__*/
+function () {
+  var _ref8 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee8(project, illustration) {
+    var conf, updateSignature;
+    return _regeneratorRuntime.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            _context8.next = 2;
+            return readConf();
+
+          case 2:
+            conf = _context8.sent;
+            updateSignature = {};
+            updateSignature.projects = {};
+            updateSignature.projects[project] = {};
+            updateSignature.projects[project].illustrations = {
+              $unset: [illustration]
+            };
+            return _context8.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+              spaces: 2
+            }));
+
+          case 8:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function removeIllustrationFromConf(_x4, _x5) {
+    return _ref8.apply(this, arguments);
+  };
+}();
 
 var activate = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
   var opts,
-      project,
       allProjects,
       activeProject,
       allProjectsNotActive,
-      inquiry,
+      project,
       _args = arguments;
   return _regeneratorRuntime.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           opts = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
-          project = opts.project;
-          _context.next = 4;
+          _context.next = 3;
           return getProjects();
 
-        case 4:
+        case 3:
           allProjects = _context.sent;
-          _context.next = 7;
+          _context.next = 6;
           return getActiveProject();
 
-        case 7:
+        case 6:
           activeProject = _context.sent;
           allProjectsNotActive = allProjects.filter(function (p) {
             return activeProject ? activeProject.name !== p : true;
           });
+          _context.next = 10;
+          return selectProject(opts.project, allProjectsNotActive, {
+            noneAvailable: 'No projects available to activate.',
+            question: 'Which project would you like to activate?',
+            doesNotExist: function doesNotExist(p) {
+              return "Project \"".concat(p, "\" does not exist or is archived.");
+            }
+          });
 
-          if (!(allProjectsNotActive.length === 0)) {
-            _context.next = 12;
-            break;
-          }
+        case 10:
+          project = _context.sent;
 
-          log('No projects available to activate.', 'info');
-          return _context.abrupt("return");
-
-        case 12:
           if (project) {
-            _context.next = 17;
+            _context.next = 13;
             break;
           }
 
-          _context.next = 15;
-          return inquirer.prompt([{
-            type: 'list',
-            name: 'projectName',
-            message: 'Which project would you like to activate?',
-            choices: allProjectsNotActive.map(function (p) {
-              return {
-                name: p,
-                value: p
-              };
-            })
-          }]);
-
-        case 15:
-          inquiry = _context.sent;
-          project = inquiry.projectName;
-
-        case 17:
-          if (!(allProjects.indexOf(project) === -1)) {
-            _context.next = 20;
-            break;
-          }
-
-          log("Project \"".concat(project, "\" does not exist or is archived."), 'error');
           return _context.abrupt("return");
 
-        case 20:
-          _context.next = 22;
+        case 13:
+          _context.next = 15;
           return updateConf({
             active: project
           });
 
-        case 22:
+        case 15:
           log("\"".concat(project, "\" is now the active project."), 'success');
 
-        case 23:
+        case 16:
         case "end":
           return _context.stop();
       }
@@ -464,10 +582,9 @@ _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
   var opts,
-      project,
       activeProject,
       allProjects,
-      inquiry,
+      project,
       updateSignature,
       _args = arguments;
   return _regeneratorRuntime.wrap(function _callee$(_context) {
@@ -475,76 +592,53 @@ _regeneratorRuntime.mark(function _callee() {
       switch (_context.prev = _context.next) {
         case 0:
           opts = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
-          project = opts.project;
-          _context.next = 4;
+          _context.next = 3;
           return getActiveProject();
 
-        case 4:
+        case 3:
           activeProject = _context.sent;
-          _context.next = 7;
+          _context.next = 6;
           return getProjects();
 
-        case 7:
+        case 6:
           allProjects = _context.sent;
+          _context.next = 9;
+          return selectProject(opts.project, allProjects, {
+            noneAvailable: 'No projects available to archive.',
+            question: 'Which project would you like to archive?',
+            doesNotExist: function doesNotExist(p) {
+              return "Project \"".concat(p, "\" does not exist or is archived.");
+            }
+          });
 
-          if (!(allProjects.length === 0)) {
-            _context.next = 11;
-            break;
-          }
+        case 9:
+          project = _context.sent;
 
-          log('No projects available to archive.', 'info');
-          return _context.abrupt("return");
-
-        case 11:
           if (project) {
-            _context.next = 16;
+            _context.next = 12;
             break;
           }
 
-          _context.next = 14;
-          return inquirer.prompt([{
-            type: 'list',
-            name: 'projectName',
-            message: 'Which project would you like to archive?',
-            choices: allProjects.map(function (p) {
-              return {
-                name: p,
-                value: p
-              };
-            })
-          }]);
-
-        case 14:
-          inquiry = _context.sent;
-          project = inquiry.projectName;
-
-        case 16:
-          if (!(allProjects.indexOf(project) === -1)) {
-            _context.next = 19;
-            break;
-          }
-
-          log("Project \"".concat(project, "\" does not exist or is archived."), 'error');
           return _context.abrupt("return");
 
-        case 19:
+        case 12:
           updateSignature = {
             projects: {}
           };
 
-          if (project === activeProject.name) {
+          if (activeProject && project === activeProject.name) {
             updateSignature.active = null;
           }
 
           updateSignature.projects[project] = {};
           updateSignature.projects[project].status = 'archived';
-          _context.next = 25;
+          _context.next = 18;
           return updateConf(updateSignature);
 
-        case 25:
+        case 18:
           log("\"".concat(project, "\" is now archived. Use \"unarchive\" to undo this."), 'success');
 
-        case 26:
+        case 19:
         case "end":
           return _context.stop();
       }
@@ -603,18 +697,22 @@ var exec = /*#__PURE__*/
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            if (dir === 'root') {
+              dir = STATE_PATH;
+            }
+
             if (dir) {
-              _context.next = 4;
+              _context.next = 5;
               break;
             }
 
-            _context.next = 3;
+            _context.next = 4;
             return getActiveDirectory();
 
-          case 3:
+          case 4:
             dir = _context.sent;
 
-          case 4:
+          case 5:
             return _context.abrupt("return", new Promise(function (resolve, reject) {
               var child = child_process.exec(cmd, {
                 cwd: dir
@@ -631,7 +729,7 @@ var exec = /*#__PURE__*/
               });
             }));
 
-          case 5:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -668,7 +766,7 @@ _regeneratorRuntime.mark(function _callee() {
 
         case 5:
           _context.next = 7;
-          return exec("atom \"".concat(dir, "\""));
+          return exec("atom \"".concat(dir, "\""), 'root');
 
         case 7:
         case "end":
@@ -725,7 +823,7 @@ _regeneratorRuntime.mark(function _callee() {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return exec("atom \"".concat(CONFIG_PATH, "\""));
+          return exec("atom \"".concat(CONFIG_PATH, "\""), 'root');
 
         case 2:
         case "end":
@@ -874,6 +972,524 @@ function () {
   };
 }());
 
+var selectIllustration = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(selection, logs) {
+    var illoConf, illos, noneAvailable, question, doesNotExist, inquiry;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return getActiveIllustrations();
+
+          case 2:
+            illoConf = _context.sent;
+            illos = keys(illoConf);
+            noneAvailable = logs.noneAvailable, question = logs.question, doesNotExist = logs.doesNotExist;
+
+            if (!(illos.length === 0)) {
+              _context.next = 8;
+              break;
+            }
+
+            log(noneAvailable, 'info');
+            return _context.abrupt("return");
+
+          case 8:
+            if (selection) {
+              _context.next = 13;
+              break;
+            }
+
+            _context.next = 11;
+            return inquirer.prompt([{
+              type: 'list',
+              name: 'illoName',
+              message: question,
+              choices: illos.map(function (i) {
+                return {
+                  name: i,
+                  value: i
+                };
+              })
+            }]);
+
+          case 11:
+            inquiry = _context.sent;
+            selection = inquiry.illoName;
+
+          case 13:
+            if (!(illos.indexOf(selection) === -1)) {
+              _context.next = 16;
+              break;
+            }
+
+            log(doesNotExist(selection), 'error');
+            return _context.abrupt("return");
+
+          case 16:
+            return _context.abrupt("return", selection);
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var illo = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var selection, activeProject, projectPath, projectName, _ref3, confirm, illo, illustratorFilePath, pageFilePath;
+
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            selection = _ref.selection;
+            _context.next = 3;
+            return getActiveProject();
+
+          case 3:
+            activeProject = _context.sent;
+
+            if (activeProject) {
+              _context.next = 7;
+              break;
+            }
+
+            log('You can only delete illustrations in the active project, but no active project is set. Use the "activate" command to set an active project.', 'error');
+            return _context.abrupt("return");
+
+          case 7:
+            projectPath = activeProject.path;
+            projectName = activeProject.name;
+            _context.next = 11;
+            return inquirer.prompt([{
+              type: 'confirm',
+              name: 'confirm',
+              message: selection ? "Are you sure you want to delete the illustration \"".concat(selection, "\" in \"").concat(projectName, "\"? THIS CANNOT BE UNDONE!") : "Are you sure you want to delete an illustration in \"".concat(projectName, "\"? THIS CANNOT BE UNDONE!"),
+              defualt: true
+            }]);
+
+          case 11:
+            _ref3 = _context.sent;
+            confirm = _ref3.confirm;
+
+            if (confirm) {
+              _context.next = 16;
+              break;
+            }
+
+            log('Nothing will be deleted', 'info');
+            return _context.abrupt("return");
+
+          case 16:
+            _context.next = 18;
+            return selectIllustration(selection, {
+              noneAvailable: 'No illustrations found in active project.',
+              question: 'Which illustration would you like to delete?',
+              doesNotExist: function doesNotExist(i) {
+                return "Illustration \"".concat(i, "\" does not exist in the active project.");
+              }
+            });
+
+          case 18:
+            illo = _context.sent;
+
+            if (illo) {
+              _context.next = 21;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 21:
+            illustratorFilePath = path.join(projectPath, 'illustrations', illo);
+            pageFilePath = path.join(projectPath, 'src', 'components', illo);
+            _context.prev = 23;
+            log('Deleting your illustration...', 'info');
+            _context.next = 27;
+            return fs.remove(illustratorFilePath);
+
+          case 27:
+            _context.next = 29;
+            return fs.remove(pageFilePath);
+
+          case 29:
+            _context.next = 35;
+            break;
+
+          case 31:
+            _context.prev = 31;
+            _context.t0 = _context["catch"](23);
+            log(_context.t0, 'error');
+            return _context.abrupt("return");
+
+          case 35:
+            log('Saving configuration...', 'info');
+            _context.next = 38;
+            return removeIllustrationFromConf(projectName, illo);
+
+          case 38:
+            log("The illustration \"".concat(illo, "\" in \"").concat(projectName, "\" has been deleted. Restart any active development servers to see the change take place."), 'success');
+
+          case 39:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[23, 31]]);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+var client = new rest.Octokit({
+  auth: process.env.GITHUB_TOKEN
+});
+
+var deleteRepo = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(dir, repoName) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (dir) {
+              _context.next = 4;
+              break;
+            }
+
+            _context.next = 3;
+            return getActiveDirectory();
+
+          case 3:
+            dir = _context.sent;
+
+          case 4:
+            if (!repoName.startsWith('illustration_')) {
+              _context.next = 8;
+              break;
+            }
+
+            return _context.abrupt("return", client.repos["delete"]({
+              org: 'The-Politico',
+              name: repoName
+            }));
+
+          case 8:
+            log('Only repos beginning with "illustration_" can be deleted by this app', 'error');
+
+          case 9:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var newRepo = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(dir, repoName) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (dir) {
+              _context.next = 4;
+              break;
+            }
+
+            _context.next = 3;
+            return getActiveDirectory();
+
+          case 3:
+            dir = _context.sent;
+
+          case 4:
+            _context.prev = 4;
+            _context.next = 7;
+            return client.repos.createInOrg({
+              org: 'The-Politico',
+              name: repoName,
+              "private": true
+            });
+
+          case 7:
+            _context.next = 16;
+            break;
+
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
+
+            if (!(_context.t0.status === 422)) {
+              _context.next = 15;
+              break;
+            }
+
+            throw new Error('There already exists a repo with that name. Please try again with a new name.');
+
+          case 15:
+            throw _context.t0;
+
+          case 16:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              try {
+                git(dir).init().add('./*').commit('initial').addRemote('origin', "git@github.com:The-Politico/".concat(repoName, ".git")).push('origin', 'master').exec(function () {
+                  resolve();
+                });
+              } catch (e) {
+                reject(e);
+              }
+            }));
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[4, 9]]);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var project = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var selection, allProjects, projectName, _ref3, confirm, conf, projectPath, projectRepo;
+
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            selection = _ref.selection;
+            _context.next = 3;
+            return getProjects();
+
+          case 3:
+            allProjects = _context.sent;
+            _context.next = 6;
+            return selectProject(selection, allProjects, {
+              noneAvailable: 'No projects available to delete. Archived projects must be unarchived before they can be deleted.',
+              question: 'Which project would you like to delete? Don\'t see something you\'re looking for? Try unarchiving the project first.',
+              doesNotExist: function doesNotExist(p) {
+                return "Project \"".concat(p, "\" does not exist or is archived.");
+              }
+            });
+
+          case 6:
+            projectName = _context.sent;
+
+            if (projectName) {
+              _context.next = 9;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 9:
+            _context.next = 11;
+            return inquirer.prompt([{
+              type: 'confirm',
+              name: 'confirm',
+              message: "Are you sure you want to delete \"".concat(projectName, "\"? THIS CANNOT BE UNDONE!"),
+              defualt: true
+            }]);
+
+          case 11:
+            _ref3 = _context.sent;
+            confirm = _ref3.confirm;
+
+            if (confirm) {
+              _context.next = 16;
+              break;
+            }
+
+            log('Nothing will be deleted', 'info');
+            return _context.abrupt("return");
+
+          case 16:
+            log('Deleting project...', 'info');
+            _context.next = 19;
+            return readConf();
+
+          case 19:
+            conf = _context.sent;
+            projectPath = conf.projects[projectName].path;
+            projectRepo = conf.projects[projectName].repo;
+            fs.remove(projectPath);
+            _context.next = 25;
+            return deleteRepo(projectRepo);
+
+          case 25:
+            log('Saving configuration...', 'info');
+            _context.next = 28;
+            return removeProjectFromConf(projectName);
+
+          case 28:
+            log("The project \"".concat(projectName, "\" has been deleted."), 'success');
+
+          case 29:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+var deleteIndex = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var type, selection, _ref3, func;
+
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            type = _ref.type, selection = _ref.selection;
+
+            if (type) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 4;
+            return inquirer.prompt([{
+              type: 'list',
+              name: 'func',
+              message: 'What would you like to delete?',
+              choices: [{
+                name: 'Project',
+                value: 'project'
+              }, {
+                name: 'Illustration in existing project',
+                value: 'illo'
+              }]
+            }]);
+
+          case 4:
+            _ref3 = _context.sent;
+            func = _ref3.func;
+            type = func;
+
+          case 7:
+            _context.t0 = type;
+            _context.next = _context.t0 === 'project' ? 10 : _context.t0 === 'illo' ? 13 : 16;
+            break;
+
+          case 10:
+            _context.next = 12;
+            return project({
+              selection: selection
+            });
+
+          case 12:
+            return _context.abrupt("break", 16);
+
+          case 13:
+            _context.next = 15;
+            return illo({
+              selection: selection
+            });
+
+          case 15:
+            return _context.abrupt("break", 16);
+
+          case 16:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+yargs.command('delete [type] [selection]', 'Delete something', function (yargs) {
+  yargs.positional('type', {
+    alias: 't',
+    describe: 'What type of thing to delete',
+    type: 'string'
+  }).positional('selection', {
+    alias: 's',
+    describe: 'What to delete',
+    type: 'string'
+  }).option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return deleteIndex(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
 var dir = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
@@ -883,7 +1499,7 @@ _regeneratorRuntime.mark(function _callee() {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return exec("open ".concat(STATE_PATH));
+          return exec("open ".concat(STATE_PATH), 'root');
 
         case 2:
         case "end":
@@ -1281,7 +1897,7 @@ function () {
   };
 }());
 
-var illo = /*#__PURE__*/
+var illo$1 = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -1374,82 +1990,7 @@ var installDeps = (function (dir) {
   return exec('npm install', dir);
 });
 
-var client = new rest.Octokit({
-  auth: process.env.GITHUB_TOKEN
-});
-
-var newRepo = /*#__PURE__*/
-(function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(dir, repoName) {
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (dir) {
-              _context.next = 4;
-              break;
-            }
-
-            _context.next = 3;
-            return getActiveDirectory();
-
-          case 3:
-            dir = _context.sent;
-
-          case 4:
-            _context.prev = 4;
-            _context.next = 7;
-            return client.repos.createInOrg({
-              org: 'The-Politico',
-              name: repoName,
-              "private": true
-            });
-
-          case 7:
-            _context.next = 16;
-            break;
-
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](4);
-
-            if (!(_context.t0.status === 422)) {
-              _context.next = 15;
-              break;
-            }
-
-            throw new Error('There already exists a repo with that name. Please try again with a new name.');
-
-          case 15:
-            throw _context.t0;
-
-          case 16:
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              try {
-                git(dir).init().add('./*').commit('initial').addRemote('origin', "git@github.com:The-Politico/".concat(repoName, ".git")).push('origin', 'master').exec(function () {
-                  resolve();
-                });
-              } catch (e) {
-                reject(e);
-              }
-            }));
-
-          case 17:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[4, 9]]);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})();
-
-var project = /*#__PURE__*/
+var project$1 = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -1535,11 +2076,6 @@ _regeneratorRuntime.mark(function _callee() {
           return _context.abrupt("return");
 
         case 29:
-          if (testing) {
-            _context.next = 42;
-            break;
-          }
-
           log('Saving configuration...', 'info');
           newProjectConf = {
             projects: {}
@@ -1547,31 +2083,34 @@ _regeneratorRuntime.mark(function _callee() {
           newProjectConf.projects[projectName] = {
             status: 'alive',
             path: projectPath,
+            repo: projectRepo,
             lastModifiedTime: new Date().toISOString(),
             illustrations: {}
           };
-          _context.next = 35;
+          _context.next = 34;
           return fs.readdir(path.join(projectPath, 'illustrations'));
 
-        case 35:
+        case 34:
           illustrations = _context.sent;
           illustrations.forEach(function (i) {
             newProjectConf.projects[projectName][i] = {};
           });
-          _context.next = 39;
+          _context.next = 38;
           return updateConf(newProjectConf);
 
-        case 39:
+        case 38:
           log('Activating new project...', 'info');
+          process.env.VERBOSE_MODE = false;
           _context.next = 42;
           return activate({
             project: projectName
           });
 
         case 42:
+          process.env.VERBOSE_MODE = true;
           log("New project \"".concat(projectName, "\" created and activated"), 'success');
 
-        case 43:
+        case 44:
         case "end":
           return _context.stop();
       }
@@ -1623,14 +2162,14 @@ var newIndex = /*#__PURE__*/
 
           case 10:
             _context.next = 12;
-            return project();
+            return project$1();
 
           case 12:
             return _context.abrupt("break", 16);
 
           case 13:
             _context.next = 15;
-            return illo();
+            return illo$1();
 
           case 15:
             return _context.abrupt("break", 16);
@@ -1651,7 +2190,7 @@ var newIndex = /*#__PURE__*/
 yargs.command('new [type]', 'Creates something new', function (yargs) {
   yargs.positional('type', {
     alias: 't',
-    describe: 'What to create',
+    describe: 'What type of thing to create',
     type: 'string'
   }).option('verbose', {
     alias: 'v',
@@ -1695,8 +2234,7 @@ var open = /*#__PURE__*/
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var illustration, illos, _ref3, illoName;
-
+    var illustration, illos, selection;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -1707,43 +2245,38 @@ var open = /*#__PURE__*/
 
           case 3:
             illos = _context.sent;
+            selection = illustration;
 
-            if (illos) {
-              _context.next = 6;
+            if (!(illos.length !== 1)) {
+              _context.next = 9;
+              break;
+            }
+
+            _context.next = 8;
+            return selectIllustration(illustration, {
+              noneAvailable: 'No illustrations found in active project.',
+              question: 'Which illustration would you like to open? (Don\'t see what you\'re looking for? Try changing the active project.)',
+              doesNotExist: function doesNotExist(i) {
+                return "Illustration \"".concat(illustration, "\" does not exist in the active project.");
+              }
+            });
+
+          case 8:
+            selection = _context.sent;
+
+          case 9:
+            if (selection) {
+              _context.next = 11;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 6:
-            if (!(!illustration || !(illustration in illos))) {
-              _context.next = 12;
-              break;
-            }
+          case 11:
+            _context.next = 13;
+            return exec("open \"illustrations/".concat(illustration, "/").concat(illustration, ".ai\""), 'root');
 
-            _context.next = 9;
-            return inquirer.prompt([{
-              type: 'list',
-              name: 'illoName',
-              message: 'Which illustration would you like to open? (Don\'t see what you\'re looking for? Try changing the active project.)',
-              choices: keys(illos).map(function (i) {
-                return {
-                  name: i,
-                  value: i
-                };
-              })
-            }]);
-
-          case 9:
-            _ref3 = _context.sent;
-            illoName = _ref3.illoName;
-            illustration = illoName;
-
-          case 12:
-            _context.next = 14;
-            return exec("open \"illustrations/".concat(illustration, "/").concat(illustration, ".ai\""));
-
-          case 14:
+          case 13:
           case "end":
             return _context.stop();
         }
@@ -1974,9 +2507,8 @@ _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
   var opts,
-      project,
       archivedProjects,
-      inquiry,
+      project,
       updateSignature,
       _args = arguments;
   return _regeneratorRuntime.wrap(function _callee$(_context) {
@@ -1984,66 +2516,43 @@ _regeneratorRuntime.mark(function _callee() {
       switch (_context.prev = _context.next) {
         case 0:
           opts = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
-          project = opts.project;
-          _context.next = 4;
+          _context.next = 3;
           return getProjects('archived');
 
-        case 4:
+        case 3:
           archivedProjects = _context.sent;
+          _context.next = 6;
+          return selectProject(opts.project, archivedProjects, {
+            noneAvailable: 'No projects available to unarchive.',
+            question: 'Which project would you like to make available?',
+            doesNotExist: function doesNotExist(p) {
+              return "Project \"".concat(project, "\" does not exist or is not archived.");
+            }
+          });
 
-          if (!(archivedProjects.length === 0)) {
-            _context.next = 8;
-            break;
-          }
+        case 6:
+          project = _context.sent;
 
-          log('No projects available to unarchive.', 'info');
-          return _context.abrupt("return");
-
-        case 8:
           if (project) {
-            _context.next = 13;
+            _context.next = 9;
             break;
           }
 
-          _context.next = 11;
-          return inquirer.prompt([{
-            type: 'list',
-            name: 'projectName',
-            message: 'Which project would you like to make available?',
-            choices: archivedProjects.map(function (p) {
-              return {
-                name: p,
-                value: p
-              };
-            })
-          }]);
-
-        case 11:
-          inquiry = _context.sent;
-          project = inquiry.projectName;
-
-        case 13:
-          if (!(archivedProjects.indexOf(project) === -1)) {
-            _context.next = 16;
-            break;
-          }
-
-          log("Project \"".concat(project, "\" does not exist or is not archived."), 'error');
           return _context.abrupt("return");
 
-        case 16:
+        case 9:
           updateSignature = {
             projects: {}
           };
           updateSignature.projects[project] = {};
           updateSignature.projects[project].status = 'alive';
-          _context.next = 21;
+          _context.next = 14;
           return updateConf(updateSignature);
 
-        case 21:
+        case 14:
           log("\"".concat(project, "\" is now available. Use \"activate\" to set it as the active project."), 'success');
 
-        case 22:
+        case 15:
         case "end":
           return _context.stop();
       }

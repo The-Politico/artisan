@@ -2,13 +2,18 @@ import yargs from 'yargs';
 import healthChecks from 'CLI/utils/healthChecks';
 import setVerboseMode from 'CLI/utils/setVerboseMode';
 
-import newIndex from './index';
+import deleteIndex from './index';
 
-yargs.command('new [type]', 'Creates something new', (yargs) => {
+yargs.command('delete [type] [selection]', 'Delete something', (yargs) => {
   yargs
     .positional('type', {
       alias: 't',
-      describe: 'What type of thing to create',
+      describe: 'What type of thing to delete',
+      type: 'string',
+    })
+    .positional('selection', {
+      alias: 's',
+      describe: 'What to delete',
       type: 'string',
     })
     .option('verbose', {
@@ -21,5 +26,5 @@ yargs.command('new [type]', 'Creates something new', (yargs) => {
   setVerboseMode(args.verbose);
   await healthChecks();
 
-  await newIndex(args);
+  await deleteIndex(args);
 });

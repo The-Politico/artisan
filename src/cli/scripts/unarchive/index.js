@@ -1,32 +1,17 @@
-import inquirer from 'inquirer';
 import { log } from 'CLI/utils/console.js';
+import selectProject from 'CLI/utils/selectProject';
 import { updateConf, getProjects } from 'CLI/utils/conf.js';
 
 export default async(opts = {}) => {
-  let project = opts.project;
   const archivedProjects = await getProjects('archived');
 
-  if (archivedProjects.length === 0) {
-    log('No projects available to unarchive.', 'info');
-    return;
-  }
+  const project = await selectProject(opts.project, archivedProjects, {
+    noneAvailable: 'No projects available to unarchive.',
+    question: 'Which project would you like to make available?',
+    doesNotExist: p => `Project "${project}" does not exist or is not archived.`,
+  });
 
   if (!project) {
-    const inquiry = await inquirer.prompt([{
-      type: 'list',
-      name: 'projectName',
-      message: 'Which project would you like to make available?',
-      choices: archivedProjects
-        .map(p => ({
-          name: p,
-          value: p,
-        })),
-    }]);
-    project = inquiry.projectName;
-  }
-
-  if (archivedProjects.indexOf(project) === -1) {
-    log(`Project "${project}" does not exist or is not archived.`, 'error');
     return;
   }
 

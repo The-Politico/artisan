@@ -8,5 +8,5 @@ export default async() => {
     return;
   }
 
-  await exec(`atom "${dir}"`);
+  await exec(`atom "${dir}"`, 'root');
 };

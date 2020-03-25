@@ -54,30 +54,31 @@ export default async({ testing = false } = {}) => {
     return;
   }
 
-  if (!testing) {
-    log('Saving configuration...', 'info');
+  log('Saving configuration...', 'info');
 
-    const newProjectConf = {
-      projects: {},
-    };
+  const newProjectConf = {
+    projects: {},
+  };
 
-    newProjectConf.projects[projectName] = {
-      status: 'alive',
-      path: projectPath,
-      lastModifiedTime: (new Date()).toISOString(),
-      illustrations: {},
-    };
+  newProjectConf.projects[projectName] = {
+    status: 'alive',
+    path: projectPath,
+    repo: projectRepo,
+    lastModifiedTime: (new Date()).toISOString(),
+    illustrations: {},
+  };
 
-    const illustrations = await fs.readdir(path.join(projectPath, 'illustrations'));
-    illustrations.forEach(i => {
-      newProjectConf.projects[projectName][i] = {};
-    });
+  const illustrations = await fs.readdir(path.join(projectPath, 'illustrations'));
+  illustrations.forEach(i => {
+    newProjectConf.projects[projectName][i] = {};
+  });
 
-    await updateConf(newProjectConf);
+  await updateConf(newProjectConf);
 
-    log('Activating new project...', 'info');
-    await activate({ project: projectName });
-  }
+  log('Activating new project...', 'info');
+  process.env.VERBOSE_MODE = false;
+  await activate({ project: projectName });
+  process.env.VERBOSE_MODE = true;
 
   log(`New project "${projectName}" created and activated`, 'success');
 };
