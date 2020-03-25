@@ -6,7 +6,11 @@ import {
   activate,
   deactivate,
   install,
-  newProject,
+  newIndex,
+  open,
+  preview,
+  publish,
+  start,
   which
 } from './scripts';
 
@@ -15,13 +19,18 @@ yargs // eslint-disable-line
   .scriptName('ai2jsx')
 
   // Install
-  .command('install [destination]', 'Installs ai2jsx into your installation of Adobe Illustrator', (yargs) => {
+  .command('install [illustrator]', 'Installs ai2jsx into your installation of Adobe Illustrator', (yargs) => {
     yargs
-      .positional('destination', {
-        alias: 'd',
-        describe: 'Installation destination',
+      .positional('illustrator', {
+        alias: 'i',
+        describe: 'Adobe Illustrator app location',
         type: 'string',
-        default: '/Applications/Adobe Illustrator CC 2018/Presets.localized/en_US/Scripts',
+        default: '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app',
+      })
+      .option('destination', {
+        alias: 'd',
+        describe: 'Adobe Illustrator scripts location',
+        type: 'string',
       })
       .option('verbose', {
         alias: 'v',
@@ -37,8 +46,13 @@ yargs // eslint-disable-line
   })
 
   // New
-  .command('new project', 'Creates a new embed project', (yargs) => {
+  .command('new [type]', 'Creates something new', (yargs) => {
     yargs
+      .positional('type', {
+        alias: 't',
+        describe: 'What to create',
+        type: 'string',
+      })
       .option('verbose', {
         alias: 'v',
         describe: 'Log to the console',
@@ -49,7 +63,28 @@ yargs // eslint-disable-line
     setVerboseMode(args.verbose);
     await healthChecks();
 
-    await newProject(args);
+    await newIndex(args);
+  })
+
+  // Open
+  .command('open [illustration]', 'Open an illustration', (yargs) => {
+    yargs
+      .positional('illustration', {
+        alias: 'i',
+        describe: 'The name of the illustration',
+        type: 'string',
+      })
+      .option('verbose', {
+        alias: 'v',
+        describe: 'Log to the console',
+        type: 'boolean',
+        default: true,
+      });
+  }, async function(args) {
+    setVerboseMode(args.verbose);
+    await healthChecks();
+
+    await open(args);
   })
 
   // Activate
@@ -85,6 +120,51 @@ yargs // eslint-disable-line
     setVerboseMode(args.verbose);
     await healthChecks();
     await deactivate(args);
+  })
+
+  // Preview
+  .command('preview', 'Publish a preview to the web', (yargs) => {
+    yargs
+      .option('verbose', {
+        alias: 'v',
+        describe: 'Log to the console',
+        type: 'boolean',
+        default: true,
+      });
+  }, async function(args) {
+    setVerboseMode(args.verbose);
+    await healthChecks();
+    await preview(args);
+  })
+
+  // Publish
+  .command('publish', 'Publish the embed live', (yargs) => {
+    yargs
+      .option('verbose', {
+        alias: 'v',
+        describe: 'Log to the console',
+        type: 'boolean',
+        default: true,
+      });
+  }, async function(args) {
+    setVerboseMode(args.verbose);
+    await healthChecks();
+    await publish(args);
+  })
+
+  // Start
+  .command('start', 'Start a development server', (yargs) => {
+    yargs
+      .option('verbose', {
+        alias: 'v',
+        describe: 'Log to the console',
+        type: 'boolean',
+        default: true,
+      });
+  }, async function(args) {
+    setVerboseMode(args.verbose);
+    await healthChecks();
+    await start(args);
   })
 
   // Which

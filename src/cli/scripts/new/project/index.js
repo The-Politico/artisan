@@ -13,7 +13,7 @@ import { PROJECTS_PATH } from 'CLI/constants/locations';
 
 import activate from 'CLI/scripts/activate/index.js';
 
-export default async({ testing = false }) => {
+export default async({ testing = false } = {}) => {
   const conf = await readConf();
 
   const { projectName } = await inquirer.prompt([{
@@ -56,6 +56,7 @@ export default async({ testing = false }) => {
 
   if (!testing) {
     log('Saving configuration...', 'info');
+
     const newProjectConf = {
       projects: {},
     };
@@ -63,7 +64,14 @@ export default async({ testing = false }) => {
     newProjectConf.projects[projectName] = {
       status: 'alive',
       path: projectPath,
+      lastModifiedTime: (new Date()).toISOString(),
+      illustrations: {},
     };
+
+    const illustrations = await fs.readdir(path.join(projectPath, 'illustrations'));
+    illustrations.forEach(i => {
+      newProjectConf.projects[projectName][i] = {};
+    });
 
     await updateConf(newProjectConf);
 

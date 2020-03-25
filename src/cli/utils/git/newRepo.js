@@ -1,6 +1,6 @@
 import git from 'simple-git';
 import github from './github';
-import getActiveDirectory from '../getActiveDirectory';
+import { getActiveDirectory } from '../conf';
 
 export default async(dir, repoName) => {
   if (!dir) {

@@ -12,6 +12,7 @@ var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProp
 var chalk = _interopDefault(require('chalk'));
 var cli = _interopDefault(require('cli-progress'));
 var keys = _interopDefault(require('lodash/keys'));
+var merge = _interopDefault(require('lodash/merge'));
 var fs = _interopDefault(require('fs-extra'));
 var update = _interopDefault(require('immutability-helper'));
 var path = _interopDefault(require('path'));
@@ -176,45 +177,32 @@ function () {
     return _ref2.apply(this, arguments);
   };
 }();
-var updateConf =
+var getActiveDirectory =
 /*#__PURE__*/
 function () {
   var _ref3 = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee3(obj) {
-    var conf, updateSignature, keys;
+  _regeneratorRuntime.mark(function _callee3() {
+    var dir, activeProject;
     return _regeneratorRuntime.wrap(function _callee3$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             _context3.next = 2;
-            return readConf();
+            return getActiveProject();
 
           case 2:
-            conf = _context3.sent;
-            updateSignature = {};
+            activeProject = _context3.sent;
 
-            if ('active' in obj) {
-              updateSignature.active = {
-                $set: obj.active
-              };
+            if (!activeProject) {
+              log('There is no active project. Please activate a project using the "activate" command.', 'error');
+            } else {
+              dir = activeProject.path;
             }
 
-            keys = ['projects'];
-            keys.forEach(function (k) {
-              if (obj[k]) {
-                updateSignature[k] = {};
+            return _context3.abrupt("return", dir);
 
-                for (var item in obj[k]) {
-                  updateSignature[k][item] = {
-                    $set: obj[k][item]
-                  };
-                }
-              }
-            });
-            return _context3.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature)));
-
-          case 8:
+          case 5:
           case "end":
             return _context3.stop();
         }
@@ -222,8 +210,106 @@ function () {
     }, _callee3);
   }));
 
-  return function updateConf(_x) {
+  return function getActiveDirectory() {
     return _ref3.apply(this, arguments);
+  };
+}();
+var getActiveIllustrations =
+/*#__PURE__*/
+function () {
+  var _ref5 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee5() {
+    var illustrations, activeProject;
+    return _regeneratorRuntime.wrap(function _callee5$(_context5) {
+      while (1) {
+        switch (_context5.prev = _context5.next) {
+          case 0:
+            _context5.next = 2;
+            return getActiveProject();
+
+          case 2:
+            activeProject = _context5.sent;
+
+            if (!activeProject) {
+              log('There is no active project. Please activate a project using the "activate" command.', 'error');
+            } else {
+              illustrations = activeProject.illustrations;
+            }
+
+            return _context5.abrupt("return", illustrations);
+
+          case 5:
+          case "end":
+            return _context5.stop();
+        }
+      }
+    }, _callee5);
+  }));
+
+  return function getActiveIllustrations() {
+    return _ref5.apply(this, arguments);
+  };
+}();
+var updateConf =
+/*#__PURE__*/
+function () {
+  var _ref6 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee6(obj) {
+    var conf, updateSignature, valueKeys, objKeys;
+    return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            _context6.next = 2;
+            return readConf();
+
+          case 2:
+            conf = _context6.sent;
+            updateSignature = {};
+            valueKeys = ['active', 'illustratorLoc'];
+            valueKeys.forEach(function (k) {
+              if (k in obj) {
+                updateSignature[k] = {
+                  $set: obj[k]
+                };
+              }
+            });
+            objKeys = ['projects'];
+            objKeys.forEach(function (k) {
+              if (obj[k]) {
+                updateSignature[k] = {};
+
+                var _loop = function _loop(item) {
+                  updateSignature[k][item] = {
+                    $apply: function $apply(val) {
+                      if (val) {
+                        return merge(val, obj[k][item]);
+                      } else {
+                        return val;
+                      }
+                    }
+                  };
+                };
+
+                for (var item in obj[k]) {
+                  _loop(item);
+                }
+              }
+            });
+            return _context6.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature)));
+
+          case 9:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function updateConf(_x) {
+    return _ref6.apply(this, arguments);
   };
 }();
 
@@ -358,16 +444,68 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var initialConf = {
-  active: {},
-  projects: {}
-};
-var config = /*#__PURE__*/
+var access = /*#__PURE__*/
 (function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(destination, step) {
-    var confRaw;
+    var hash, testFile;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            log("[".concat(step[0], "/").concat(step[1], "] Checking for write access..."));
+            _context.prev = 1;
+
+            hash = function hash() {
+              return Math.random().toString(36).substring(7);
+            };
+
+            testFile = "".concat(hash() + hash() + hash() + hash(), ".txt");
+            _context.next = 6;
+            return fs.writeFile(path.join(destination, testFile), 'TEST', 'utf8');
+
+          case 6:
+            _context.next = 8;
+            return fs.remove(path.join(destination, testFile));
+
+          case 8:
+            return _context.abrupt("return", true);
+
+          case 11:
+            _context.prev = 11;
+            _context.t0 = _context["catch"](1);
+
+            if (!(_context.t0.code === 'EACCES')) {
+              _context.next = 18;
+              break;
+            }
+
+            log('You don\'t have access to the destination folder. Try running the command with "sudo" before it.', 'error');
+            return _context.abrupt("return", false);
+
+          case 18:
+            throw _context.t0;
+
+          case 19:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[1, 11]]);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var config = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(illustrator, destination, step) {
+    var initialConf, confRaw;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -377,28 +515,67 @@ var config = /*#__PURE__*/
             return fs.ensureFile(CONFIG_PATH);
 
           case 3:
-            _context.next = 5;
+            initialConf = {
+              active: null,
+              projects: {},
+              illustratorLoc: illustrator
+            };
+            _context.next = 6;
             return fs.readFile(CONFIG_PATH, 'utf8');
 
-          case 5:
+          case 6:
             confRaw = _context.sent;
 
             if (!(confRaw.length === 0)) {
-              _context.next = 11;
+              _context.next = 12;
               break;
             }
 
-            _context.next = 9;
+            _context.next = 10;
             return fs.outputJson(CONFIG_PATH, initialConf);
 
-          case 9:
-            _context.next = 12;
+          case 10:
+            _context.next = 13;
             break;
 
-          case 11:
+          case 12:
             updateConf(initialConf);
 
-          case 12:
+          case 13:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var scripts = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(destination, step) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            log("[".concat(step[0], "/").concat(step[1], "] Installing scripts..."));
+            _context.next = 3;
+            return fs.copy(path.join(INSTALL_DIRECTORY, 'ai2jsx.js'), path.join(destination, 'ai2jsx.js'));
+
+          case 3:
+            log('Installed ai2jsx.js', 'info');
+            _context.next = 6;
+            return fs.copy(path.join(INSTALL_DIRECTORY, 'ai2jsx-config.json'), path.join(destination, 'ai2jsx-config.json'));
+
+          case 6:
+            log('Installed ai2jsx-config.json', 'info');
+
+          case 7:
           case "end":
             return _context.stop();
         }
@@ -411,6 +588,96 @@ var config = /*#__PURE__*/
   };
 })();
 
+var isTemplateInstalled =
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(template) {
+    var conf, confList;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return interactiveTemplates.getGlobalConfig();
+
+          case 2:
+            conf = _context.sent;
+            confList = keys(conf.templates).map(function (t) {
+              return conf.templates[t].repo;
+            });
+            return _context.abrupt("return", confList.filter(function (t) {
+              return t === template;
+            }).length > 0);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function isTemplateInstalled(_x) {
+    return _ref.apply(this, arguments);
+  };
+}();
+
+var templates = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee2(destination, step) {
+    var isGraphicsEmbedInstalled, isGraphicsIlloInstalled;
+    return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            log("[".concat(step[0], "/").concat(step[1], "] Checking for templates..."));
+            _context2.next = 3;
+            return isTemplateInstalled('template_graphic-embed');
+
+          case 3:
+            isGraphicsEmbedInstalled = _context2.sent;
+            _context2.next = 6;
+            return isTemplateInstalled('template_graphic-embed-illustration');
+
+          case 6:
+            isGraphicsIlloInstalled = _context2.sent;
+
+            if (isGraphicsEmbedInstalled) {
+              _context2.next = 11;
+              break;
+            }
+
+            log('No embed template found. Installing "The-Politico/template_graphic-embed"...', 'info');
+            _context2.next = 11;
+            return interactiveTemplates.register('The-Politico/template_graphic-embed', false);
+
+          case 11:
+            if (isGraphicsIlloInstalled) {
+              _context2.next = 15;
+              break;
+            }
+
+            log('No illustration template found. Installing "The-Politico/template_graphic-embed-illustration"...', 'info');
+            _context2.next = 15;
+            return interactiveTemplates.register('The-Politico/template_graphic-embed-illustration', false);
+
+          case 15:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+
+  return function (_x2, _x3) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
 var STEPS_COUNT = 4;
 function install (_x) {
   return _ref2.apply(this, arguments);
@@ -420,26 +687,49 @@ function _ref2() {
   _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var destination, verbose, success;
+    var illustrator, destination, verbose, success, hasAccess;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            destination = _ref.destination, verbose = _ref.verbose;
+            illustrator = _ref.illustrator, destination = _ref.destination, verbose = _ref.verbose;
             success = true;
-            log("Installing ai2jsx at ".concat(chalk.bold(destination), "."));
-            _context.next = 5;
-            return config(destination, [1, STEPS_COUNT]);
 
-          case 5:
-            // await templates(destination, [2, STEPS_COUNT]);
-            //
-            // const hasAccess = await access(destination, [3, STEPS_COUNT]);
-            // if (hasAccess) {
-            //   await scripts(destination, [4, STEPS_COUNT]);
-            // } else {
-            //   success = false;
-            // }
+            if (!destination) {
+              destination = path.join(path.dirname(illustrator), 'Presets.localized/en_US/Scripts/');
+            }
+
+            log("Installing ai2jsx at ".concat(chalk.bold(destination), "."));
+            _context.next = 6;
+            return config(illustrator, destination, [1, STEPS_COUNT]);
+
+          case 6:
+            _context.next = 8;
+            return templates(destination, [2, STEPS_COUNT]);
+
+          case 8:
+            _context.next = 10;
+            return access(destination, [3, STEPS_COUNT]);
+
+          case 10:
+            hasAccess = _context.sent;
+
+            if (!hasAccess) {
+              _context.next = 16;
+              break;
+            }
+
+            _context.next = 14;
+            return scripts(destination, [4, STEPS_COUNT]);
+
+          case 14:
+            _context.next = 17;
+            break;
+
+          case 16:
+            success = false;
+
+          case 17:
             if (success) {
               log("Ai2jsx was installed (or updated) on your computer.", 'success');
               log("You can run it by going to ".concat(chalk.bold('File > Scripts > ai2jsx'), " inside an Adobe Illustrator file."), 'success');
@@ -447,7 +737,7 @@ function _ref2() {
               log("An error occured installing Ai2jsx, please check the logs above.", 'error');
             }
 
-          case 6:
+          case 18:
           case "end":
             return _context.stop();
         }
@@ -457,11 +747,12 @@ function _ref2() {
   return _ref2.apply(this, arguments);
 }
 
-var getActiveDirectory = /*#__PURE__*/
+var illo = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
-  var dir, activeProject;
+  var activeProject, projectPath, projectName, _ref2, confirm, newProjectConf, illustrations;
+
   return _regeneratorRuntime.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -471,27 +762,78 @@ _regeneratorRuntime.mark(function _callee() {
 
         case 2:
           activeProject = _context.sent;
+          projectPath = activeProject.path;
+          projectName = activeProject.name;
+          _context.next = 7;
+          return inquirer.prompt([{
+            type: 'confirm',
+            name: 'confirm',
+            message: "Do you want to create a new illustration in \"".concat(projectName, "\"?"),
+            defualt: true
+          }]);
 
-          if (activeProject) {
-            _context.next = 8;
+        case 7:
+          _ref2 = _context.sent;
+          confirm = _ref2.confirm;
+
+          if (confirm) {
+            _context.next = 13;
             break;
           }
 
-          log('There is no active project. Please activate a project using the "activate" command.', 'error');
-          throw new Error();
+          log('You can only create new illustrations in the active project.', 'info');
+          log('Change the active project using "activate" to create a new illustration in it.', 'info');
+          return _context.abrupt("return");
 
-        case 8:
-          dir = activeProject.path;
+        case 13:
+          _context.prev = 13;
+          _context.next = 16;
+          return fs.ensureDir(projectPath);
 
-        case 9:
-          return _context.abrupt("return", dir);
+        case 16:
+          log('Creating your new illustration...', 'info');
+          _context.next = 19;
+          return interactiveTemplates.newProject('Extra Graphic Illustration', projectPath);
 
-        case 10:
+        case 19:
+          _context.next = 25;
+          break;
+
+        case 21:
+          _context.prev = 21;
+          _context.t0 = _context["catch"](13);
+          log(_context.t0, 'error');
+          return _context.abrupt("return");
+
+        case 25:
+          log('Saving configuration...', 'info');
+          newProjectConf = {
+            projects: {}
+          };
+          newProjectConf.projects[projectName] = {};
+          newProjectConf.projects[projectName].illustrations = {};
+          _context.next = 31;
+          return fs.readdir(path.join(projectPath, 'illustrations'));
+
+        case 31:
+          illustrations = _context.sent;
+          illustrations.forEach(function (i) {
+            if (!(i in activeProject.illustrations)) {
+              newProjectConf.projects[projectName].illustrations[i] = {};
+            }
+          });
+          _context.next = 35;
+          return updateConf(newProjectConf);
+
+        case 35:
+          log("New illustration in \"".concat(projectName, "\" created. Restart any active development servers to see the change take place."), 'success');
+
+        case 36:
         case "end":
           return _context.stop();
       }
     }
-  }, _callee);
+  }, _callee, null, [[13, 21]]);
 }));
 
 var exec = /*#__PURE__*/
@@ -623,121 +965,328 @@ var newRepo = /*#__PURE__*/
   };
 })();
 
-var newProject = /*#__PURE__*/
+var project = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var _ref2,
+      _ref2$testing,
+      testing,
+      conf,
+      _ref3,
+      projectName,
+      projectPath,
+      projectRepo,
+      newProjectConf,
+      illustrations,
+      _args = arguments;
+
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _ref2 = _args.length > 0 && _args[0] !== undefined ? _args[0] : {}, _ref2$testing = _ref2.testing, testing = _ref2$testing === void 0 ? false : _ref2$testing;
+          _context.next = 3;
+          return readConf();
+
+        case 3:
+          conf = _context.sent;
+          _context.next = 6;
+          return inquirer.prompt([{
+            type: 'input',
+            name: 'projectName',
+            message: 'What is this project called?',
+            validate: function validate(val) {
+              if (val in conf.projects) {
+                return 'You already have a project with that name.';
+              }
+
+              if (!/^[A-Za-z0-9\s-_]+$/.test(val)) {
+                return 'Only letters, numbers, spaces, hyphens, and underscores allowed.';
+              }
+
+              return true;
+            }
+          }]);
+
+        case 6:
+          _ref3 = _context.sent;
+          projectName = _ref3.projectName;
+          projectPath = path.join(PROJECTS_PATH, projectName);
+          projectRepo = slugify(projectName, {
+            lower: true
+          }).replace(/_/g, '-');
+          _context.prev = 10;
+          _context.next = 13;
+          return fs.ensureDir(projectPath);
+
+        case 13:
+          log('Creating your new project...', 'info');
+          _context.next = 16;
+          return interactiveTemplates.newProject('Graphic Embed', projectPath);
+
+        case 16:
+          log('Installing dependencies...', 'info');
+          _context.next = 19;
+          return installDeps(projectPath);
+
+        case 19:
+          if (testing) {
+            _context.next = 23;
+            break;
+          }
+
+          log('Creating GitHub repo...', 'info');
+          _context.next = 23;
+          return newRepo(projectPath, "illustration_".concat(projectRepo));
+
+        case 23:
+          _context.next = 29;
+          break;
+
+        case 25:
+          _context.prev = 25;
+          _context.t0 = _context["catch"](10);
+          log(_context.t0, 'error');
+          return _context.abrupt("return");
+
+        case 29:
+          if (testing) {
+            _context.next = 42;
+            break;
+          }
+
+          log('Saving configuration...', 'info');
+          newProjectConf = {
+            projects: {}
+          };
+          newProjectConf.projects[projectName] = {
+            status: 'alive',
+            path: projectPath,
+            lastModifiedTime: new Date().toISOString(),
+            illustrations: {}
+          };
+          _context.next = 35;
+          return fs.readdir(path.join(projectPath, 'illustrations'));
+
+        case 35:
+          illustrations = _context.sent;
+          illustrations.forEach(function (i) {
+            newProjectConf.projects[projectName][i] = {};
+          });
+          _context.next = 39;
+          return updateConf(newProjectConf);
+
+        case 39:
+          log('Activating new project...', 'info');
+          _context.next = 42;
+          return activate({
+            project: projectName
+          });
+
+        case 42:
+          log("New project \"".concat(projectName, "\" created and activated"), 'success');
+
+        case 43:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee, null, [[10, 25]]);
+}));
+
+var newIndex = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var _ref$testing, testing, conf, _ref3, projectName, projectPath, projectRepo, newProjectConf;
+    var type, _ref3, func;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _ref$testing = _ref.testing, testing = _ref$testing === void 0 ? false : _ref$testing;
-            _context.next = 3;
-            return readConf();
+            type = _ref.type;
 
-          case 3:
-            conf = _context.sent;
-            _context.next = 6;
+            if (type) {
+              _context.next = 7;
+              break;
+            }
+
+            _context.next = 4;
             return inquirer.prompt([{
-              type: 'input',
-              name: 'projectName',
-              message: 'What is this project called?',
-              validate: function validate(val) {
-                if (val in conf.projects) {
-                  return 'You already have a project with that name.';
-                }
-
-                if (!/^[A-Za-z0-9\s-_]+$/.test(val)) {
-                  return 'Only letters, numbers, spaces, hyphens, and underscores allowed.';
-                }
-
-                return true;
-              }
+              type: 'list',
+              name: 'func',
+              message: 'What would you like to create?',
+              choices: [{
+                name: 'Project',
+                value: 'project'
+              }, {
+                name: 'Illustration in existing project',
+                value: 'illo'
+              }]
             }]);
 
-          case 6:
+          case 4:
             _ref3 = _context.sent;
-            projectName = _ref3.projectName;
-            projectPath = path.join(PROJECTS_PATH, projectName);
-            projectRepo = slugify(projectName, {
-              lower: true
-            }).replace(/_/g, '-');
-            _context.prev = 10;
-            _context.next = 13;
-            return fs.ensureDir(projectPath);
+            func = _ref3.func;
+            type = func;
 
-          case 13:
-            log('Creating your new project...', 'info');
-            _context.next = 16;
-            return interactiveTemplates.newProject('Graphic Embed', projectPath);
-
-          case 16:
-            log('Installing dependencies...', 'info');
-            _context.next = 19;
-            return installDeps(projectPath);
-
-          case 19:
-            if (testing) {
-              _context.next = 23;
-              break;
-            }
-
-            log('Creating GitHub repo...', 'info');
-            _context.next = 23;
-            return newRepo(projectPath, "illustration_".concat(projectRepo));
-
-          case 23:
-            _context.next = 29;
+          case 7:
+            _context.t0 = type;
+            _context.next = _context.t0 === 'project' ? 10 : _context.t0 === 'illo' ? 13 : 16;
             break;
 
-          case 25:
-            _context.prev = 25;
-            _context.t0 = _context["catch"](10);
-            log(_context.t0, 'error');
-            return _context.abrupt("return");
+          case 10:
+            _context.next = 12;
+            return project();
 
-          case 29:
-            if (testing) {
-              _context.next = 38;
-              break;
-            }
+          case 12:
+            return _context.abrupt("break", 16);
 
-            log('Saving configuration...', 'info');
-            newProjectConf = {
-              projects: {}
-            };
-            newProjectConf.projects[projectName] = {
-              status: 'alive',
-              path: projectPath
-            };
-            _context.next = 35;
-            return updateConf(newProjectConf);
+          case 13:
+            _context.next = 15;
+            return illo();
 
-          case 35:
-            log('Activating new project...', 'info');
-            _context.next = 38;
-            return activate({
-              project: projectName
-            });
+          case 15:
+            return _context.abrupt("break", 16);
 
-          case 38:
-            log("New project \"".concat(projectName, "\" created and activated"), 'success');
-
-          case 39:
+          case 16:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[10, 25]]);
+    }, _callee);
   }));
 
   return function (_x) {
     return _ref2.apply(this, arguments);
   };
 })();
+
+var open = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var illustration, illos, _ref3, illoName;
+
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            illustration = _ref.illustration;
+            _context.next = 3;
+            return getActiveIllustrations();
+
+          case 3:
+            illos = _context.sent;
+
+            if (illos) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 6:
+            if (!(!illustration || !(illustration in illos))) {
+              _context.next = 12;
+              break;
+            }
+
+            _context.next = 9;
+            return inquirer.prompt([{
+              type: 'list',
+              name: 'illoName',
+              message: 'Which illustration would you like to open? (Don\'t see what you\'re looking for? Try changing the active project.)',
+              choices: keys(illos).map(function (i) {
+                return {
+                  name: i,
+                  value: i
+                };
+              })
+            }]);
+
+          case 9:
+            _ref3 = _context.sent;
+            illoName = _ref3.illoName;
+            illustration = illoName;
+
+          case 12:
+            console.log("open illustrations/".concat(illustration, "/").concat(illustration, ".ai"));
+            _context.next = 15;
+            return exec("open illustrations/".concat(illustration, "/").concat(illustration, ".ai"));
+
+          case 15:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+var preview = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return exec('npm run pubStaging');
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var publish = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return exec('npm run pubProduction');
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var start = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return exec('npm run start');
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
 
 var which = /*#__PURE__*/
 _asyncToGenerator(
@@ -770,12 +1319,16 @@ _regeneratorRuntime.mark(function _callee() {
 
 yargs // eslint-disable-line
 .help().scriptName('ai2jsx') // Install
-.command('install [destination]', 'Installs ai2jsx into your installation of Adobe Illustrator', function (yargs) {
-  yargs.positional('destination', {
-    alias: 'd',
-    describe: 'Installation destination',
+.command('install [illustrator]', 'Installs ai2jsx into your installation of Adobe Illustrator', function (yargs) {
+  yargs.positional('illustrator', {
+    alias: 'i',
+    describe: 'Adobe Illustrator app location',
     type: 'string',
-    "default": '/Applications/Adobe Illustrator CC 2018/Presets.localized/en_US/Scripts'
+    "default": '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app'
+  }).option('destination', {
+    alias: 'd',
+    describe: 'Adobe Illustrator scripts location',
+    type: 'string'
   }).option('verbose', {
     alias: 'v',
     describe: 'Log to the console',
@@ -812,8 +1365,12 @@ function () {
     return _ref.apply(this, arguments);
   };
 }()) // New
-.command('new project', 'Creates a new embed project', function (yargs) {
-  yargs.option('verbose', {
+.command('new [type]', 'Creates something new', function (yargs) {
+  yargs.positional('type', {
+    alias: 't',
+    describe: 'What to create',
+    type: 'string'
+  }).option('verbose', {
     alias: 'v',
     describe: 'Log to the console',
     type: 'boolean',
@@ -835,7 +1392,7 @@ function () {
 
           case 3:
             _context2.next = 5;
-            return newProject(args);
+            return newIndex(args);
 
           case 5:
           case "end":
@@ -848,11 +1405,11 @@ function () {
   return function (_x2) {
     return _ref2.apply(this, arguments);
   };
-}()) // Activate
-.command('activate [project]', 'Sets a project to be active', function (yargs) {
-  yargs.positional('project', {
-    alias: 'p',
-    describe: 'The name of the project to activate',
+}()) // Open
+.command('open [illustration]', 'Open an illustration', function (yargs) {
+  yargs.positional('illustration', {
+    alias: 'i',
+    describe: 'The name of the illustration',
     type: 'string'
   }).option('verbose', {
     alias: 'v',
@@ -876,7 +1433,7 @@ function () {
 
           case 3:
             _context3.next = 5;
-            return activate(args);
+            return open(args);
 
           case 5:
           case "end":
@@ -889,9 +1446,13 @@ function () {
   return function (_x3) {
     return _ref3.apply(this, arguments);
   };
-}()) // Deactivate
-.command('deactivate', 'Sets no project to be active', function (yargs) {
-  yargs.option('verbose', {
+}()) // Activate
+.command('activate [project]', 'Sets a project to be active', function (yargs) {
+  yargs.positional('project', {
+    alias: 'p',
+    describe: 'The name of the project to activate',
+    type: 'string'
+  }).option('verbose', {
     alias: 'v',
     describe: 'Log to the console',
     type: 'boolean',
@@ -913,7 +1474,7 @@ function () {
 
           case 3:
             _context4.next = 5;
-            return deactivate(args);
+            return activate(args);
 
           case 5:
           case "end":
@@ -926,8 +1487,8 @@ function () {
   return function (_x4) {
     return _ref4.apply(this, arguments);
   };
-}()) // Which
-.command('which', 'Find out what the active project is', function (yargs) {
+}()) // Deactivate
+.command('deactivate', 'Sets no project to be active', function (yargs) {
   yargs.option('verbose', {
     alias: 'v',
     describe: 'Log to the console',
@@ -950,7 +1511,7 @@ function () {
 
           case 3:
             _context5.next = 5;
-            return which(args);
+            return deactivate(args);
 
           case 5:
           case "end":
@@ -962,5 +1523,153 @@ function () {
 
   return function (_x5) {
     return _ref5.apply(this, arguments);
+  };
+}()) // Preview
+.command('preview', 'Publish a preview to the web', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref6 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee6(args) {
+    return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+      while (1) {
+        switch (_context6.prev = _context6.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context6.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context6.next = 5;
+            return preview(args);
+
+          case 5:
+          case "end":
+            return _context6.stop();
+        }
+      }
+    }, _callee6);
+  }));
+
+  return function (_x6) {
+    return _ref6.apply(this, arguments);
+  };
+}()) // Publish
+.command('publish', 'Publish the embed live', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref7 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee7(args) {
+    return _regeneratorRuntime.wrap(function _callee7$(_context7) {
+      while (1) {
+        switch (_context7.prev = _context7.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context7.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context7.next = 5;
+            return publish(args);
+
+          case 5:
+          case "end":
+            return _context7.stop();
+        }
+      }
+    }, _callee7);
+  }));
+
+  return function (_x7) {
+    return _ref7.apply(this, arguments);
+  };
+}()) // Start
+.command('start', 'Start a development server', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref8 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee8(args) {
+    return _regeneratorRuntime.wrap(function _callee8$(_context8) {
+      while (1) {
+        switch (_context8.prev = _context8.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context8.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context8.next = 5;
+            return start(args);
+
+          case 5:
+          case "end":
+            return _context8.stop();
+        }
+      }
+    }, _callee8);
+  }));
+
+  return function (_x8) {
+    return _ref8.apply(this, arguments);
+  };
+}()) // Which
+.command('which', 'Find out what the active project is', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref9 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee9(args) {
+    return _regeneratorRuntime.wrap(function _callee9$(_context9) {
+      while (1) {
+        switch (_context9.prev = _context9.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context9.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context9.next = 5;
+            return which(args);
+
+          case 5:
+          case "end":
+            return _context9.stop();
+        }
+      }
+    }, _callee9);
+  }));
+
+  return function (_x9) {
+    return _ref9.apply(this, arguments);
   };
 }()).argv;

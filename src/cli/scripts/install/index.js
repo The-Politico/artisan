@@ -1,28 +1,34 @@
-import { log } from 'CLI/utils/console';
 import chalk from 'chalk';
+import path from 'path';
 
 import access from './access';
 import config from './config';
 import scripts from './scripts';
 import templates from './templates';
 
+import { log } from 'CLI/utils/console';
+
 const STEPS_COUNT = 4;
 
-export default async function({ destination, verbose }) {
+export default async function({ illustrator, destination, verbose }) {
   let success = true;
+
+  if (!destination) {
+    destination = path.join(path.dirname(illustrator), 'Presets.localized/en_US/Scripts/');
+  }
 
   log(`Installing ai2jsx at ${chalk.bold(destination)}.`);
 
-  await config(destination, [1, STEPS_COUNT]);
+  await config(illustrator, destination, [1, STEPS_COUNT]);
 
-  // await templates(destination, [2, STEPS_COUNT]);
-  //
-  // const hasAccess = await access(destination, [3, STEPS_COUNT]);
-  // if (hasAccess) {
-  //   await scripts(destination, [4, STEPS_COUNT]);
-  // } else {
-  //   success = false;
-  // }
+  await templates(destination, [2, STEPS_COUNT]);
+
+  const hasAccess = await access(destination, [3, STEPS_COUNT]);
+  if (hasAccess) {
+    await scripts(destination, [4, STEPS_COUNT]);
+  } else {
+    success = false;
+  }
 
   if (success) {
     log(`Ai2jsx was installed (or updated) on your computer.`, 'success');

@@ -3,46 +3,49 @@ import fs from 'fs-extra';
 import path from 'path';
 import { newProject } from '@politico/interactive-templates';
 
-import { readConf, updateConf } from 'CLI/utils/conf';
-import installDeps from 'CLI/utils/installDeps';
+import { updateConf, getActiveProject } from 'CLI/utils/conf';
 import { log } from 'CLI/utils/console';
 
-import { PROJECTS_PATH } from 'CLI/constants/locations';
-
 export default async() => {
-  const conf = await readConf();
+  const activeProject = await getActiveProject();
+  const projectPath = activeProject.path;
+  const projectName = activeProject.name;
 
   const { confirm } = await inquirer.prompt([{
-    type: 'input',
+    type: 'confirm',
     name: 'confirm',
-    message: 'Do you want to create a new illustration in ',
+    message: `Do you want to create a new illustration in "${projectName}"?`,
+    defualt: true,
   }]);
 
-  const projectPath = path.join(PROJECTS_PATH, projectName);
+  if (!confirm) {
+    log('You can only create new illustrations in the active project.', 'info');
+    log('Change the active project using "activate" to create a new illustration in it.', 'info');
+    return;
+  }
 
   try {
     await fs.ensureDir(projectPath);
 
-    log('Creating your new project...', 'info');
-    await newProject('Graphic Embed', projectPath);
-
-    log('Installing dependencies...', 'info');
-    await installDeps(projectPath);
+    log('Creating your new illustration...', 'info');
+    await newProject('Extra Graphic Illustration', projectPath);
   } catch (e) {
     log(e, 'error');
     return;
   }
 
   log('Saving configuration...', 'info');
-  const newProjectConf = {
-    projects: {},
-  };
+  const newProjectConf = { projects: {} };
+  newProjectConf.projects[projectName] = {};
+  newProjectConf.projects[projectName].illustrations = {};
 
-  newProjectConf.projects[projectName] = {
-    status: 'alive',
-    path: projectPath,
-  };
+  const illustrations = await fs.readdir(path.join(projectPath, 'illustrations'));
+  illustrations.forEach(i => {
+    if (!(i in activeProject.illustrations)) {
+      newProjectConf.projects[projectName].illustrations[i] = {};
+    }
+  });
 
   await updateConf(newProjectConf);
-  log(`New project "${projectName}" created and activated`, 'success');
+  log(`New illustration in "${projectName}" created. Restart any active development servers to see the change take place.`, 'success');
 };

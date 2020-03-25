@@ -1,6 +1,6 @@
 import { exec } from 'child_process';
 import { log } from './console';
-import getActiveDirectory from './getActiveDirectory';
+import { getActiveDirectory } from './conf';
 
 export default async(cmd, dir) => {
   if (!dir) {
