@@ -44,6 +44,7 @@
   "dependencies": {
     "@babel/runtime": "^7.4.2",
     "@newswire/frames": "^0.3.1",
+    "@octokit/rest": "^17.1.2",
     "@politico/interactive-bin": "^1.0.0-beta.17",
     "@politico/interactive-templates": "^1.2.4",
     "chalk": "^2.4.2",
@@ -53,6 +54,8 @@
     "inquirer": "^7.1.0",
     "lodash": "^4.17.14",
     "react": "^16.8.6",
+    "simple-git": "^1.132.0",
+    "slugify": "^1.4.0",
     "yargs": "^13.3.0"
   }
 }

@@ -17,7 +17,11 @@ var update = _interopDefault(require('immutability-helper'));
 var path = _interopDefault(require('path'));
 var os = _interopDefault(require('os'));
 var interactiveTemplates = require('@politico/interactive-templates');
+var slugify = _interopDefault(require('slugify'));
 var child_process = require('child_process');
+require('@politico/interactive-bin/dist/scripts/env');
+var rest = require('@octokit/rest');
+var git = _interopDefault(require('simple-git'));
 
 var healthChecks = (function () {});
 
@@ -453,39 +457,64 @@ function _ref2() {
   return _ref2.apply(this, arguments);
 }
 
+var getActiveDirectory = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var dir, activeProject;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return getActiveProject();
+
+        case 2:
+          activeProject = _context.sent;
+
+          if (activeProject) {
+            _context.next = 8;
+            break;
+          }
+
+          log('There is no active project. Please activate a project using the "activate" command.', 'error');
+          throw new Error();
+
+        case 8:
+          dir = activeProject.path;
+
+        case 9:
+          return _context.abrupt("return", dir);
+
+        case 10:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
 var exec = /*#__PURE__*/
 (function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(cmd, dir) {
-    var activeProject;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             if (dir) {
-              _context.next = 10;
+              _context.next = 4;
               break;
             }
 
             _context.next = 3;
-            return getActiveProject();
+            return getActiveDirectory();
 
           case 3:
-            activeProject = _context.sent;
+            dir = _context.sent;
 
-            if (activeProject) {
-              _context.next = 9;
-              break;
-            }
-
-            log('There is no active project. Please activate a project using the "activate" command.', 'error');
-            throw new Error();
-
-          case 9:
-            dir = activeProject.path;
-
-          case 10:
+          case 4:
             return _context.abrupt("return", new Promise(function (resolve, reject) {
               var child = child_process.exec(cmd, {
                 cwd: dir
@@ -502,7 +531,7 @@ var exec = /*#__PURE__*/
               });
             }));
 
-          case 11:
+          case 5:
           case "end":
             return _context.stop();
         }
@@ -519,92 +548,196 @@ var installDeps = (function (dir) {
   return exec('npm install', dir);
 });
 
-var newProject = /*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-_regeneratorRuntime.mark(function _callee() {
-  var conf, _ref2, projectName, projectPath, newProjectConf;
+var client = new rest.Octokit({
+  auth: process.env.GITHUB_TOKEN
+});
 
-  return _regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return readConf();
-
-        case 2:
-          conf = _context.sent;
-          _context.next = 5;
-          return inquirer.prompt([{
-            type: 'input',
-            name: 'projectName',
-            message: 'What is this project called?',
-            validate: function validate(val) {
-              if (val in conf.projects) {
-                return 'You already have a project with that name.';
-              }
-
-              return true;
+var newRepo = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(dir, repoName) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (dir) {
+              _context.next = 4;
+              break;
             }
-          }]);
 
-        case 5:
-          _ref2 = _context.sent;
-          projectName = _ref2.projectName;
-          projectPath = path.join(PROJECTS_PATH, projectName);
-          _context.prev = 8;
-          _context.next = 11;
-          return fs.ensureDir(projectPath);
+            _context.next = 3;
+            return getActiveDirectory();
 
-        case 11:
-          log('Creating your new project...', 'info');
-          _context.next = 14;
-          return interactiveTemplates.newProject('Graphic Embed', projectPath);
+          case 3:
+            dir = _context.sent;
 
-        case 14:
-          log('Installing dependencies...', 'info');
-          _context.next = 17;
-          return installDeps(projectPath);
+          case 4:
+            _context.prev = 4;
+            _context.next = 7;
+            return client.repos.createInOrg({
+              org: 'The-Politico',
+              name: repoName,
+              "private": true
+            });
 
-        case 17:
-          _context.next = 23;
-          break;
+          case 7:
+            _context.next = 16;
+            break;
 
-        case 19:
-          _context.prev = 19;
-          _context.t0 = _context["catch"](8);
-          log(_context.t0, 'error');
-          return _context.abrupt("return");
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
 
-        case 23:
-          log('Saving configuration...', 'info');
-          newProjectConf = {
-            projects: {}
-          };
-          newProjectConf.projects[projectName] = {
-            status: 'alive',
-            path: projectPath
-          };
-          _context.next = 28;
-          return updateConf(newProjectConf);
+            if (!(_context.t0.status === 422)) {
+              _context.next = 15;
+              break;
+            }
 
-        case 28:
-          log('Activate new project...', 'info');
-          _context.next = 31;
-          return activate({
-            project: projectName
-          });
+            throw new Error('There already exists a repo with that name. Please try again with a new name.');
 
-        case 31:
-          log("New project \"".concat(projectName, "\" created and activated"), 'success');
+          case 15:
+            throw _context.t0;
 
-        case 32:
-        case "end":
-          return _context.stop();
+          case 16:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              try {
+                git(dir).init().add('./*').commit('initial').addRemote('origin', "git@github.com:The-Politico/".concat(repoName, ".git")).push('origin', 'master').exec(function () {
+                  resolve();
+                });
+              } catch (e) {
+                reject(e);
+              }
+            }));
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
       }
-    }
-  }, _callee, null, [[8, 19]]);
-}));
+    }, _callee, null, [[4, 9]]);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var newProject = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var _ref$testing, testing, conf, _ref3, projectName, projectPath, projectRepo, newProjectConf;
+
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _ref$testing = _ref.testing, testing = _ref$testing === void 0 ? false : _ref$testing;
+            _context.next = 3;
+            return readConf();
+
+          case 3:
+            conf = _context.sent;
+            _context.next = 6;
+            return inquirer.prompt([{
+              type: 'input',
+              name: 'projectName',
+              message: 'What is this project called?',
+              validate: function validate(val) {
+                if (val in conf.projects) {
+                  return 'You already have a project with that name.';
+                }
+
+                if (!/^[A-Za-z0-9\s-_]+$/.test(val)) {
+                  return 'Only letters, numbers, spaces, hyphens, and underscores allowed.';
+                }
+
+                return true;
+              }
+            }]);
+
+          case 6:
+            _ref3 = _context.sent;
+            projectName = _ref3.projectName;
+            projectPath = path.join(PROJECTS_PATH, projectName);
+            projectRepo = slugify(projectName, {
+              lower: true
+            }).replace(/_/g, '-');
+            _context.prev = 10;
+            _context.next = 13;
+            return fs.ensureDir(projectPath);
+
+          case 13:
+            log('Creating your new project...', 'info');
+            _context.next = 16;
+            return interactiveTemplates.newProject('Graphic Embed', projectPath);
+
+          case 16:
+            log('Installing dependencies...', 'info');
+            _context.next = 19;
+            return installDeps(projectPath);
+
+          case 19:
+            if (testing) {
+              _context.next = 23;
+              break;
+            }
+
+            log('Creating GitHub repo...', 'info');
+            _context.next = 23;
+            return newRepo(projectPath, "illustration_".concat(projectRepo));
+
+          case 23:
+            _context.next = 29;
+            break;
+
+          case 25:
+            _context.prev = 25;
+            _context.t0 = _context["catch"](10);
+            log(_context.t0, 'error');
+            return _context.abrupt("return");
+
+          case 29:
+            if (testing) {
+              _context.next = 38;
+              break;
+            }
+
+            log('Saving configuration...', 'info');
+            newProjectConf = {
+              projects: {}
+            };
+            newProjectConf.projects[projectName] = {
+              status: 'alive',
+              path: projectPath
+            };
+            _context.next = 35;
+            return updateConf(newProjectConf);
+
+          case 35:
+            log('Activating new project...', 'info');
+            _context.next = 38;
+            return activate({
+              project: projectName
+            });
+
+          case 38:
+            log("New project \"".concat(projectName, "\" created and activated"), 'success');
+
+          case 39:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[10, 25]]);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
 
 var which = /*#__PURE__*/
 _asyncToGenerator(

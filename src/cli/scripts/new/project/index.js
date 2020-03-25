@@ -2,16 +2,18 @@ import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
 import { newProject } from '@politico/interactive-templates';
+import slugify from 'slugify';
 
 import { readConf, updateConf } from 'CLI/utils/conf';
 import installDeps from 'CLI/utils/installDeps';
+import { newRepo } from 'CLI/utils/git/index.js';
 import { log } from 'CLI/utils/console';
 
 import { PROJECTS_PATH } from 'CLI/constants/locations';
 
 import activate from 'CLI/scripts/activate/index.js';
 
-export default async() => {
+export default async({ testing = false }) => {
   const conf = await readConf();
 
   const { projectName } = await inquirer.prompt([{
@@ -23,11 +25,16 @@ export default async() => {
         return 'You already have a project with that name.';
       }
 
+      if (!(/^[A-Za-z0-9\s-_]+$/.test(val))) {
+        return 'Only letters, numbers, spaces, hyphens, and underscores allowed.';
+      }
+
       return true;
     },
   }]);
 
   const projectPath = path.join(PROJECTS_PATH, projectName);
+  const projectRepo = slugify(projectName, { lower: true }).replace(/_/g, '-');
 
   try {
     await fs.ensureDir(projectPath);
@@ -37,25 +44,32 @@ export default async() => {
 
     log('Installing dependencies...', 'info');
     await installDeps(projectPath);
+
+    if (!testing) {
+      log('Creating GitHub repo...', 'info');
+      await newRepo(projectPath, `illustration_${projectRepo}`);
+    }
   } catch (e) {
     log(e, 'error');
     return;
   }
 
-  log('Saving configuration...', 'info');
-  const newProjectConf = {
-    projects: {},
-  };
+  if (!testing) {
+    log('Saving configuration...', 'info');
+    const newProjectConf = {
+      projects: {},
+    };
 
-  newProjectConf.projects[projectName] = {
-    status: 'alive',
-    path: projectPath,
-  };
+    newProjectConf.projects[projectName] = {
+      status: 'alive',
+      path: projectPath,
+    };
 
-  await updateConf(newProjectConf);
+    await updateConf(newProjectConf);
 
-  log('Activate new project...', 'info');
-  await activate({ project: projectName });
+    log('Activating new project...', 'info');
+    await activate({ project: projectName });
+  }
 
   log(`New project "${projectName}" created and activated`, 'success');
 };
