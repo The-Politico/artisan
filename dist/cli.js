@@ -125,7 +125,13 @@ function () {
           case 3:
             conf = _context.sent;
             return _context.abrupt("return", keys(conf.projects).filter(function (p) {
-              return aliveOnly ? conf.projects[p].status === 'alive' : true;
+              if (aliveOnly === true) {
+                return conf.projects[p].status === 'alive';
+              } else if (aliveOnly === 'archived') {
+                return conf.projects[p].status !== 'alive';
+              } else {
+                return true;
+              }
             }));
 
           case 5:
@@ -146,16 +152,15 @@ function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee2() {
-    var conf,
-        activeProject;
+    var conf, activeProject;
     return _regeneratorRuntime.wrap(function _callee2$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            _context2.next = 3;
+            _context2.next = 2;
             return readConf();
 
-          case 3:
+          case 2:
             conf = _context2.sent;
             activeProject = conf.projects[conf.active];
 
@@ -165,7 +170,7 @@ function () {
 
             return _context2.abrupt("return", activeProject);
 
-          case 7:
+          case 6:
           case "end":
             return _context2.stop();
         }
@@ -262,10 +267,19 @@ function () {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
-            _context6.next = 2;
+            if (obj) {
+              _context6.next = 3;
+              break;
+            }
+
+            log('No update provided.', 'error');
+            throw new Error('No update provided.');
+
+          case 3:
+            _context6.next = 5;
             return readConf();
 
-          case 2:
+          case 5:
             conf = _context6.sent;
             updateSignature = {};
             valueKeys = ['active', 'illustratorLoc'];
@@ -302,7 +316,7 @@ function () {
               spaces: 2
             }));
 
-          case 9:
+          case 12:
           case "end":
             return _context6.stop();
         }
@@ -323,6 +337,7 @@ _regeneratorRuntime.mark(function _callee() {
       project,
       allProjects,
       activeProject,
+      allProjectsNotActive,
       inquiry,
       _args = arguments;
   return _regeneratorRuntime.wrap(function _callee$(_context) {
@@ -331,30 +346,40 @@ _regeneratorRuntime.mark(function _callee() {
         case 0:
           opts = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
           project = opts.project;
+          _context.next = 4;
+          return getProjects();
 
-          if (project) {
-            _context.next = 13;
+        case 4:
+          allProjects = _context.sent;
+          _context.next = 7;
+          return getActiveProject();
+
+        case 7:
+          activeProject = _context.sent;
+          allProjectsNotActive = allProjects.filter(function (p) {
+            return activeProject ? activeProject.name !== p : true;
+          });
+
+          if (!(allProjectsNotActive.length === 0)) {
+            _context.next = 12;
             break;
           }
 
-          _context.next = 5;
-          return getProjects();
+          log('No projects available to activate.', 'info');
+          return _context.abrupt("return");
 
-        case 5:
-          allProjects = _context.sent;
-          _context.next = 8;
-          return getActiveProject();
+        case 12:
+          if (project) {
+            _context.next = 17;
+            break;
+          }
 
-        case 8:
-          activeProject = _context.sent;
-          _context.next = 11;
+          _context.next = 15;
           return inquirer.prompt([{
             type: 'list',
             name: 'projectName',
             message: 'Which project would you like to activate?',
-            choices: allProjects.filter(function (p) {
-              return activeProject ? activeProject.name !== p : true;
-            }).map(function (p) {
+            choices: allProjectsNotActive.map(function (p) {
               return {
                 name: p,
                 value: p
@@ -362,20 +387,29 @@ _regeneratorRuntime.mark(function _callee() {
             })
           }]);
 
-        case 11:
+        case 15:
           inquiry = _context.sent;
           project = inquiry.projectName;
 
-        case 13:
-          _context.next = 15;
+        case 17:
+          if (!(allProjects.indexOf(project) === -1)) {
+            _context.next = 20;
+            break;
+          }
+
+          log("Project \"".concat(project, "\" does not exist or is archived."), 'error');
+          return _context.abrupt("return");
+
+        case 20:
+          _context.next = 22;
           return updateConf({
             active: project
           });
 
-        case 15:
+        case 22:
           log("\"".concat(project, "\" is now the active project."), 'success');
 
-        case 16:
+        case 23:
         case "end":
           return _context.stop();
       }
@@ -411,6 +445,141 @@ function () {
           case 3:
             _context.next = 5;
             return activate(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var archive = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var opts,
+      project,
+      activeProject,
+      allProjects,
+      inquiry,
+      updateSignature,
+      _args = arguments;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          opts = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
+          project = opts.project;
+          _context.next = 4;
+          return getActiveProject();
+
+        case 4:
+          activeProject = _context.sent;
+          _context.next = 7;
+          return getProjects();
+
+        case 7:
+          allProjects = _context.sent;
+
+          if (!(allProjects.length === 0)) {
+            _context.next = 11;
+            break;
+          }
+
+          log('No projects available to archive.', 'info');
+          return _context.abrupt("return");
+
+        case 11:
+          if (project) {
+            _context.next = 16;
+            break;
+          }
+
+          _context.next = 14;
+          return inquirer.prompt([{
+            type: 'list',
+            name: 'projectName',
+            message: 'Which project would you like to archive?',
+            choices: allProjects.map(function (p) {
+              return {
+                name: p,
+                value: p
+              };
+            })
+          }]);
+
+        case 14:
+          inquiry = _context.sent;
+          project = inquiry.projectName;
+
+        case 16:
+          if (!(allProjects.indexOf(project) === -1)) {
+            _context.next = 19;
+            break;
+          }
+
+          log("Project \"".concat(project, "\" does not exist or is archived."), 'error');
+          return _context.abrupt("return");
+
+        case 19:
+          updateSignature = {
+            projects: {}
+          };
+
+          if (project === activeProject.name) {
+            updateSignature.active = null;
+          }
+
+          updateSignature.projects[project] = {};
+          updateSignature.projects[project].status = 'archived';
+          _context.next = 25;
+          return updateConf(updateSignature);
+
+        case 25:
+          log("\"".concat(project, "\" is now archived. Use \"unarchive\" to undo this."), 'success');
+
+        case 26:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('archive [project]', 'Archives a project', function (yargs) {
+  yargs.positional('project', {
+    alias: 'p',
+    describe: 'The name of the project to archive',
+    type: 'string'
+  }).option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return archive(args);
 
           case 5:
           case "end":
@@ -1786,6 +1955,130 @@ function () {
           case 3:
             _context.next = 5;
             return start(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var unarchive = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var opts,
+      project,
+      archivedProjects,
+      inquiry,
+      updateSignature,
+      _args = arguments;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          opts = _args.length > 0 && _args[0] !== undefined ? _args[0] : {};
+          project = opts.project;
+          _context.next = 4;
+          return getProjects('archived');
+
+        case 4:
+          archivedProjects = _context.sent;
+
+          if (!(archivedProjects.length === 0)) {
+            _context.next = 8;
+            break;
+          }
+
+          log('No projects available to unarchive.', 'info');
+          return _context.abrupt("return");
+
+        case 8:
+          if (project) {
+            _context.next = 13;
+            break;
+          }
+
+          _context.next = 11;
+          return inquirer.prompt([{
+            type: 'list',
+            name: 'projectName',
+            message: 'Which project would you like to make available?',
+            choices: archivedProjects.map(function (p) {
+              return {
+                name: p,
+                value: p
+              };
+            })
+          }]);
+
+        case 11:
+          inquiry = _context.sent;
+          project = inquiry.projectName;
+
+        case 13:
+          if (!(archivedProjects.indexOf(project) === -1)) {
+            _context.next = 16;
+            break;
+          }
+
+          log("Project \"".concat(project, "\" does not exist or is not archived."), 'error');
+          return _context.abrupt("return");
+
+        case 16:
+          updateSignature = {
+            projects: {}
+          };
+          updateSignature.projects[project] = {};
+          updateSignature.projects[project].status = 'alive';
+          _context.next = 21;
+          return updateConf(updateSignature);
+
+        case 21:
+          log("\"".concat(project, "\" is now available. Use \"activate\" to set it as the active project."), 'success');
+
+        case 22:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('unarchive [project]', 'Unarchives a project', function (yargs) {
+  yargs.positional('project', {
+    alias: 'p',
+    describe: 'The name of the project to unarchive',
+    type: 'string'
+  }).option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return unarchive(args);
 
           case 5:
           case "end":

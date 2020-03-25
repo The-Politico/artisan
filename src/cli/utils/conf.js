@@ -13,10 +13,18 @@ export const readConf = () => {
 export const getProjects = async(aliveOnly = true) => {
   const conf = await readConf();
   return keys(conf.projects)
-    .filter(p => aliveOnly ? conf.projects[p].status === 'alive' : true);
+    .filter(p => {
+      if (aliveOnly === true) {
+        return conf.projects[p].status === 'alive';
+      } else if (aliveOnly === 'archived') {
+        return conf.projects[p].status !== 'alive';
+      } else {
+        return true;
+      }
+    });
 };
 
-export const getActiveProject = async(aliveOnly = true) => {
+export const getActiveProject = async() => {
   const conf = await readConf();
   const activeProject = conf.projects[conf.active];
 
@@ -67,6 +75,11 @@ export const getActiveIllustrations = async() => {
 };
 
 export const updateConf = async(obj) => {
+  if (!obj) {
+    log('No update provided.', 'error');
+    throw new Error('No update provided.');
+  }
+
   const conf = await readConf();
 
   const updateSignature = {};

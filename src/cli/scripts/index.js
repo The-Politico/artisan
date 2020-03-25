@@ -1,4 +1,5 @@
 export { default as activate } from './activate';
+export { default as archive } from './archive';
 export { default as code } from './code';
 export { default as conf } from './conf';
 export { default as deactivate } from './deactivate';
@@ -11,4 +12,5 @@ export { default as open } from './open';
 export { default as preview } from './preview';
 export { default as publish } from './publish';
 export { default as start } from './start';
+export { default as unarchive } from './unarchive';
 export { default as which } from './which';

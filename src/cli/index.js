@@ -1,6 +1,7 @@
 import yargs from 'yargs';
 
 import './scripts/activate/cmd';
+import './scripts/archive/cmd';
 import './scripts/code/cmd';
 import './scripts/conf/cmd';
 import './scripts/deactivate/cmd';
@@ -11,6 +12,7 @@ import './scripts/open/cmd';
 import './scripts/preview/cmd';
 import './scripts/publish/cmd';
 import './scripts/start/cmd';
+import './scripts/unarchive/cmd';
 import './scripts/which/cmd';
 
 yargs // eslint-disable-line
