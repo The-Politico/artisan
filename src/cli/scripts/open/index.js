@@ -25,6 +25,5 @@ export default async({ illustration }) => {
     illustration = illoName;
   }
 
-  console.log(`open illustrations/${illustration}/${illustration}.ai`);
-  await exec(`open illustrations/${illustration}/${illustration}.ai`);
+  await exec(`open "illustrations/${illustration}/${illustration}.ai"`);
 };

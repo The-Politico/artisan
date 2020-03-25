@@ -98,5 +98,5 @@ export const updateConf = async(obj) => {
     }
   });
 
-  return fs.outputJson(CONFIG_PATH, update(conf, updateSignature));
+  return fs.outputJson(CONFIG_PATH, update(conf, updateSignature), { spaces: 2 });
 };

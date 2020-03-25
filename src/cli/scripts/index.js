@@ -1,5 +1,8 @@
 export { default as activate } from './activate';
+export { default as code } from './code';
+export { default as conf } from './conf';
 export { default as deactivate } from './deactivate';
+export { default as dir } from './dir';
 export { default as install } from './install';
 export { default as newIndex } from './new';
 export { default as newProject } from './new/project';

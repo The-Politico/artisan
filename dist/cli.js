@@ -17,9 +17,9 @@ var fs = _interopDefault(require('fs-extra'));
 var update = _interopDefault(require('immutability-helper'));
 var path = _interopDefault(require('path'));
 var os = _interopDefault(require('os'));
+var child_process = require('child_process');
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
-var child_process = require('child_process');
 require('@politico/interactive-bin/dist/scripts/env');
 var rest = require('@octokit/rest');
 var git = _interopDefault(require('simple-git'));
@@ -298,7 +298,9 @@ function () {
                 }
               }
             });
-            return _context6.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature)));
+            return _context6.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+              spaces: 2
+            }));
 
           case 9:
           case "end":
@@ -423,6 +425,185 @@ function () {
   };
 }());
 
+var exec = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(cmd, dir) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (dir) {
+              _context.next = 4;
+              break;
+            }
+
+            _context.next = 3;
+            return getActiveDirectory();
+
+          case 3:
+            dir = _context.sent;
+
+          case 4:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              var child = child_process.exec(cmd, {
+                cwd: dir
+              });
+              child.stdout.on('data', function (data) {
+                log(data);
+              });
+              child.on('close', function (error) {
+                if (error) {
+                  reject(error);
+                } else {
+                  resolve();
+                }
+              });
+            }));
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var code = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var dir;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return getActiveDirectory();
+
+        case 2:
+          dir = _context.sent;
+
+          if (dir) {
+            _context.next = 5;
+            break;
+          }
+
+          return _context.abrupt("return");
+
+        case 5:
+          _context.next = 7;
+          return exec("atom \"".concat(dir, "\""));
+
+        case 7:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('code', 'Opens the active project in Atom', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return code(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var conf = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return exec("atom \"".concat(CONFIG_PATH, "\""));
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('conf', 'Open the ai2jsx conf file', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return conf(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
 var deactivate = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
@@ -510,6 +691,63 @@ function () {
           case 3:
             _context.next = 5;
             return deactivate(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var dir = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return exec("open ".concat(STATE_PATH));
+
+        case 2:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('dir', 'Open the ai2jsx projects folder', function (yargs) {
+  yargs.option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return dir(args);
 
           case 5:
           case "end":
@@ -963,56 +1201,6 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee, null, [[13, 21]]);
 }));
 
-var exec = /*#__PURE__*/
-(function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(cmd, dir) {
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (dir) {
-              _context.next = 4;
-              break;
-            }
-
-            _context.next = 3;
-            return getActiveDirectory();
-
-          case 3:
-            dir = _context.sent;
-
-          case 4:
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              var child = child_process.exec(cmd, {
-                cwd: dir
-              });
-              child.stdout.on('data', function (data) {
-                log(data);
-              });
-              child.on('close', function (error) {
-                if (error) {
-                  reject(error);
-                } else {
-                  resolve();
-                }
-              });
-            }));
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})();
-
 var installDeps = (function (dir) {
   return exec('npm install', dir);
 });
@@ -1383,11 +1571,10 @@ var open = /*#__PURE__*/
             illustration = illoName;
 
           case 12:
-            console.log("open illustrations/".concat(illustration, "/").concat(illustration, ".ai"));
-            _context.next = 15;
-            return exec("open illustrations/".concat(illustration, "/").concat(illustration, ".ai"));
+            _context.next = 14;
+            return exec("open \"illustrations/".concat(illustration, "/").concat(illustration, ".ai\""));
 
-          case 15:
+          case 14:
           case "end":
             return _context.stop();
         }
