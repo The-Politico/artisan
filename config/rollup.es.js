@@ -23,6 +23,19 @@ export const babelOpts = {
 
 export const external = [
   ...Object.keys(pkg.dependencies),
+  '@babel/runtime/helpers/asyncToGenerator',
+  '@babel/runtime/helpers/toConsumableArray',
+  '@babel/runtime/helpers/classCallCheck',
+  '@babel/runtime/helpers/defineProperty',
+  '@babel/runtime/regenerator',
+  '@babel/runtime/helpers/slicedToArray',
+  '@politico/interactive-bin/dist/scripts/env',
+  'lodash/startCase',
+  'lodash/keys',
+  'lodash/debounce',
+  'child_process',
+  'os',
+  'path',
 ];
 
 export const plugins = [
@@ -43,7 +56,7 @@ export const plugins = [
 export default [
   {
     input: [
-      path.resolve(process.cwd(), 'src/client/index.js'),
+      path.resolve(process.cwd(), 'src/scripts/index.js'),
     ],
     output: [
       { file: path.resolve(process.cwd(), pkg.main), format: 'cjs' },
@@ -54,7 +67,7 @@ export default [
   },
   {
     input: [
-      path.resolve(process.cwd(), 'src/cli/index.js'),
+      path.resolve(process.cwd(), 'src/cli.js'),
     ],
     output: [
       {
