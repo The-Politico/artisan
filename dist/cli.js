@@ -2159,16 +2159,12 @@ function _ref2() {
   return _ref2.apply(this, arguments);
 }
 
-yargs.command('install [illustrator]', 'Installs artisan into your installation of Adobe Illustrator', function (yargs) {
+yargs.command('install [illustrator]', 'Installs ai2jsx into your installation of Adobe Illustrator', function (yargs) {
   yargs.positional('illustrator', {
     alias: 'i',
     describe: 'Adobe Illustrator app location',
     type: 'string',
     "default": '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app'
-  }).option('destination', {
-    alias: 'd',
-    describe: 'Adobe Illustrator scripts location',
-    type: 'string'
   }).option('verbose', {
     alias: 'v',
     describe: 'Log to the console',

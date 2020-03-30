@@ -4,18 +4,13 @@ import setVerboseMode from 'Utils/setVerboseMode';
 
 import install from './index';
 
-yargs.command('install [illustrator]', 'Installs artisan into your installation of Adobe Illustrator', (yargs) => {
+yargs.command('install [illustrator]', 'Installs ai2jsx into your installation of Adobe Illustrator', (yargs) => {
   yargs
     .positional('illustrator', {
       alias: 'i',
       describe: 'Adobe Illustrator app location',
       type: 'string',
       default: '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app',
-    })
-    .option('destination', {
-      alias: 'd',
-      describe: 'Adobe Illustrator scripts location',
-      type: 'string',
     })
     .option('verbose', {
       alias: 'v',
