@@ -32,7 +32,7 @@ export default async function({ illustrator, destination, verbose }) {
 
   if (success) {
     log(`Artisan was installed (or updated) on your computer.`, 'success');
-    log(`You can run it by going to ${chalk.bold('File > Scripts > ai2jsx')} inside an Adobe Illustrator file.`, 'success');
+    log(`Start a new project by running the "new project" command.`, 'success');
   } else {
     log(`An error occured installing ai2jsx, please check the logs above.`, 'error');
   }

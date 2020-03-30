@@ -1530,11 +1530,6 @@
     lodash "^4.17.13"
     to-fast-properties "^2.0.0"
 
-"@newswire/frames@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.yarnpkg.com/@newswire/frames/-/frames-0.3.1.tgz#f2b3ad10e31a28e3126795f130f9d48144373a58"
-  integrity sha512-o+RiGzc/ibNPE1a51KYxqBPR/xwF6HrO/NlO3fLWZHEqMRPdjaA63fUwlO6EBnYSvE8W/DZQI/HbdqL+i7xN9A==
-
 "@octokit/auth-token@^2.4.0":
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/@octokit/auth-token/-/auth-token-2.4.0.tgz#b64178975218b99e4dfe948253f0673cbbb59d9f"
@@ -1553,16 +1548,6 @@
     "@octokit/types" "^2.0.0"
     before-after-hook "^2.1.0"
     universal-user-agent "^5.0.0"
-
-"@octokit/endpoint@^5.1.0":
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/@octokit/endpoint/-/endpoint-5.3.2.tgz#2deda2d869cac9ba7f370287d55667be2a808d4b"
-  integrity sha512-gRjteEM9I6f4D8vtwU2iGUTn9RX/AJ0SVXiqBUEuYEWVGGAVjSXdT0oNmghH5lvQNWs8mwt6ZaultuG6yXivNw==
-  dependencies:
-    deepmerge "4.0.0"
-    is-plain-object "^3.0.0"
-    universal-user-agent "^3.0.0"
-    url-template "^2.0.8"
 
 "@octokit/endpoint@^6.0.0":
   version "6.0.0"
@@ -1602,14 +1587,6 @@
     "@octokit/types" "^2.0.1"
     deprecation "^2.3.1"
 
-"@octokit/request-error@^1.0.1", "@octokit/request-error@^1.0.2":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@octokit/request-error/-/request-error-1.0.4.tgz#15e1dc22123ba4a9a4391914d80ec1e5303a23be"
-  integrity sha512-L4JaJDXn8SGT+5G0uX79rZLv0MNJmfGa4vb4vy1NnpjSnWDLJRy6m90udGwvMmavwsStgbv2QNkPzzTCMmL+ig==
-  dependencies:
-    deprecation "^2.0.0"
-    once "^1.4.0"
-
 "@octokit/request-error@^2.0.0":
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/@octokit/request-error/-/request-error-2.0.0.tgz#94ca7293373654400fbb2995f377f9473e00834b"
@@ -1618,19 +1595,6 @@
     "@octokit/types" "^2.0.0"
     deprecation "^2.0.0"
     once "^1.4.0"
-
-"@octokit/request@^5.0.0":
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/@octokit/request/-/request-5.0.1.tgz#6705c9a883db0ac0f58cee717e806b6575d4a199"
-  integrity sha512-SHOk/APYpfrzV1RNf7Ux8SZi+vZXhMIB2dBr4TQR6ExMX8R4jcy/0gHw26HLe1dWV7Wxe9WzYyDSEC0XwnoCSQ==
-  dependencies:
-    "@octokit/endpoint" "^5.1.0"
-    "@octokit/request-error" "^1.0.1"
-    deprecation "^2.0.0"
-    is-plain-object "^3.0.0"
-    node-fetch "^2.3.0"
-    once "^1.4.0"
-    universal-user-agent "^3.0.0"
 
 "@octokit/request@^5.3.0", "@octokit/request@^5.3.1":
   version "5.3.4"
@@ -1645,25 +1609,6 @@
     node-fetch "^2.3.0"
     once "^1.4.0"
     universal-user-agent "^5.0.0"
-
-"@octokit/rest@^16.28.4":
-  version "16.28.6"
-  resolved "https://registry.yarnpkg.com/@octokit/rest/-/rest-16.28.6.tgz#9e73104077c9c06cf3b1628603b4b0c55a117809"
-  integrity sha512-ERfzS6g6ZNPJkEUclxLenr+UEncbymCe//IBrWWdp59nslYDeJboq07Ue9brX05Uv0+SY3kwA33cdiVBVPAOMQ==
-  dependencies:
-    "@octokit/request" "^5.0.0"
-    "@octokit/request-error" "^1.0.2"
-    atob-lite "^2.0.0"
-    before-after-hook "^2.0.0"
-    btoa-lite "^1.0.0"
-    deprecation "^2.0.0"
-    lodash.get "^4.4.2"
-    lodash.set "^4.3.2"
-    lodash.uniq "^4.5.0"
-    octokit-pagination-methods "^1.1.0"
-    once "^1.4.0"
-    universal-user-agent "^3.0.0"
-    url-template "^2.0.8"
 
 "@octokit/rest@^17.1.2":
   version "17.1.2"
@@ -1747,13 +1692,13 @@
     webpack-stream "^5.1.1"
     yargs "^12.0.2"
 
-"@politico/interactive-templates@^1.2.4":
-  version "1.2.4"
-  resolved "https://registry.yarnpkg.com/@politico/interactive-templates/-/interactive-templates-1.2.4.tgz#c826461dd25553b0896f84a1afce6235a46b6d36"
-  integrity sha512-MU8Chl6IK7XhnI3Tgc8Mu1OM8ZGRADLsewqQ/TVKz0hnlImNaWxW+dxkvpr8Fijkpmx4PLARNY7d1kxz28bhJw==
+"@politico/interactive-templates@^1.2.5":
+  version "1.2.5"
+  resolved "https://registry.yarnpkg.com/@politico/interactive-templates/-/interactive-templates-1.2.5.tgz#e179a8fbfa86a9b36490c11ba21015633da3e5db"
+  integrity sha512-dfYdHffjoDNaH7raXTdH0voJh1YcLAwXiHWQewfUqrYu9rOsh8CQJSXWctQt6nRiJZR/YlzaxwxpPa3PnUye2w==
   dependencies:
     "@babel/runtime" "^7.4.2"
-    "@octokit/rest" "^16.28.4"
+    "@octokit/rest" "^17.1.2"
     chalk "^2.4.2"
     child-process-promise "^2.2.1"
     cli-progress "^2.1.1"
@@ -2334,11 +2279,6 @@ asynckit@^0.4.0:
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
   integrity sha1-x57Zf380y48robyXkLzDZkdLS3k=
 
-atob-lite@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/atob-lite/-/atob-lite-2.0.0.tgz#0fef5ad46f1bd7a8502c65727f0367d5ee43d696"
-  integrity sha1-D+9a1G8b16hQLGVyfwNn1e5D1pY=
-
 atob@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/atob/-/atob-2.1.2.tgz#6d9517eb9e030d2436666651e86bd9f6f13533c9"
@@ -2877,7 +2817,7 @@ bcrypt-pbkdf@^1.0.0:
   dependencies:
     tweetnacl "^0.14.3"
 
-before-after-hook@^2.0.0, before-after-hook@^2.1.0:
+before-after-hook@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/before-after-hook/-/before-after-hook-2.1.0.tgz#b6c03487f44e24200dd30ca5e6a1979c5d2fb635"
   integrity sha512-IWIbu7pMqyw3EAJHzzHbWa85b6oud/yfKYg5rqB5hNE8CeMi3nX+2C2sj0HswfblST86hpVEOAb9x34NZd6P7A==
@@ -3076,11 +3016,6 @@ browserslist@^4.6.0, browserslist@^4.6.2:
     caniuse-lite "^1.0.30000981"
     electron-to-chromium "^1.3.188"
     node-releases "^1.1.25"
-
-btoa-lite@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/btoa-lite/-/btoa-lite-1.0.0.tgz#337766da15801210fdd956c22e9c6891ab9d0337"
-  integrity sha1-M3dm2hWAEhD92VbCLpxokaudAzc=
 
 buffer-equal-constant-time@1.0.1:
   version "1.0.1"
@@ -4197,11 +4132,6 @@ deep-extend@^0.6.0:
   version "0.6.0"
   resolved "https://registry.yarnpkg.com/deep-extend/-/deep-extend-0.6.0.tgz#c4fa7c95404a17a9c3e8ca7e1537312b736330ac"
   integrity sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==
-
-deepmerge@4.0.0:
-  version "4.0.0"
-  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-4.0.0.tgz#3e3110ca29205f120d7cb064960a39c3d2087c09"
-  integrity sha512-YZ1rOP5+kHor4hMAH+HRQnBQHg+wvS1un1hAOuIcxcBy0hzcUf6Jg2a1w65kpoOUnurOfZbERwjI1TfZxNjcww==
 
 default-gateway@^4.2.0:
   version "4.2.0"
@@ -6892,20 +6822,10 @@ lodash.flattendeep@^4.4.0:
   resolved "https://registry.yarnpkg.com/lodash.flattendeep/-/lodash.flattendeep-4.4.0.tgz#fb030917f86a3134e5bc9bec0d69e0013ddfedb2"
   integrity sha1-+wMJF/hqMTTlvJvsDWngAT3f7bI=
 
-lodash.get@^4.4.2:
-  version "4.4.2"
-  resolved "https://registry.yarnpkg.com/lodash.get/-/lodash.get-4.4.2.tgz#2d177f652fa31e939b4438d5341499dfa3825e99"
-  integrity sha1-LRd/ZS+jHpObRDjVNBSZ36OCXpk=
-
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
-
-lodash.set@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/lodash.set/-/lodash.set-4.3.2.tgz#d8757b1da807dde24816b0d6a84bea1a76230b23"
-  integrity sha1-2HV7HagH3eJIFrDWqEvqGnYjCyM=
 
 lodash.some@^4.2.2, lodash.some@^4.5.1:
   version "4.6.0"
@@ -7847,11 +7767,6 @@ obuf@^1.0.0, obuf@^1.1.2:
   resolved "https://registry.yarnpkg.com/obuf/-/obuf-1.1.2.tgz#09bea3343d41859ebd446292d11c9d4db619084e"
   integrity sha512-PX1wu0AmAdPqOL1mWhqmlOd8kOIZQwGZw6rh7uby9fTc5lhaOWFLX3I6R1hrF9k3zUY40e6igsLGkDXK92LJNg==
 
-octokit-pagination-methods@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/octokit-pagination-methods/-/octokit-pagination-methods-1.1.0.tgz#cf472edc9d551055f9ef73f6e42b4dbb4c80bea4"
-  integrity sha512-fZ4qZdQ2nxJvtcasX7Ghl+WlWS/d9IgnBIwFZXVNNZUmzpno91SX5bc5vuxiuKoCtK78XxGGNuSCrDC7xYB3OQ==
-
 on-finished@~2.3.0:
   version "2.3.0"
   resolved "https://registry.yarnpkg.com/on-finished/-/on-finished-2.3.0.tgz#20f1336481b083cd75337992a16971aa2d906947"
@@ -7956,7 +7871,7 @@ os-locale@^3.0.0:
     lcid "^2.0.0"
     mem "^4.0.0"
 
-os-name@^3.0.0, os-name@^3.1.0:
+os-name@^3.1.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/os-name/-/os-name-3.1.0.tgz#dec19d966296e1cd62d701a5a66ee1ddeae70801"
   integrity sha512-h8L+8aNjNcMpo/mAIBPn5PXCM16iyPGjHNWo6U1YO8sJTMHtEtyczI6QJnLoplswm6goopQkqc7OAnjhWcugVg==
@@ -8912,16 +8827,6 @@ react@^16.6.3:
     object-assign "^4.1.1"
     prop-types "^15.6.2"
 
-react@^16.8.6:
-  version "16.8.6"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
-  integrity sha512-pC0uMkhLaHm11ZSJULfOBqV4tIZkx87ZLvbbQYunNixAAvjnC+snJCg0XQXn9VIsttVsbZP/H/ewzgsd5fxKXw==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
-    prop-types "^15.6.2"
-    scheduler "^0.13.6"
-
 read-pkg-up@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg-up/-/read-pkg-up-1.0.1.tgz#9d63c13276c065918d57f002a57f40a1b643fb02"
@@ -9603,14 +9508,6 @@ sax@>=0.6.0, sax@^1.2.4, sax@~1.2.4:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/sax/-/sax-1.2.4.tgz#2816234e2378bddc4e5354fab5caa895df7100d9"
   integrity sha512-NqVDv9TpANUjFm0N8uM5GxL36UgKi9/atZw+x7YFnQ8ckwFGKrl4xX4yWtrey3UJm5nP1kUbnYgLopqWNSRhWw==
-
-scheduler@^0.13.6:
-  version "0.13.6"
-  resolved "https://registry.yarnpkg.com/scheduler/-/scheduler-0.13.6.tgz#466a4ec332467b31a91b9bf74e5347072e4cd889"
-  integrity sha512-IWnObHt413ucAYKsD9J1QShUKkbKLQQHdxRyw73sw4FN26iWr3DY/H34xGPe4nmL1DwXyWmSWmMrA9TfQbE/XQ==
-  dependencies:
-    loose-envify "^1.1.0"
-    object-assign "^4.1.1"
 
 scheduler@^0.19.1:
   version "0.19.1"
@@ -10755,13 +10652,6 @@ unist-util-visit@^1.1.0, unist-util-visit@^1.3.0:
   integrity sha512-AvGNk7Bb//EmJZyhtRUnNMEpId/AZ5Ph/KUpTI09WHQuDZHKovQ1oEv3mfmKpWKtoMzyMC4GLBm1Zy5k12fjIw==
   dependencies:
     unist-util-visit-parents "^2.0.0"
-
-universal-user-agent@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/universal-user-agent/-/universal-user-agent-3.0.0.tgz#4cc88d68097bffd7ac42e3b7c903e7481424b4b9"
-  integrity sha512-T3siHThqoj5X0benA5H0qcDnrKGXzU8TKoX15x/tQHw1hQBvIEBHjxQ2klizYsqBOO/Q+WuxoQUihadeeqDnoA==
-  dependencies:
-    os-name "^3.0.0"
 
 universal-user-agent@^4.0.0:
   version "4.0.1"
