@@ -3,7 +3,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import { newProject } from '@politico/interactive-templates';
 
-import { updateConf, getActiveProject } from 'CLI/utils/conf';
+import { updateConf, getActiveProject } from 'CLI/utils/conf/index.js';
 import { log } from 'CLI/utils/console';
 
 export default async() => {

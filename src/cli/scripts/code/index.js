@@ -1,4 +1,4 @@
-import { getActiveDirectory } from 'CLI/utils/conf';
+import { getActiveDirectory } from 'CLI/utils/conf/index.js';
 import exec from 'CLI/utils/exec';
 
 export default async() => {

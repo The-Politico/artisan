@@ -4,7 +4,7 @@ import path from 'path';
 import { newProject } from '@politico/interactive-templates';
 import slugify from 'slugify';
 
-import { readConf, updateConf } from 'CLI/utils/conf';
+import { readConf, updateConf } from 'CLI/utils/conf/index.js';
 import installDeps from 'CLI/utils/installDeps';
 import { newRepo } from 'CLI/utils/git/index.js';
 import { log } from 'CLI/utils/console';
@@ -63,14 +63,14 @@ export default async({ testing = false } = {}) => {
   newProjectConf.projects[projectName] = {
     status: 'alive',
     path: projectPath,
-    repo: projectRepo,
+    repo: `illustration_${projectRepo}`,
     lastModifiedTime: (new Date()).toISOString(),
     illustrations: {},
   };
 
   const illustrations = await fs.readdir(path.join(projectPath, 'illustrations'));
   illustrations.forEach(i => {
-    newProjectConf.projects[projectName][i] = {};
+    newProjectConf.projects[projectName].illustrations[i] = {};
   });
 
   await updateConf(newProjectConf);

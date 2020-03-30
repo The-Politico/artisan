@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 
 import { CONFIG_PATH } from 'CLI/constants/locations';
-import { updateConf } from 'CLI/utils/conf';
+import { updateConf } from 'CLI/utils/conf/index.js';
 import { log } from 'CLI/utils/console';
 
 export default async(illustrator, destination, step) => {

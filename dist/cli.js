@@ -11,16 +11,17 @@ var _defineProperty = _interopDefault(require('@babel/runtime/helpers/defineProp
 var chalk = _interopDefault(require('chalk'));
 var cli = _interopDefault(require('cli-progress'));
 var inquirer = _interopDefault(require('inquirer'));
-var keys = _interopDefault(require('lodash/keys'));
-var merge = _interopDefault(require('lodash/merge'));
 var fs = _interopDefault(require('fs-extra'));
-var update = _interopDefault(require('immutability-helper'));
 var path = _interopDefault(require('path'));
 var os = _interopDefault(require('os'));
+var keys = _interopDefault(require('lodash/keys'));
+var update = _interopDefault(require('immutability-helper'));
+var merge = _interopDefault(require('lodash/merge'));
 var child_process = require('child_process');
+var toStartCase = _interopDefault(require('lodash/startCase'));
+var git = _interopDefault(require('simple-git'));
 require('@politico/interactive-bin/dist/scripts/env');
 var rest = require('@octokit/rest');
-var git = _interopDefault(require('simple-git'));
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
 
@@ -170,39 +171,173 @@ var STATE_PATH = path.join(os.homedir(), ".ai2jsx");
 var CONFIG_PATH = path.join(STATE_PATH, "config.json");
 var PROJECTS_PATH = path.join(STATE_PATH, 'projects');
 
-var readConf = function readConf() {
+var readConf = (function () {
   return fs.readJson(CONFIG_PATH);
-};
-var getProjects =
+});
+
+var getActiveProject = /*#__PURE__*/
+_asyncToGenerator(
 /*#__PURE__*/
-function () {
+_regeneratorRuntime.mark(function _callee() {
+  var conf, activeProject;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return readConf();
+
+        case 2:
+          conf = _context.sent;
+          activeProject = conf.projects[conf.active];
+
+          if (activeProject) {
+            activeProject.name = conf.active;
+          }
+
+          return _context.abrupt("return", activeProject);
+
+        case 6:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var getActiveDirectory = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var dir, activeProject;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return getActiveProject();
+
+        case 2:
+          activeProject = _context.sent;
+
+          if (!activeProject) {
+            log('There is no active project. Please activate a project using the "activate" command.', 'error');
+          } else {
+            dir = activeProject.path;
+          }
+
+          return _context.abrupt("return", dir);
+
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var getActiveIllustrations = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var illustrations, activeProject;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return getActiveProject();
+
+        case 2:
+          activeProject = _context.sent;
+
+          if (!activeProject) {
+            log('2 There is no active project. Please activate a project using the "activate" command.', 'error');
+          } else {
+            illustrations = activeProject.illustrations;
+          }
+
+          return _context.abrupt("return", illustrations);
+
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var getProjects = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var aliveOnly,
+      conf,
+      _args = arguments;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          aliveOnly = _args.length > 0 && _args[0] !== undefined ? _args[0] : true;
+          _context.next = 3;
+          return readConf();
+
+        case 3:
+          conf = _context.sent;
+          return _context.abrupt("return", keys(conf.projects).filter(function (p) {
+            if (aliveOnly === true) {
+              return conf.projects[p].status === 'alive';
+            } else if (aliveOnly === 'archived') {
+              return conf.projects[p].status !== 'alive';
+            } else {
+              return true;
+            }
+          }));
+
+        case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var isProjectDownloaded = /*#__PURE__*/
+(function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee() {
-    var aliveOnly,
-        conf,
-        _args = arguments;
+  _regeneratorRuntime.mark(function _callee(value, key) {
+    var conf, project, isIt;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            aliveOnly = _args.length > 0 && _args[0] !== undefined ? _args[0] : true;
-            _context.next = 3;
+            _context.next = 2;
             return readConf();
 
-          case 3:
+          case 2:
             conf = _context.sent;
-            return _context.abrupt("return", keys(conf.projects).filter(function (p) {
-              if (aliveOnly === true) {
-                return conf.projects[p].status === 'alive';
-              } else if (aliveOnly === 'archived') {
-                return conf.projects[p].status !== 'alive';
-              } else {
+            project = null;
+            isIt = keys(conf.projects).some(function (name) {
+              if (conf.projects[name][key] === value) {
+                project = name;
                 return true;
+              } else {
+                return false;
               }
-            }));
+            });
 
-          case 5:
+            if (!isIt) {
+              _context.next = 9;
+              break;
+            }
+
+            return _context.abrupt("return", project);
+
+          case 9:
+            return _context.abrupt("return", false);
+
+          case 10:
           case "end":
             return _context.stop();
         }
@@ -210,133 +345,97 @@ function () {
     }, _callee);
   }));
 
-  return function getProjects() {
+  return function (_x, _x2) {
     return _ref.apply(this, arguments);
   };
-}();
-var getActiveProject =
-/*#__PURE__*/
-function () {
-  var _ref2 = _asyncToGenerator(
+})();
+
+var removeIllustrationFromConf = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee2() {
-    var conf, activeProject;
-    return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+  _regeneratorRuntime.mark(function _callee(project, illustration) {
+    var conf, updateSignature;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context2.prev = _context2.next) {
+        switch (_context.prev = _context.next) {
           case 0:
-            _context2.next = 2;
+            _context.next = 2;
             return readConf();
 
           case 2:
-            conf = _context2.sent;
-            activeProject = conf.projects[conf.active];
+            conf = _context.sent;
+            updateSignature = {};
+            updateSignature.projects = {};
+            updateSignature.projects[project] = {};
+            updateSignature.projects[project].illustrations = {
+              $unset: [illustration]
+            };
+            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+              spaces: 2
+            }));
 
-            if (activeProject) {
-              activeProject.name = conf.active;
-            }
+          case 8:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
 
-            return _context2.abrupt("return", activeProject);
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var removeProjectFromConf = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(project, illustration) {
+    var conf, updateSignature;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return readConf();
+
+          case 2:
+            conf = _context.sent;
+            updateSignature = {};
+            updateSignature.projects = {
+              $unset: [project]
+            };
+            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+              spaces: 2
+            }));
 
           case 6:
           case "end":
-            return _context2.stop();
+            return _context.stop();
         }
       }
-    }, _callee2);
+    }, _callee);
   }));
 
-  return function getActiveProject() {
-    return _ref2.apply(this, arguments);
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
   };
-}();
-var getActiveDirectory =
-/*#__PURE__*/
-function () {
-  var _ref3 = _asyncToGenerator(
+})();
+
+var updateConf = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee3() {
-    var dir, activeProject;
-    return _regeneratorRuntime.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return getActiveProject();
-
-          case 2:
-            activeProject = _context3.sent;
-
-            if (!activeProject) {
-              log('1 There is no active project. Please activate a project using the "activate" command.', 'error');
-            } else {
-              dir = activeProject.path;
-            }
-
-            return _context3.abrupt("return", dir);
-
-          case 5:
-          case "end":
-            return _context3.stop();
-        }
-      }
-    }, _callee3);
-  }));
-
-  return function getActiveDirectory() {
-    return _ref3.apply(this, arguments);
-  };
-}();
-var getActiveIllustrations =
-/*#__PURE__*/
-function () {
-  var _ref5 = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee5() {
-    var illustrations, activeProject;
-    return _regeneratorRuntime.wrap(function _callee5$(_context5) {
-      while (1) {
-        switch (_context5.prev = _context5.next) {
-          case 0:
-            _context5.next = 2;
-            return getActiveProject();
-
-          case 2:
-            activeProject = _context5.sent;
-
-            if (!activeProject) {
-              log('2 There is no active project. Please activate a project using the "activate" command.', 'error');
-            } else {
-              illustrations = activeProject.illustrations;
-            }
-
-            return _context5.abrupt("return", illustrations);
-
-          case 5:
-          case "end":
-            return _context5.stop();
-        }
-      }
-    }, _callee5);
-  }));
-
-  return function getActiveIllustrations() {
-    return _ref5.apply(this, arguments);
-  };
-}();
-var updateConf =
-/*#__PURE__*/
-function () {
-  var _ref6 = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee6(obj) {
+  _regeneratorRuntime.mark(function _callee(obj) {
     var conf, updateSignature, valueKeys, objKeys;
-    return _regeneratorRuntime.wrap(function _callee6$(_context6) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
-        switch (_context6.prev = _context6.next) {
+        switch (_context.prev = _context.next) {
           case 0:
             if (obj) {
-              _context6.next = 3;
+              _context.next = 3;
               break;
             }
 
@@ -344,11 +443,11 @@ function () {
             throw new Error('No update provided.');
 
           case 3:
-            _context6.next = 5;
+            _context.next = 5;
             return readConf();
 
           case 5:
-            conf = _context6.sent;
+            conf = _context.sent;
             updateSignature = {};
             valueKeys = ['active', 'illustratorLoc'];
             valueKeys.forEach(function (k) {
@@ -380,96 +479,22 @@ function () {
                 }
               }
             });
-            return _context6.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
               spaces: 2
             }));
 
           case 12:
           case "end":
-            return _context6.stop();
+            return _context.stop();
         }
       }
-    }, _callee6);
+    }, _callee);
   }));
 
-  return function updateConf(_x) {
-    return _ref6.apply(this, arguments);
+  return function (_x) {
+    return _ref.apply(this, arguments);
   };
-}();
-var removeProjectFromConf =
-/*#__PURE__*/
-function () {
-  var _ref7 = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee7(project, illustration) {
-    var conf, updateSignature;
-    return _regeneratorRuntime.wrap(function _callee7$(_context7) {
-      while (1) {
-        switch (_context7.prev = _context7.next) {
-          case 0:
-            _context7.next = 2;
-            return readConf();
-
-          case 2:
-            conf = _context7.sent;
-            updateSignature = {};
-            updateSignature.projects = {
-              $unset: [project]
-            };
-            return _context7.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
-              spaces: 2
-            }));
-
-          case 6:
-          case "end":
-            return _context7.stop();
-        }
-      }
-    }, _callee7);
-  }));
-
-  return function removeProjectFromConf(_x2, _x3) {
-    return _ref7.apply(this, arguments);
-  };
-}();
-var removeIllustrationFromConf =
-/*#__PURE__*/
-function () {
-  var _ref8 = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee8(project, illustration) {
-    var conf, updateSignature;
-    return _regeneratorRuntime.wrap(function _callee8$(_context8) {
-      while (1) {
-        switch (_context8.prev = _context8.next) {
-          case 0:
-            _context8.next = 2;
-            return readConf();
-
-          case 2:
-            conf = _context8.sent;
-            updateSignature = {};
-            updateSignature.projects = {};
-            updateSignature.projects[project] = {};
-            updateSignature.projects[project].illustrations = {
-              $unset: [illustration]
-            };
-            return _context8.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
-              spaces: 2
-            }));
-
-          case 8:
-          case "end":
-            return _context8.stop();
-        }
-      }
-    }, _callee8);
-  }));
-
-  return function removeIllustrationFromConf(_x4, _x5) {
-    return _ref8.apply(this, arguments);
-  };
-}();
+})();
 
 var activate = /*#__PURE__*/
 _asyncToGenerator(
@@ -1158,134 +1183,12 @@ var illo = /*#__PURE__*/
   };
 })();
 
-var client = new rest.Octokit({
-  auth: process.env.GITHUB_TOKEN
-});
-
-var deleteRepo = /*#__PURE__*/
-(function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(dir, repoName) {
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (dir) {
-              _context.next = 4;
-              break;
-            }
-
-            _context.next = 3;
-            return getActiveDirectory();
-
-          case 3:
-            dir = _context.sent;
-
-          case 4:
-            if (!repoName.startsWith('illustration_')) {
-              _context.next = 8;
-              break;
-            }
-
-            return _context.abrupt("return", client.repos["delete"]({
-              org: 'The-Politico',
-              name: repoName
-            }));
-
-          case 8:
-            log('Only repos beginning with "illustration_" can be deleted by this app', 'error');
-
-          case 9:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})();
-
-var newRepo = /*#__PURE__*/
-(function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(dir, repoName) {
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (dir) {
-              _context.next = 4;
-              break;
-            }
-
-            _context.next = 3;
-            return getActiveDirectory();
-
-          case 3:
-            dir = _context.sent;
-
-          case 4:
-            _context.prev = 4;
-            _context.next = 7;
-            return client.repos.createInOrg({
-              org: 'The-Politico',
-              name: repoName,
-              "private": true
-            });
-
-          case 7:
-            _context.next = 16;
-            break;
-
-          case 9:
-            _context.prev = 9;
-            _context.t0 = _context["catch"](4);
-
-            if (!(_context.t0.status === 422)) {
-              _context.next = 15;
-              break;
-            }
-
-            throw new Error('There already exists a repo with that name. Please try again with a new name.');
-
-          case 15:
-            throw _context.t0;
-
-          case 16:
-            return _context.abrupt("return", new Promise(function (resolve, reject) {
-              try {
-                git(dir).init().add('./*').commit('initial').addRemote('origin', "git@github.com:The-Politico/".concat(repoName, ".git")).push('origin', 'master').exec(function () {
-                  resolve();
-                });
-              } catch (e) {
-                reject(e);
-              }
-            }));
-
-          case 17:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[4, 9]]);
-  }));
-
-  return function (_x, _x2) {
-    return _ref.apply(this, arguments);
-  };
-})();
-
 var project = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var selection, allProjects, projectName, _ref3, confirm, conf, projectPath, projectRepo;
+    var selection, allProjects, projectName, _ref3, confirm, conf, projectPath;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -1345,20 +1248,15 @@ var project = /*#__PURE__*/
           case 19:
             conf = _context.sent;
             projectPath = conf.projects[projectName].path;
-            projectRepo = conf.projects[projectName].repo;
             fs.remove(projectPath);
-            _context.next = 25;
-            return deleteRepo(projectRepo);
-
-          case 25:
             log('Saving configuration...', 'info');
-            _context.next = 28;
+            _context.next = 25;
             return removeProjectFromConf(projectName);
 
-          case 28:
+          case 25:
             log("The project \"".concat(projectName, "\" has been deleted."), 'success');
 
-          case 29:
+          case 26:
           case "end":
             return _context.stop();
         }
@@ -1533,6 +1431,417 @@ function () {
           case 3:
             _context.next = 5;
             return dir(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var cloneRepo = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(repoName, projectName) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              try {
+                git(PROJECTS_PATH).clone(repoName, projectName).exec(function () {
+                  resolve();
+                });
+              } catch (e) {
+                reject(e);
+              }
+            }));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var client = new rest.Octokit({
+  auth: process.env.GITHUB_TOKEN
+});
+
+var gacm = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(dir, repoName, message) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              try {
+                git(dir).init().add('./*').commit(message).push('origin', 'master').exec(function () {
+                  resolve();
+                });
+              } catch (e) {
+                reject(e);
+              }
+            }));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var getAllAvailableRepos = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var last100, conf, allDownloadedProjects;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return client.repos.listForAuthenticatedUser({
+            affiliation: 'organization_member',
+            per_page: 100,
+            sort: 'updated'
+          });
+
+        case 2:
+          last100 = _context.sent;
+          _context.next = 5;
+          return readConf();
+
+        case 5:
+          conf = _context.sent;
+          allDownloadedProjects = keys(conf.projects).map(function (projectName) {
+            return conf.projects[projectName].repo;
+          });
+          return _context.abrupt("return", last100.data.filter(function (d) {
+            return d.name.startsWith('illustration_');
+          }).filter(function (d) {
+            return allDownloadedProjects.indexOf(d.name) === -1;
+          }).map(function (i) {
+            return {
+              name: toStartCase(i.name.split('illustration_')[1]),
+              value: i.full_name
+            };
+          }));
+
+        case 8:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var newRepo = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(dir, repoName) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (dir) {
+              _context.next = 4;
+              break;
+            }
+
+            _context.next = 3;
+            return getActiveDirectory();
+
+          case 3:
+            dir = _context.sent;
+
+          case 4:
+            _context.prev = 4;
+            _context.next = 7;
+            return client.repos.createInOrg({
+              org: 'The-Politico',
+              name: repoName,
+              "private": true
+            });
+
+          case 7:
+            _context.next = 16;
+            break;
+
+          case 9:
+            _context.prev = 9;
+            _context.t0 = _context["catch"](4);
+
+            if (!(_context.t0.status === 422)) {
+              _context.next = 15;
+              break;
+            }
+
+            throw new Error('There already exists a repo with that name. Please try again with a new name.');
+
+          case 15:
+            throw _context.t0;
+
+          case 16:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              try {
+                git(dir).init().add('./*').commit('initial').addRemote('origin', "git@github.com:The-Politico/".concat(repoName, ".git")).push('origin', 'master').exec(function () {
+                  resolve();
+                });
+              } catch (e) {
+                reject(e);
+              }
+            }));
+
+          case 17:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[4, 9]]);
+  }));
+
+  return function (_x, _x2) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+/*
+ * Parses an owner and repo from a GitHub string
+ * example The-Politico/template_pit-test
+ * example: https://github.com/The-Politico/template_pit-test
+ * example: git@github.com:The-Politico/template_pit-test.git
+ */
+var parseRepoPath = (function (repoPath) {
+  var str = repoPath;
+  str = str.replace(/git@github\.com:/, '');
+  str = str.replace(/https?:\/\/github.com\//, '');
+  str = str.replace(/\.git/, '');
+  var parts = str.split('/');
+
+  if (parts.length !== 2) {
+    throw new Error("Invalid repo path: ".concat(repoPath));
+  }
+
+  return {
+    owner: parts[0],
+    repo: parts[1]
+  };
+});
+
+var installDeps = (function (dir) {
+  return exec('npm install', dir);
+});
+
+var download = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var repoName, allRepos, inquiry, repo, owner, projectName, parsedRepo, projectDownloaded, projectPath, newProjectConf, illustrations;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            repoName = _ref.repo;
+
+            if (repoName) {
+              _context.next = 12;
+              break;
+            }
+
+            _context.next = 4;
+            return getAllAvailableRepos();
+
+          case 4:
+            allRepos = _context.sent;
+
+            if (!(allRepos.length === 0)) {
+              _context.next = 8;
+              break;
+            }
+
+            log('There are no projects for you to download.', 'info');
+            return _context.abrupt("return");
+
+          case 8:
+            _context.next = 10;
+            return inquirer.prompt([{
+              type: 'list',
+              name: 'repo',
+              message: 'Choose a project to download',
+              choices: allRepos
+            }]);
+
+          case 10:
+            inquiry = _context.sent;
+            repoName = inquiry.repo;
+
+          case 12:
+            _context.prev = 12;
+            parsedRepo = parseRepoPath(repoName);
+            repo = parsedRepo.repo;
+            owner = parsedRepo.owner;
+            projectName = toStartCase(repo.split('illustration_')[1]);
+            _context.next = 24;
+            break;
+
+          case 19:
+            _context.prev = 19;
+            _context.t0 = _context["catch"](12);
+            log("Invalid repo \"".concat(repoName, "\" provided"), 'error');
+            log(_context.t0);
+            return _context.abrupt("return");
+
+          case 24:
+            _context.next = 26;
+            return isProjectDownloaded(repo, 'repo');
+
+          case 26:
+            projectDownloaded = _context.sent;
+
+            if (!projectDownloaded) {
+              _context.next = 30;
+              break;
+            }
+
+            log("You already have this project downloaded as \"".concat(projectDownloaded, "\""), 'info');
+            return _context.abrupt("return");
+
+          case 30:
+            projectPath = path.join(PROJECTS_PATH, projectName);
+            _context.prev = 31;
+            log('Downloading repo...', 'info');
+            _context.next = 35;
+            return cloneRepo("git@github.com:".concat(owner, "/").concat(repo, ".git"), projectName);
+
+          case 35:
+            _context.next = 42;
+            break;
+
+          case 37:
+            _context.prev = 37;
+            _context.t1 = _context["catch"](31);
+            log('Something went wrong trying to clone this repo.', 'error');
+            log(_context.t1);
+            return _context.abrupt("return");
+
+          case 42:
+            _context.prev = 42;
+            log('Installing dependencies...', 'info');
+            _context.next = 46;
+            return installDeps(projectPath);
+
+          case 46:
+            _context.next = 53;
+            break;
+
+          case 48:
+            _context.prev = 48;
+            _context.t2 = _context["catch"](42);
+            log('Something went wrong installing this repos dependencies.', 'error');
+            log(_context.t2);
+            return _context.abrupt("return");
+
+          case 53:
+            log('Saving configuration...', 'info');
+            newProjectConf = {
+              projects: {}
+            };
+            newProjectConf.projects[projectName] = {
+              status: 'alive',
+              path: projectPath,
+              repo: repo,
+              lastModifiedTime: new Date().toISOString(),
+              illustrations: {}
+            };
+            _context.next = 58;
+            return fs.readdir(path.join(projectPath, 'illustrations'));
+
+          case 58:
+            illustrations = _context.sent;
+            illustrations.forEach(function (i) {
+              newProjectConf.projects[projectName].illustrations[i] = {};
+            });
+            _context.next = 62;
+            return updateConf(newProjectConf);
+
+          case 62:
+            log('Activating new project...', 'info');
+            process.env.VERBOSE_MODE = false;
+            _context.next = 66;
+            return activate({
+              project: projectName
+            });
+
+          case 66:
+            process.env.VERBOSE_MODE = true;
+            log("New project \"".concat(projectName, "\" created and activated"), 'success');
+
+          case 68:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[12, 19], [31, 37], [42, 48]]);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+yargs.command('download [repo]', 'Downloads a project from GitHub', function (yargs) {
+  yargs.positional('repo', {
+    alias: 'r',
+    describe: 'The name of the repo to download',
+    type: 'string'
+  }).option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return download(args);
 
           case 5:
           case "end":
@@ -1986,10 +2295,6 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee, null, [[13, 21]]);
 }));
 
-var installDeps = (function (dir) {
-  return exec('npm install', dir);
-});
-
 var project$1 = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
@@ -2083,7 +2388,7 @@ _regeneratorRuntime.mark(function _callee() {
           newProjectConf.projects[projectName] = {
             status: 'alive',
             path: projectPath,
-            repo: projectRepo,
+            repo: "illustration_".concat(projectRepo),
             lastModifiedTime: new Date().toISOString(),
             illustrations: {}
           };
@@ -2093,7 +2398,7 @@ _regeneratorRuntime.mark(function _callee() {
         case 34:
           illustrations = _context.sent;
           illustrations.forEach(function (i) {
-            newProjectConf.projects[projectName][i] = {};
+            newProjectConf.projects[projectName].illustrations[i] = {};
           });
           _context.next = 38;
           return updateConf(newProjectConf);
@@ -2247,12 +2552,17 @@ var open = /*#__PURE__*/
             illos = _context.sent;
             selection = illustration;
 
-            if (!(illos.length !== 1)) {
+            if (!(keys(illos).length === 1)) {
               _context.next = 9;
               break;
             }
 
-            _context.next = 8;
+            selection = keys(illos)[0];
+            _context.next = 12;
+            break;
+
+          case 9:
+            _context.next = 11;
             return selectIllustration(illustration, {
               noneAvailable: 'No illustrations found in active project.',
               question: 'Which illustration would you like to open? (Don\'t see what you\'re looking for? Try changing the active project.)',
@@ -2261,22 +2571,22 @@ var open = /*#__PURE__*/
               }
             });
 
-          case 8:
+          case 11:
             selection = _context.sent;
 
-          case 9:
+          case 12:
             if (selection) {
-              _context.next = 11;
+              _context.next = 14;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 11:
-            _context.next = 13;
-            return exec("open \"illustrations/".concat(illustration, "/").concat(illustration, ".ai\""), 'root');
+          case 14:
+            _context.next = 16;
+            return exec("open \"illustrations/".concat(selection, "/").concat(selection, ".ai\""));
 
-          case 13:
+          case 16:
           case "end":
             return _context.stop();
         }
@@ -2431,6 +2741,109 @@ function () {
           case 3:
             _context.next = 5;
             return publish(args);
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var save = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var message, project;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            message = _ref.message;
+
+            if (!message) {
+              message = new Date().toISOString();
+            }
+
+            _context.next = 4;
+            return getActiveProject();
+
+          case 4:
+            project = _context.sent;
+
+            if (project) {
+              _context.next = 7;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 7:
+            _context.prev = 7;
+            _context.next = 10;
+            return gacm(project.path, project.repo, message);
+
+          case 10:
+            _context.next = 17;
+            break;
+
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](7);
+            log('Something went wrong saving your project to GitHub', 'error');
+            log(_context.t0);
+            return _context.abrupt("return");
+
+          case 17:
+            log('Your project has been saved on GitHub succesffully.', 'success');
+
+          case 18:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[7, 12]]);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
+yargs.command('save [message]', 'Saves latest changes to GitHub', function (yargs) {
+  yargs.positional('message', {
+    alias: 'r',
+    describe: 'The name of the repo to download',
+    type: 'string'
+  }).option('verbose', {
+    alias: 'v',
+    describe: 'Log to the console',
+    type: 'boolean',
+    "default": true
+  });
+},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            setVerboseMode(args.verbose);
+            _context.next = 3;
+            return healthChecks();
+
+          case 3:
+            _context.next = 5;
+            return save(args);
 
           case 5:
           case "end":

@@ -1,6 +1,6 @@
 import inquirer from 'inquirer';
 import { log } from 'CLI/utils/console.js';
-import { updateConf, getActiveProject } from 'CLI/utils/conf.js';
+import { updateConf, getActiveProject } from 'CLI/utils/conf/index.js';
 
 export default async() => {
   const project = await getActiveProject();

@@ -1,7 +1,7 @@
 import inquirer from 'inquirer';
 import keys from 'lodash/keys';
 import { log } from 'CLI/utils/console.js';
-import { getActiveIllustrations } from 'CLI/utils/conf.js';
+import { getActiveIllustrations } from 'CLI/utils/conf/index.js';
 
 export default async(selection, logs) => {
   const illoConf = await getActiveIllustrations();

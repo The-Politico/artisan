@@ -1,10 +1,9 @@
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 
-import { readConf, getProjects, removeProjectFromConf } from 'CLI/utils/conf';
+import { readConf, getProjects, removeProjectFromConf } from 'CLI/utils/conf/index.js';
 import selectProject from 'CLI/utils/selectProject';
 import { log } from 'CLI/utils/console';
-import { deleteRepo } from 'CLI/utils/git/index.js';
 
 export default async({ selection }) => {
   const allProjects = await getProjects();
@@ -34,9 +33,7 @@ export default async({ selection }) => {
   log('Deleting project...', 'info');
   const conf = await readConf();
   const projectPath = conf.projects[projectName].path;
-  const projectRepo = conf.projects[projectName].repo;
   fs.remove(projectPath);
-  await deleteRepo(projectRepo);
 
   log('Saving configuration...', 'info');
   await removeProjectFromConf(projectName);

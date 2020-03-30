@@ -2,7 +2,7 @@ import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
 
-import { removeIllustrationFromConf, getActiveProject } from 'CLI/utils/conf';
+import { removeIllustrationFromConf, getActiveProject } from 'CLI/utils/conf/index.js';
 import { log } from 'CLI/utils/console';
 import selectIllustration from 'CLI/utils/selectIllustration';
 
