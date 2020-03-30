@@ -1,6 +1,6 @@
 import yargs from 'yargs';
-import healthChecks from 'CLI/utils/healthChecks';
-import setVerboseMode from 'CLI/utils/setVerboseMode';
+import healthChecks from 'Utils/healthChecks';
+import setVerboseMode from 'Utils/setVerboseMode';
 
 import archive from './index';
 

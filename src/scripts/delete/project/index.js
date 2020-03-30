@@ -1,9 +1,9 @@
 import inquirer from 'inquirer';
 import fs from 'fs-extra';
 
-import { readConf, getProjects, removeProjectFromConf } from 'CLI/utils/conf/index.js';
-import selectProject from 'CLI/utils/selectProject';
-import { log } from 'CLI/utils/console';
+import { readConf, getProjects, removeProjectFromConf } from 'Utils/conf/index.js';
+import selectProject from 'Utils/selectProject';
+import { log } from 'Utils/console';
 
 export default async({ selection }) => {
   const allProjects = await getProjects();

@@ -1,5 +1,5 @@
-import { log } from 'CLI/utils/console.js';
-import { getActiveProject } from 'CLI/utils/conf/index.js';
+import { log } from 'Utils/console.js';
+import { getActiveProject } from 'Utils/conf/index.js';
 
 export default async() => {
   const project = await getActiveProject();

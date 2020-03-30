@@ -1,8 +1,8 @@
 import keys from 'lodash/keys';
 
-import { getActiveIllustrations } from 'CLI/utils/conf/index.js';
-import exec from 'CLI/utils/exec';
-import selectIllustration from 'CLI/utils/selectIllustration';
+import { getActiveIllustrations } from 'Utils/conf/index.js';
+import exec from 'Utils/exec';
+import selectIllustration from 'Utils/selectIllustration';
 
 export default async({ illustration }) => {
   const illos = await getActiveIllustrations();

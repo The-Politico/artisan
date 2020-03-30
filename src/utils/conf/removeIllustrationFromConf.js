@@ -1,7 +1,7 @@
 import fs from 'fs-extra';
 import update from 'immutability-helper';
 
-import { CONFIG_PATH } from 'CLI/constants/locations';
+import { CONFIG_PATH } from 'Constants/locations';
 
 import readConf from './readConf';
 

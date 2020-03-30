@@ -1,5 +1,5 @@
-import { getActiveDirectory } from 'CLI/utils/conf/index.js';
-import exec from 'CLI/utils/exec';
+import { getActiveDirectory } from 'Utils/conf/index.js';
+import exec from 'Utils/exec';
 
 export default async() => {
   const dir = await getActiveDirectory();

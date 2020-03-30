@@ -33,6 +33,7 @@ export const external = [
   'lodash/startCase',
   'lodash/keys',
   'lodash/debounce',
+  'lodash/merge',
   'child_process',
   'os',
   'path',
@@ -41,8 +42,9 @@ export const external = [
 export const plugins = [
   alias({
     resolve: ['.jsx', '.js'],
-    CLI: path.resolve(__dirname, '../src/cli'),
-    Client: path.resolve(__dirname, '../src/client'),
+    Utils: path.resolve(__dirname, '../src/utils'),
+    Constants: path.resolve(__dirname, '../src/constants'),
+    Scripts: path.resolve(__dirname, '../src/scripts'),
   }),
   babel(babelOpts),
   json(),

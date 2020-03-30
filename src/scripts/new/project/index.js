@@ -4,14 +4,14 @@ import path from 'path';
 import { newProject } from '@politico/interactive-templates';
 import slugify from 'slugify';
 
-import { readConf, updateConf } from 'CLI/utils/conf/index.js';
-import installDeps from 'CLI/utils/installDeps';
-import { newRepo } from 'CLI/utils/git/index.js';
-import { log } from 'CLI/utils/console';
+import { readConf, updateConf } from 'Utils/conf/index.js';
+import installDeps from 'Utils/installDeps';
+import { newRepo } from 'Utils/git/index.js';
+import { log } from 'Utils/console';
 
-import { PROJECTS_PATH } from 'CLI/constants/locations';
+import { PROJECTS_PATH } from 'Constants/locations';
 
-import activate from 'CLI/scripts/activate/index.js';
+import activate from 'Scripts/activate/index.js';
 
 export default async({ testing = false } = {}) => {
   const conf = await readConf();

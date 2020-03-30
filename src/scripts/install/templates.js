@@ -1,7 +1,7 @@
 import keys from 'lodash/keys';
 import { getGlobalConfig, register } from '@politico/interactive-templates';
 
-import { log } from 'CLI/utils/console';
+import { log } from 'Utils/console';
 
 const isTemplateInstalled = async(template) => {
   const conf = await getGlobalConfig();

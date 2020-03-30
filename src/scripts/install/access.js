@@ -1,6 +1,6 @@
 import path from 'path';
 import fs from 'fs-extra';
-import { log } from 'CLI/utils/console';
+import { log } from 'Utils/console';
 
 export default async(destination, step) => {
   log(`[${step[0]}/${step[1]}] Checking for write access...`);

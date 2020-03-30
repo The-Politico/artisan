@@ -1,6 +1,6 @@
 import git from 'simple-git';
 
-import { PROJECTS_PATH } from 'CLI/constants/locations';
+import { PROJECTS_PATH } from 'Constants/locations';
 
 export default async(repoName, projectName) => {
   return new Promise((resolve, reject) => {

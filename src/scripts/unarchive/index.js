@@ -1,6 +1,6 @@
-import { log } from 'CLI/utils/console.js';
-import selectProject from 'CLI/utils/selectProject';
-import { updateConf, getProjects } from 'CLI/utils/conf/index.js';
+import { log } from 'Utils/console.js';
+import selectProject from 'Utils/selectProject';
+import { updateConf, getProjects } from 'Utils/conf/index.js';
 
 export default async(opts = {}) => {
   const archivedProjects = await getProjects('archived');

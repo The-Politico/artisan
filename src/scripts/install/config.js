@@ -1,8 +1,8 @@
 import fs from 'fs-extra';
 
-import { CONFIG_PATH } from 'CLI/constants/locations';
-import { updateConf } from 'CLI/utils/conf/index.js';
-import { log } from 'CLI/utils/console';
+import { CONFIG_PATH } from 'Constants/locations';
+import { updateConf } from 'Utils/conf/index.js';
+import { log } from 'Utils/console';
 
 export default async(illustrator, destination, step) => {
   log(`[${step[0]}/${step[1]}] Checking for config...`);

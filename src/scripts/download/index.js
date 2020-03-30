@@ -3,14 +3,14 @@ import toStartCase from 'lodash/startCase';
 import fs from 'fs-extra';
 import path from 'path';
 
-import activate from 'CLI/scripts/activate/index.js';
+import activate from 'Scripts/activate/index.js';
 
-import { parseRepoPath, cloneRepo, getAllAvailableRepos } from 'CLI/utils/git/index';
-import installDeps from 'CLI/utils/installDeps';
-import { log } from 'CLI/utils/console';
-import { updateConf, isProjectDownloaded } from 'CLI/utils/conf/index';
+import { parseRepoPath, cloneRepo, getAllAvailableRepos } from 'Utils/git/index';
+import installDeps from 'Utils/installDeps';
+import { log } from 'Utils/console';
+import { updateConf, isProjectDownloaded } from 'Utils/conf/index';
 
-import { PROJECTS_PATH } from 'CLI/constants/locations';
+import { PROJECTS_PATH } from 'Constants/locations';
 
 export default async({ repo: repoName }) => {
   if (!repoName) {

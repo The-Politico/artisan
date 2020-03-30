@@ -2,7 +2,7 @@ import { exec } from 'child_process';
 import { log } from './console';
 import { getActiveDirectory } from './conf';
 
-import { STATE_PATH } from 'CLI/constants/locations';
+import { STATE_PATH } from 'Constants/locations';
 
 export default async(cmd, dir) => {
   if (dir === 'root') {

@@ -1,6 +1,6 @@
-import { gacm } from 'CLI/utils/git/index';
-import { getActiveProject } from 'CLI/utils/conf/index';
-import { log } from 'CLI/utils/console';
+import { gacm } from 'Utils/git/index';
+import { getActiveProject } from 'Utils/conf/index';
+import { log } from 'Utils/console';
 
 export default async({ message }) => {
   if (!message) {

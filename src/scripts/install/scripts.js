@@ -1,8 +1,8 @@
 import path from 'path';
 import fs from 'fs-extra';
 
-import { INSTALL_DIRECTORY } from 'CLI/constants/locations';
-import { log } from 'CLI/utils/console';
+import { INSTALL_DIRECTORY } from 'Constants/locations';
+import { log } from 'Utils/console';
 
 export default async(destination, step) => {
   log(`[${step[0]}/${step[1]}] Installing scripts...`);

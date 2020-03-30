@@ -6,7 +6,7 @@ import config from './config';
 import scripts from './scripts';
 import templates from './templates';
 
-import { log } from 'CLI/utils/console';
+import { log } from 'Utils/console';
 
 const STEPS_COUNT = 4;
 

@@ -2,9 +2,9 @@ import inquirer from 'inquirer';
 import fs from 'fs-extra';
 import path from 'path';
 
-import { removeIllustrationFromConf, getActiveProject } from 'CLI/utils/conf/index.js';
-import { log } from 'CLI/utils/console';
-import selectIllustration from 'CLI/utils/selectIllustration';
+import { removeIllustrationFromConf, getActiveProject } from 'Utils/conf/index.js';
+import { log } from 'Utils/console';
+import selectIllustration from 'Utils/selectIllustration';
 
 export default async({ selection }) => {
   const activeProject = await getActiveProject();

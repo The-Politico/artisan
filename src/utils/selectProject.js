@@ -1,5 +1,5 @@
 import inquirer from 'inquirer';
-import { log } from 'CLI/utils/console.js';
+import { log } from 'Utils/console.js';
 
 export default async(selection, projects, logs) => {
   const {
