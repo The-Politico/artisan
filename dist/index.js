@@ -21,7 +21,7 @@ var child_process = require('child_process');
 var toStartCase = _interopDefault(require('lodash/startCase'));
 var git = _interopDefault(require('simple-git'));
 require('@politico/interactive-bin/dist/scripts/env');
-var rest = require('@octokit/rest');
+var { Octokit } = require('@octokit/rest');
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
 
@@ -1185,7 +1185,7 @@ var cloneRepo = /*#__PURE__*/
   };
 })();
 
-var client = new rest.Octokit({
+var client = new Octokit({
   auth: process.env.GITHUB_TOKEN
 });
 

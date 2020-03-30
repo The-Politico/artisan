@@ -14,6 +14,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon --ignore dist --ignore example --exec npm run build",
     "build": "rollup --config config/rollup.es.js",
+    "postbuild": "node ./bin/post-build.js",
     "cli": "node ./dist/cli.js"
   },
   "author": "",
