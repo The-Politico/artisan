@@ -1248,15 +1248,18 @@ var project = /*#__PURE__*/
           case 19:
             conf = _context.sent;
             projectPath = conf.projects[projectName].path;
-            fs.remove(projectPath);
+            _context.next = 23;
+            return fs.remove(projectPath);
+
+          case 23:
             log('Saving configuration...', 'info');
-            _context.next = 25;
+            _context.next = 26;
             return removeProjectFromConf(projectName);
 
-          case 25:
+          case 26:
             log("The project \"".concat(projectName, "\" has been deleted."), 'success');
 
-          case 26:
+          case 27:
           case "end":
             return _context.stop();
         }
@@ -2144,7 +2147,7 @@ function _ref2() {
           case 17:
             if (success) {
               log("Artisan was installed (or updated) on your computer.", 'success');
-              log("You can run it by going to ".concat(chalk.bold('File > Scripts > ai2jsx'), " inside an Adobe Illustrator file."), 'success');
+              log("Start a new project by running the \"new project\" command.", 'success');
             } else {
               log("An error occured installing ai2jsx, please check the logs above.", 'error');
             }
@@ -2698,14 +2701,42 @@ var publish = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
+  var project, _ref2, confirm;
+
   return _regeneratorRuntime.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return exec('npm run pubProduction');
+          return getActiveProject();
 
         case 2:
+          project = _context.sent;
+          _context.next = 5;
+          return inquirer.prompt([{
+            type: 'confirm',
+            name: 'confirm',
+            message: "Are you sure you want to publish \"".concat(project.name, "\"? This will make it live on the internet for anyone with the link to see."),
+            defualt: true
+          }]);
+
+        case 5:
+          _ref2 = _context.sent;
+          confirm = _ref2.confirm;
+
+          if (confirm) {
+            _context.next = 10;
+            break;
+          }
+
+          log('The project will not be published', 'info');
+          return _context.abrupt("return");
+
+        case 10:
+          _context.next = 12;
+          return exec('npm run pubProduction');
+
+        case 12:
         case "end":
           return _context.stop();
       }
@@ -2713,7 +2744,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('publish', 'Publish the embed live', function (yargs) {
+yargs.command('pub', 'Publish the embed live', function (yargs) {
   yargs.option('verbose', {
     alias: 'v',
     describe: 'Log to the console',

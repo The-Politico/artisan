@@ -14,7 +14,7 @@ export { default as newProject } from './new/project';
 export { default as newIllo } from './new/illo';
 export { default as open } from './open';
 export { default as preview } from './preview';
-export { default as publish } from './publish';
+export { default as pub } from './pub';
 export { default as save } from './save';
 export { default as start } from './start';
 export { default as unarchive } from './unarchive';

@@ -33,7 +33,7 @@ export default async({ selection }) => {
   log('Deleting project...', 'info');
   const conf = await readConf();
   const projectPath = conf.projects[projectName].path;
-  fs.remove(projectPath);
+  await fs.remove(projectPath);
 
   log('Saving configuration...', 'info');
   await removeProjectFromConf(projectName);

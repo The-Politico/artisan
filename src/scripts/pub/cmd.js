@@ -4,7 +4,7 @@ import setVerboseMode from 'Utils/setVerboseMode';
 
 import publish from './index';
 
-yargs.command('publish', 'Publish the embed live', (yargs) => {
+yargs.command('pub', 'Publish the embed live', (yargs) => {
   yargs
     .option('verbose', {
       alias: 'v',
