@@ -1,11 +1,11 @@
 {
-  "name": "ai2jsx",
+  "name": "@politico/artisan",
   "version": "0.0.5",
-  "description": "An extension of ai2html exporting JSX component modules instead of flat HTML.",
+  "description": "A suite of tools for creating & managing Adobe Illustrator based embeds.",
   "main": "dist/index.js",
   "module": "dist/module.js",
   "bin": {
-    "ai2jsx": "dist/cli.js"
+    "art": "dist/cli.js"
   },
   "directories": {
     "example": "example"

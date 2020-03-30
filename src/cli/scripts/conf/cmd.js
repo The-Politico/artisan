@@ -4,7 +4,7 @@ import setVerboseMode from 'CLI/utils/setVerboseMode';
 
 import conf from './index';
 
-yargs.command('conf', 'Open the ai2jsx conf file', (yargs) => {
+yargs.command('conf', 'Open the artisan conf file', (yargs) => {
   yargs
     .option('verbose', {
       alias: 'v',

@@ -4,7 +4,7 @@ import setVerboseMode from 'CLI/utils/setVerboseMode';
 
 import install from './index';
 
-yargs.command('install [illustrator]', 'Installs ai2jsx into your installation of Adobe Illustrator', (yargs) => {
+yargs.command('install [illustrator]', 'Installs artisan into your installation of Adobe Illustrator', (yargs) => {
   yargs
     .positional('illustrator', {
       alias: 'i',

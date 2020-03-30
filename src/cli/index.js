@@ -20,5 +20,5 @@ import './scripts/which/cmd';
 
 yargs // eslint-disable-line
   .help()
-  .scriptName('ai2jsx')
+  .scriptName('art')
   .argv;

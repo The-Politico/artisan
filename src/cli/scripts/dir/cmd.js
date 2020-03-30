@@ -4,7 +4,7 @@ import setVerboseMode from 'CLI/utils/setVerboseMode';
 
 import dir from './index';
 
-yargs.command('dir', 'Open the ai2jsx projects folder', (yargs) => {
+yargs.command('dir', 'Open the artisan projects folder', (yargs) => {
   yargs
     .option('verbose', {
       alias: 'v',
