@@ -1,6 +1,6 @@
-# ai2jsx
+# Artisan
 
-An Adobe Illustrator script for exporting Illustrator files as JSX components with CSS Modules attached. Built on the code powering [ai2html](http://ai2html.org/).
+A suite of tools for creating & managing Adobe Illustrator based embeds. Heavily inspired by [ai2html](http://ai2html.org/).
 
 ## Installation
 
