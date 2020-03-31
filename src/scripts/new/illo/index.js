@@ -8,6 +8,11 @@ import { log } from 'Utils/console';
 
 export default async() => {
   const activeProject = await getActiveProject();
+
+  if (!activeProject) {
+    return;
+  }
+
   const projectPath = activeProject.path;
   const projectName = activeProject.name;
 

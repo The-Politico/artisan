@@ -45,6 +45,7 @@ export const plugins = [
     Utils: path.resolve(__dirname, '../src/utils'),
     Constants: path.resolve(__dirname, '../src/constants'),
     Scripts: path.resolve(__dirname, '../src/scripts'),
+    Root: path.resolve(__dirname, '..'),
   }),
   babel(babelOpts),
   json(),

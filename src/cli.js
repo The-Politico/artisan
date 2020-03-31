@@ -17,7 +17,22 @@ import './scripts/start/cmd';
 import './scripts/unarchive/cmd';
 import './scripts/which/cmd';
 
+import { healthCheck, verbose, installationCheck } from './middleware';
+
 yargs // eslint-disable-line
-  .help()
+  .usage('Usage:\n  $0 <command> [options]')
   .scriptName('art')
+  .middleware(installationCheck)
+  .middleware(healthCheck)
+  .middleware(verbose)
+  .option('verbose', {
+    type: 'boolean',
+    alias: 'v',
+    describe: 'Log info & errors to the console',
+    default: true,
+    global: true,
+  })
+  .recommendCommands()
+  .demandCommand()
+  .help('howto')
   .argv;

@@ -179,9 +179,13 @@ _regeneratorRuntime.mark(function _callee() {
             activeProject.name = conf.active;
           }
 
+          if (!activeProject) {
+            log('There is no active project. Please activate a project using the "activate" command.', 'error');
+          }
+
           return _context.abrupt("return", activeProject);
 
-        case 6:
+        case 7:
         case "end":
           return _context.stop();
       }
@@ -279,6 +283,40 @@ _regeneratorRuntime.mark(function _callee() {
           }));
 
         case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var isActiveProject = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var conf, activeProject;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return readConf();
+
+        case 2:
+          conf = _context.sent;
+          activeProject = conf.projects[conf.active];
+
+          if (!activeProject) {
+            _context.next = 8;
+            break;
+          }
+
+          return _context.abrupt("return", true);
+
+        case 8:
+          return _context.abrupt("return", false);
+
+        case 9:
         case "end":
           return _context.stop();
       }
@@ -486,6 +524,7 @@ _asyncToGenerator(
 _regeneratorRuntime.mark(function _callee() {
   var opts,
       allProjects,
+      isProject,
       activeProject,
       allProjectsNotActive,
       project,
@@ -501,14 +540,27 @@ _regeneratorRuntime.mark(function _callee() {
         case 3:
           allProjects = _context.sent;
           _context.next = 6;
-          return getActiveProject();
+          return isActiveProject();
 
         case 6:
+          isProject = _context.sent;
+
+          if (!isProject) {
+            _context.next = 11;
+            break;
+          }
+
+          _context.next = 10;
+          return getActiveProject();
+
+        case 10:
           activeProject = _context.sent;
+
+        case 11:
           allProjectsNotActive = allProjects.filter(function (p) {
             return activeProject ? activeProject.name !== p : true;
           });
-          _context.next = 10;
+          _context.next = 14;
           return selectProject(opts.project, allProjectsNotActive, {
             noneAvailable: 'No projects available to activate.',
             question: 'Which project would you like to activate?',
@@ -517,26 +569,26 @@ _regeneratorRuntime.mark(function _callee() {
             }
           });
 
-        case 10:
+        case 14:
           project = _context.sent;
 
           if (project) {
-            _context.next = 13;
+            _context.next = 17;
             break;
           }
 
           return _context.abrupt("return");
 
-        case 13:
-          _context.next = 15;
+        case 17:
+          _context.next = 19;
           return updateConf({
             active: project
           });
 
-        case 15:
+        case 19:
           log("\"".concat(project, "\" is now the active project."), 'success');
 
-        case 16:
+        case 20:
         case "end":
           return _context.stop();
       }
@@ -1837,9 +1889,18 @@ _regeneratorRuntime.mark(function _callee() {
 
         case 2:
           activeProject = _context.sent;
+
+          if (activeProject) {
+            _context.next = 5;
+            break;
+          }
+
+          return _context.abrupt("return");
+
+        case 5:
           projectPath = activeProject.path;
           projectName = activeProject.name;
-          _context.next = 7;
+          _context.next = 9;
           return inquirer.prompt([{
             type: 'confirm',
             name: 'confirm',
@@ -1847,12 +1908,12 @@ _regeneratorRuntime.mark(function _callee() {
             defualt: true
           }]);
 
-        case 7:
+        case 9:
           _ref2 = _context.sent;
           confirm = _ref2.confirm;
 
           if (confirm) {
-            _context.next = 13;
+            _context.next = 15;
             break;
           }
 
@@ -1860,55 +1921,55 @@ _regeneratorRuntime.mark(function _callee() {
           log('Change the active project using "activate" to create a new illustration in it.', 'info');
           return _context.abrupt("return");
 
-        case 13:
-          _context.prev = 13;
-          _context.next = 16;
+        case 15:
+          _context.prev = 15;
+          _context.next = 18;
           return fs.ensureDir(projectPath);
 
-        case 16:
+        case 18:
           log('Creating your new illustration...', 'info');
-          _context.next = 19;
+          _context.next = 21;
           return newProject('Extra Graphic Illustration', projectPath);
 
-        case 19:
-          _context.next = 25;
+        case 21:
+          _context.next = 27;
           break;
 
-        case 21:
-          _context.prev = 21;
-          _context.t0 = _context["catch"](13);
+        case 23:
+          _context.prev = 23;
+          _context.t0 = _context["catch"](15);
           log(_context.t0, 'error');
           return _context.abrupt("return");
 
-        case 25:
+        case 27:
           log('Saving configuration...', 'info');
           newProjectConf = {
             projects: {}
           };
           newProjectConf.projects[projectName] = {};
           newProjectConf.projects[projectName].illustrations = {};
-          _context.next = 31;
+          _context.next = 33;
           return fs.readdir(path.join(projectPath, 'illustrations'));
 
-        case 31:
+        case 33:
           illustrations = _context.sent;
           illustrations.forEach(function (i) {
             if (!(i in activeProject.illustrations)) {
               newProjectConf.projects[projectName].illustrations[i] = {};
             }
           });
-          _context.next = 35;
+          _context.next = 37;
           return updateConf(newProjectConf);
 
-        case 35:
+        case 37:
           log("New illustration in \"".concat(projectName, "\" created. Restart any active development servers to see the change take place."), 'success');
 
-        case 36:
+        case 38:
         case "end":
           return _context.stop();
       }
     }
-  }, _callee, null, [[13, 21]]);
+  }, _callee, null, [[15, 23]]);
 }));
 
 var project$1 = /*#__PURE__*/
@@ -2174,25 +2235,6 @@ var index$9 = /*#__PURE__*/
 })();
 
 var index$a = /*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-_regeneratorRuntime.mark(function _callee() {
-  return _regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return exec('npm run pubStaging');
-
-        case 2:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-}));
-
-var index$b = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2247,7 +2289,7 @@ var index$b = /*#__PURE__*/
             return inquirer.prompt([{
               type: 'list',
               name: 'env',
-              message: "Where would you like to publish \"".concat(project.name, "\""),
+              message: "Where would you like to publish \"".concat(project.name, "\"?"),
               choices: [{
                 name: 'Staging (POLITICO VPN/WiFi Access Only)',
                 value: 'staging'
@@ -2324,7 +2366,7 @@ var index$b = /*#__PURE__*/
   };
 })();
 
-var index$c = /*#__PURE__*/
+var index$b = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2385,7 +2427,7 @@ var index$c = /*#__PURE__*/
   };
 })();
 
-var index$d = /*#__PURE__*/
+var index$c = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2404,7 +2446,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$e = /*#__PURE__*/
+var index$d = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2462,7 +2504,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$f = /*#__PURE__*/
+var index$e = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2491,4 +2533,4 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-export { activate, index as archive, index$1 as code, index$2 as conf, index$3 as deactivate, illo as deleteIllo, index$4 as deleteIndex, project as deleteProject, index$5 as dir, index$6 as download, index$7 as install, illo$1 as newIllo, index$8 as newIndex, project$1 as newProject, index$9 as open, index$a as preview, index$b as pub, index$c as save, index$d as start, index$e as unarchive, index$f as which };
+export { activate, index as archive, index$1 as code, index$2 as conf, index$3 as deactivate, illo as deleteIllo, index$4 as deleteIndex, project as deleteProject, index$5 as dir, index$6 as download, index$7 as install, illo$1 as newIllo, index$8 as newIndex, project$1 as newProject, index$9 as open, index$a as pub, index$b as save, index$c as start, index$d as unarchive, index$e as which };

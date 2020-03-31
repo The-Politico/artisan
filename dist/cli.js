@@ -24,16 +24,8 @@ require('@politico/interactive-bin/dist/scripts/env');
 var { Octokit } = require('@octokit/rest');
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
-
-var healthChecks = (function () {});
-
-var setVerboseMode = (function (active) {
-  if (active) {
-    process.env.VERBOSE_MODE = true;
-  } else {
-    process.env.VERBOSE_MODE = false;
-  }
-});
+var semver = _interopDefault(require('semver'));
+var NpmApi = _interopDefault(require('npm-api'));
 
 var Logger = function Logger() {
   var _this = this;
@@ -195,9 +187,13 @@ _regeneratorRuntime.mark(function _callee() {
             activeProject.name = conf.active;
           }
 
+          if (!activeProject) {
+            log('There is no active project. Please activate a project using the "activate" command.', 'error');
+          }
+
           return _context.abrupt("return", activeProject);
 
-        case 6:
+        case 7:
         case "end":
           return _context.stop();
       }
@@ -295,6 +291,40 @@ _regeneratorRuntime.mark(function _callee() {
           }));
 
         case 5:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+var isActiveProject = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var conf, activeProject;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return readConf();
+
+        case 2:
+          conf = _context.sent;
+          activeProject = conf.projects[conf.active];
+
+          if (!activeProject) {
+            _context.next = 8;
+            break;
+          }
+
+          return _context.abrupt("return", true);
+
+        case 8:
+          return _context.abrupt("return", false);
+
+        case 9:
         case "end":
           return _context.stop();
       }
@@ -502,6 +532,7 @@ _asyncToGenerator(
 _regeneratorRuntime.mark(function _callee() {
   var opts,
       allProjects,
+      isProject,
       activeProject,
       allProjectsNotActive,
       project,
@@ -517,14 +548,27 @@ _regeneratorRuntime.mark(function _callee() {
         case 3:
           allProjects = _context.sent;
           _context.next = 6;
-          return getActiveProject();
+          return isActiveProject();
 
         case 6:
+          isProject = _context.sent;
+
+          if (!isProject) {
+            _context.next = 11;
+            break;
+          }
+
+          _context.next = 10;
+          return getActiveProject();
+
+        case 10:
           activeProject = _context.sent;
+
+        case 11:
           allProjectsNotActive = allProjects.filter(function (p) {
             return activeProject ? activeProject.name !== p : true;
           });
-          _context.next = 10;
+          _context.next = 14;
           return selectProject(opts.project, allProjectsNotActive, {
             noneAvailable: 'No projects available to activate.',
             question: 'Which project would you like to activate?',
@@ -533,26 +577,26 @@ _regeneratorRuntime.mark(function _callee() {
             }
           });
 
-        case 10:
+        case 14:
           project = _context.sent;
 
           if (project) {
-            _context.next = 13;
+            _context.next = 17;
             break;
           }
 
           return _context.abrupt("return");
 
-        case 13:
-          _context.next = 15;
+        case 17:
+          _context.next = 19;
           return updateConf({
             active: project
           });
 
-        case 15:
+        case 19:
           log("\"".concat(project, "\" is now the active project."), 'success');
 
-        case 16:
+        case 20:
         case "end":
           return _context.stop();
       }
@@ -565,11 +609,6 @@ yargs.command('activate [project]', 'Sets a project to be active', function (yar
     alias: 'p',
     describe: 'The name of the project to activate',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -581,15 +620,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            activate(args);
 
-          case 3:
-            _context.next = 5;
-            return activate(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -676,11 +709,6 @@ yargs.command('archive [project]', 'Archives a project', function (yargs) {
     alias: 'p',
     describe: 'The name of the project to archive',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -692,15 +720,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            archive(args);
 
-          case 3:
-            _context.next = 5;
-            return archive(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -801,14 +823,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('code', 'Opens the active project in Atom', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
+yargs.command('code', 'Opens the active project in Atom', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -818,15 +833,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            code(args);
 
-          case 3:
-            _context.next = 5;
-            return code(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -858,14 +867,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('conf', 'Open the artisan conf file', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
+yargs.command('conf', 'Open the artisan conf file', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -875,15 +877,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            conf(args);
 
-          case 3:
-            _context.next = 5;
-            return conf(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -959,14 +955,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('deactivate', 'Sets no project to be active', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
+yargs.command('deactivate', 'Sets no project to be active', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -976,15 +965,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            deactivate(args);
 
-          case 3:
-            _context.next = 5;
-            return deactivate(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -1354,11 +1337,6 @@ yargs.command('delete [type] [selection]', 'Delete something', function (yargs) 
     alias: 's',
     describe: 'What to delete',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -1370,15 +1348,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            deleteIndex(args);
 
-          case 3:
-            _context.next = 5;
-            return deleteIndex(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -1410,14 +1382,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('dir', 'Open the artisan projects folder', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
+yargs.command('dir', 'Open the artisan projects folder', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -1427,15 +1392,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            dir(args);
 
-          case 3:
-            _context.next = 5;
-            return dir(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -1822,11 +1781,6 @@ yargs.command('download [repo]', 'Downloads a project from GitHub', function (ya
     alias: 'r',
     describe: 'The name of the repo to download',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -1838,15 +1792,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            download(args);
 
-          case 3:
-            _context.next = 5;
-            return download(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -2162,17 +2110,12 @@ function _ref2() {
   return _ref2.apply(this, arguments);
 }
 
-yargs.command('install [illustrator]', 'Installs ai2jsx into your installation of Adobe Illustrator', function (yargs) {
+yargs.command('install [illustrator]', 'Installs ai2jsx on your computer', function (yargs) {
   yargs.positional('illustrator', {
     alias: 'i',
     describe: 'Adobe Illustrator app location',
     type: 'string',
     "default": '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -2184,15 +2127,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            install(args);
 
-          case 3:
-            _context.next = 5;
-            return install(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -2220,9 +2157,18 @@ _regeneratorRuntime.mark(function _callee() {
 
         case 2:
           activeProject = _context.sent;
+
+          if (activeProject) {
+            _context.next = 5;
+            break;
+          }
+
+          return _context.abrupt("return");
+
+        case 5:
           projectPath = activeProject.path;
           projectName = activeProject.name;
-          _context.next = 7;
+          _context.next = 9;
           return inquirer.prompt([{
             type: 'confirm',
             name: 'confirm',
@@ -2230,12 +2176,12 @@ _regeneratorRuntime.mark(function _callee() {
             defualt: true
           }]);
 
-        case 7:
+        case 9:
           _ref2 = _context.sent;
           confirm = _ref2.confirm;
 
           if (confirm) {
-            _context.next = 13;
+            _context.next = 15;
             break;
           }
 
@@ -2243,55 +2189,55 @@ _regeneratorRuntime.mark(function _callee() {
           log('Change the active project using "activate" to create a new illustration in it.', 'info');
           return _context.abrupt("return");
 
-        case 13:
-          _context.prev = 13;
-          _context.next = 16;
+        case 15:
+          _context.prev = 15;
+          _context.next = 18;
           return fs.ensureDir(projectPath);
 
-        case 16:
+        case 18:
           log('Creating your new illustration...', 'info');
-          _context.next = 19;
+          _context.next = 21;
           return interactiveTemplates.newProject('Extra Graphic Illustration', projectPath);
 
-        case 19:
-          _context.next = 25;
+        case 21:
+          _context.next = 27;
           break;
 
-        case 21:
-          _context.prev = 21;
-          _context.t0 = _context["catch"](13);
+        case 23:
+          _context.prev = 23;
+          _context.t0 = _context["catch"](15);
           log(_context.t0, 'error');
           return _context.abrupt("return");
 
-        case 25:
+        case 27:
           log('Saving configuration...', 'info');
           newProjectConf = {
             projects: {}
           };
           newProjectConf.projects[projectName] = {};
           newProjectConf.projects[projectName].illustrations = {};
-          _context.next = 31;
+          _context.next = 33;
           return fs.readdir(path.join(projectPath, 'illustrations'));
 
-        case 31:
+        case 33:
           illustrations = _context.sent;
           illustrations.forEach(function (i) {
             if (!(i in activeProject.illustrations)) {
               newProjectConf.projects[projectName].illustrations[i] = {};
             }
           });
-          _context.next = 35;
+          _context.next = 37;
           return updateConf(newProjectConf);
 
-        case 35:
+        case 37:
           log("New illustration in \"".concat(projectName, "\" created. Restart any active development servers to see the change take place."), 'success');
 
-        case 36:
+        case 38:
         case "end":
           return _context.stop();
       }
     }
-  }, _callee, null, [[13, 21]]);
+  }, _callee, null, [[15, 23]]);
 }));
 
 var project$1 = /*#__PURE__*/
@@ -2496,11 +2442,6 @@ yargs.command('new [type]', 'Creates something new', function (yargs) {
     alias: 't',
     describe: 'What type of thing to create',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -2512,15 +2453,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            newIndex(args);
 
-          case 3:
-            _context.next = 5;
-            return newIndex(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -2603,11 +2538,6 @@ yargs.command('open [illustration]', 'Open an illustration', function (yargs) {
     alias: 'i',
     describe: 'The name of the illustration',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -2619,72 +2549,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            open(args);
 
-          case 3:
-            _context.next = 5;
-            return open(args);
-
-          case 5:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}());
-
-var preview = /*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-_regeneratorRuntime.mark(function _callee() {
-  return _regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return exec('npm run pubStaging');
-
-        case 2:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-}));
-
-yargs.command('preview', 'Publish a preview to the web', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(args) {
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
-
-          case 3:
-            _context.next = 5;
-            return preview(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -2752,7 +2619,7 @@ var publish = /*#__PURE__*/
             return inquirer.prompt([{
               type: 'list',
               name: 'env',
-              message: "Where would you like to publish \"".concat(project.name, "\""),
+              message: "Where would you like to publish \"".concat(project.name, "\"?"),
               choices: [{
                 name: 'Staging (POLITICO VPN/WiFi Access Only)',
                 value: 'staging'
@@ -2842,11 +2709,6 @@ yargs.command('pub [environment]', 'Publish the embed live', function (yargs) {
     alias: 'p',
     describe: 'Publish to production',
     type: 'boolean'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -2858,15 +2720,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            publish(args);
 
-          case 3:
-            _context.next = 5;
-            return publish(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -2945,11 +2801,6 @@ yargs.command('save [message]', 'Saves latest changes to GitHub', function (yarg
     alias: 'r',
     describe: 'The name of the repo to download',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -2961,15 +2812,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            save(args);
 
-          case 3:
-            _context.next = 5;
-            return save(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -3001,14 +2846,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('start', 'Start a development server', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
+yargs.command('start', 'Start a development server', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -3018,15 +2856,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            start(args);
 
-          case 3:
-            _context.next = 5;
-            return start(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -3102,11 +2934,6 @@ yargs.command('unarchive [project]', 'Unarchives a project', function (yargs) {
     alias: 'p',
     describe: 'The name of the project to unarchive',
     type: 'string'
-  }).option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
   });
 },
 /*#__PURE__*/
@@ -3118,15 +2945,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            unarchive(args);
 
-          case 3:
-            _context.next = 5;
-            return unarchive(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -3168,14 +2989,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('which', 'Find out what the active project is', function (yargs) {
-  yargs.option('verbose', {
-    alias: 'v',
-    describe: 'Log to the console',
-    type: 'boolean',
-    "default": true
-  });
-},
+yargs.command('which', 'Find out what the active project is', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -3185,15 +2999,9 @@ function () {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            setVerboseMode(args.verbose);
-            _context.next = 3;
-            return healthChecks();
+            which(args);
 
-          case 3:
-            _context.next = 5;
-            return which(args);
-
-          case 5:
+          case 1:
           case "end":
             return _context.stop();
         }
@@ -3206,5 +3014,184 @@ function () {
   };
 }());
 
+var name = "@politico/artisan";
+var version = "0.0.6";
+var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
+var main = "dist/index.js";
+var module$1 = "dist/module.js";
+var bin = {
+	art: "dist/cli.js"
+};
+var directories = {
+	example: "example"
+};
+var scripts$1 = {
+	test: "echo \"Error: no test specified\" && exit 1",
+	start: "nodemon --ignore dist --ignore example --exec npm run build",
+	build: "rollup --config config/rollup.es.js",
+	postbuild: "node ./bin/post-build.js",
+	cli: "node ./dist/cli.js"
+};
+var author = "";
+var license = "ISC";
+var devDependencies = {
+	"@babel/cli": "^7.1.0",
+	"@babel/core": "^7.1.0",
+	"@babel/plugin-proposal-class-properties": "^7.3.4",
+	"@babel/plugin-transform-runtime": "^7.4.0",
+	"@babel/preset-env": "^7.4.2",
+	"@babel/preset-react": "^7.0.0",
+	"@babel/register": "^7.0.0",
+	"babel-core": "7.0.0-bridge.0",
+	"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+	"babel-preset-es2015": "^6.24.1",
+	"expect.js": "^0.3.1",
+	mocha: "^5.2.0",
+	nodemon: "^1.19.1",
+	nyc: "^13.1.0",
+	rollup: "^1.7.3",
+	"rollup-plugin-alias": "^1.5.2",
+	"rollup-plugin-babel": "^4.3.2",
+	"rollup-plugin-json": "^4.0.0",
+	"rollup-plugin-node-resolve": "^4.0.1",
+	"rollup-plugin-preserve-shebang": "^0.1.6",
+	yarn: "^1.9.4"
+};
+var dependencies = {
+	"@babel/runtime": "^7.4.2",
+	"@octokit/rest": "^17.1.2",
+	"@politico/interactive-bin": "^1.0.0-beta.17",
+	"@politico/interactive-templates": "^1.2.5",
+	chalk: "^2.4.2",
+	"cli-progress": "^2.1.1",
+	"fs-extra": "^8.1.0",
+	"immutability-helper": "^3.0.1",
+	inquirer: "^7.1.0",
+	lodash: "^4.17.14",
+	"npm-api": "^1.0.0",
+	semver: "^7.1.3",
+	"simple-git": "^1.132.0",
+	slugify: "^1.4.0",
+	yargs: "^13.3.0"
+};
+var meta = {
+	name: name,
+	version: version,
+	description: description,
+	main: main,
+	module: module$1,
+	bin: bin,
+	directories: directories,
+	scripts: scripts$1,
+	author: author,
+	license: license,
+	devDependencies: devDependencies,
+	dependencies: dependencies
+};
+
+var healthCheck = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(argv) {
+    var npm, packagejson, inGoodHealth;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            npm = new NpmApi();
+            _context.next = 3;
+            return npm.repo('@politico/artisan')["package"]();
+
+          case 3:
+            packagejson = _context.sent;
+            inGoodHealth = true;
+
+            if (semver.lt(meta.version, packagejson.version)) {
+              console.log(chalk.yellow("\nIt looks like your version of Artisan is out of date.\nYou should run \"npm install -g @politico/artisan\" to update to version ".concat(chalk.bold(packagejson.version), ".\n")));
+              inGoodHealth = false;
+            }
+
+            return _context.abrupt("return", {
+              healthy: inGoodHealth
+            });
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var installationCheck = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    var confExists;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            if (!(args._[0] === 'install')) {
+              _context.next = 2;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 2:
+            _context.next = 4;
+            return fs.pathExists(CONFIG_PATH);
+
+          case 4:
+            confExists = _context.sent;
+
+            if (confExists) {
+              _context.next = 7;
+              break;
+            }
+
+            throw new Error('Artisan not installed. Please use "art install" before running any commands.');
+
+          case 7:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var setVerboseMode = (function (active) {
+  if (active) {
+    process.env.VERBOSE_MODE = true;
+  } else {
+    process.env.VERBOSE_MODE = false;
+  }
+});
+
+var verbose = (function (args) {
+  var verbose = typeof args.verbose === 'undefined' ? true : args.verbose;
+  setVerboseMode(verbose);
+  return {};
+});
+
 yargs // eslint-disable-line
-.help().scriptName('art').argv;
+.usage('Usage:\n  $0 <command> [options]').scriptName('art').middleware(installationCheck).middleware(healthCheck).middleware(verbose).option('verbose', {
+  type: 'boolean',
+  alias: 'v',
+  describe: 'Log info & errors to the console',
+  "default": true,
+  global: true
+}).recommendCommands().demandCommand().help('howto').argv;

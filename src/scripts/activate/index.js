@@ -1,10 +1,16 @@
 import { log } from 'Utils/console.js';
 import selectProject from 'Utils/selectProject';
-import { updateConf, getProjects, getActiveProject } from 'Utils/conf/index.js';
+import { updateConf, getProjects, getActiveProject, isActiveProject } from 'Utils/conf/index.js';
 
 export default async(opts = {}) => {
   const allProjects = await getProjects();
-  const activeProject = await getActiveProject();
+  const isProject = await isActiveProject();
+
+  let activeProject;
+  if (isProject) {
+    activeProject = await getActiveProject();
+  }
+
   const allProjectsNotActive = allProjects
     .filter(
       p => activeProject ?
