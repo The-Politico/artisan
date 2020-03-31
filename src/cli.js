@@ -11,7 +11,6 @@ import './scripts/download/cmd';
 import './scripts/install/cmd';
 import './scripts/new/cmd';
 import './scripts/open/cmd';
-import './scripts/preview/cmd';
 import './scripts/pub/cmd';
 import './scripts/save/cmd';
 import './scripts/start/cmd';

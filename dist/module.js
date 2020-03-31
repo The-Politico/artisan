@@ -2193,51 +2193,136 @@ _regeneratorRuntime.mark(function _callee() {
 }));
 
 var index$b = /*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-_regeneratorRuntime.mark(function _callee() {
-  var project, _ref2, confirm;
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var environment, staging, production, project, inquiry, _ref3, confirm;
 
-  return _regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return getActiveProject();
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            environment = _ref.environment, staging = _ref.staging, production = _ref.production;
+            _context.next = 3;
+            return getActiveProject();
 
-        case 2:
-          project = _context.sent;
-          _context.next = 5;
-          return inquirer.prompt([{
-            type: 'confirm',
-            name: 'confirm',
-            message: "Are you sure you want to publish \"".concat(project.name, "\"? This will make it live on the internet for anyone with the link to see."),
-            defualt: true
-          }]);
+          case 3:
+            project = _context.sent;
 
-        case 5:
-          _ref2 = _context.sent;
-          confirm = _ref2.confirm;
+            if (project) {
+              _context.next = 6;
+              break;
+            }
 
-          if (confirm) {
-            _context.next = 10;
+            return _context.abrupt("return");
+
+          case 6:
+            if (environment) {
+              _context.next = 19;
+              break;
+            }
+
+            if (!(production && !staging)) {
+              _context.next = 11;
+              break;
+            }
+
+            environment = 'production';
+            _context.next = 19;
             break;
-          }
 
-          log('The project will not be published', 'info');
-          return _context.abrupt("return");
+          case 11:
+            if (!(staging && !production)) {
+              _context.next = 15;
+              break;
+            }
 
-        case 10:
-          _context.next = 12;
-          return exec('npm run pubProduction');
+            environment = 'staging';
+            _context.next = 19;
+            break;
 
-        case 12:
-        case "end":
-          return _context.stop();
+          case 15:
+            _context.next = 17;
+            return inquirer.prompt([{
+              type: 'list',
+              name: 'env',
+              message: "Where would you like to publish \"".concat(project.name, "\""),
+              choices: [{
+                name: 'Staging (POLITICO VPN/WiFi Access Only)',
+                value: 'staging'
+              }, {
+                name: 'Production (Public Access)',
+                value: 'production'
+              }]
+            }]);
+
+          case 17:
+            inquiry = _context.sent;
+            environment = inquiry.env;
+
+          case 19:
+            if (!(environment === 'production')) {
+              _context.next = 31;
+              break;
+            }
+
+            _context.next = 22;
+            return inquirer.prompt([{
+              type: 'confirm',
+              name: 'confirm',
+              message: "Are you sure you want to publish \"".concat(project.name, "\"? This will make it live on the internet for anyone with the link to see."),
+              defualt: true
+            }]);
+
+          case 22:
+            _ref3 = _context.sent;
+            confirm = _ref3.confirm;
+
+            if (confirm) {
+              _context.next = 27;
+              break;
+            }
+
+            log('The project will not be published', 'info');
+            return _context.abrupt("return");
+
+          case 27:
+            _context.next = 29;
+            return exec('npm run pubProduction');
+
+          case 29:
+            _context.next = 37;
+            break;
+
+          case 31:
+            if (!(environment === 'staging')) {
+              _context.next = 36;
+              break;
+            }
+
+            _context.next = 34;
+            return exec('npm run pubStaging');
+
+          case 34:
+            _context.next = 37;
+            break;
+
+          case 36:
+            log("\"".concat(environment, "\" is not a valid environment."), 'error');
+
+          case 37:
+          case "end":
+            return _context.stop();
+        }
       }
-    }
-  }, _callee);
-}));
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
 
 var index$c = /*#__PURE__*/
 (function () {
