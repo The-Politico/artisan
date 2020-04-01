@@ -3082,7 +3082,7 @@ function () {
 }());
 
 var name = "@politico/artisan";
-var version = "0.0.12";
+var version = "0.0.13";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
