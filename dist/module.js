@@ -2564,7 +2564,7 @@ _regeneratorRuntime.mark(function _callee() {
 }));
 
 var name = "@politico/artisan";
-var version = "0.0.9";
+var version = "0.0.10";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module = "dist/module.js";
