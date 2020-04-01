@@ -1855,7 +1855,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-yargs.command('github [project]', 'Opens the active project\'s GitHub page.', function (yargs) {},
+yargs.command('github', 'Opens the active project\'s GitHub page.', function (yargs) {},
 /*#__PURE__*/
 function () {
   var _ref = _asyncToGenerator(
@@ -3099,7 +3099,7 @@ function () {
 }());
 
 var name = "@politico/artisan";
-var version = "0.0.15";
+var version = "0.0.16";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";

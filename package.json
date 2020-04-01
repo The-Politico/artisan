@@ -1,6 +1,6 @@
 {
   "name": "@politico/artisan",
-  "version": "0.0.15",
+  "version": "0.0.16",
   "description": "A suite of tools for creating & managing Adobe Illustrator based embeds.",
   "main": "dist/index.js",
   "module": "dist/module.js",
