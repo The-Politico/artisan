@@ -6,6 +6,10 @@ import selectIllustration from 'Utils/selectIllustration';
 
 export default async({ illustration }) => {
   const illos = await getActiveIllustrations();
+  if (!illos) {
+    return;
+  }
+
   let selection = illustration;
 
   if (keys(illos).length === 1) {

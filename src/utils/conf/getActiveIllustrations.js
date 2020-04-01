@@ -8,7 +8,7 @@ export default async() => {
   const activeProject = await getActiveProject();
 
   if (!activeProject) {
-    log('2 There is no active project. Please activate a project using the "activate" command.', 'error');
+    log('There is no active project. Please activate a project using the "activate" command.', 'error');
   } else {
     illustrations = activeProject.illustrations;
   }

@@ -250,7 +250,7 @@ _regeneratorRuntime.mark(function _callee() {
           activeProject = _context.sent;
 
           if (!activeProject) {
-            log('2 There is no active project. Please activate a project using the "activate" command.', 'error');
+            log('There is no active project. Please activate a project using the "activate" command.', 'error');
           } else {
             illustrations = activeProject.illustrations;
           }
@@ -2290,19 +2290,28 @@ var index$9 = /*#__PURE__*/
 
           case 3:
             illos = _context.sent;
+
+            if (illos) {
+              _context.next = 6;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 6:
             selection = illustration;
 
             if (!(keys(illos).length === 1)) {
-              _context.next = 9;
+              _context.next = 11;
               break;
             }
 
             selection = keys(illos)[0];
-            _context.next = 12;
+            _context.next = 14;
             break;
 
-          case 9:
-            _context.next = 11;
+          case 11:
+            _context.next = 13;
             return selectIllustration(illustration, {
               noneAvailable: 'No illustrations found in active project.',
               question: 'Which illustration would you like to open? (Don\'t see what you\'re looking for? Try changing the active project.)',
@@ -2311,22 +2320,22 @@ var index$9 = /*#__PURE__*/
               }
             });
 
-          case 11:
+          case 13:
             selection = _context.sent;
 
-          case 12:
+          case 14:
             if (selection) {
-              _context.next = 14;
+              _context.next = 16;
               break;
             }
 
             return _context.abrupt("return");
 
-          case 14:
-            _context.next = 16;
+          case 16:
+            _context.next = 18;
             return exec("open \"illustrations/".concat(selection, "/").concat(selection, ".ai\""));
 
-          case 16:
+          case 18:
           case "end":
             return _context.stop();
         }
@@ -2610,7 +2619,7 @@ _regeneratorRuntime.mark(function _callee() {
 }));
 
 var name = "@politico/artisan";
-var version = "0.0.13";
+var version = "0.0.14";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
