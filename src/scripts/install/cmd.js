@@ -11,7 +11,6 @@ yargs.command(
         alias: 'i',
         describe: 'Adobe Illustrator app location',
         type: 'string',
-        default: '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app',
       });
   },
   async(args) => {

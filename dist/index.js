@@ -1621,11 +1621,16 @@ var access = /*#__PURE__*/
             throw _context.t0;
 
           case 19:
+            _context.prev = 19;
+            log('');
+            return _context.finish(19);
+
+          case 22:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[1, 11]]);
+    }, _callee, null, [[1, 11, 19, 22]]);
   }));
 
   return function (_x, _x2) {
@@ -1643,38 +1648,40 @@ var config = /*#__PURE__*/
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
+            log('');
             log("[".concat(step[0], "/").concat(step[1], "] Checking for config..."));
-            _context.next = 3;
+            log('');
+            _context.next = 5;
             return fs.ensureFile(CONFIG_PATH);
 
-          case 3:
+          case 5:
             initialConf = {
               active: null,
               projects: {},
               illustratorLoc: illustrator
             };
-            _context.next = 6;
+            _context.next = 8;
             return fs.readFile(CONFIG_PATH, 'utf8');
 
-          case 6:
+          case 8:
             confRaw = _context.sent;
 
             if (!(confRaw.length === 0)) {
-              _context.next = 12;
+              _context.next = 14;
               break;
             }
 
-            _context.next = 10;
+            _context.next = 12;
             return fs.outputJson(CONFIG_PATH, initialConf);
 
-          case 10:
-            _context.next = 13;
+          case 12:
+            _context.next = 15;
             break;
 
-          case 12:
+          case 14:
             updateConf(initialConf);
 
-          case 13:
+          case 15:
           case "end":
             return _context.stop();
         }
@@ -1707,8 +1714,9 @@ var scripts = /*#__PURE__*/
 
           case 6:
             log('Installed ai2jsx-config.json', 'info');
+            log('');
 
-          case 7:
+          case 8:
           case "end":
             return _context.stop();
         }
@@ -1799,6 +1807,9 @@ var templates = /*#__PURE__*/
             return interactiveTemplates.register('The-Politico/template_graphic-embed-illustration', false);
 
           case 15:
+            log('');
+
+          case 16:
           case "end":
             return _context2.stop();
         }
@@ -1812,6 +1823,7 @@ var templates = /*#__PURE__*/
 })();
 
 var STEPS_COUNT = 4;
+var DEFAULT_INSTALLATION = '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app';
 function index$7 (_x) {
   return _ref2.apply(this, arguments);
 }
@@ -1820,7 +1832,7 @@ function _ref2() {
   _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var illustrator, destination, verbose, success, hasAccess;
+    var illustrator, destination, verbose, success, confExists, conf, hasAccess;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -1828,41 +1840,78 @@ function _ref2() {
             illustrator = _ref.illustrator, destination = _ref.destination, verbose = _ref.verbose;
             success = true;
 
-            if (!destination) {
-              destination = path.join(path.dirname(illustrator), 'Presets.localized/en_US/Scripts/');
-            }
-
-            log("Installing ai2jsx at ".concat(chalk.bold(destination), "."));
-            _context.next = 6;
-            return config(illustrator, destination, [1, STEPS_COUNT]);
-
-          case 6:
-            _context.next = 8;
-            return templates(destination, [2, STEPS_COUNT]);
-
-          case 8:
-            _context.next = 10;
-            return access(destination, [3, STEPS_COUNT]);
-
-          case 10:
-            hasAccess = _context.sent;
-
-            if (!hasAccess) {
+            if (destination) {
               _context.next = 16;
               break;
             }
 
-            _context.next = 14;
-            return scripts(destination, [4, STEPS_COUNT]);
+            _context.next = 5;
+            return fs.pathExists(CONFIG_PATH);
 
-          case 14:
-            _context.next = 17;
+          case 5:
+            confExists = _context.sent;
+
+            if (!(!illustrator && confExists)) {
+              _context.next = 13;
+              break;
+            }
+
+            _context.next = 9;
+            return readConf();
+
+          case 9:
+            conf = _context.sent;
+
+            if (conf.illustratorLoc) {
+              illustrator = conf.illustratorLoc;
+              destination = path.join(path.dirname(conf.illustratorLoc), 'Presets.localized/en_US/Scripts/');
+              log('Previous installation found.', 'info');
+            } else {
+              illustrator = DEFAULT_INSTALLATION;
+              destination = path.join(path.dirname(DEFAULT_INSTALLATION), 'Presets.localized/en_US/Scripts/');
+              log('No installation location provided. Using default location.', 'info');
+            }
+
+            _context.next = 16;
             break;
 
+          case 13:
+            illustrator = DEFAULT_INSTALLATION;
+            destination = path.join(path.dirname(DEFAULT_INSTALLATION), 'Presets.localized/en_US/Scripts/');
+            log('No installation location provided. Using default location.', 'info');
+
           case 16:
+            log("Installing ai2jsx at ".concat(chalk.bold(destination), "."));
+            _context.next = 19;
+            return config(illustrator, destination, [1, STEPS_COUNT]);
+
+          case 19:
+            _context.next = 21;
+            return templates(destination, [2, STEPS_COUNT]);
+
+          case 21:
+            _context.next = 23;
+            return access(destination, [3, STEPS_COUNT]);
+
+          case 23:
+            hasAccess = _context.sent;
+
+            if (!hasAccess) {
+              _context.next = 29;
+              break;
+            }
+
+            _context.next = 27;
+            return scripts(destination, [4, STEPS_COUNT]);
+
+          case 27:
+            _context.next = 30;
+            break;
+
+          case 29:
             success = false;
 
-          case 17:
+          case 30:
             if (success) {
               log("Artisan was installed (or updated) on your computer.", 'success');
               log("Start a new project by running the \"new project\" command.", 'success');
@@ -1870,7 +1919,7 @@ function _ref2() {
               log("An error occured installing ai2jsx, please check the logs above.", 'error');
             }
 
-          case 18:
+          case 31:
           case "end":
             return _context.stop();
         }

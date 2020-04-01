@@ -11,4 +11,5 @@ export default async(destination, step) => {
 
   await fs.copy(path.join(INSTALL_DIRECTORY, 'ai2jsx-config.json'), path.join(destination, 'ai2jsx-config.json'));
   log('Installed ai2jsx-config.json', 'info');
+  log('');
 };

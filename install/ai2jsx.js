@@ -1220,7 +1220,7 @@ function main() {
 
   function isTestedIllustratorVersion(version) {
     var majorNum = parseInt(version);
-    return majorNum >= 18 && majorNum <= 23; // Illustrator CC 2014 through 2019
+    return majorNum >= 18 && majorNum <= 24; // Illustrator CC 2014 through 2020
   }
 
   function validateArtboardNames(settings) {

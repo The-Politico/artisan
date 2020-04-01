@@ -17,5 +17,7 @@ export default async(destination, step) => {
     } else {
       throw e;
     }
+  } finally {
+    log('');
   }
 };

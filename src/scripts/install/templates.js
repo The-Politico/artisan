@@ -23,4 +23,5 @@ export default async(destination, step) => {
     log('No illustration template found. Installing "The-Politico/template_graphic-embed-illustration"...', 'info');
     await register('The-Politico/template_graphic-embed-illustration', false);
   }
+  log('');
 };
