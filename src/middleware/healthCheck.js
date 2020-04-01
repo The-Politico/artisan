@@ -13,27 +13,29 @@ export default async(args) => {
     };
   }
 
-  log('Performing health checks...', 'info');
-  log('');
-  const [isLatest] = await isLatestVersion();
-
-  if (cmd !== 'update' && !isLatest) {
-    const { confirm } = await inquirer.prompt([{
-      type: 'confirm',
-      name: 'confirm',
-      message: `It looks like your version of Artisan is out of date. Would you like to update it?`,
-      default: true,
-    }]);
-
-    if (confirm) {
-      await update();
-      log('');
-      log(`Update complete. Please run ${cmd} again to use the latest version.`, 'success');
-      process.exit();
-    } else {
-      inGoodHealth = false;
-    }
-  }
+  // // TODO: Make this more sophisticated. Keep track of the last time this was
+  // checked and limit it to once per day.
+  // log('Performing health checks...', 'info');
+  // log('');
+  // const [isLatest] = await isLatestVersion();
+  //
+  // if (cmd !== 'update' && !isLatest) {
+  //   const { confirm } = await inquirer.prompt([{
+  //     type: 'confirm',
+  //     name: 'confirm',
+  //     message: `It looks like your version of Artisan is out of date. Would you like to update it?`,
+  //     default: true,
+  //   }]);
+  //
+  //   if (confirm) {
+  //     await update();
+  //     log('');
+  //     log(`Update complete. Please run ${cmd} again to use the latest version.`, 'success');
+  //     process.exit();
+  //   } else {
+  //     inGoodHealth = false;
+  //   }
+  // }
 
   return {
     healthy: inGoodHealth,

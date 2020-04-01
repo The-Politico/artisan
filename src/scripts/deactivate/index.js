@@ -13,7 +13,7 @@ export default async() => {
     type: 'confirm',
     name: 'confirm',
     message: `Are you sure you want to deactivate the current project: "${project.name}"`,
-    default: true,
+    default: false,
   }]);
 
   if (confirm) {

@@ -23,7 +23,7 @@ export default async({ selection }) => {
     message: selection ?
       `Are you sure you want to delete the illustration "${selection}" in "${projectName}"? THIS CANNOT BE UNDONE!` :
       `Are you sure you want to delete an illustration in "${projectName}"? THIS CANNOT BE UNDONE!`,
-    defualt: true,
+    defualt: false,
   }]);
 
   if (!confirm) {

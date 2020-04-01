@@ -249,6 +249,14 @@ _regeneratorRuntime.mark(function _callee() {
         case 2:
           activeProject = _context.sent;
 
+          if (activeProject) {
+            _context.next = 5;
+            break;
+          }
+
+          return _context.abrupt("return", illustrations);
+
+        case 5:
           if (!activeProject) {
             log('There is no active project. Please activate a project using the "activate" command.', 'error');
           } else {
@@ -257,7 +265,7 @@ _regeneratorRuntime.mark(function _callee() {
 
           return _context.abrupt("return", illustrations);
 
-        case 5:
+        case 7:
         case "end":
           return _context.stop();
       }
@@ -923,7 +931,7 @@ _regeneratorRuntime.mark(function _callee() {
             type: 'confirm',
             name: 'confirm',
             message: "Are you sure you want to deactivate the current project: \"".concat(project.name, "\""),
-            "default": true
+            "default": false
           }]);
 
         case 7:
@@ -1089,7 +1097,7 @@ var illo = /*#__PURE__*/
               type: 'confirm',
               name: 'confirm',
               message: selection ? "Are you sure you want to delete the illustration \"".concat(selection, "\" in \"").concat(projectName, "\"? THIS CANNOT BE UNDONE!") : "Are you sure you want to delete an illustration in \"".concat(projectName, "\"? THIS CANNOT BE UNDONE!"),
-              defualt: true
+              defualt: false
             }]);
 
           case 11:
@@ -1209,7 +1217,7 @@ var project = /*#__PURE__*/
               type: 'confirm',
               name: 'confirm',
               message: "Are you sure you want to delete \"".concat(projectName, "\"? THIS CANNOT BE UNDONE!"),
-              defualt: true
+              defualt: false
             }]);
 
           case 11:
@@ -2774,7 +2782,7 @@ var publish = /*#__PURE__*/
               type: 'confirm',
               name: 'confirm',
               message: "Are you sure you want to publish \"".concat(project.name, "\"? This will make it live on the internet for anyone with the link to see."),
-              defualt: true
+              defualt: false
             }]);
 
           case 22:
@@ -3091,7 +3099,7 @@ function () {
 }());
 
 var name = "@politico/artisan";
-var version = "0.0.14";
+var version = "0.0.15";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
@@ -3278,24 +3286,34 @@ var which = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
-  var project;
+  var isProject, project;
   return _regeneratorRuntime.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
         case 0:
           _context.next = 2;
-          return getActiveProject();
+          return isActiveProject();
 
         case 2:
-          project = _context.sent;
+          isProject = _context.sent;
 
-          if (!project) {
-            log("There is no active project.");
-          } else {
-            log("\"".concat(project.name, "\" is the active project."));
+          if (isProject) {
+            _context.next = 6;
+            break;
           }
 
-        case 4:
+          log("There is no active project.", 'info');
+          return _context.abrupt("return");
+
+        case 6:
+          _context.next = 8;
+          return getActiveProject();
+
+        case 8:
+          project = _context.sent;
+          log("\"".concat(project.name, "\" is the active project."), 'info');
+
+        case 10:
         case "end":
           return _context.stop();
       }
@@ -3333,8 +3351,7 @@ var healthCheck = /*#__PURE__*/
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(args) {
-    var cmd, inGoodHealth, _ref2, _ref3, isLatest, _ref4, confirm;
-
+    var cmd, inGoodHealth;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -3352,57 +3369,11 @@ var healthCheck = /*#__PURE__*/
             });
 
           case 4:
-            log('Performing health checks...', 'info');
-            log('');
-            _context.next = 8;
-            return isLatestVersion();
-
-          case 8:
-            _ref2 = _context.sent;
-            _ref3 = _slicedToArray(_ref2, 1);
-            isLatest = _ref3[0];
-
-            if (!(cmd !== 'update' && !isLatest)) {
-              _context.next = 25;
-              break;
-            }
-
-            _context.next = 14;
-            return inquirer.prompt([{
-              type: 'confirm',
-              name: 'confirm',
-              message: "It looks like your version of Artisan is out of date. Would you like to update it?",
-              "default": true
-            }]);
-
-          case 14:
-            _ref4 = _context.sent;
-            confirm = _ref4.confirm;
-
-            if (!confirm) {
-              _context.next = 24;
-              break;
-            }
-
-            _context.next = 19;
-            return update();
-
-          case 19:
-            log('');
-            log("Update complete. Please run ".concat(cmd, " again to use the latest version."), 'success');
-            process.exit();
-            _context.next = 25;
-            break;
-
-          case 24:
-            inGoodHealth = false;
-
-          case 25:
             return _context.abrupt("return", {
               healthy: inGoodHealth
             });
 
-          case 26:
+          case 5:
           case "end":
             return _context.stop();
         }

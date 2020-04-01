@@ -39,7 +39,7 @@ export default async({ environment, staging, production }) => {
       type: 'confirm',
       name: 'confirm',
       message: `Are you sure you want to publish "${project.name}"? This will make it live on the internet for anyone with the link to see.`,
-      defualt: true,
+      defualt: false,
     }]);
 
     if (!confirm) {

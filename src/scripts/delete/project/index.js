@@ -22,7 +22,7 @@ export default async({ selection }) => {
     type: 'confirm',
     name: 'confirm',
     message: `Are you sure you want to delete "${projectName}"? THIS CANNOT BE UNDONE!`,
-    defualt: true,
+    defualt: false,
   }]);
 
   if (!confirm) {
