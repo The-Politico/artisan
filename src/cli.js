@@ -8,6 +8,7 @@ import './scripts/deactivate/cmd';
 import './scripts/delete/cmd';
 import './scripts/dir/cmd';
 import './scripts/download/cmd';
+import './scripts/github/cmd';
 import './scripts/install/cmd';
 import './scripts/new/cmd';
 import './scripts/open/cmd';

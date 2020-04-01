@@ -8,6 +8,7 @@ export { default as deleteProject } from './delete/project';
 export { default as deleteIllo } from './delete/illo';
 export { default as dir } from './dir';
 export { default as download } from './download';
+export { default as github } from './github';
 export { default as install } from './install';
 export { default as newIndex } from './new';
 export { default as newProject } from './new/project';

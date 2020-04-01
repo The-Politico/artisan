@@ -6,7 +6,6 @@ export default async() => {
   const project = await getActiveProject();
 
   if (!project) {
-    log(`There is no active project.`);
     return;
   }
 

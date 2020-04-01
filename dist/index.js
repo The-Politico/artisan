@@ -22,6 +22,7 @@ var toStartCase = _interopDefault(require('lodash/startCase'));
 var git = _interopDefault(require('simple-git'));
 require('@politico/interactive-bin/dist/scripts/env');
 var { Octokit } = require('@octokit/rest');
+var open = _interopDefault(require('open'));
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
 var _slicedToArray = _interopDefault(require('@babel/runtime/helpers/slicedToArray'));
@@ -798,15 +799,14 @@ _regeneratorRuntime.mark(function _callee() {
           project = _context.sent;
 
           if (project) {
-            _context.next = 6;
+            _context.next = 5;
             break;
           }
 
-          log("There is no active project.");
           return _context.abrupt("return");
 
-        case 6:
-          _context.next = 8;
+        case 5:
+          _context.next = 7;
           return inquirer.prompt([{
             type: 'confirm',
             name: 'confirm',
@@ -814,29 +814,29 @@ _regeneratorRuntime.mark(function _callee() {
             "default": true
           }]);
 
-        case 8:
+        case 7:
           _ref2 = _context.sent;
           confirm = _ref2.confirm;
 
           if (!confirm) {
-            _context.next = 16;
+            _context.next = 15;
             break;
           }
 
-          _context.next = 13;
+          _context.next = 12;
           return updateConf({
             active: null
           });
 
-        case 13:
+        case 12:
           log("No project is active.", 'success');
-          _context.next = 17;
+          _context.next = 16;
           break;
 
-        case 16:
+        case 15:
           log("\"".concat(project.name, "\" is still the active project."), 'success');
 
-        case 17:
+        case 16:
         case "end":
           return _context.stop();
       }
@@ -1580,6 +1580,45 @@ var index$6 = /*#__PURE__*/
   };
 })();
 
+var index$7 = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var project,
+      url;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 3;
+          return getActiveProject();
+
+        case 3:
+          project = _context.sent;
+
+          if (project) {
+            _context.next = 6;
+            break;
+          }
+
+          return _context.abrupt("return");
+
+        case 6:
+          url = "https://github.com/The-Politico/".concat(project.repo, "/");
+          _context.next = 9;
+          return open(url);
+
+        case 9:
+          log("GitHub page \"".concat(url, "\" opened."), 'success');
+
+        case 10:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
 var access = /*#__PURE__*/
 (function () {
   var _ref = _asyncToGenerator(
@@ -2166,7 +2205,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee, null, [[10, 25]]);
 }));
 
-var index$7 = /*#__PURE__*/
+var index$8 = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2235,7 +2274,7 @@ var index$7 = /*#__PURE__*/
   };
 })();
 
-var index$8 = /*#__PURE__*/
+var index$9 = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2300,7 +2339,7 @@ var index$8 = /*#__PURE__*/
   };
 })();
 
-var index$9 = /*#__PURE__*/
+var index$a = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2432,7 +2471,7 @@ var index$9 = /*#__PURE__*/
   };
 })();
 
-var index$a = /*#__PURE__*/
+var index$b = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2493,7 +2532,7 @@ var index$a = /*#__PURE__*/
   };
 })();
 
-var index$b = /*#__PURE__*/
+var index$c = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2512,7 +2551,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$c = /*#__PURE__*/
+var index$d = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2625,6 +2664,7 @@ var dependencies = {
 	inquirer: "^7.1.0",
 	lodash: "^4.17.14",
 	"npm-api": "^1.0.0",
+	open: "^7.0.3",
 	semver: "^7.1.3",
 	"simple-git": "^1.132.0",
 	slugify: "^1.4.0",
@@ -2676,7 +2716,7 @@ var isLatestVersion = /*#__PURE__*/
   };
 })();
 
-var index$d = /*#__PURE__*/
+var index$e = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2728,7 +2768,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$e = /*#__PURE__*/
+var index$f = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2767,14 +2807,15 @@ exports.deleteIndex = index$4;
 exports.deleteProject = project;
 exports.dir = index$5;
 exports.download = index$6;
+exports.github = index$7;
 exports.install = install;
 exports.newIllo = illo$1;
-exports.newIndex = index$7;
+exports.newIndex = index$8;
 exports.newProject = project$1;
-exports.open = index$8;
-exports.pub = index$9;
-exports.save = index$a;
-exports.start = index$b;
-exports.unarchive = index$c;
-exports.update = index$d;
-exports.which = index$e;
+exports.open = index$9;
+exports.pub = index$a;
+exports.save = index$b;
+exports.start = index$c;
+exports.unarchive = index$d;
+exports.update = index$e;
+exports.which = index$f;

@@ -22,6 +22,7 @@ var toStartCase = _interopDefault(require('lodash/startCase'));
 var git = _interopDefault(require('simple-git'));
 require('@politico/interactive-bin/dist/scripts/env');
 var { Octokit } = require('@octokit/rest');
+var open$1 = _interopDefault(require('open'));
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
 var _slicedToArray = _interopDefault(require('@babel/runtime/helpers/slicedToArray'));
@@ -910,15 +911,14 @@ _regeneratorRuntime.mark(function _callee() {
           project = _context.sent;
 
           if (project) {
-            _context.next = 6;
+            _context.next = 5;
             break;
           }
 
-          log("There is no active project.");
           return _context.abrupt("return");
 
-        case 6:
-          _context.next = 8;
+        case 5:
+          _context.next = 7;
           return inquirer.prompt([{
             type: 'confirm',
             name: 'confirm',
@@ -926,29 +926,29 @@ _regeneratorRuntime.mark(function _callee() {
             "default": true
           }]);
 
-        case 8:
+        case 7:
           _ref2 = _context.sent;
           confirm = _ref2.confirm;
 
           if (!confirm) {
-            _context.next = 16;
+            _context.next = 15;
             break;
           }
 
-          _context.next = 13;
+          _context.next = 12;
           return updateConf({
             active: null
           });
 
-        case 13:
+        case 12:
           log("No project is active.", 'success');
-          _context.next = 17;
+          _context.next = 16;
           break;
 
-        case 16:
+        case 15:
           log("\"".concat(project.name, "\" is still the active project."), 'success');
 
-        case 17:
+        case 16:
         case "end":
           return _context.stop();
       }
@@ -1794,6 +1794,70 @@ function () {
         switch (_context.prev = _context.next) {
           case 0:
             download(args);
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var github = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var project,
+      url;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 3;
+          return getActiveProject();
+
+        case 3:
+          project = _context.sent;
+
+          if (project) {
+            _context.next = 6;
+            break;
+          }
+
+          return _context.abrupt("return");
+
+        case 6:
+          url = "https://github.com/The-Politico/".concat(project.repo, "/");
+          _context.next = 9;
+          return open$1(url);
+
+        case 9:
+          log("GitHub page \"".concat(url, "\" opened."), 'success');
+
+        case 10:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('github [project]', 'Opens the active project\'s GitHub page.', function (yargs) {},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            github(args);
 
           case 1:
           case "end":
@@ -3072,6 +3136,7 @@ var dependencies = {
 	inquirer: "^7.1.0",
 	lodash: "^4.17.14",
 	"npm-api": "^1.0.0",
+	open: "^7.0.3",
 	semver: "^7.1.3",
 	"simple-git": "^1.132.0",
 	slugify: "^1.4.0",
