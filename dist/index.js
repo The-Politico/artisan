@@ -2571,7 +2571,7 @@ _regeneratorRuntime.mark(function _callee() {
 }));
 
 var name = "@politico/artisan";
-var version = "0.0.11";
+var version = "0.0.12";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
@@ -2708,7 +2708,7 @@ _regeneratorRuntime.mark(function _callee() {
           return _context.abrupt("return");
 
         case 11:
-          log("A new version of Artisan is available. Installing...", 'info');
+          log("A new version of Artisan is available (v".concat(latestBuild, "). Installing..."), 'info');
           _context.next = 14;
           return exec("npm install -g @politico/artisan@".concat(latestBuild), 'root');
 

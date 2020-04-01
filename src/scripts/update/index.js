@@ -12,7 +12,7 @@ export default async(opts = {}) => {
     return;
   }
 
-  log(`A new version of Artisan is available. Installing...`, 'info');
+  log(`A new version of Artisan is available (v${latestBuild}). Installing...`, 'info');
   await exec(`npm install -g @politico/artisan@${latestBuild}`, 'root');
 
   log(`Updating ai2jsx scripts...`, 'info');
