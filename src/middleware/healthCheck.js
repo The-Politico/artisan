@@ -7,9 +7,17 @@ export default async(args) => {
   const cmd = args._[0];
   let inGoodHealth = true;
 
-  const isItLatestVersion = await isLatestVersion();
+  if (args['skip-health']) {
+    return {
+      healthy: inGoodHealth,
+    };
+  }
 
-  if (cmd !== 'update' && !isItLatestVersion) {
+  log('Performing health checks...', 'info');
+  log('');
+  const [isLatest] = await isLatestVersion();
+
+  if (cmd !== 'update' && !isLatest) {
     const { confirm } = await inquirer.prompt([{
       type: 'confirm',
       name: 'confirm',

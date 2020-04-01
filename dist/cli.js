@@ -24,6 +24,7 @@ require('@politico/interactive-bin/dist/scripts/env');
 var { Octokit } = require('@octokit/rest');
 var interactiveTemplates = require('@politico/interactive-templates');
 var slugify = _interopDefault(require('slugify'));
+var _slicedToArray = _interopDefault(require('@babel/runtime/helpers/slicedToArray'));
 var semver = _interopDefault(require('semver'));
 var NpmApi = _interopDefault(require('npm-api'));
 
@@ -3017,7 +3018,7 @@ function () {
 }());
 
 var name = "@politico/artisan";
-var version = "0.0.10";
+var version = "0.0.11";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
@@ -3107,7 +3108,7 @@ var isLatestVersion = /*#__PURE__*/
 
           case 3:
             packagejson = _context.sent;
-            return _context.abrupt("return", !semver.lt(meta.version, packagejson.version));
+            return _context.abrupt("return", [!semver.lt(meta.version, packagejson.version), packagejson.version]);
 
           case 5:
           case "end":
@@ -3126,7 +3127,11 @@ var update = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
-  var isLatest;
+  var _ref2,
+      _ref3,
+      isLatest,
+      latestBuild;
+
   return _regeneratorRuntime.wrap(function _callee$(_context) {
     while (1) {
       switch (_context.prev = _context.next) {
@@ -3136,30 +3141,33 @@ _regeneratorRuntime.mark(function _callee() {
           return isLatestVersion();
 
         case 4:
-          isLatest = _context.sent;
+          _ref2 = _context.sent;
+          _ref3 = _slicedToArray(_ref2, 2);
+          isLatest = _ref3[0];
+          latestBuild = _ref3[1];
 
           if (!isLatest) {
-            _context.next = 8;
+            _context.next = 11;
             break;
           }
 
           log('Artisan is already up to date.', 'success');
           return _context.abrupt("return");
 
-        case 8:
-          log("A new version of Artisan is available. Installing...", 'info');
-          _context.next = 11;
-          return exec('npm install -g @politico/artisan', 'root');
-
         case 11:
-          log("Updating ai2jsx scripts...", 'info');
+          log("A new version of Artisan is available. Installing...", 'info');
           _context.next = 14;
-          return install();
+          return exec("npm install -g @politico/artisan@".concat(latestBuild), 'root');
 
         case 14:
-          log("Artisan has been updated.", 'success');
+          log("Updating ai2jsx scripts...", 'info');
+          _context.next = 17;
+          return install();
 
-        case 15:
+        case 17:
+          log("Artisan has been updated to version ".concat(latestBuild, "."), 'success');
+
+        case 18:
         case "end":
           return _context.stop();
       }
@@ -3251,7 +3259,7 @@ var healthCheck = /*#__PURE__*/
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(args) {
-    var cmd, inGoodHealth, isItLatestVersion, _ref2, confirm;
+    var cmd, inGoodHealth, _ref2, _ref3, isLatest, _ref4, confirm;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
@@ -3259,18 +3267,33 @@ var healthCheck = /*#__PURE__*/
           case 0:
             cmd = args._[0];
             inGoodHealth = true;
-            _context.next = 4;
-            return isLatestVersion();
 
-          case 4:
-            isItLatestVersion = _context.sent;
-
-            if (!(cmd !== 'update' && !isItLatestVersion)) {
-              _context.next = 19;
+            if (!args['skip-health']) {
+              _context.next = 4;
               break;
             }
 
+            return _context.abrupt("return", {
+              healthy: inGoodHealth
+            });
+
+          case 4:
+            log('Performing health checks...', 'info');
+            log('');
             _context.next = 8;
+            return isLatestVersion();
+
+          case 8:
+            _ref2 = _context.sent;
+            _ref3 = _slicedToArray(_ref2, 1);
+            isLatest = _ref3[0];
+
+            if (!(cmd !== 'update' && !isLatest)) {
+              _context.next = 25;
+              break;
+            }
+
+            _context.next = 14;
             return inquirer.prompt([{
               type: 'confirm',
               name: 'confirm',
@@ -3278,34 +3301,34 @@ var healthCheck = /*#__PURE__*/
               "default": true
             }]);
 
-          case 8:
-            _ref2 = _context.sent;
-            confirm = _ref2.confirm;
+          case 14:
+            _ref4 = _context.sent;
+            confirm = _ref4.confirm;
 
             if (!confirm) {
-              _context.next = 18;
+              _context.next = 24;
               break;
             }
 
-            _context.next = 13;
+            _context.next = 19;
             return update();
 
-          case 13:
+          case 19:
             log('');
             log("Update complete. Please run ".concat(cmd, " again to use the latest version."), 'success');
             process.exit();
-            _context.next = 19;
+            _context.next = 25;
             break;
 
-          case 18:
+          case 24:
             inGoodHealth = false;
 
-          case 19:
+          case 25:
             return _context.abrupt("return", {
               healthy: inGoodHealth
             });
 
-          case 20:
+          case 26:
           case "end":
             return _context.stop();
         }
@@ -3380,5 +3403,10 @@ yargs // eslint-disable-line
   alias: 'v',
   describe: 'Log info & errors to the console',
   "default": true,
+  global: true
+}).option('skip-health', {
+  type: 'boolean',
+  describe: 'Skip the health checks',
+  "default": false,
   global: true
 }).recommendCommands().demandCommand().help('howto').argv;

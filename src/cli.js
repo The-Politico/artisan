@@ -35,6 +35,13 @@ yargs // eslint-disable-line
     global: true,
   })
 
+  .option('skip-health', {
+    type: 'boolean',
+    describe: 'Skip the health checks',
+    default: false,
+    global: true,
+  })
+
   .recommendCommands()
   .demandCommand()
   .help('howto')
