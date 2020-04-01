@@ -15,7 +15,7 @@ const STEPS_COUNT = 4;
 
 const DEFAULT_INSTALLATION = '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app';
 
-export default async function({ illustrator, destination, verbose }) {
+export default async function({ illustrator, destination } = {}) {
   let success = true;
 
   if (!destination) {

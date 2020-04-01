@@ -18,6 +18,8 @@ import '@politico/interactive-bin/dist/scripts/env';
 import { Octokit } from '@octokit/rest';
 import { register, getGlobalConfig, newProject } from '@politico/interactive-templates';
 import slugify from 'slugify';
+import semver from 'semver';
+import NpmApi from 'npm-api';
 
 var Logger = function Logger() {
   var _this = this;
@@ -1818,20 +1820,28 @@ var templates = /*#__PURE__*/
 
 var STEPS_COUNT = 4;
 var DEFAULT_INSTALLATION = '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app';
-function index$7 (_x) {
-  return _ref2.apply(this, arguments);
+function install () {
+  return _ref.apply(this, arguments);
 }
 
-function _ref2() {
-  _ref2 = _asyncToGenerator(
+function _ref() {
+  _ref = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(_ref) {
-    var illustrator, destination, verbose, success, confExists, conf, hasAccess;
+  _regeneratorRuntime.mark(function _callee() {
+    var _ref2,
+        illustrator,
+        destination,
+        success,
+        confExists,
+        conf,
+        hasAccess,
+        _args = arguments;
+
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            illustrator = _ref.illustrator, destination = _ref.destination, verbose = _ref.verbose;
+            _ref2 = _args.length > 0 && _args[0] !== undefined ? _args[0] : {}, illustrator = _ref2.illustrator, destination = _ref2.destination;
             success = true;
 
             if (destination) {
@@ -1920,7 +1930,7 @@ function _ref2() {
       }
     }, _callee);
   }));
-  return _ref2.apply(this, arguments);
+  return _ref.apply(this, arguments);
 }
 
 var illo$1 = /*#__PURE__*/
@@ -2149,7 +2159,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee, null, [[10, 25]]);
 }));
 
-var index$8 = /*#__PURE__*/
+var index$7 = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2218,7 +2228,7 @@ var index$8 = /*#__PURE__*/
   };
 })();
 
-var index$9 = /*#__PURE__*/
+var index$8 = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2283,7 +2293,7 @@ var index$9 = /*#__PURE__*/
   };
 })();
 
-var index$a = /*#__PURE__*/
+var index$9 = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2415,7 +2425,7 @@ var index$a = /*#__PURE__*/
   };
 })();
 
-var index$b = /*#__PURE__*/
+var index$a = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
@@ -2476,7 +2486,7 @@ var index$b = /*#__PURE__*/
   };
 })();
 
-var index$c = /*#__PURE__*/
+var index$b = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2495,7 +2505,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$d = /*#__PURE__*/
+var index$c = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2553,6 +2563,157 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
+var name = "@politico/artisan";
+var version = "0.0.9";
+var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
+var main = "dist/index.js";
+var module = "dist/module.js";
+var bin = {
+	art: "dist/cli.js"
+};
+var directories = {
+	example: "example"
+};
+var scripts$1 = {
+	test: "echo \"Error: no test specified\" && exit 1",
+	start: "nodemon --ignore dist --ignore example --exec npm run build",
+	build: "rollup --config config/rollup.es.js",
+	postbuild: "node ./bin/post-build.js",
+	cli: "node ./dist/cli.js"
+};
+var author = "";
+var license = "ISC";
+var devDependencies = {
+	"@babel/cli": "^7.1.0",
+	"@babel/core": "^7.1.0",
+	"@babel/plugin-proposal-class-properties": "^7.3.4",
+	"@babel/plugin-transform-runtime": "^7.4.0",
+	"@babel/preset-env": "^7.4.2",
+	"@babel/preset-react": "^7.0.0",
+	"@babel/register": "^7.0.0",
+	"babel-core": "7.0.0-bridge.0",
+	"babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+	"babel-preset-es2015": "^6.24.1",
+	"expect.js": "^0.3.1",
+	mocha: "^5.2.0",
+	nodemon: "^1.19.1",
+	nyc: "^13.1.0",
+	rollup: "^1.7.3",
+	"rollup-plugin-alias": "^1.5.2",
+	"rollup-plugin-babel": "^4.3.2",
+	"rollup-plugin-json": "^4.0.0",
+	"rollup-plugin-node-resolve": "^4.0.1",
+	"rollup-plugin-preserve-shebang": "^0.1.6",
+	yarn: "^1.9.4"
+};
+var dependencies = {
+	"@babel/runtime": "^7.4.2",
+	"@octokit/rest": "^17.1.2",
+	"@politico/interactive-bin": "^1.0.0-beta.17",
+	"@politico/interactive-templates": "^1.2.5",
+	chalk: "^2.4.2",
+	"cli-progress": "^2.1.1",
+	"fs-extra": "^8.1.0",
+	"immutability-helper": "^3.0.1",
+	inquirer: "^7.1.0",
+	lodash: "^4.17.14",
+	"npm-api": "^1.0.0",
+	semver: "^7.1.3",
+	"simple-git": "^1.132.0",
+	slugify: "^1.4.0",
+	yargs: "^13.3.0"
+};
+var meta = {
+	name: name,
+	version: version,
+	description: description,
+	main: main,
+	module: module,
+	bin: bin,
+	directories: directories,
+	scripts: scripts$1,
+	author: author,
+	license: license,
+	devDependencies: devDependencies,
+	dependencies: dependencies
+};
+
+var isLatestVersion = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(argv) {
+    var npm, packagejson;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            npm = new NpmApi();
+            _context.next = 3;
+            return npm.repo('@politico/artisan')["package"]();
+
+          case 3:
+            packagejson = _context.sent;
+            return _context.abrupt("return", !semver.lt(meta.version, packagejson.version));
+
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var index$d = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var isLatest;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          log('Checking for latest version...', 'info');
+          _context.next = 4;
+          return isLatestVersion();
+
+        case 4:
+          isLatest = _context.sent;
+
+          if (!isLatest) {
+            _context.next = 8;
+            break;
+          }
+
+          log('Artisan is already up to date.', 'success');
+          return _context.abrupt("return");
+
+        case 8:
+          log("A new version of Artisan is available. Installing...", 'info');
+          _context.next = 11;
+          return exec('npm install -g @politico/artisan', 'root');
+
+        case 11:
+          log("Updating ai2jsx scripts...", 'info');
+          _context.next = 14;
+          return install();
+
+        case 14:
+          log("Artisan has been updated.", 'success');
+
+        case 15:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
 var index$e = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
@@ -2582,4 +2743,4 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-export { activate, index as archive, index$1 as code, index$2 as conf, index$3 as deactivate, illo as deleteIllo, index$4 as deleteIndex, project as deleteProject, index$5 as dir, index$6 as download, index$7 as install, illo$1 as newIllo, index$8 as newIndex, project$1 as newProject, index$9 as open, index$a as pub, index$b as save, index$c as start, index$d as unarchive, index$e as which };
+export { activate, index as archive, index$1 as code, index$2 as conf, index$3 as deactivate, illo as deleteIllo, index$4 as deleteIndex, project as deleteProject, index$5 as dir, index$6 as download, install, illo$1 as newIllo, index$7 as newIndex, project$1 as newProject, index$8 as open, index$9 as pub, index$a as save, index$b as start, index$c as unarchive, index$d as update, index$e as which };

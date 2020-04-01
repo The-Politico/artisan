@@ -17,4 +17,5 @@ export { default as pub } from './pub';
 export { default as save } from './save';
 export { default as start } from './start';
 export { default as unarchive } from './unarchive';
+export { default as update } from './update';
 export { default as which } from './which';

@@ -15,6 +15,7 @@ import './scripts/pub/cmd';
 import './scripts/save/cmd';
 import './scripts/start/cmd';
 import './scripts/unarchive/cmd';
+import './scripts/update/cmd';
 import './scripts/which/cmd';
 
 import { healthCheck, verbose, installationCheck } from './middleware';
@@ -22,9 +23,10 @@ import { healthCheck, verbose, installationCheck } from './middleware';
 yargs // eslint-disable-line
   .usage('Usage:\n  $0 <command> [options]')
   .scriptName('art')
+  .middleware(verbose)
   .middleware(installationCheck)
   .middleware(healthCheck)
-  .middleware(verbose)
+
   .option('verbose', {
     type: 'boolean',
     alias: 'v',
@@ -32,6 +34,7 @@ yargs // eslint-disable-line
     default: true,
     global: true,
   })
+
   .recommendCommands()
   .demandCommand()
   .help('howto')

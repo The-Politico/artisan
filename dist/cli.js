@@ -15,7 +15,7 @@ var fs = _interopDefault(require('fs-extra'));
 var path = _interopDefault(require('path'));
 var os = _interopDefault(require('os'));
 var keys = _interopDefault(require('lodash/keys'));
-var update = _interopDefault(require('immutability-helper'));
+var update$1 = _interopDefault(require('immutability-helper'));
 var merge = _interopDefault(require('lodash/merge'));
 var child_process = require('child_process');
 var toStartCase = _interopDefault(require('lodash/startCase'));
@@ -401,7 +401,7 @@ var removeIllustrationFromConf = /*#__PURE__*/
             updateSignature.projects[project].illustrations = {
               $unset: [illustration]
             };
-            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update$1(conf, updateSignature), {
               spaces: 2
             }));
 
@@ -437,7 +437,7 @@ var removeProjectFromConf = /*#__PURE__*/
             updateSignature.projects = {
               $unset: [project]
             };
-            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update$1(conf, updateSignature), {
               spaces: 2
             }));
 
@@ -509,7 +509,7 @@ var updateConf = /*#__PURE__*/
                 }
               }
             });
-            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update(conf, updateSignature), {
+            return _context.abrupt("return", fs.outputJson(CONFIG_PATH, update$1(conf, updateSignature), {
               spaces: 2
             }));
 
@@ -2054,20 +2054,28 @@ var templates = /*#__PURE__*/
 
 var STEPS_COUNT = 4;
 var DEFAULT_INSTALLATION = '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app';
-function install (_x) {
-  return _ref2.apply(this, arguments);
+function install () {
+  return _ref.apply(this, arguments);
 }
 
-function _ref2() {
-  _ref2 = _asyncToGenerator(
+function _ref() {
+  _ref = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(_ref) {
-    var illustrator, destination, verbose, success, confExists, conf, hasAccess;
+  _regeneratorRuntime.mark(function _callee() {
+    var _ref2,
+        illustrator,
+        destination,
+        success,
+        confExists,
+        conf,
+        hasAccess,
+        _args = arguments;
+
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            illustrator = _ref.illustrator, destination = _ref.destination, verbose = _ref.verbose;
+            _ref2 = _args.length > 0 && _args[0] !== undefined ? _args[0] : {}, illustrator = _ref2.illustrator, destination = _ref2.destination;
             success = true;
 
             if (destination) {
@@ -2156,7 +2164,7 @@ function _ref2() {
       }
     }, _callee);
   }));
-  return _ref2.apply(this, arguments);
+  return _ref.apply(this, arguments);
 }
 
 yargs.command('install [illustrator]', 'Installs ai2jsx on your computer', function (yargs) {
@@ -3008,62 +3016,8 @@ function () {
   };
 }());
 
-var which = /*#__PURE__*/
-_asyncToGenerator(
-/*#__PURE__*/
-_regeneratorRuntime.mark(function _callee() {
-  var project;
-  return _regeneratorRuntime.wrap(function _callee$(_context) {
-    while (1) {
-      switch (_context.prev = _context.next) {
-        case 0:
-          _context.next = 2;
-          return getActiveProject();
-
-        case 2:
-          project = _context.sent;
-
-          if (!project) {
-            log("There is no active project.");
-          } else {
-            log("\"".concat(project.name, "\" is the active project."));
-          }
-
-        case 4:
-        case "end":
-          return _context.stop();
-      }
-    }
-  }, _callee);
-}));
-
-yargs.command('which', 'Find out what the active project is', function (yargs) {},
-/*#__PURE__*/
-function () {
-  var _ref = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(args) {
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            which(args);
-
-          case 1:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee);
-  }));
-
-  return function (_x) {
-    return _ref.apply(this, arguments);
-  };
-}());
-
 var name = "@politico/artisan";
-var version = "0.0.8";
+var version = "0.0.9";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
@@ -3137,12 +3091,12 @@ var meta = {
 	dependencies: dependencies
 };
 
-var healthCheck = /*#__PURE__*/
+var isLatestVersion = /*#__PURE__*/
 (function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(argv) {
-    var npm, packagejson, inGoodHealth;
+    var npm, packagejson;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -3153,18 +3107,205 @@ var healthCheck = /*#__PURE__*/
 
           case 3:
             packagejson = _context.sent;
-            inGoodHealth = true;
+            return _context.abrupt("return", !semver.lt(meta.version, packagejson.version));
 
-            if (semver.lt(meta.version, packagejson.version)) {
-              console.log(chalk.yellow("\nIt looks like your version of Artisan is out of date.\nYou should run \"npm install -g @politico/artisan\" to update to version ".concat(chalk.bold(packagejson.version), ".\n")));
-              inGoodHealth = false;
+          case 5:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
+var update = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var isLatest;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          log('Checking for latest version...', 'info');
+          _context.next = 4;
+          return isLatestVersion();
+
+        case 4:
+          isLatest = _context.sent;
+
+          if (!isLatest) {
+            _context.next = 8;
+            break;
+          }
+
+          log('Artisan is already up to date.', 'success');
+          return _context.abrupt("return");
+
+        case 8:
+          log("A new version of Artisan is available. Installing...", 'info');
+          _context.next = 11;
+          return exec('npm install -g @politico/artisan', 'root');
+
+        case 11:
+          log("Updating ai2jsx scripts...", 'info');
+          _context.next = 14;
+          return install();
+
+        case 14:
+          log("Artisan has been updated.", 'success');
+
+        case 15:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('update [project]', 'Updates Artisan to the latest version', function (yargs) {},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            update(args);
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var which = /*#__PURE__*/
+_asyncToGenerator(
+/*#__PURE__*/
+_regeneratorRuntime.mark(function _callee() {
+  var project;
+  return _regeneratorRuntime.wrap(function _callee$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return getActiveProject();
+
+        case 2:
+          project = _context.sent;
+
+          if (!project) {
+            log("There is no active project.");
+          } else {
+            log("\"".concat(project.name, "\" is the active project."));
+          }
+
+        case 4:
+        case "end":
+          return _context.stop();
+      }
+    }
+  }, _callee);
+}));
+
+yargs.command('which', 'Find out what the active project is', function (yargs) {},
+/*#__PURE__*/
+function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            which(args);
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x) {
+    return _ref.apply(this, arguments);
+  };
+}());
+
+var healthCheck = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(args) {
+    var cmd, inGoodHealth, isItLatestVersion, _ref2, confirm;
+
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            cmd = args._[0];
+            inGoodHealth = true;
+            _context.next = 4;
+            return isLatestVersion();
+
+          case 4:
+            isItLatestVersion = _context.sent;
+
+            if (!(cmd !== 'update' && !isItLatestVersion)) {
+              _context.next = 19;
+              break;
             }
 
+            _context.next = 8;
+            return inquirer.prompt([{
+              type: 'confirm',
+              name: 'confirm',
+              message: "It looks like your version of Artisan is out of date. Would you like to update it?",
+              "default": true
+            }]);
+
+          case 8:
+            _ref2 = _context.sent;
+            confirm = _ref2.confirm;
+
+            if (!confirm) {
+              _context.next = 18;
+              break;
+            }
+
+            _context.next = 13;
+            return update();
+
+          case 13:
+            log('');
+            log("Update complete. Please run ".concat(cmd, " again to use the latest version."), 'success');
+            process.exit();
+            _context.next = 19;
+            break;
+
+          case 18:
+            inGoodHealth = false;
+
+          case 19:
             return _context.abrupt("return", {
               healthy: inGoodHealth
             });
 
-          case 7:
+          case 20:
           case "end":
             return _context.stop();
         }
@@ -3201,14 +3342,12 @@ var installationCheck = /*#__PURE__*/
           case 4:
             confExists = _context.sent;
 
-            if (confExists) {
-              _context.next = 7;
-              break;
+            if (!confExists) {
+              log('Artisan not installed. Please use "art install" before running any commands.', 'error');
+              process.exit();
             }
 
-            throw new Error('Artisan not installed. Please use "art install" before running any commands.');
-
-          case 7:
+          case 6:
           case "end":
             return _context.stop();
         }
@@ -3236,7 +3375,7 @@ var verbose = (function (args) {
 });
 
 yargs // eslint-disable-line
-.usage('Usage:\n  $0 <command> [options]').scriptName('art').middleware(installationCheck).middleware(healthCheck).middleware(verbose).option('verbose', {
+.usage('Usage:\n  $0 <command> [options]').scriptName('art').middleware(verbose).middleware(installationCheck).middleware(healthCheck).option('verbose', {
   type: 'boolean',
   alias: 'v',
   describe: 'Log info & errors to the console',

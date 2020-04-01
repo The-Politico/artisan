@@ -1,17 +1,30 @@
-import semver from 'semver';
-import NpmApi from 'npm-api';
-import meta from '../../package.json';
-import chalk from 'chalk';
+import { log } from 'Utils/console';
+import inquirer from 'inquirer';
+import update from 'Scripts/update/index';
+import isLatestVersion from 'Utils/isLatestVersion';
 
-export default async(argv) => {
-  const npm = new NpmApi();
-  const packagejson = await npm.repo('@politico/artisan').package();
-
+export default async(args) => {
+  const cmd = args._[0];
   let inGoodHealth = true;
 
-  if (semver.lt(meta.version, packagejson.version)) {
-    console.log(chalk.yellow(`\nIt looks like your version of Artisan is out of date.\nYou should run "npm install -g @politico/artisan" to update to version ${chalk.bold(packagejson.version)}.\n`));
-    inGoodHealth = false;
+  const isItLatestVersion = await isLatestVersion();
+
+  if (cmd !== 'update' && !isItLatestVersion) {
+    const { confirm } = await inquirer.prompt([{
+      type: 'confirm',
+      name: 'confirm',
+      message: `It looks like your version of Artisan is out of date. Would you like to update it?`,
+      default: true,
+    }]);
+
+    if (confirm) {
+      await update();
+      log('');
+      log(`Update complete. Please run ${cmd} again to use the latest version.`, 'success');
+      process.exit();
+    } else {
+      inGoodHealth = false;
+    }
   }
 
   return {

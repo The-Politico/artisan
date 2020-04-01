@@ -1,5 +1,6 @@
 import fs from 'fs-extra';
 import { CONFIG_PATH } from 'Constants/locations';
+import { log } from 'Utils/console';
 
 export default async(args) => {
   if (args._[0] === 'install') {
@@ -8,6 +9,7 @@ export default async(args) => {
 
   const confExists = await fs.pathExists(CONFIG_PATH);
   if (!confExists) {
-    throw new Error('Artisan not installed. Please use "art install" before running any commands.');
+    log('Artisan not installed. Please use "art install" before running any commands.', 'error');
+    process.exit();
   }
 };
