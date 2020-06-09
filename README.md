@@ -21,7 +21,7 @@ While Artisan's practical uses are clear, it was also created as an easy and use
 Whether you're a news developer, a graphic designer or an editor: Artisan's suite of tools makes collaboration easier than ever without having to make sacrifices to your workflow.
 
 ## How's It Work?
-And unlike its predecessor, Artisan is more than an Adobe Script, featuring a fully fledged command line tool that can be used to create new interactive projects.. What typically could be a messy handoff between a designer and a developer is now simple — the designer creates a graphic, spins up an interactive project to house it, and sends it to a developer for finishing touches.
+Unlike its predecessor, Artisan is more than an Adobe Script, featuring a fully fledged command line tool that can be used to create new interactive projects.. What typically could be a messy handoff between a designer and a developer is now simple — the designer creates a graphic, spins up an interactive project to house it, and sends it to a developer for finishing touches.
 
 Artisan's command line tool also handles file and project management. With simple commands like "art new", "art activate", "art archive", "art open", and "art pub," users can move a project from a basic template to a published page without ever having to find a single file on their computer. Because all the file-management is handled by Artisan, users can also plug into their company's existing GitHub architecture. This means with simple commands like "art save" and "art download", entire projects (Illustrator files and all) can be viewed on GitHub and shared between designers, developers, and editors.
 
