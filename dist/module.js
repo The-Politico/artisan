@@ -2350,18 +2350,79 @@ var index$9 = /*#__PURE__*/
   };
 })();
 
+var save = /*#__PURE__*/
+(function () {
+  var _ref2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(_ref) {
+    var message, project;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            message = _ref.message;
+
+            if (!message) {
+              message = new Date().toISOString();
+            }
+
+            _context.next = 4;
+            return getActiveProject();
+
+          case 4:
+            project = _context.sent;
+
+            if (project) {
+              _context.next = 7;
+              break;
+            }
+
+            return _context.abrupt("return");
+
+          case 7:
+            _context.prev = 7;
+            _context.next = 10;
+            return gacm(project.path, project.repo, message);
+
+          case 10:
+            _context.next = 17;
+            break;
+
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context["catch"](7);
+            log('Something went wrong saving your project to GitHub', 'error');
+            log(_context.t0);
+            return _context.abrupt("return");
+
+          case 17:
+            log('Your project has been saved on GitHub succesffully.', 'success');
+
+          case 18:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee, null, [[7, 12]]);
+  }));
+
+  return function (_x) {
+    return _ref2.apply(this, arguments);
+  };
+})();
+
 var index$a = /*#__PURE__*/
 (function () {
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var environment, staging, production, project, inquiry, _ref3, confirm;
+    var environment, staging, production, shouldSave, project, inquiry, _ref3, confirm, saveMsg;
 
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            environment = _ref.environment, staging = _ref.staging, production = _ref.production;
+            environment = _ref.environment, staging = _ref.staging, production = _ref.production, shouldSave = _ref.save;
             _context.next = 3;
             return getActiveProject();
 
@@ -2470,6 +2531,12 @@ var index$a = /*#__PURE__*/
             log("\"".concat(environment, "\" is not a valid environment."), 'error');
 
           case 37:
+            if (shouldSave) {
+              saveMsg = "Published - ".concat(environment.toUpperCase(), " - ").concat(new Date().toISOString());
+              save(saveMsg);
+            }
+
+          case 38:
           case "end":
             return _context.stop();
         }
@@ -2483,67 +2550,6 @@ var index$a = /*#__PURE__*/
 })();
 
 var index$b = /*#__PURE__*/
-(function () {
-  var _ref2 = _asyncToGenerator(
-  /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(_ref) {
-    var message, project;
-    return _regeneratorRuntime.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            message = _ref.message;
-
-            if (!message) {
-              message = new Date().toISOString();
-            }
-
-            _context.next = 4;
-            return getActiveProject();
-
-          case 4:
-            project = _context.sent;
-
-            if (project) {
-              _context.next = 7;
-              break;
-            }
-
-            return _context.abrupt("return");
-
-          case 7:
-            _context.prev = 7;
-            _context.next = 10;
-            return gacm(project.path, project.repo, message);
-
-          case 10:
-            _context.next = 17;
-            break;
-
-          case 12:
-            _context.prev = 12;
-            _context.t0 = _context["catch"](7);
-            log('Something went wrong saving your project to GitHub', 'error');
-            log(_context.t0);
-            return _context.abrupt("return");
-
-          case 17:
-            log('Your project has been saved on GitHub succesffully.', 'success');
-
-          case 18:
-          case "end":
-            return _context.stop();
-        }
-      }
-    }, _callee, null, [[7, 12]]);
-  }));
-
-  return function (_x) {
-    return _ref2.apply(this, arguments);
-  };
-})();
-
-var index$c = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2562,7 +2568,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$d = /*#__PURE__*/
+var index$c = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2727,7 +2733,7 @@ var isLatestVersion = /*#__PURE__*/
   };
 })();
 
-var index$e = /*#__PURE__*/
+var index$d = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2779,7 +2785,7 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-var index$f = /*#__PURE__*/
+var index$e = /*#__PURE__*/
 _asyncToGenerator(
 /*#__PURE__*/
 _regeneratorRuntime.mark(function _callee() {
@@ -2818,4 +2824,4 @@ _regeneratorRuntime.mark(function _callee() {
   }, _callee);
 }));
 
-export { activate, index as archive, index$1 as code, index$2 as conf, index$3 as deactivate, illo as deleteIllo, index$4 as deleteIndex, project as deleteProject, index$5 as dir, index$6 as download, index$7 as github, install, illo$1 as newIllo, index$8 as newIndex, project$1 as newProject, index$9 as open, index$a as pub, index$b as save, index$c as start, index$d as unarchive, index$e as update, index$f as which };
+export { activate, index as archive, index$1 as code, index$2 as conf, index$3 as deactivate, illo as deleteIllo, index$4 as deleteIndex, project as deleteProject, index$5 as dir, index$6 as download, index$7 as github, install, illo$1 as newIllo, index$8 as newIndex, project$1 as newProject, index$9 as open, index$a as pub, save, index$b as start, index$c as unarchive, index$d as update, index$e as which };

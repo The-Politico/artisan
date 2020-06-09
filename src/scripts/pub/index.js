@@ -1,9 +1,10 @@
 import exec from 'Utils/exec';
 import inquirer from 'inquirer';
+import save from 'Scripts/save/index';
 import { getActiveProject } from 'Utils/conf/index.js';
 import { log } from 'Utils/console';
 
-export default async({ environment, staging, production }) => {
+export default async({ environment, staging, production, save: shouldSave }) => {
   const project = await getActiveProject();
   if (!project) {
     return;
@@ -52,5 +53,10 @@ export default async({ environment, staging, production }) => {
     await exec('npm run pubStaging');
   } else {
     log(`"${environment}" is not a valid environment.`, 'error');
+  }
+
+  if (shouldSave) {
+    const saveMsg = `Published - ${environment.toUpperCase()} - ${(new Date()).toISOString()}`;
+    save(saveMsg);
   }
 };

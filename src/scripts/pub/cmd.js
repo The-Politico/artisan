@@ -21,6 +21,11 @@ yargs.command(
         alias: 'p',
         describe: 'Publish to production',
         type: 'boolean',
+      })
+      .option('save', {
+        describe: 'Save to GitHub after publishing',
+        type: 'boolean',
+        default: true,
       });
   },
   async(args) => {
