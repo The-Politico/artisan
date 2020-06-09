@@ -37,7 +37,7 @@ _A line graph is created in Adobe Illustrator at three breakpoints (left). Artis
 A designer worked on [a single scatterplot](https://www.politico.com/interactives/2020/coronavirus-activity-risk-what-is-safe-poll/#g-Scatterplot-Desktop-img) showing the results of a survey in Adobe Illustrator. Then, she used Artisan to save her work as a component, which was slotted in with other interactive components to make a custom page. The designer didn't have to think about the page, and the developer imported the scatterplot the same way they would import any other piece of code. You can see the [story's repo here](https://github.com/The-Politico/interactive_coronavirus-activity-risk).
 
 ![risk-scatterplot](docs/export.jpg)
-_A scatterplot is created in Adobe Illustrator at various breakpoints (first from left). Artisan exports the file as JSX (second) which can be easily imported and used like any other component (third). It can then be used as part of a larger project (fourth) _
+_A scatterplot is created in Adobe Illustrator at various breakpoints (first from left). Artisan exports the file as JSX (second) which can be easily imported and used like any other component (third) and integrates seamlessly (fourth)._
 
 ## CLI Usage
 
