@@ -2703,7 +2703,7 @@ _regeneratorRuntime.mark(function _callee() {
 }));
 
 var name = "@politico/artisan";
-var version = "1.1.0";
+var version = "1.1.2";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
@@ -2721,7 +2721,7 @@ var scripts$1 = {
 	cli: "node ./dist/cli.js"
 };
 var author = "";
-var license = "ISC";
+var license = "MIT";
 var devDependencies = {
 	"@babel/cli": "^7.1.0",
 	"@babel/core": "^7.1.0",
@@ -2748,7 +2748,7 @@ var devDependencies = {
 var dependencies = {
 	"@babel/runtime": "^7.4.2",
 	"@octokit/rest": "^17.1.2",
-	"@politico/interactive-bin": "^1.0.0-beta.17",
+	"@politico/interactive-bin": "0.2.3",
 	"@politico/interactive-templates": "^1.2.5",
 	chalk: "^2.4.2",
 	"cli-progress": "^2.1.1",
