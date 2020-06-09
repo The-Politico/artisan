@@ -4,10 +4,9 @@ export default async(dir, repoName, message) => {
   return new Promise((resolve, reject) => {
     try {
       git(dir)
-        .init()
-        .add('./*')
-        .commit(message)
-        .push('origin', 'master', { '--force': true })
+        .fetch({ '--all': true })
+        .reset('hard')
+        .pull('origin', 'master')
         .exec(() => {
           resolve();
         });

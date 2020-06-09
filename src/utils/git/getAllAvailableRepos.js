@@ -20,13 +20,19 @@ export default async() => {
     .filter(
       d => d.name.startsWith('illustration_')
     )
-    .filter(
-      d => allDownloadedProjects.indexOf(d.name) === -1
-    )
     .map(
-      i => ({
-        name: toStartCase(i.name.split('illustration_')[1]),
-        value: i.full_name,
-      })
+      i => {
+        if (allDownloadedProjects.indexOf(i.name) === -1) {
+          return {
+            name: toStartCase(i.name.split('illustration_')[1]),
+            value: i.full_name,
+          };
+        } else {
+          return {
+            name: toStartCase(i.name.split('illustration_')[1]) + ' (Already downloaded)',
+            value: i.full_name,
+          };
+        }
+      }
     );
 };

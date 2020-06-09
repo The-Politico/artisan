@@ -7,7 +7,8 @@ export default async(value, key) => {
 
   const isIt = keys(conf.projects).some(name => {
     if (conf.projects[name][key] === value) {
-      project = name;
+      project = conf.projects[name];
+      project.name = name;
       return true;
     } else {
       return false;

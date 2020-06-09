@@ -5,3 +5,4 @@ export { default as github } from './github';
 export { default as getAllAvailableRepos } from './getAllAvailableRepos';
 export { default as newRepo } from './newRepo';
 export { default as parseRepoPath } from './parseRepoPath';
+export { default as syncWithMaster } from './syncWithMaster';

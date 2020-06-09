@@ -5,7 +5,7 @@ import path from 'path';
 
 import activate from 'Scripts/activate/index.js';
 
-import { parseRepoPath, cloneRepo, getAllAvailableRepos } from 'Utils/git/index';
+import { parseRepoPath, cloneRepo, getAllAvailableRepos, syncWithMaster } from 'Utils/git/index';
 import installDeps from 'Utils/installDeps';
 import { log } from 'Utils/console';
 import { updateConf, isProjectDownloaded } from 'Utils/conf/index';
@@ -48,8 +48,21 @@ export default async({ repo: repoName }) => {
 
   const projectDownloaded = await isProjectDownloaded(repo, 'repo');
   if (projectDownloaded) {
-    log(`You already have this project downloaded as "${projectDownloaded}"`, 'info');
-    return;
+    const { name: projectName, path: projectPath } = projectDownloaded;
+    const { confirmDownload } = await inquirer.prompt([{
+      type: 'confirm',
+      name: 'confirmDownload',
+      message: `You already have this project downloaded as "${projectName}". Would you like to sync it with the latest version saved to GitHub (this may result in losing unsaved progress)?`,
+      default: false,
+    }]);
+
+    if (confirmDownload) {
+      await syncWithMaster(projectPath);
+      log('Project synced with latest changes on GitHub.', 'success');
+      return;
+    } else {
+      return;
+    }
   }
 
   const projectPath = path.join(PROJECTS_PATH, projectName);

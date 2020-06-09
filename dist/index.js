@@ -360,7 +360,8 @@ var isProjectDownloaded = /*#__PURE__*/
             project = null;
             isIt = keys(conf.projects).some(function (name) {
               if (conf.projects[name][key] === value) {
-                project = name;
+                project = conf.projects[name];
+                project.name = name;
                 return true;
               } else {
                 return false;
@@ -1266,7 +1267,9 @@ var gacm = /*#__PURE__*/
           case 0:
             return _context.abrupt("return", new Promise(function (resolve, reject) {
               try {
-                git(dir).init().add('./*').commit(message).push('origin', 'master').exec(function () {
+                git(dir).init().add('./*').commit(message).push('origin', 'master', {
+                  '--force': true
+                }).exec(function () {
                   resolve();
                 });
               } catch (e) {
@@ -1315,13 +1318,18 @@ _regeneratorRuntime.mark(function _callee() {
           });
           return _context.abrupt("return", last100.data.filter(function (d) {
             return d.name.startsWith('illustration_');
-          }).filter(function (d) {
-            return allDownloadedProjects.indexOf(d.name) === -1;
           }).map(function (i) {
-            return {
-              name: toStartCase(i.name.split('illustration_')[1]),
-              value: i.full_name
-            };
+            if (allDownloadedProjects.indexOf(i.name) === -1) {
+              return {
+                name: toStartCase(i.name.split('illustration_')[1]),
+                value: i.full_name
+              };
+            } else {
+              return {
+                name: toStartCase(i.name.split('illustration_')[1]) + ' (Already downloaded)',
+                value: i.full_name
+              };
+            }
           }));
 
         case 8:
@@ -1426,6 +1434,40 @@ var parseRepoPath = (function (repoPath) {
   };
 });
 
+var syncWithMaster = /*#__PURE__*/
+(function () {
+  var _ref = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(dir, repoName, message) {
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            return _context.abrupt("return", new Promise(function (resolve, reject) {
+              try {
+                git(dir).fetch({
+                  '--all': true
+                }).reset('hard').pull('origin', 'master').exec(function () {
+                  resolve();
+                });
+              } catch (e) {
+                reject(e);
+              }
+            }));
+
+          case 1:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+
+  return function (_x, _x2, _x3) {
+    return _ref.apply(this, arguments);
+  };
+})();
+
 var installDeps = (function (dir) {
   return exec('npm install', dir);
 });
@@ -1435,7 +1477,8 @@ var index$6 = /*#__PURE__*/
   var _ref2 = _asyncToGenerator(
   /*#__PURE__*/
   _regeneratorRuntime.mark(function _callee(_ref) {
-    var repoName, allRepos, inquiry, repo, owner, projectName, parsedRepo, projectDownloaded, projectPath, newProjectConf, illustrations;
+    var repoName, allRepos, inquiry, repo, owner, projectName, parsedRepo, projectDownloaded, _projectName, _projectPath, _ref3, confirmDownload, projectPath, newProjectConf, illustrations;
+
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
@@ -1498,36 +1541,44 @@ var index$6 = /*#__PURE__*/
             projectDownloaded = _context.sent;
 
             if (!projectDownloaded) {
-              _context.next = 30;
+              _context.next = 41;
               break;
             }
 
-            log("You already have this project downloaded as \"".concat(projectDownloaded, "\""), 'info');
+            _projectName = projectDownloaded.name, _projectPath = projectDownloaded.path;
+            _context.next = 31;
+            return inquirer.prompt([{
+              type: 'confirm',
+              name: 'confirmDownload',
+              message: "You already have this project downloaded as \"".concat(_projectName, "\". Would you like to sync it with the latest version saved to GitHub (this may result in losing unsaved progress)?"),
+              "default": false
+            }]);
+
+          case 31:
+            _ref3 = _context.sent;
+            confirmDownload = _ref3.confirmDownload;
+
+            if (!confirmDownload) {
+              _context.next = 40;
+              break;
+            }
+
+            _context.next = 36;
+            return syncWithMaster(_projectPath);
+
+          case 36:
+            log('Project synced with latest changes on GitHub.', 'success');
             return _context.abrupt("return");
 
-          case 30:
+          case 40:
+            return _context.abrupt("return");
+
+          case 41:
             projectPath = path.join(PROJECTS_PATH, projectName);
-            _context.prev = 31;
-            log('Downloading repo...', 'info');
-            _context.next = 35;
-            return cloneRepo("git@github.com:".concat(owner, "/").concat(repo, ".git"), projectName);
-
-          case 35:
-            _context.next = 42;
-            break;
-
-          case 37:
-            _context.prev = 37;
-            _context.t1 = _context["catch"](31);
-            log('Something went wrong trying to clone this repo.', 'error');
-            log(_context.t1);
-            return _context.abrupt("return");
-
-          case 42:
             _context.prev = 42;
-            log('Installing dependencies...', 'info');
+            log('Downloading repo...', 'info');
             _context.next = 46;
-            return installDeps(projectPath);
+            return cloneRepo("git@github.com:".concat(owner, "/").concat(repo, ".git"), projectName);
 
           case 46:
             _context.next = 53;
@@ -1535,12 +1586,29 @@ var index$6 = /*#__PURE__*/
 
           case 48:
             _context.prev = 48;
-            _context.t2 = _context["catch"](42);
+            _context.t1 = _context["catch"](42);
+            log('Something went wrong trying to clone this repo.', 'error');
+            log(_context.t1);
+            return _context.abrupt("return");
+
+          case 53:
+            _context.prev = 53;
+            log('Installing dependencies...', 'info');
+            _context.next = 57;
+            return installDeps(projectPath);
+
+          case 57:
+            _context.next = 64;
+            break;
+
+          case 59:
+            _context.prev = 59;
+            _context.t2 = _context["catch"](53);
             log('Something went wrong installing this repos dependencies.', 'error');
             log(_context.t2);
             return _context.abrupt("return");
 
-          case 53:
+          case 64:
             log('Saving configuration...', 'info');
             newProjectConf = {
               projects: {}
@@ -1552,35 +1620,35 @@ var index$6 = /*#__PURE__*/
               lastModifiedTime: new Date().toISOString(),
               illustrations: {}
             };
-            _context.next = 58;
+            _context.next = 69;
             return fs.readdir(path.join(projectPath, 'illustrations'));
 
-          case 58:
+          case 69:
             illustrations = _context.sent;
             illustrations.forEach(function (i) {
               newProjectConf.projects[projectName].illustrations[i] = {};
             });
-            _context.next = 62;
+            _context.next = 73;
             return updateConf(newProjectConf);
 
-          case 62:
+          case 73:
             log('Activating new project...', 'info');
             process.env.VERBOSE_MODE = false;
-            _context.next = 66;
+            _context.next = 77;
             return activate({
               project: projectName
             });
 
-          case 66:
+          case 77:
             process.env.VERBOSE_MODE = true;
             log("New project \"".concat(projectName, "\" created and activated"), 'success');
 
-          case 68:
+          case 79:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee, null, [[12, 19], [31, 37], [42, 48]]);
+    }, _callee, null, [[12, 19], [42, 48], [53, 59]]);
   }));
 
   return function (_x) {
@@ -2633,7 +2701,7 @@ _regeneratorRuntime.mark(function _callee() {
 }));
 
 var name = "@politico/artisan";
-var version = "1.0.0";
+var version = "1.1.0";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
