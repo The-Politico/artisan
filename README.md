@@ -1,6 +1,6 @@
 # Artisan
 
-A suite of tools for creating & managing Adobe Illustrator based embeds. Heavily inspired by [ai2html](http://ai2html.org/).
+A suite of tools for creating & managing Adobe Illustrator based embeds. Heavily inspired by and built upon [ai2html](http://ai2html.org/).
 
 ## Contents
 - [Why This?](#why-this)
