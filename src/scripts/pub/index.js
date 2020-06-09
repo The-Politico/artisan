@@ -57,6 +57,6 @@ export default async({ environment, staging, production, save: shouldSave }) => 
 
   if (shouldSave) {
     const saveMsg = `Published - ${environment.toUpperCase()} - ${(new Date()).toISOString()}`;
-    save(saveMsg);
+    save({ message: saveMsg });
   }
 };

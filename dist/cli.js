@@ -2953,7 +2953,9 @@ var publish = /*#__PURE__*/
           case 37:
             if (shouldSave) {
               saveMsg = "Published - ".concat(environment.toUpperCase(), " - ").concat(new Date().toISOString());
-              save(saveMsg);
+              save({
+                message: saveMsg
+              });
             }
 
           case 38:
