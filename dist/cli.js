@@ -2069,25 +2069,46 @@ var scripts = /*#__PURE__*/
 (function () {
   var _ref = _asyncToGenerator(
   /*#__PURE__*/
-  _regeneratorRuntime.mark(function _callee(destination, step) {
+  _regeneratorRuntime.mark(function _callee(destination, version, step) {
+    var versions, versionExists;
     return _regeneratorRuntime.wrap(function _callee$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            log("[".concat(step[0], "/").concat(step[1], "] Installing scripts..."));
-            _context.next = 3;
-            return fs.copy(path.join(INSTALL_DIRECTORY, 'ai2jsx.js'), path.join(destination, 'ai2jsx.js'));
+            _context.next = 2;
+            return fs.readdir(INSTALL_DIRECTORY);
 
-          case 3:
+          case 2:
+            versions = _context.sent;
+            versionExists = versions.indexOf(version) > -1;
+
+            if (versionExists) {
+              _context.next = 9;
+              break;
+            }
+
+            log("Version \"".concat(version, "\" does not exist. Please choose one from the list:"), 'error');
+            versions.forEach(function (v) {
+              log("- ".concat(v));
+            });
+            log('');
+            throw new Error('Version not found.');
+
+          case 9:
+            log("[".concat(step[0], "/").concat(step[1], "] Installing scripts (v").concat(version, ")..."));
+            _context.next = 12;
+            return fs.copy(path.join(INSTALL_DIRECTORY, version, 'ai2jsx.js'), path.join(destination, 'ai2jsx.js'));
+
+          case 12:
             log('Installed ai2jsx.js', 'info');
-            _context.next = 6;
-            return fs.copy(path.join(INSTALL_DIRECTORY, 'ai2jsx-config.json'), path.join(destination, 'ai2jsx-config.json'));
+            _context.next = 15;
+            return fs.copy(path.join(INSTALL_DIRECTORY, version, 'ai2jsx-config.json'), path.join(destination, 'ai2jsx-config.json'));
 
-          case 6:
+          case 15:
             log('Installed ai2jsx-config.json', 'info');
             log('');
 
-          case 8:
+          case 17:
           case "end":
             return _context.stop();
         }
@@ -2095,7 +2116,7 @@ var scripts = /*#__PURE__*/
     }, _callee);
   }));
 
-  return function (_x, _x2) {
+  return function (_x, _x2, _x3) {
     return _ref.apply(this, arguments);
   };
 })();
@@ -2206,6 +2227,8 @@ function _ref() {
     var _ref2,
         illustrator,
         destination,
+        _ref2$installVersion,
+        installVersion,
         success,
         confExists,
         conf,
@@ -2216,11 +2239,11 @@ function _ref() {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
-            _ref2 = _args.length > 0 && _args[0] !== undefined ? _args[0] : {}, illustrator = _ref2.illustrator, destination = _ref2.destination;
+            _ref2 = _args.length > 0 && _args[0] !== undefined ? _args[0] : {}, illustrator = _ref2.illustrator, destination = _ref2.destination, _ref2$installVersion = _ref2.installVersion, installVersion = _ref2$installVersion === void 0 ? '2.0.0' : _ref2$installVersion;
             success = true;
 
             if (destination) {
-              _context.next = 16;
+              _context.next = 21;
               break;
             }
 
@@ -2230,15 +2253,26 @@ function _ref() {
           case 5:
             confExists = _context.sent;
 
-            if (!(!illustrator && confExists)) {
-              _context.next = 13;
+            if (!illustrator) {
+              _context.next = 11;
               break;
             }
 
-            _context.next = 9;
+            destination = path.join(path.dirname(illustrator), 'Presets.localized/en_US/Scripts/');
+            log('Using explicit destination.', 'info');
+            _context.next = 21;
+            break;
+
+          case 11:
+            if (!confExists) {
+              _context.next = 18;
+              break;
+            }
+
+            _context.next = 14;
             return readConf();
 
-          case 9:
+          case 14:
             conf = _context.sent;
 
             if (conf.illustratorLoc) {
@@ -2251,46 +2285,56 @@ function _ref() {
               log('No installation location provided. Using default location.', 'info');
             }
 
-            _context.next = 16;
+            _context.next = 21;
             break;
 
-          case 13:
+          case 18:
             illustrator = DEFAULT_INSTALLATION;
             destination = path.join(path.dirname(DEFAULT_INSTALLATION), 'Presets.localized/en_US/Scripts/');
             log('No installation location provided. Using default location.', 'info');
 
-          case 16:
+          case 21:
             log("Installing ai2jsx at ".concat(chalk.bold(destination), "."));
-            _context.next = 19;
+            _context.next = 24;
             return config(illustrator, destination, [1, STEPS_COUNT]);
 
-          case 19:
-            _context.next = 21;
+          case 24:
+            _context.next = 26;
             return templates(destination, [2, STEPS_COUNT]);
 
-          case 21:
-            _context.next = 23;
+          case 26:
+            _context.next = 28;
             return access(destination, [3, STEPS_COUNT]);
 
-          case 23:
+          case 28:
             hasAccess = _context.sent;
 
             if (!hasAccess) {
-              _context.next = 29;
+              _context.next = 40;
               break;
             }
 
-            _context.next = 27;
-            return scripts(destination, [4, STEPS_COUNT]);
+            _context.prev = 30;
+            _context.next = 33;
+            return scripts(destination, installVersion, [4, STEPS_COUNT]);
 
-          case 27:
-            _context.next = 30;
+          case 33:
+            _context.next = 38;
             break;
 
-          case 29:
+          case 35:
+            _context.prev = 35;
+            _context.t0 = _context["catch"](30);
             success = false;
 
-          case 30:
+          case 38:
+            _context.next = 41;
+            break;
+
+          case 40:
+            success = false;
+
+          case 41:
             if (success) {
               log("Artisan was installed (or updated) on your computer.", 'success');
               log("Start a new project by running the \"new project\" command.", 'success');
@@ -2298,20 +2342,24 @@ function _ref() {
               log("An error occured installing ai2jsx, please check the logs above.", 'error');
             }
 
-          case 31:
+          case 42:
           case "end":
             return _context.stop();
         }
       }
-    }, _callee);
+    }, _callee, null, [[30, 35]]);
   }));
   return _ref.apply(this, arguments);
 }
 
-yargs.command('install [illustrator]', 'Installs ai2jsx on your computer', function (yargs) {
+yargs.command('install [illustrator] [installVersion]', 'Installs ai2jsx on your computer', function (yargs) {
   yargs.positional('illustrator', {
     alias: 'i',
     describe: 'Adobe Illustrator app location',
+    type: 'string'
+  }).positional('installVersion', {
+    describe: 'The version to use',
+    "default": '2.0.0',
     type: 'string'
   });
 },
@@ -3179,7 +3227,7 @@ function () {
 }());
 
 var name = "@politico/artisan";
-var version = "1.1.2";
+var version = "2.0.0";
 var description = "A suite of tools for creating & managing Adobe Illustrator based embeds.";
 var main = "dist/index.js";
 var module$1 = "dist/module.js";
@@ -3225,7 +3273,7 @@ var dependencies = {
 	"@babel/runtime": "^7.4.2",
 	"@octokit/rest": "^17.1.2",
 	"@politico/interactive-bin": "0.2.3",
-	"@politico/interactive-templates": "^1.2.5",
+	"@politico/interactive-templates": "1.2.5",
 	chalk: "^2.4.2",
 	"cli-progress": "^2.1.1",
 	"fs-extra": "^8.1.0",

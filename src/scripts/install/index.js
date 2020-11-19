@@ -15,12 +15,15 @@ const STEPS_COUNT = 4;
 
 const DEFAULT_INSTALLATION = '/Applications/Adobe Illustrator 2020/Adobe Illustrator.app';
 
-export default async function({ illustrator, destination } = {}) {
+export default async function({ illustrator, destination, installVersion = '2.0.0' } = {}) {
   let success = true;
 
   if (!destination) {
     const confExists = await fs.pathExists(CONFIG_PATH);
-    if (!illustrator && confExists) {
+    if (illustrator) {
+      destination = path.join(path.dirname(illustrator), 'Presets.localized/en_US/Scripts/');
+      log('Using explicit destination.', 'info');
+    } else if (confExists) {
       const conf = await readConf();
       if (conf.illustratorLoc) {
         illustrator = conf.illustratorLoc;
@@ -46,7 +49,11 @@ export default async function({ illustrator, destination } = {}) {
 
   const hasAccess = await access(destination, [3, STEPS_COUNT]);
   if (hasAccess) {
-    await scripts(destination, [4, STEPS_COUNT]);
+    try {
+      await scripts(destination, installVersion, [4, STEPS_COUNT]);
+    } catch (e) {
+      success = false;
+    }
   } else {
     success = false;
   }
