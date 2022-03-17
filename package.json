@@ -56,7 +56,7 @@
     "npm-api": "^1.0.0",
     "open": "^7.0.3",
     "semver": "^7.1.3",
-    "simple-git": "^1.132.0",
+    "simple-git": "^3.3.0",
     "slugify": "^1.4.0",
     "yargs": "^13.3.0"
   }
