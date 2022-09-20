@@ -1,10 +1,4 @@
 {
   "root": true,
   "extends": "@politico/eslint-config-interactives",
-  "plugins": [
-      "mocha"
-  ],
-  "env": {
-    "mocha": true
-  }
 }
