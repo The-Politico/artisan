@@ -1,0 +1,19 @@
+@tailwind components;
+
+@layer components {
+
+  .btn {
+    @apply flex items-center px-4 py-1;
+  }
+  .btn-solid {
+    @apply rounded-full bg-gradient-to-r from-blue to-[#02588d] transition hover:brightness-110 hover:shadow-md text-slate-50;
+  }
+
+  .btn-outline {
+    @apply bg-slate-100 border border-slate-800;
+  }
+
+  .btn-ghost {
+    @apply text-slate-600;
+  }
+}

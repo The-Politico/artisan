@@ -1,0 +1,15 @@
+.button {
+  @apply flex items-center px-4 py-1;
+}
+
+.solid {
+  @apply rounded-full bg-gradient-to-r from-blue to-[#02588d] transition hover:brightness-110 hover:shadow-md text-slate-50 #{!important};
+}
+
+.outline {
+  @apply bg-slate-100 border border-slate-800;
+}
+
+.ghost {
+  @apply text-slate-600;
+}

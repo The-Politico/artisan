@@ -12,7 +12,10 @@
   },
   "tauri": {
     "allowlist": {
-      "all": true
+      "all": true,
+      "fs": {
+        "scope": ["$RESOURCE/*"]
+      }
     },
     "bundle": {
       "active": true,
@@ -38,7 +41,9 @@
         "providerShortName": null,
         "signingIdentity": null
       },
-      "resources": [],
+      "resources": [
+        "resources/ai2html.js"
+      ],
       "shortDescription": "",
       "targets": "all",
       "windows": {
