@@ -13,8 +13,11 @@
   "tauri": {
     "allowlist": {
       "all": true,
+      "path": {
+        "all": true
+      },
       "fs": {
-        "scope": ["$RESOURCE/*"]
+        "scope": ["$RESOURCE/*", "$HOME/*"]
       }
     },
     "bundle": {

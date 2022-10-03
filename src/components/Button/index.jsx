@@ -1,6 +1,6 @@
-import cls from './Button.module.scss';
 import classNames from 'classnames';
 import React from 'react';
+import cls from './Button.module.scss';
 
 /**
  * @param {Object} props
@@ -18,7 +18,7 @@ export default function Button(props) {
     className = '',
     onClick = null,
   } = props;
-  const btnClass = classNames(cls.button, cls[variant], className);
+  const btnClass = classNames(cls.btn, cls[`btn-${variant}`], className);
   return (
     <button
       type="button"

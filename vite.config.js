@@ -14,6 +14,9 @@ export default defineConfig({
   // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
   // env variables
   envPrefix: ['VITE_', 'TAURI_'],
+  resolve: {
+    'node-fetch': 'isomorphic-fetch',
+  },
   build: {
     // Tauri supports es2021
     target: ['es2021', 'chrome100', 'safari13'],
