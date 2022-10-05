@@ -1,6 +1,6 @@
 /* eslint-disable import/prefer-default-export */
-import { ListObjectsCommand, PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-import { Upload } from '@aws-sdk/lib-storage';
+// import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+// import { Upload } from '@aws-sdk/lib-storage';
 import { readBinaryFile } from '@tauri-apps/api/fs';
 import { join, homeDir, basename } from '@tauri-apps/api/path';
 
@@ -13,8 +13,8 @@ async function backupFilesS3({ project, files }) {
   const s3 = new S3Client({
     region: 'us-east-1',
     credentials: {
-      accessKeyId: '',
-      secretAccessKey: '',
+      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
+      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
     },
   });
 
@@ -25,18 +25,17 @@ async function backupFilesS3({ project, files }) {
     console.log('Clicked: ', path, keyPath);
 
     try {
-
       /**
        * @type {import('@aws-sdk/client-s3').PutObjectCommandInput}
        */
-      const params = {
-        Bucket: '',
-        Body: 'Hello world',
-        Key: ``,
-        ContentType: 'application/octect',
-      };
-      const uploadCommand = new PutObjectCommand(params);
-      await s3.send(uploadCommand);
+      // const params = {
+      //   Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
+      //   Body: 'Hello world',
+      //   Key: 'interactives/albright-test/artisan/projects/project-one/test.txt',
+      //   StorageClass: 'STANDARD',
+      // };
+      // const uploadCommand = new PutObjectCommand(params);
+      // await s3.send(uploadCommand);
       // const s3Upload = new Upload({
       //   client: s3,
       //   params,
