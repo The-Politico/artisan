@@ -6,11 +6,12 @@ export * from './operations/illustration';
 const store = initStore();
 
 /**
- * Update Artisan settings for author Name, Email and the Projects Folder
+ * Updates Artisan settings for user's Name, Email and the Projects Folder
  * @param {Object} settings
- * @param {String} [settings.authorName]
- * @param {String} [settings.authorEmail]
- * @param {String} [settings.projectsFolder]
+ * @param {String} [settings.authorName] First and last name
+ * @param {String} [settings.authorEmail] \@politico.com email address
+ * @param {String} [settings.projectsFolder] Folder where Artisan projects will
+ * be stored. Defaults to `$HOME/Artisan/Projects`
  */
 export async function updateAppSettings({
   authorName,
@@ -26,10 +27,29 @@ export async function updateAppSettings({
   return store.values();
 }
 
-export async function updateStoreValue(key, value) {
-  return store.set(key, value);
+/**
+ * Arbitrary convenience function to set a store value of a given key
+ * Defaults to safe set only. Use `override: true` to unsafely set a new value
+ * for any key.
+ * @param {String} key
+ * @param {*} value
+ * @param {Object} [opts]
+ * @param {Boolean} [opts.override] Override safety check of existing key
+ * @returns {Promise | null}
+ */
+export async function updateStoreValue(key, value, { override = false } = {}) {
+  const hasKey = await store.has(key);
+  if (!hasKey || override) {
+    return store.set(key, value);
+  }
+  return null;
 }
 
+/**
+ * Returns value for a given `key` or `null` if they key doesn't exist.
+ * @param {String} key
+ * @returns {Promise<T | null>}
+ */
 export async function getStoreValue(key) {
   return store.get(key);
 }
