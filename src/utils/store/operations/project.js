@@ -25,7 +25,6 @@ export async function addProject(projectName) {
     if (projectsArr) {
       await store.set('projects', [...projectsArr, projectSlug]);
     } else {
-      console.log('making new', projectsArr);
       await store.set('projects', [projectSlug]);
     }
 
