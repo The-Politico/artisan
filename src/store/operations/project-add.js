@@ -11,6 +11,10 @@ export async function addProject(projectName) {
 
   const projectSlug = projectName.toLowerCase().replaceAll(' ', '-');
 
+  if (projectSlug === 'projects') {
+    throw new Error('Project name cannot be `projects`');
+  }
+
   const projectEntry = await store.get(projectSlug);
 
   if (!projectEntry) {
