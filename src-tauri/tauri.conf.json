@@ -14,7 +14,12 @@
     "allowlist": {
       "all": true,
       "fs": {
-        "scope": ["$RESOURCE/*"]
+        "writeFile": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "scope": ["$RESOURCE/*", "$DOCUMENT/*"]
       }
     },
     "bundle": {
@@ -42,7 +47,9 @@
         "signingIdentity": null
       },
       "resources": [
-        "resources/ai2html.js"
+        "resources/ai2html.js",
+        "resources/ai2html-config.json",
+        "resources/template-standard.ai"
       ],
       "shortDescription": "",
       "targets": "all",
