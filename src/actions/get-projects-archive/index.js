@@ -14,12 +14,17 @@ async function getProjects() {
   const listCommand = new ListObjectsCommand({
     Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
     Delimiter: '/',
-    Prefix: 'interactives/uploads/',
+    Prefix: PROJECTS_ARCHIVE_PREFIX,
   });
 
-  const data = await s3.send(listCommand);
+  const projectsPrefixes = await s3.send(listCommand);
 
-  console.log(data);
+  const projectsList = projectsPrefixes.CommonPrefixes.map((d) => {
+    const path = d.Prefix;
+    return path.replace(PROJECTS_ARCHIVE_PREFIX, '').replace('/', '');
+  });
+
+  return projectsList;
 }
 
 export { getProjects };

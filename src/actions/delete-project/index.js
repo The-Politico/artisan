@@ -1,15 +1,21 @@
 import { removeDir } from '@tauri-apps/api/fs';
 import { resolve } from '@tauri-apps/api/path';
-import { Store } from 'tauri-plugin-store-api';
+// import { getStoreValue, removeProject } from '@Utils/store';
 
+/**
+ * Deletes a project from the user's computer. Also removes
+ * all references of the project from the settings store.
+ * This also delete all associated illustrations.
+ * @param {String} projectName Project slug name (e.g. `my-new-project`)
+ */
 async function deleteProject(projectName) {
-  const store = new Store('.settings');
-  const projectsFolder = await store.get('projectsFolder');
+  // const projectsFolder = await getStoreValue('projectsFolder');
 
-  const projectPath = await resolve(projectsFolder, projectName);
+  // const projectPath = await resolve(projectsFolder, projectName);
 
   try {
-    await removeDir(projectPath, { recursive: true });
+    // await removeDir(projectPath, { recursive: true });
+    // await removeProject(projectName);
   } catch (e) {
     console.error(e);
   }

@@ -4,19 +4,20 @@ import Button from '../Button';
 import cls from './AppView.module.scss';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
-import { getProjects } from '../../actions/get-projects';
+import { getProjects } from '../../actions/get-projects-archive';
 import { deleteProject } from '../../actions/delete-project';
 
 export default function AppView() {
   const handleClick = () => {
     backupFilesS3({
-      project: 'project-one',
+      project: 'project-two',
       files: ['test-one.ai'],
     });
   };
 
-  const listArchive = () => {
-    getProjects();
+  const listArchive = async () => {
+    const p = await getProjects();
+    console.log({ p });
   };
 
   const deleteProj = () => {
