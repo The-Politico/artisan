@@ -24,7 +24,11 @@ async function getProjects() {
     return path.replace(PROJECTS_ARCHIVE_PREFIX, '').replace('/', '');
   });
 
-  return projectsList;
+  // compare to projects in store
+  const localProjects = await getStoreValue('projects');
+
+  // Return projects not locally in the settigns store
+  return projectsList.filter((p) => !localProjects.includes(p));
 }
 
 export { getProjects };

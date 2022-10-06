@@ -10,7 +10,7 @@ import { deleteProject } from '../../actions/delete-project';
 export default function AppView() {
   const handleClick = () => {
     backupFilesS3({
-      project: 'project-two',
+      project: 'project-three',
       files: ['test-one.ai'],
     });
   };

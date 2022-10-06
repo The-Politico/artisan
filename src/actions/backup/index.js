@@ -1,16 +1,17 @@
 /* eslint-disable import/prefer-default-export */
 import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
-// import { Upload } from '@aws-sdk/lib-storage';
-import { readBinaryFile } from '@tauri-apps/api/fs';
-import { join, homeDir } from '@tauri-apps/api/path';
+import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
+import { join, homeDir, resolve } from '@tauri-apps/api/path';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
 
 /**
+ * By default, will upload all .ai files found in a project folder
+ * to the S3 staging bucket
  * @param {Object} opts
- * @param {String} opts.project Project slug for directory path
+ * @param {String} project Project slug for directory path
  * @param {String[]} opts.files Adobe Illustartor file names
  */
-async function backupFilesS3({ project, files }) {
+async function backupFilesS3(projectName, { files } = {}) {
   const homeDirPath = await homeDir();
   const s3 = new S3Client({
     region: 'us-east-1',
@@ -20,8 +21,15 @@ async function backupFilesS3({ project, files }) {
     },
   });
 
+  const projectPath = await resolve(
+    homeDirPath,
+    'Artisan/Projects',
+    projectName,
+  );
+  const projectFiles = await readDir(projectPath);
+
   const handleUpload = async (file) => {
-    const projectPath = await join(project, file);
+    const projectFilePath = await join(projectName, file);
     const filePath = await join(homeDirPath, 'Artisan/Projects', projectPath);
     const content = await readBinaryFile(filePath);
 
@@ -46,7 +54,9 @@ async function backupFilesS3({ project, files }) {
   };
 
   try {
-    await Promise.all(files.map(handleUpload));
+    if (files) {
+      await Promise.all(files.map(handleUpload));
+    }
   } catch (error) {
     console.error(error);
   }
