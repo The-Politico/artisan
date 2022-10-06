@@ -16,16 +16,16 @@ export async function updateProject(
 ) {
   const projectEntry = await projects.get(projectSlug);
 
-  if (projectEntry) {
-    await projects.set(projectSlug, {
-      ...projectEntry,
-      isUploaded,
-      isPublished,
-      lastUploaded,
-    });
-
-    await projects.svate();
-  } else {
+  if (!projectEntry) {
     throw new Error(`No such project exists for: ${projectSlug}`);
   }
+
+  await projects.set(projectSlug, {
+    ...projectEntry,
+    isUploaded,
+    isPublished,
+    lastUploaded,
+  });
+
+  await projects.save();
 }

@@ -9,44 +9,42 @@ import { projects } from '../init';
  * has been published
  * @returns
  */
-export async function updateIllustrationURL(
-  {
-    projectSlug,
-    illustrationSlug,
-    publicURL,
-  },
-) {
+export async function updateIllustrationURL({
+  projectSlug,
+  illustrationSlug,
+  publicURL,
+}) {
   const projectEntry = await projects.get(projectSlug);
 
-  if (projectEntry) {
-    const { illustrations } = projectEntry;
-    const illoIndex = illustrations.findIndex(
-      (d) => d.slug === illustrationSlug,
-    );
-
-    if (illoIndex < 0) {
-      throw new Error(`No such illustration exists for: ${illustrationSlug}`);
-    }
-
-    const illosUpdated = illustrations.map((d, i) => {
-      if (i === illoIndex) {
-        return {
-          ...d,
-          publicURL,
-        };
-      }
-      return d;
-    });
-
-    await projects.set(projectSlug, {
-      ...projectEntry,
-      illustrations: illosUpdated,
-    });
-
-    await projects.save();
-
-    return projects.get(projectSlug);
+  if (!projectEntry) {
+    throw new Error(`No such project exists for: ${projectSlug}`);
   }
 
-  throw new Error(`No such project exists for: ${projectSlug}`);
+  const { illustrations } = projectEntry;
+  const illoIndex = illustrations.findIndex(
+    (d) => d.slug === illustrationSlug,
+  );
+
+  if (illoIndex < 0) {
+    throw new Error(`No such illustration exists for: ${illustrationSlug}`);
+  }
+
+  const illosUpdated = illustrations.map((d, i) => {
+    if (i === illoIndex) {
+      return {
+        ...d,
+        publicURL,
+      };
+    }
+    return d;
+  });
+
+  await projects.set(projectSlug, {
+    ...projectEntry,
+    illustrations: illosUpdated,
+  });
+
+  await projects.save();
+
+  return projects.get(projectSlug);
 }

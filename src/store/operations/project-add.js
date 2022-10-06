@@ -17,27 +17,27 @@ export async function addProject(projectName) {
 
   const projectEntry = await projects.get(projectSlug);
 
-  if (!projectEntry) {
-    await projects.set(projectSlug, {
-      isUploaded: false,
-      isPublished: false,
-      lastUploaded: null,
-      name: projectName,
-      slug: projectSlug,
-      illustrations: [],
-    });
-
-    if (projectsArr) {
-      await store.set('projects', [...projectsArr, projectSlug]);
-    } else {
-      await store.set('projects', [projectSlug]);
-    }
-
-    await store.save();
-    await projects.save();
-  } else {
+  if (projectEntry) {
     throw new Error('Project name already exists. Slugs must be unique');
   }
+
+  await projects.set(projectSlug, {
+    isUploaded: false,
+    isPublished: false,
+    lastUploaded: null,
+    name: projectName,
+    slug: projectSlug,
+    illustrations: [],
+  });
+
+  if (projectsArr) {
+    await store.set('projects', [...projectsArr, projectSlug]);
+  } else {
+    await store.set('projects', [projectSlug]);
+  }
+
+  await store.save();
+  await projects.save();
 
   return projects.get(projectSlug);
 }
