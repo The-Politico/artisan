@@ -10,21 +10,21 @@ import { projects } from '../init';
 export async function removeIllustration({ projectSlug, illustrationSlug }) {
   const projectEntry = await projects.get(projectSlug);
 
-  if (projectEntry) {
-    const { illustrations } = projectEntry;
-    const illosUpdated = illustrations.filter(
-      (d) => d.slug !== illustrationSlug,
-    );
-
-    await projects.set(projectSlug, {
-      ...projectEntry,
-      illustrations: illosUpdated,
-    });
-
-    await projects.save();
-
-    return projects.get(projectSlug);
+  if (!projectEntry) {
+    throw new Error(`No such project exists for: ${projectSlug}`);
   }
 
-  throw new Error(`No such project exists for: ${projectSlug}`);
+  const { illustrations } = projectEntry;
+  const illosUpdated = illustrations.filter(
+    (d) => d.slug !== illustrationSlug,
+  );
+
+  await projects.set(projectSlug, {
+    ...projectEntry,
+    illustrations: illosUpdated,
+  });
+
+  await projects.save();
+
+  return projects.get(projectSlug);
 }
