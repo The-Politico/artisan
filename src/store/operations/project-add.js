@@ -1,4 +1,4 @@
-import { store } from '../init';
+import { projects, store } from '../init';
 
 /**
  * Add a project to the store's projects array
@@ -15,10 +15,10 @@ export async function addProject(projectName) {
     throw new Error('Project name cannot be `projects`');
   }
 
-  const projectEntry = await store.get(projectSlug);
+  const projectEntry = await projects.get(projectSlug);
 
   if (!projectEntry) {
-    await store.set(projectSlug, {
+    await projects.set(projectSlug, {
       isUploaded: false,
       isPublished: false,
       lastUploaded: null,
@@ -34,9 +34,10 @@ export async function addProject(projectName) {
     }
 
     await store.save();
+    await projects.save();
   } else {
     throw new Error('Project name already exists. Slugs must be unique');
   }
 
-  return store.get(projectSlug);
+  return projects.get(projectSlug);
 }

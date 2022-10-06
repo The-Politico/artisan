@@ -1,4 +1,4 @@
-import { store } from '../init';
+import { projects } from '../init';
 
 /**
  * Adds an illustration to a project with `publicURL` set to `null`.
@@ -9,7 +9,7 @@ import { store } from '../init';
  * @returns
  */
 export async function addIllustration({ projectSlug, illustrationName }) {
-  const projectEntry = await store.get(projectSlug);
+  const projectEntry = await projects.get(projectSlug);
 
   if (projectEntry) {
     const { illustrations } = projectEntry;
@@ -21,14 +21,14 @@ export async function addIllustration({ projectSlug, illustrationName }) {
       publicURL: null,
     };
 
-    await store.set(projectSlug, {
+    await projects.set(projectSlug, {
       ...projectEntry,
       illustrations: [...illustrations, newIllustration],
     });
 
-    await store.save();
+    await projects.save();
 
-    return store.get(projectSlug);
+    return projects.get(projectSlug);
   }
   return null;
 }

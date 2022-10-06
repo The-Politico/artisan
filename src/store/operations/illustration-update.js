@@ -1,4 +1,4 @@
-import { store } from '../init';
+import { projects } from '../init';
 
 /**
  * Updates an illustration's public URL field.
@@ -16,7 +16,7 @@ export async function updateIllustrationURL(
     publicURL,
   },
 ) {
-  const projectEntry = await store.get(projectSlug);
+  const projectEntry = await projects.get(projectSlug);
 
   if (projectEntry) {
     const { illustrations } = projectEntry;
@@ -38,14 +38,14 @@ export async function updateIllustrationURL(
       return d;
     });
 
-    await store.set(projectSlug, {
+    await projects.set(projectSlug, {
       ...projectEntry,
       illustrations: illosUpdated,
     });
 
-    await store.save();
+    await projects.save();
 
-    return store.get(projectSlug);
+    return projects.get(projectSlug);
   }
 
   throw new Error(`No such project exists for: ${projectSlug}`);
