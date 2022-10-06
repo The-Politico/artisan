@@ -1,4 +1,4 @@
-import { store } from '../init';
+import { projects } from '../init';
 
 /**
  * Update a project's upload state and last uploaded timestamp
@@ -14,17 +14,17 @@ export async function updateProject(
   projectSlug,
   { isUploaded = false, isPublished = false, lastUploaded = null } = {},
 ) {
-  const projectEntry = await store.get(projectSlug);
+  const projectEntry = await projects.get(projectSlug);
 
   if (projectEntry) {
-    await store.set(projectSlug, {
+    await projects.set(projectSlug, {
       ...projectEntry,
       isUploaded,
       isPublished,
       lastUploaded,
     });
 
-    await store.save();
+    await projects.svate();
   } else {
     throw new Error(`No such project exists for: ${projectSlug}`);
   }

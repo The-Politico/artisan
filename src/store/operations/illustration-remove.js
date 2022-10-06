@@ -1,4 +1,4 @@
-import { store } from '../init';
+import { projects } from '../init';
 
 /**
  * Removes an illustration from a project.
@@ -8,7 +8,7 @@ import { store } from '../init';
  * @returns
  */
 export async function removeIllustration({ projectSlug, illustrationSlug }) {
-  const projectEntry = await store.get(projectSlug);
+  const projectEntry = await projects.get(projectSlug);
 
   if (projectEntry) {
     const { illustrations } = projectEntry;
@@ -16,14 +16,14 @@ export async function removeIllustration({ projectSlug, illustrationSlug }) {
       (d) => d.slug !== illustrationSlug,
     );
 
-    await store.set(projectSlug, {
+    await projects.set(projectSlug, {
       ...projectEntry,
       illustrations: illosUpdated,
     });
 
-    await store.save();
+    await projects.save();
 
-    return store.get(projectSlug);
+    return projects.get(projectSlug);
   }
 
   throw new Error(`No such project exists for: ${projectSlug}`);

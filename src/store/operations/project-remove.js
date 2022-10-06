@@ -1,4 +1,4 @@
-import { store } from '../init';
+import { projects, store } from '../init';
 
 /**
  * Remove a project from the store.
@@ -10,7 +10,7 @@ export async function removeProject(projectsSlug) {
   const projectEntry = await store.get(projectsSlug);
 
   if (projectEntry) {
-    await store.delete(projectsSlug);
+    await projects.delete(projectsSlug);
 
     if (projectsArr) {
       await store.set(
@@ -20,5 +20,6 @@ export async function removeProject(projectsSlug) {
     }
 
     await store.save();
+    await projects.save();
   }
 }
