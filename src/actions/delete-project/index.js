@@ -1,6 +1,6 @@
 import { removeDir } from '@tauri-apps/api/fs';
 import { resolve } from '@tauri-apps/api/path';
-// import { getStoreValue, removeProject } from '@Utils/store';
+import { getStoreValue, removeProject } from '../../store';
 
 /**
  * Deletes a project from the user's computer. Also removes
@@ -9,13 +9,13 @@ import { resolve } from '@tauri-apps/api/path';
  * @param {String} projectName Project slug name (e.g. `my-new-project`)
  */
 async function deleteProject(projectName) {
-  // const projectsFolder = await getStoreValue('projectsFolder');
+  const projectsFolder = await getStoreValue('projectsFolder');
 
-  // const projectPath = await resolve(projectsFolder, projectName);
+  const projectPath = await resolve(projectsFolder, projectName);
 
   try {
-    // await removeDir(projectPath, { recursive: true });
-    // await removeProject(projectName);
+    await removeDir(projectPath, { recursive: true });
+    await removeProject(projectName);
   } catch (e) {
     console.error(e);
   }

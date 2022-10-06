@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import { ListObjectsCommand, S3Client } from '@aws-sdk/client-s3';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
+import { getStoreValue } from '../../store';
 
 async function getProjects() {
   const s3 = new S3Client({
