@@ -1,6 +1,6 @@
 import classNames from 'classnames';
 import React, { useCallback } from 'react';
-import cls from './Button.module.scss';
+import cls from './Button.module.css';
 
 /**
  * @param {Object} props

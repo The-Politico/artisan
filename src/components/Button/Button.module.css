@@ -1,0 +1,9 @@
+@layer base, compoents, utilties;
+
+@layer components {
+  .btn {
+    --dark-blue: #02588d;
+    color: white;
+    background-image: linear-gradient(to right, var(--blue), var(--dark-blue));
+  }
+}

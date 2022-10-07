@@ -1,7 +1,9 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { ServerIcon } from '@heroicons/react/24/solid';
+import cls from 'classnames';
 import Button from '../Button';
-import cls from './AppView.module.scss';
+import styles from './AppView.module.css';
+import * as nes from '../../nes';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
 import { getProjects } from '../../actions/get-projects-archive';
@@ -24,12 +26,20 @@ export default function AppView() {
     deleteProject('project-one');
   };
 
+  const classNames = cls(
+    nes.layout.flex,
+    nes.layout.flexCol,
+    nes.layout.flexCenter,
+    nes.spacing.y,
+    styles.hScreen,
+  );
+
   return (
-    <div className={cls.view}>
+    <div className={classNames}>
       <SetFolder />
       <Button
         onClick={listArchive}
-        variant="outline"
+        variant="solid"
       >
         List archive
       </Button>

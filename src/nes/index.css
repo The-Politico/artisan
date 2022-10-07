@@ -1,0 +1,8 @@
+@import './base' layer(base);
+@import './components' layer(components);
+@import './utilities' layer(utilities);
+
+:root {
+  --red: red;
+  --blue: #007BC7;
+}
