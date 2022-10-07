@@ -1,6 +1,6 @@
-import classNames from 'classnames';
+import cls from 'classnames';
 import React, { useCallback } from 'react';
-import cls from './Button.module.css';
+import styles from './Button.module.css';
 import { layout } from '../../nes';
 
 /**
@@ -20,9 +20,9 @@ export default function Button(props) {
     className = '',
     onClick = () => null,
   } = props;
-  const btnClass = classNames(
-    cls.btn,
-    cls[variant],
+  const btnClass = cls(
+    styles.btn,
+    styles[variant],
     layout.flex,
     layout.flexCenter,
     className,

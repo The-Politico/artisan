@@ -1,7 +1,6 @@
-@layer base, components, utilties;
 
-/* @layer utilities { */
+
+
   .h-screen {
     height: 100vh;
   }
-/* } */

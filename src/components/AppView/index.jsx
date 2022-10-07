@@ -39,7 +39,7 @@ export default function AppView() {
       <SetFolder />
       <Button
         onClick={listArchive}
-        variant="solid"
+        variant="ghost"
       >
         List archive
       </Button>
@@ -53,7 +53,7 @@ export default function AppView() {
         variant="solid"
         onClick={handleClick}
       >
-        <ServerIcon className="icon-md mr" /> Backup
+        <ServerIcon className={cls(spacing.mr)} /> Backup
       </Button>
     </div>
   );
