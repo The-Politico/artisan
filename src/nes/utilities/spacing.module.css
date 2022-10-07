@@ -1,9 +1,11 @@
 .x > :not([hidden]) ~ :not([hidden]) {
   margin-left: 1rem;
-  margin-right: 1rem;
 }
 
 .y > :not([hidden]) ~ :not([hidden]) {
   margin-top: 1rem;
-  margin-bottom: 1rem;
+}
+
+.mr {
+  margin-right: .5rem;
 }

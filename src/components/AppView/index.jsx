@@ -3,7 +3,7 @@ import { ServerIcon } from '@heroicons/react/24/solid';
 import cls from 'classnames';
 import Button from '../Button';
 import styles from './AppView.module.css';
-import * as nes from '../../nes';
+import { layout, spacing } from '../../nes';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
 import { getProjects } from '../../actions/get-projects-archive';
@@ -27,10 +27,10 @@ export default function AppView() {
   };
 
   const classNames = cls(
-    nes.layout.flex,
-    nes.layout.flexCol,
-    nes.layout.flexCenter,
-    nes.spacing.y,
+    layout.flex,
+    layout.flexCol,
+    layout.flexCenter,
+    spacing.y,
     styles.hScreen,
   );
 
@@ -50,11 +50,10 @@ export default function AppView() {
         Delete Project
       </Button>
       <Button
-        variant="outline"
-        className="text-lg"
+        variant="solid"
         onClick={handleClick}
       >
-        <ServerIcon className="icon-md mr-1" /> Backup
+        <ServerIcon className="icon-md mr" /> Backup
       </Button>
     </div>
   );

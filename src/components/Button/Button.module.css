@@ -1,9 +1,17 @@
-@layer base, compoents, utilties;
+@layer base, components, utilites;
 
-@layer components {
+@layer nes-components {
   .btn {
+    padding: .5rem 1.5rem;
+    border-radius: 24px;
+  }
+  .solid {
     --dark-blue: #02588d;
-    color: white;
+    color: #f8fafc;
     background-image: linear-gradient(to right, var(--blue), var(--dark-blue));
+  }
+  .outline {
+    border-width: 1px;
+    border-color: #1e293b;
   }
 }
