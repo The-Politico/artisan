@@ -4,10 +4,14 @@ export * from './operations';
 export { updateAppSettings } from './update-settings';
 
 /**
+ * @typedef {import('./types/SettingsKeys').Key} Key
+ */
+
+/**
  * Arbitrary convenience function to set a store value of a given key
  * Defaults to safe set only. Use `override: true` to unsafely set a new value
  * for any key.
- * @param {String} key
+ * @param {Key} key
  * @param {*} value
  * @param {Object} [opts]
  * @param {Boolean} [opts.override] Override safety check of existing key
@@ -25,7 +29,7 @@ export async function updateStoreValue(key, value, { override = false } = {}) {
 
 /**
  * Returns value for a given `key` or `null` if the key doesn't exist.
- * @param {String} key
+ * @param {Key} key
  * @returns {Promise<T | null>}
  */
 export async function getStoreValue(key) {
@@ -37,6 +41,6 @@ export async function getStoreValue(key) {
  * @param {String} key
  * @returns {Promise<T | null>}
  */
- export async function getProject(key) {
+export async function getProject(key) {
   return projects.get(key);
 }

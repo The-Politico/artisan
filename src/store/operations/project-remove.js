@@ -7,7 +7,7 @@ import { projects, store } from '../init';
  */
 export async function removeProject(projectsSlug) {
   const projectsArr = await store.get('projects');
-  const projectEntry = await store.get(projectsSlug);
+  const projectEntry = await projects.get(projectsSlug);
 
   if (projectEntry) {
     await projects.delete(projectsSlug);
