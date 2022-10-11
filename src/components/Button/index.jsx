@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import React, { useCallback } from 'react';
 import styles from './Button.module.css';
-import { layout } from '../../nes';
+import { layout } from '../../theme';
 
 /**
  * @param {Object} props

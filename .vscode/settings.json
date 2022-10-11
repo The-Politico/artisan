@@ -1,0 +1,12 @@
+{
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "postcss.validate": false,
+  "[postcss]": {
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  }
+}

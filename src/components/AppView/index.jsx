@@ -3,7 +3,7 @@ import { ServerIcon } from '@heroicons/react/24/solid';
 import cls from 'classnames';
 import Button from '../Button';
 import styles from './AppView.module.css';
-import { layout, spacing } from '../../nes';
+import { layout, spacing } from '../../theme';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
 import { getProjects } from '../../actions/get-projects-archive';

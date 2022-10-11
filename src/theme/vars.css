@@ -1,5 +1,3 @@
-@import './base' layer(base);
-
 :root {
   --red: red;
   --blue: #007BC7;

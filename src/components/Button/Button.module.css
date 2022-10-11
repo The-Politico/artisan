@@ -1,35 +1,23 @@
-@layer base, components, demo-2, demo;
-
-@layer components {
-  .btn {
-    padding: .5rem 1.5rem;
-    border-radius: 24px;
-  }
-  .solid {
-    --dark-blue: #02588d;
-    color: #f8fafc;
-    background-image: linear-gradient(to right, var(--blue), var(--dark-blue));
-  }
-  .outline {
-    border-width: 1px;
-    border-color: #1e293b;
-  }
-  .ghost {
-    color: #334155;
-  }
-  .ghost:hover {
-    text-decoration: underline;
-  }
+.btn {
+  padding: 0.5rem 1.5rem;
+  border-radius: 24px;
 }
-
-@layer demo {
-  .btn {
-    color: var(--red);
-  }
+.solid {
+  --dark-blue: #02588d;
+  color: #f8fafc;
+  background-image: linear-gradient(to right, var(--blue), var(--dark-blue));
 }
-
-@layer demo-2 {
-  .btn {
-    color: var(--blue);
-  }
+.outline {
+  border-width: 1px;
+  border-color: #1e293b;
+}
+.outline:hover {
+  color: white;
+  background-color: #1e293b;
+}
+.ghost {
+  color: #334155;
+}
+.ghost:hover {
+  text-decoration: underline;
 }
