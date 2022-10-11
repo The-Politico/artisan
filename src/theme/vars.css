@@ -1,13 +1,4 @@
-/* Product Theme */
-.app {
-  --primary: var(--politico-red);
-}
-
-.app {
-  /* Spacing */
-  --spacing-unit: 4px;
-
-  /* Brand Colors */
-  --politico-red: #dc0228;
-  --politico-dark-red: #ac0825;
+:root {
+  --red: red;
+  --blue: #007BC7;
 }

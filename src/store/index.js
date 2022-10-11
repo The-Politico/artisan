@@ -1,4 +1,4 @@
-import { store } from './init';
+import { store, projects } from './init';
 
 export * from './operations';
 export { updateAppSettings } from './update-settings';
@@ -24,10 +24,19 @@ export async function updateStoreValue(key, value, { override = false } = {}) {
 }
 
 /**
- * Returns value for a given `key` or `null` if they key doesn't exist.
+ * Returns value for a given `key` or `null` if the key doesn't exist.
  * @param {String} key
  * @returns {Promise<T | null>}
  */
 export async function getStoreValue(key) {
   return store.get(key);
+}
+
+/**
+ * Returns a project for a given `key` or `null` if the project doesn't exist.
+ * @param {String} key
+ * @returns {Promise<T | null>}
+ */
+ export async function getProject(key) {
+  return projects.get(key);
 }

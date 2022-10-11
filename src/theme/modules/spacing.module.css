@@ -1,12 +1,11 @@
-/* Spacing */
-.x0 > * + * {
-  margin-left: var(--spacing-unit);
+.x > :not([hidden]) ~ :not([hidden]) {
+  margin-left: 1rem;
 }
 
-.x1 > * + * {
-  margin-left: calc(1 * var(--spacing-unit));
+.y > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem;
 }
 
-.x2 > * + * {
-  margin-left: calc(2 * var(--spacing-unit));
+.mr {
+  margin-right: .5rem;
 }

@@ -1,10 +1,10 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
+import React from 'react';
+import ReactDOM from 'react-dom/client';
 import AppView from './components/AppView';
-import './main.scss'
+import './main.css';
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
     <AppView />
-  </React.StrictMode>
-)
+  </React.StrictMode>,
+);

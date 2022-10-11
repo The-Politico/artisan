@@ -1,29 +1,40 @@
-import cls from './Button.module.scss';
-import classNames from 'classnames';
-import React from 'react';
+import cls from 'classnames';
+import React, { useCallback } from 'react';
+import styles from './Button.module.css';
+import { layout } from '../../theme';
 
 /**
  * @param {Object} props
  * @param {"solid" | "outline" | "ghost"} props.variant - Button style variant
  * @param {Boolean} [props.disabled] - Set disabled state
  * @param {String} [props.className] - Extra classes
- * @param {React.ReactElement} [props.children] - Children elements
+ * @param {React.ReactNode} [props.children] - Children elements
+ * @param {Function} [props.onClick] - onClick event listener
  * @returns {React.ReactElement}
  */
 export default function Button(props) {
   const {
-    variant,
+    variant = 'solid',
     children,
     disabled = false,
     className = '',
-    onClick = null,
+    onClick = () => null,
   } = props;
-  const btnClass = classNames(cls.button, cls[variant], className);
+  const btnClass = cls(
+    styles.btn,
+    styles[variant],
+    layout.flex,
+    layout.flexCenter,
+    className,
+  );
+
+  const handleClick = useCallback(onClick, [onClick]);
+
   return (
     <button
       type="button"
       className={btnClass}
-      onClick={onClick}
+      onClick={handleClick}
       disabled={disabled}
     >
       {children}
