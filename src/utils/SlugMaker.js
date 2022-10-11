@@ -1,6 +1,6 @@
 
-export default function SlugMaker(userInput) {
+export default function SlugMaker(textInput) {
 
-  return userInput.toLowerCase().replace(' ', '-'); 
+  return textInput.toLowerCase().replace(' ', '-'); 
 
 }

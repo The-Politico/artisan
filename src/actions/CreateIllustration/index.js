@@ -1,28 +1,24 @@
-import { copyFile } from '@tauri-apps/api/fs';
+import { copyFile, createDir } from '@tauri-apps/api/fs';
 import { resolveResource, documentDir, join } from '@tauri-apps/api/path';
-
-import { Store } from 'tauri-plugin-store-api';
+import { addIllustration } from '../../store/operations/illustration-add';
 
 import SlugMaker from '../../utils/SlugMaker';
-const store = new Store('./utils/store');
 
-export default async function CreateIllustration({projectSlug, illustrationTitle}) {
+export default async function CreateIllustration({projectSlug, illustrationName}) {
 
-  const illustrationFileName = illustrationTitle + ".ai";
+  // get your template file
   const templateFile = await resolveResource('template-standard.ai');
 
+  const illustrationSlug = SlugMaker(illustrationName);
+  const illustrationFileName = illustrationSlug + ".ai";
+
   const docsPath = await documentDir();
-  const destinationFile = await join(docsPath, 'Artisan', 'Projects', projectSlug, illustrationFileName);
+  const illoPath = await join(docsPath, 'Artisan', 'Projects', projectSlug, illustrationSlug);
+  await createDir(illoPath); 
+
+  const destinationFile = await join(illoPath, illustrationFileName);
 
   await copyFile(templateFile, destinationFile);
-
-    // update settings
-    const previousProjectSetting = await store.get(projectSlug);
-    const updatedProjectSetting = previousProjectSetting.illustrations.push({
-      "name": illustrationTitle,
-      "slug": SlugMaker(illustrationTitle),
-      "publicURL": null
-    })
-    await store.set('projects', {value: updatedProjectSetting});
+  addIllustration(projectSlug, illustrationName);
 
 }

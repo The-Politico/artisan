@@ -13,6 +13,17 @@
   "tauri": {
     "allowlist": {
       "all": true,
+      "shell": {
+        "all": true, 
+        "execute": true, 
+        "sidecar": true, 
+        "open": true,
+        "scope": [{
+          "name": "run-osascript",
+          "cmd": "osascript",
+          "args": true
+        }]
+      },
       "fs": {
         "writeFile": true,
         "copyFile": true,
@@ -47,9 +58,10 @@
         "signingIdentity": null
       },
       "resources": [
-        "resources/ai2html.js",
-        "resources/ai2html-config.json",
-        "resources/template-standard.ai"
+        "ai2html.js",
+        "ai2html-config.json",
+        "exportArtboards.js",
+        "template-standard.ai"
       ],
       "shortDescription": "",
       "targets": "all",
