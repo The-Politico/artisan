@@ -25,14 +25,13 @@ export async function downloadProject(projectSlug) {
   });
 
   const keyPath = await join(PROJECTS_ARCHIVE_PREFIX, projectSlug);
-
   const projectListCommand = new ListObjectsCommand({
     Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
     Prefix: keyPath,
   });
 
+  // Grabs file names in project folder
   const { Contents } = await s3.send(projectListCommand);
-
   const files = await Promise.all(
     Contents.map(async (d) => {
       const name = await basename(d.Key, '.ai');
