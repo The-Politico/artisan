@@ -10,6 +10,12 @@ import { deleteProject } from '../../actions/delete-project';
 import { removeProject, getStoreValue } from '../../store';
 import { store, projects } from '../../store/init';
 import { archiveProject } from '../../actions/archive';
+import { downloadProject } from '../../actions/download';
+
+async function downloadP() {
+  const f = await downloadProject('project-five');
+  console.log(f);
+};
 
 export default function AppView() {
   const [p, setP] = useState([]);
@@ -22,6 +28,8 @@ export default function AppView() {
   const reset = async () => {
     await store.reset();
     await projects.reset();
+    await store.save();
+    await projects.save();
     // console.log({ pr });
   };
 
@@ -52,7 +60,13 @@ export default function AppView() {
         onClick={deleteProj}
         variant="outline"
       >
-        Delete Project
+        Arcive Project
+      </Button>
+      <Button
+        onClick={downloadP}
+        variant="solid"
+      >
+        Download Project
       </Button>
       <Button
         variant="outline"
