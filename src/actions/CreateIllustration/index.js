@@ -8,12 +8,6 @@ import downloadTemplate from './utils/DownloadTemplate';
 
 export default async function CreateIllustration(projectSlug, illustrationName) {
 
-  console.log(projectSlug);
-  console.log(illustrationName);
-
-  // get your template file
-  // const templateFile = await resolveResource('template-standard.ai');
-
   const illustrationSlug = SlugMaker(illustrationName);
   const illustrationFileName = illustrationSlug + ".ai";
 
@@ -23,10 +17,8 @@ export default async function CreateIllustration(projectSlug, illustrationName) 
 
   const destinationFile = await join(illoPath, illustrationFileName);
   const template = await downloadTemplate();
-  console.log(template);
   await writeBinaryFile(destinationFile, template)
 
-  // await copyFile(templateFile, destinationFile);
-  // addIllustration(projectSlug, illustrationName);
+  addIllustration(projectSlug, illustrationName);
 
 }

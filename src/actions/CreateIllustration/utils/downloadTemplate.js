@@ -1,5 +1,4 @@
 import { S3Client, GetObjectCommand } from "@aws-sdk/client-s3";
-import { writeBinaryFile } from "@tauri-apps/api/fs";
 import { join, documentDir } from '@tauri-apps/api/path';
 
 export default async function downloadTemplate() {
@@ -25,8 +24,12 @@ export default async function downloadTemplate() {
     const s3Client = new S3Client(config);
     const command = new GetObjectCommand(resource);
     const response = await s3Client.send(command);
+
+    
+    const reader = response.Body.getReader()
+    const result = await reader.read()
   
-    return response;
+    return result.value;
 
   } catch (error) {
     console.log(error);
