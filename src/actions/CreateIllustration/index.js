@@ -3,8 +3,8 @@ import { copyFile, createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 import { resolveResource, documentDir, join } from '@tauri-apps/api/path';
 import { addIllustration } from '../../store/operations/illustration-add';
 
+import { downloadS3Object } from '../../utils/download-from-s3';
 import SlugMaker from '../../utils/SlugMaker';
-import downloadTemplate from './utils/DownloadTemplate';
 
 export default async function CreateIllustration(projectSlug, illustrationName) {
 
@@ -16,7 +16,13 @@ export default async function CreateIllustration(projectSlug, illustrationName) 
   await createDir(illoPath); 
 
   const destinationFile = await join(illoPath, illustrationFileName);
-  const template = await downloadTemplate();
+
+  const s3Settings = {
+    bucket: import.meta.env.VITE_AWS_STAGING_BUCKET,
+    key:  "artisan-test/templates/base.ai",
+  }
+
+  const template = await downloadS3Object(s3Settings);
   await writeBinaryFile(destinationFile, template)
 
   addIllustration(projectSlug, illustrationName);
