@@ -5,17 +5,10 @@ import Button from '../Button';
 import cls from './AppView.module.scss';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
-import { getProjects } from '../../actions/get-projects-archive';
-import { deleteProject } from '../../actions/delete-project';
 import { removeProject, getStoreValue } from '../../store';
 import { store, projects } from '../../store/init';
 import { archiveProject } from '../../actions/archive';
-import { downloadProject } from '../../actions/download';
-
-async function downloadP() {
-  const f = await downloadProject('project-five');
-  console.log(f);
-};
+import { publishProject } from '../../actions/publish';
 
 export default function AppView() {
   const [p, setP] = useState([]);
@@ -36,6 +29,10 @@ export default function AppView() {
   const deleteProj = async () => {
     // await removeProject('project-five');
     await archiveProject('project-five');
+  };
+
+  const publish = async () => {
+    await publishProject('project-five');
   };
 
   useEffect(() => {
@@ -63,10 +60,10 @@ export default function AppView() {
         Arcive Project
       </Button>
       <Button
-        onClick={downloadP}
+        onClick={publish}
         variant="solid"
       >
-        Download Project
+        publish Project
       </Button>
       <Button
         variant="outline"
