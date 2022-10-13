@@ -1,8 +1,4 @@
-import {
-  GetObjectCommand,
-  ListObjectsCommand,
-  S3Client,
-} from '@aws-sdk/client-s3';
+import { ListObjectsCommand, S3Client } from '@aws-sdk/client-s3';
 import { createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 import { basename, join } from '@tauri-apps/api/path';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
@@ -13,6 +9,7 @@ import {
   getStoreValue,
 } from '../../store';
 import { downloadS3Object } from '../../utils/download-from-s3';
+import { fetchProjectMeta } from './project-meta';
 
 export async function downloadProject(projectSlug) {
   const bucket = import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME;
@@ -26,7 +23,7 @@ export async function downloadProject(projectSlug) {
 
   const keyPath = await join(PROJECTS_ARCHIVE_PREFIX, projectSlug);
   const projectListCommand = new ListObjectsCommand({
-    Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
+    Bucket: bucket,
     Prefix: keyPath,
   });
 
@@ -45,20 +42,7 @@ export async function downloadProject(projectSlug) {
   // Gets text file for project name
   // This should be a JSON file that stores
   // the illustration names as well
-  const { key: projectNameFile } = files.find(
-    ({ illoName }) => illoName === 'project-name.txt',
-  );
-
-  const getTextFile = new GetObjectCommand({
-    Bucket: bucket,
-    Key: projectNameFile,
-    ResponseContentType: 'text/plain',
-  });
-
-  const { Body } = await s3.send(getTextFile);
-  // eslint-disable-next-line no-undef
-  const res = new Response(Body);
-  const projectName = await res.text();
+  const projectName = await fetchProjectMeta(s3, files);
   await addProject(projectName);
 
   // Start of downloading illustrator files
