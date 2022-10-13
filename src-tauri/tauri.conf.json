@@ -16,8 +16,24 @@
       "path": {
         "all": true
       },
+      "shell": {
+        "all": true,
+        "execute": true,
+        "sidecar": true,
+        "open": true,
+        "scope": [{
+          "name": "run-osascript",
+          "cmd": "osascript",
+          "args": true
+        }]
+      },
       "fs": {
-        "scope": ["$RESOURCE/*", "$HOME/*"]
+        "writeFile": true,
+        "copyFile": true,
+        "createDir": true,
+        "removeDir": true,
+        "removeFile": true,
+        "scope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*"]
       }
     },
     "bundle": {
