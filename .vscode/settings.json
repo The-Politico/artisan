@@ -4,7 +4,7 @@
   "less.validate": false,
   "postcss.validate": false,
   "[postcss]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.associations": {
     "*.css": "postcss"
