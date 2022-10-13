@@ -1,0 +1,29 @@
+.m {
+  margin: calc(.25rem * var(--m, 4));
+}
+
+.mt {
+  margin-top: calc(.25rem * var(--mt, 4));
+}
+
+.mb {
+  margin-bottom: calc(.25rem * var(--mb, 4));
+}
+
+.ml {
+  margin-left: calc(.25rem * var(--ml, 4));
+}
+
+.mr {
+  margin-right: calc(.25rem * var(--mr, 4));
+}
+
+.mx {
+  margin-right: calc(.25rem * var(--mx, 4));
+  margin-left: calc(.25rem * var(--mx, 4));
+}
+
+.my {
+  margin-top: calc(.25rem * var(--my, 4));
+  margin-bottom: calc(.25rem * var(--my, 4));
+}

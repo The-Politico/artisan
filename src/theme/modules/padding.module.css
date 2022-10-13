@@ -1,0 +1,29 @@
+.p {
+  padding: calc(.25rem * var(--p, 4));
+}
+
+.pt {
+  padding-top: calc(.25rem * var(--pt, 4));
+}
+
+.pb {
+  padding-bottom: calc(.25rem * var(--pb, 4));
+}
+
+.pl {
+  padding-left: calc(.25rem * var(--pl, 4));
+}
+
+.pr {
+  padding-right: calc(.25rem * var(--pr, 4));
+}
+
+.px {
+  padding-right: calc(.25rem * var(--px, 4));
+  padding-left: calc(.25rem * var(--px, 4));
+}
+
+.py {
+  padding-top: calc(.25rem * var(--py, 4));
+  padding-bottom: calc(.25rem * var(--py, 4));
+}
