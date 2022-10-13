@@ -5,10 +5,11 @@ import { join } from '@tauri-apps/api/path';
 import mime from 'mime/lite';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
 import { getProject, getStoreValue } from '../../store';
-import { backupFilesS3 } from '../backup';
+// import { backupFilesS3 } from '../backup';
 
 export async function publishProject(projectSlug) {
   // await backupFilesS3(projectSlug);
+  // await outputSharePage(projectSlug);
 
   const s3 = new S3Client({
     region: 'us-east-1',
@@ -26,16 +27,17 @@ export async function publishProject(projectSlug) {
 
   await Promise.all(
     illustrations.map(async (d) => {
-      const outputPath = await join(pPath, d.slug, 'ai2html-output');
+      const illoSlug = d.slug;
+      const outputPath = await join(pPath, illoSlug, 'ai2html-output');
       const output = await readDir(outputPath, { recursive: true });
-      // eslint-disable-next-line no-restricted-syntax
-      for (const file of output) {
+
+      await Promise.all(output.map(async (file) => {
         const fileContent = await readBinaryFile(file.path);
         const ContentType = mime.getType(file.path);
         const Key = await join(
           PROJECTS_ARCHIVE_PREFIX,
           projectSlug,
-          d.slug,
+          illoSlug,
           file.name,
         );
         const putCommand = new PutObjectCommand({
@@ -45,9 +47,8 @@ export async function publishProject(projectSlug) {
           Body: fileContent,
           Key,
         });
-        const r = await s3.send(putCommand);
-        console.log(r);
-      }
+        await s3.send(putCommand);
+      }));
     }),
   );
 }
