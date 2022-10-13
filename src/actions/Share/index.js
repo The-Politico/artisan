@@ -1,5 +1,5 @@
-import generateSharePage from "./utils/generateSharePage";
-import uploadSharePage from "./utils/uploadSharePage";
+import generateSharePage from "../OutputShare/utils/generateSharePage";
+import uploadSharePage from "../OutputShare/utils/uploadSharePage";
 
 export default async function Share(projectSlug){
   // gets name of project, generates final URL -- key that we would pass. 

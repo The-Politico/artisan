@@ -1,14 +1,14 @@
-import { copyFile, createDir, writeBinaryFile } from '@tauri-apps/api/fs';
+import { createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 
-import { resolveResource, documentDir, join } from '@tauri-apps/api/path';
+import { documentDir, join } from '@tauri-apps/api/path';
 import { addIllustration } from '../../store/operations/illustration-add';
 
 import { downloadS3Object } from '../../utils/download-from-s3';
-import SlugMaker from '../../utils/SlugMaker';
+import slugMaker from '../../utils/slug-maker';
 
 export default async function CreateIllustration(projectSlug, illustrationName) {
 
-  const illustrationSlug = SlugMaker(illustrationName);
+  const illustrationSlug = slugMaker(illustrationName);
   const illustrationFileName = illustrationSlug + ".ai";
 
   const docsPath = await documentDir();

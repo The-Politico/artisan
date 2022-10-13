@@ -1,5 +1,5 @@
 
-export default function SlugMaker(textInput) {
+export default function slugMaker(textInput) {
 
   return textInput.toLowerCase().replace(' ', '-'); 
 
