@@ -49,6 +49,8 @@ export default async function OutputShare(projectSlug){
   const destination = await join(docsPath, 'Artisan', 'Projects', projectSlug, fileName);
   await writeTextFile(destination, sharePageHTML);
 
+  return shareURL;
+
   // bucket, key including filename, file content
   // await uploadS3Object(AWS_STAGING_BUCKET, shareKey, sharePageHTML);
 }
