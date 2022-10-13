@@ -1,0 +1,21 @@
+.flex {
+  display: flex;
+}
+
+/* Centers flex children along both axes. */
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-row {
+  flex-direction: var(--reverse, row);
+}
+
+.flex-column {
+  flex-direction: var(--reverse, column);
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
