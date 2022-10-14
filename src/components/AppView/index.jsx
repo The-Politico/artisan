@@ -1,77 +1,118 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import { ServerIcon } from '@heroicons/react/24/solid';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import Button from '../Button';
 import cls from './AppView.module.scss';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
-import { removeProject, getStoreValue } from '../../store';
+import { getStoreValue } from '../../store';
 import { store, projects } from '../../store/init';
-import { archiveProject } from '../../actions/archive';
 import { publishProject } from '../../actions/publish';
+import { downloadProject } from '../../actions/download';
+import { openInFinder } from '../../actions/open-in-finder';
+import { deleteProject } from '../../actions/delete-project';
+import { getProjectsArchive } from '../../actions/get-projects-archive';
 
 export default function AppView() {
   const [p, setP] = useState([]);
+  const [ap, setAp] = useState([]);
+
+  const getP = useCallback(async () => {
+    const initP = await getStoreValue('projects') || [];
+    setP(initP);
+    const unlisten = await store.onKeyChange('projects', async () => {
+      const pChange = await getStoreValue('projects') || [];
+      console.log('projects list changed');
+      setP(pChange);
+    });
+    return unlisten;
+  }, []);
 
   const handleClick = async () => {
-    const projectInfo = await backupFilesS3('project-three');
+    const projectInfo = await backupFilesS3('project-five');
     console.log(projectInfo);
   };
 
   const reset = async () => {
-    await store.reset();
-    await projects.reset();
+    await store.clear();
+    await projects.clear();
     await store.save();
     await projects.save();
-    // console.log({ pr });
   };
 
   const deleteProj = async () => {
     // await removeProject('project-five');
-    await archiveProject('project-five');
+    await deleteProject('project-five');
   };
 
   const publish = async () => {
     await publishProject('project-five');
   };
 
+  const download = async () => {
+    await downloadProject('project-five');
+  };
+
+  const openProject = async () => {
+    await openInFinder('project-five');
+  };
+
   useEffect(() => {
-    const listProjects = async () => {
-      const ps = await getStoreValue('projects');
-      setP(ps);
-    };
-    listProjects();
-  });
+    getP();
+
+    console.log('effect running');
+  }, []);
+
+  useEffect(() => {
+    console.log('projects list changed');
+    (async () => {
+      const archive = await getProjectsArchive();
+      setAp(archive);
+    })();
+  }, [p]);
 
   return (
     <div className={cls.view}>
-      {p && p.map((d) => (<span key={d}>{d}</span>))}
-      <SetFolder />
       <Button
         onClick={reset}
         variant="solid"
       >
-        Reset
+        Reset store
+      </Button>
+      <Button
+        onClick={download}
+        variant="outline"
+      >
+        Download Project
       </Button>
       <Button
         onClick={deleteProj}
-        variant="outline"
+        variant="solid"
       >
-        Arcive Project
+        Delete Project
       </Button>
       <Button
         onClick={publish}
-        variant="solid"
+        variant="outline"
       >
-        publish Project
+        Publish Project
       </Button>
       <Button
-        variant="outline"
-        className="text-lg"
+        variant="solid"
+        onClick={openProject}
+      >
+        Open in Finder
+      </Button>
+      <Button
+        variant="solid"
         onClick={handleClick}
       >
-        <ServerIcon className="icon-md mr-1" /> Backup
+        Backup
       </Button>
+      <SetFolder />
+      <p>Local Projects:</p>
+      <ul>{p && p.map((d) => <li key={d}>{d}</li>)}</ul>
+      <p>Archive Projects:</p>
+      <ul>{ap && ap.map((d) => <li key={d}>{d}</li>)}</ul>
     </div>
   );
 }
