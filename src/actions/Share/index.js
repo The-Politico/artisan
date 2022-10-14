@@ -13,7 +13,7 @@ export default async function Share(projectSlug){
 
   // TICKET: Opens web browser tab for export share page
   // RK notes: Tauri web window as placeholder -- looking for the most kosher way to simply open a new browser tab
-  const webview = new WebviewWindow('my-label', {
+  const webview = new WebviewWindow('Share', {
     url: shareURL
   });
   webview.once('tauri://created', function () {

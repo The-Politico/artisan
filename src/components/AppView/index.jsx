@@ -5,7 +5,8 @@ import cls from './AppView.module.scss';
 
 import CreateIllustration from '../../actions/CreateIllustration';
 import Generate from '../../actions/Generate';
-import downloadTemplate from '../../actions/CreateIllustration/utils/DownloadTemplate';
+import Preview from '../../actions/Preview';
+
 
 export default function AppView() {
   return (
@@ -16,8 +17,17 @@ export default function AppView() {
         // onClick={() => downloadTemplate()}
         onClick={() => CreateIllustration('proj-5', 'TEST-template')}
       >
-        <PlusIcon className="h-6 mr-1" /> New Project
+
+        <PlusIcon className="h-6 mr-1" /> Create Illustration
       </Button>
+
+      <Button
+        variant="solid"
+        className="text-lg !text-red"
+        // onClick={() => downloadTemplate()}
+        onClick={() => Preview()}
+      >Preview</Button>
+
       <TailwindButton
         variant="solid"
         className="text-lg mt-4"

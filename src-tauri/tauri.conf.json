@@ -22,7 +22,13 @@
           "name": "run-osascript",
           "cmd": "osascript",
           "args": true
-        }]
+        },
+        {
+          "name": "start-local-server",
+          "cmd": "python3",
+          "args": ["-m", "http.server", "8080"]
+        }
+      ]
       },
       "fs": {
         "writeFile": true,

@@ -1,11 +1,9 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import AppView from './components/AppView';
-import ActionTestingView from './components/ActionTestingView';
-import './main.scss'
+import PreviewWindow from './PreviewWindow'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <ActionTestingView />
+    <PreviewWindow projectSlug="proj-1"/>
   </React.StrictMode>
 )
