@@ -14,7 +14,7 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => CreateIllustration('proj-1', 'TEST-template')}
+        onClick={() => CreateIllustration('proj-1', 'test-illo')}
       >
         <PlusIcon className="h-6 mr-1" /> Create Illustration
       </Button><br/>
@@ -22,14 +22,14 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => OpenIllustration('proj-5', 'TEST-template')}
+        onClick={() => OpenIllustration('proj-1', 'test-illo')}
       >Open Illustration
       </Button><br/>
       <Button
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => Generate('proj-5', 'TEST-template')}
+        onClick={() => Generate('proj-1', 'test-illo')}
       >Generate
       </Button><br/>
       <Button
@@ -42,7 +42,7 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => DeleteIllustration()}
+        onClick={() => DeleteIllustration('proj-1', 'test-illo')}
       >Delete Illustration</Button><br/>
       <Button
         variant="solid"
@@ -54,13 +54,13 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => Share()}
-      >Output Share</Button><br/>
+        onClick={() => Share('proj-1')}
+      >Share</Button><br/>
       <Button
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() =>DuplicateIllustration()}
+        onClick={() =>DuplicateIllustration('proj-1', 'proj-2')}
       >Duplicate Illustration</Button><br/>
 
     </div>
