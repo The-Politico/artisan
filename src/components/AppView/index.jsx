@@ -1,8 +1,10 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import { ServerIcon } from '@heroicons/react/24/solid';
 import { useEffect, useState } from 'react';
+import cls from 'classnames';
 import Button from '../Button';
-import cls from './AppView.module.scss';
+import styles from './AppView.module.css';
+import { layout, spacing } from '../../theme';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
 import { removeProject, getStoreValue } from '../../store';
@@ -35,21 +37,20 @@ export default function AppView() {
     await publishProject('project-five');
   };
 
-  useEffect(() => {
-    const listProjects = async () => {
-      const ps = await getStoreValue('projects');
-      setP(ps);
-    };
-    listProjects();
-  });
+  const classNames = cls(
+    layout.flex,
+    layout.flexCol,
+    layout.flexCenter,
+    spacing.y,
+    styles.hScreen,
+  );
 
   return (
-    <div className={cls.view}>
-      {p && p.map((d) => (<span key={d}>{d}</span>))}
+    <div className={classNames}>
       <SetFolder />
       <Button
-        onClick={reset}
-        variant="solid"
+        onClick={listArchive}
+        variant="ghost"
       >
         Reset
       </Button>
@@ -66,11 +67,10 @@ export default function AppView() {
         publish Project
       </Button>
       <Button
-        variant="outline"
-        className="text-lg"
+        variant="solid"
         onClick={handleClick}
       >
-        <ServerIcon className="icon-md mr-1" /> Backup
+        <ServerIcon className={cls(spacing.mr)} /> Backup
       </Button>
     </div>
   );

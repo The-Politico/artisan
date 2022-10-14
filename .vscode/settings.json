@@ -1,0 +1,12 @@
+{
+  "css.validate": false,
+  "scss.validate": false,
+  "less.validate": false,
+  "postcss.validate": false,
+  "[postcss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "files.associations": {
+    "*.css": "postcss"
+  }
+}

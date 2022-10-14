@@ -1,6 +1,7 @@
-import classNames from 'classnames';
+import cls from 'classnames';
 import React, { useCallback } from 'react';
-import cls from './Button.module.scss';
+import styles from './Button.module.css';
+import { layout } from '../../theme';
 
 /**
  * @param {Object} props
@@ -13,13 +14,19 @@ import cls from './Button.module.scss';
  */
 export default function Button(props) {
   const {
-    variant = 'ghost',
+    variant = 'solid',
     children,
     disabled = false,
     className = '',
     onClick = () => null,
   } = props;
-  const btnClass = classNames(cls.btn, cls[`btn-${variant}`], className);
+  const btnClass = cls(
+    styles.btn,
+    styles[variant],
+    layout.flex,
+    layout.flexCenter,
+    className,
+  );
 
   const handleClick = useCallback(onClick, [onClick]);
 
