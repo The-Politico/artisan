@@ -3,7 +3,7 @@ import { ListObjectsCommand, S3Client } from '@aws-sdk/client-s3';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
 import { getStoreValue } from '../../store';
 
-async function getProjects() {
+async function getProjectsArchive() {
   const s3 = new S3Client({
     region: 'us-east-1',
     credentials: {
@@ -26,10 +26,10 @@ async function getProjects() {
   });
 
   // compare to projects in store
-  const localProjects = await getStoreValue('projects');
+  const localProjects = await getStoreValue('projects') || [];
 
   // Return projects not locally in the settigns store
   return projectsList.filter((p) => !localProjects.includes(p));
 }
 
-export { getProjects };
+export { getProjectsArchive };
