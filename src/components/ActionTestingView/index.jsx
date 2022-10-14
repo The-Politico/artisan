@@ -5,7 +5,11 @@ import cls from './ActionTestingView.module.scss';
 import CreateIllustration from '../../actions/CreateIllustration';
 import Generate from '../../actions/Generate';
 import Preview from '../../actions/Preview';
-
+import OpenIllustration from '../../actions/OpenIllustration';
+import DeleteIllustration from '../../actions/DeleteIllustration';
+import OutputShare from '../../actions/OutputShare';
+// import Share from '../../actions/Share';
+import DuplicateProject from '../../actions/DuplicateProject';
 
 export default function ActionTestingView() {
   return (
@@ -60,7 +64,7 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() =>DuplicateIllustration('proj-1', 'proj-2')}
+        onClick={() => DuplicateProject('proj-1', 'proj-2')}
       >Duplicate Illustration</Button><br/>
 
     </div>

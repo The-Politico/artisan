@@ -1,4 +1,5 @@
 import { Command } from '@tauri-apps/api/shell';
+import { documentDir, join } from '@tauri-apps/api/path';
 
 export default async function OpenIllustration(projectSlug, illustrationSlug){
 

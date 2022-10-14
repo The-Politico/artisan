@@ -1,1 +1,1 @@
-export const AWS_STAGING_BUCKET = "int-staging.politico.com";
+export const AWS_STAGING_BUCKET = "staging.interactives.politico.com";
