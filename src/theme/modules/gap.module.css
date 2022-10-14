@@ -1,11 +1,14 @@
-.all {
-  gap: calc(.25rem * var(--gap, 4));
+.all-1 {
+  --gap: 1;
+  gap: calc(.25rem * var(--gap));
 }
 
-.x {
-  column-gap: calc(.25rem * var(--gap-x, 4));
+.x-1 {
+  --gap-x: 1;
+  column-gap: calc(.25rem * var(--gap-x));
 }
 
-.y  {
-  row-gap: calc(.25rem * var(--gap-y, 4));
+.y-1  {
+  --gap-y: 1;
+  row-gap: calc(.25rem * var(--gap-y));
 }

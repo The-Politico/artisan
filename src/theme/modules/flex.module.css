@@ -12,7 +12,7 @@
   flex-direction: var(--reverse, row);
 }
 
-.flex-column {
+.flex-col {
   flex-direction: var(--reverse, column);
 }
 
