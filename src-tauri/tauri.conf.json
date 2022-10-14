@@ -19,8 +19,7 @@
       "shell": {
         "all": true,
         "execute": true,
-        "sidecar": true,
-        "open": true,
+        "open": "(^https?://)|(^/)",
         "scope": [{
           "name": "run-osascript",
           "cmd": "osascript",
