@@ -43,7 +43,7 @@ export async function downloadProject(projectSlug) {
   // This should be a JSON file that stores
   // the illustration names as well
   const projectName = await fetchProjectMeta(s3, files);
-  await addProject(projectName);
+  await addProject(projectName, { isUploaded: true });
 
   // Start of downloading illustrator files
   const projectsFolder = await getStoreValue('projectsFolder');

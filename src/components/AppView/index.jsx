@@ -7,30 +7,44 @@ import styles from './AppView.module.css';
 import { layout, spacing } from '../../theme';
 import { backupFilesS3 } from '../../actions/backup';
 import SetFolder from '../SetFolder';
-import { removeProject, getStoreValue } from '../../store';
+import { getStoreValue } from '../../store';
 import { store, projects } from '../../store/init';
-import { archiveProject } from '../../actions/archive';
 import { publishProject } from '../../actions/publish';
+import { downloadProject } from '../../actions/download';
+import { openInFinder } from '../../actions/open-in-finder';
+import { deleteProject } from '../../actions/delete-project';
+import { getProjectsArchive } from '../../actions/get-projects-archive';
 
 export default function AppView() {
   const [p, setP] = useState([]);
+  const [ap, setAp] = useState([]);
+
+  const getP = useCallback(async () => {
+    const initP = await getStoreValue('projects') || [];
+    setP(initP);
+    const unlisten = await store.onKeyChange('projects', async () => {
+      const pChange = await getStoreValue('projects') || [];
+      console.log('projects list changed');
+      setP(pChange);
+    });
+    return unlisten;
+  }, []);
 
   const handleClick = async () => {
-    const projectInfo = await backupFilesS3('project-three');
+    const projectInfo = await backupFilesS3('project-five');
     console.log(projectInfo);
   };
 
   const reset = async () => {
-    await store.reset();
-    await projects.reset();
+    await store.clear();
+    await projects.clear();
     await store.save();
     await projects.save();
-    // console.log({ pr });
   };
 
   const deleteProj = async () => {
     // await removeProject('project-five');
-    await archiveProject('project-five');
+    await deleteProject('project-five');
   };
 
   const publish = async () => {
@@ -52,19 +66,19 @@ export default function AppView() {
         onClick={listArchive}
         variant="ghost"
       >
-        Reset
+        Reset store
+      </Button>
+      <Button
+        onClick={download}
+        variant="outline"
+      >
+        Download Project
       </Button>
       <Button
         onClick={deleteProj}
-        variant="outline"
-      >
-        Arcive Project
-      </Button>
-      <Button
-        onClick={publish}
         variant="solid"
       >
-        publish Project
+        Delete Project
       </Button>
       <Button
         variant="solid"
@@ -72,6 +86,11 @@ export default function AppView() {
       >
         <ServerIcon className={cls(spacing.mr)} /> Backup
       </Button>
+      <SetFolder />
+      <p>Local Projects:</p>
+      <ul>{p && p.map((d) => <li key={d}>{d}</li>)}</ul>
+      <p>Archive Projects:</p>
+      <ul>{ap && ap.map((d) => <li key={d}>{d}</li>)}</ul>
     </div>
   );
 }

@@ -5,12 +5,16 @@ import { getStoreValue } from '../../store';
 
 /**
  * Opens projet folder in Finder
- * @param {String} projectName - Project slug name (e.g. `my-project-name`)
+ * @param {String} projectSlug - Project slug name (e.g. `my-project-name`)
  */
-async function openInFinder(projectName) {
+async function openInFinder(projectSlug) {
   const projectsFolder = await getStoreValue('projectsFolder');
-  const projectPath = await resolve(projectsFolder, projectName);
-  await open(projectPath);
+  const projectPath = await resolve(projectsFolder, projectSlug);
+  try {
+    await open(projectPath);
+  } catch (e) {
+    console.error(e);
+  }
 }
 
 export { openInFinder };
