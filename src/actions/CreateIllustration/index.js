@@ -25,6 +25,6 @@ export default async function CreateIllustration(projectSlug, illustrationName) 
   const template = await downloadS3Object(s3Settings);
   await writeBinaryFile(destinationFile, template)
 
-  addIllustration(projectSlug, illustrationName);
+  addIllustration({projectSlug, illustrationName});
 
 }

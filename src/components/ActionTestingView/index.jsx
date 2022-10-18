@@ -8,12 +8,19 @@ import Preview from '../../actions/Preview';
 import OpenIllustration from '../../actions/OpenIllustration';
 import DeleteIllustration from '../../actions/DeleteIllustration';
 import OutputShare from '../../actions/OutputShare';
-// import Share from '../../actions/Share';
+import Share from '../../actions/Share';
 import DuplicateProject from '../../actions/DuplicateProject';
+import CreateProject from '../../actions/CreateProject';
 
 export default function ActionTestingView() {
   return (
     <div className={cls.view}>
+      <Button
+        variant="solid"
+        className="text-lg"
+        // onClick={() => downloadTemplate()}
+        onClick={() => CreateProject('proj-1')}
+      >Create Project</Button><br/>
       <Button
         variant="solid"
         className="text-lg"
@@ -46,12 +53,6 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => DeleteIllustration('proj-1', 'test-illo')}
-      >Delete Illustration</Button><br/>
-      <Button
-        variant="solid"
-        className="text-lg"
-        // onClick={() => downloadTemplate()}
         onClick={() => OutputShare('proj-1')}
       >Output Share</Button><br/>
       <Button
@@ -66,6 +67,12 @@ export default function ActionTestingView() {
         // onClick={() => downloadTemplate()}
         onClick={() => DuplicateProject('proj-1', 'proj-2')}
       >Duplicate Illustration</Button><br/>
+      <Button
+        variant="solid"
+        className="text-lg"
+        // onClick={() => downloadTemplate()}
+        onClick={() => DeleteIllustration('proj-1', 'test-illo')}
+      >Delete Illustration</Button><br/>
 
     </div>
   );

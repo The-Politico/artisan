@@ -1,6 +1,5 @@
-import { writeTextFile, readDir, readBinaryFile } from "@tauri-apps/api/fs"; 
+import { writeTextFile, readBinaryFile } from "@tauri-apps/api/fs"; 
 import { documentDir, join } from "@tauri-apps/api/path";
-import { Children } from "react";
 import getSharePath from './utils/getSharePath'
 import { AWS_STAGING_BUCKET } from "../../constants/buckets";
 import uploadS3Object from "./utils/upload-to-s3";
@@ -13,6 +12,7 @@ export default async function OutputShare(projectSlug){
   const illos = await getIlloPaths(projectSlug);
 
   const projectFallbacks = [];
+  const bucketURL = "https://int-staging.politico.com/"
 
   for (let i=0; i < illos.length; i++){
     const fallbacks = await getFallbackPaths(illos[i]);
@@ -24,19 +24,21 @@ export default async function OutputShare(projectSlug){
     const regexFileName = /.*\/(.*)$/;
     const imageFile = regexFileName.exec(projectFallbacks[i])[1];
 
-    const regexIlloSlug = /.*\/(.*)\/ai2html.*$/
+    const regexIlloSlug = /.*\/(.*)\/ai2html.*$/;
     const illoSlug = regexIlloSlug.exec(projectFallbacks[i])[1];
 
     const imageDestKey = getSharePath(projectSlug) + illoSlug+ "/" + imageFile;
-    // await uploadS3Object(AWS_STAGING_BUCKET, imageDestKey, sharePageHTML);
+    await uploadS3Object(AWS_STAGING_BUCKET, imageDestKey, imageContent);
   }
 
   const shareKey = getSharePath(projectSlug) + "index.html"
-  const shareURL = AWS_STAGING_BUCKET + "/" + shareKey;
+  const shareURL = bucketURL + shareKey;
 
   const sharePageHTML = `<!DOCTYPE html>
       <html>
+      <head>
       <title>${projectSlug}</title>
+      </head>
       <body>
       <p>Hello World! ${shareURL}</p>
       </body>
@@ -49,8 +51,7 @@ export default async function OutputShare(projectSlug){
   const destination = await join(docsPath, 'Artisan', 'Projects', projectSlug, fileName);
   await writeTextFile(destination, sharePageHTML);
 
+  await uploadS3Object(AWS_STAGING_BUCKET, shareKey, sharePageHTML);
+  console.log(shareURL)
   return shareURL;
-
-  // bucket, key including filename, file content
-  // await uploadS3Object(AWS_STAGING_BUCKET, shareKey, sharePageHTML);
 }
