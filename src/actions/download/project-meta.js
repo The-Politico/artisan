@@ -1,10 +1,9 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
-import { s3Client } from '../../utils/s3-client';
+import { AWS_BACKUP_BUCKET_NAME } from '../../constants/paths';
+import { getS3Client } from '../../utils/s3-client';
 
 /**
- *
- * @param {import('@aws-sdk/client-s3').S3Client} s3Client
- * @param {Object[]} files
+ * @param {Object[]} files Array of file names
  * @return {String} Project display name
  */
 export async function fetchProjectMeta(files) {
@@ -12,12 +11,12 @@ export async function fetchProjectMeta(files) {
     ({ illoName }) => illoName === 'project-name.txt',
   );
   const getTextFile = new GetObjectCommand({
-    Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
+    Bucket: AWS_BACKUP_BUCKET_NAME,
     Key: projectNameFile,
     ResponseContentType: 'text/plain',
   });
 
-  const { Body } = await s3Client.send(getTextFile);
+  const { Body } = await getS3Client.send(getTextFile);
   const res = new window.Response(Body);
   const projectName = await res.text();
   return projectName;

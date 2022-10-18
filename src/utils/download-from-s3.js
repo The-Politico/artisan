@@ -1,4 +1,5 @@
-import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { getS3Client } from './s3-client';
 
 /**
  * Downloads files from an S3 bucket as a
@@ -9,13 +10,7 @@ import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
  * @return {Uint16Array} Byte array for writing to binary file
  */
 export async function downloadS3Object({ bucket, key } = {}) {
-  const s3 = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
-    },
-  });
+  const s3Client = getS3Client();
 
   const command = new GetObjectCommand({
     Bucket: bucket,
@@ -23,7 +18,7 @@ export async function downloadS3Object({ bucket, key } = {}) {
   });
 
   try {
-    const { Body } = await s3.send(command);
+    const { Body } = await s3Client.send(command);
 
     const res = new window.Response(Body);
 

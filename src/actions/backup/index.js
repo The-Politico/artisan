@@ -1,9 +1,13 @@
 import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
 import { join, resolve } from '@tauri-apps/api/path';
-import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
+import {
+  PROJECTS_ARCHIVE_PREFIX,
+  AWS_BACKUP_BUCKET_NAME,
+  METADATA_FILE_NAME,
+} from '../../constants/paths';
 import { getProject, getStoreValue, updateProject } from '../../store';
-import { s3Client } from '../../utils/s3-client';
+import { getS3Client } from '../../utils/s3-client';
 
 /**
  * By default, will upload all .ai files found in a project folder
@@ -27,7 +31,8 @@ export async function backupFilesS3(projectSlug, { files } = {}) {
     .filter(({ name }) => name.substring(0, 1) !== '.')
     .map((d) => d.name);
 
-  const bucket = import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME;
+  const bucket = AWS_BACKUP_BUCKET_NAME;
+  const s3Client = getS3Client();
 
   // Upload handler for .ai files
   const handleUpload = async (file) => {
@@ -64,7 +69,7 @@ export async function backupFilesS3(projectSlug, { files } = {}) {
       const keyPath = await join(
         PROJECTS_ARCHIVE_PREFIX,
         projectSlug,
-        'project-name.txt',
+        METADATA_FILE_NAME,
       );
       const { name } = await getProject(projectSlug);
       const params = {

@@ -1,5 +1,5 @@
 /* eslint-disable no-await-in-loop */
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 import mime from 'mime/lite';
@@ -9,19 +9,14 @@ import {
   PROJECTS_ARCHIVE_PREFIX,
 } from '../../constants/paths';
 import { getProject, getStoreValue } from '../../store';
+import { getS3Client } from '../../utils/s3-client';
 // import { backupFilesS3 } from '../backup';
 
 export async function publishProject(projectSlug) {
   // await backupFilesS3(projectSlug);
   // await outputSharePage(projectSlug);
 
-  const s3 = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
-    },
-  });
+  const s3Client = getS3Client();
 
   const pFolder = await getStoreValue('projectsFolder');
   const project = await getProject(projectSlug);
@@ -52,7 +47,7 @@ export async function publishProject(projectSlug) {
             Body: fileContent,
             Key,
           });
-          await s3.send(putCommand);
+          await s3Client.send(putCommand);
         }),
       );
     }),

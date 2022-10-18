@@ -1,16 +1,11 @@
 /* eslint-disable import/prefer-default-export */
-import { ListObjectsCommand, S3Client } from '@aws-sdk/client-s3';
+import { ListObjectsCommand } from '@aws-sdk/client-s3';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
 import { getStoreValue } from '../../store';
+import { getS3Client } from '../../utils/s3-client';
 
 export async function getProjectsArchive() {
-  const s3 = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
-    },
-  });
+  const s3Client = getS3Client();
 
   const listCommand = new ListObjectsCommand({
     Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
@@ -18,7 +13,7 @@ export async function getProjectsArchive() {
     Prefix: PROJECTS_ARCHIVE_PREFIX,
   });
 
-  const projectsPrefixes = await s3.send(listCommand);
+  const projectsPrefixes = await s3Client.send(listCommand);
 
   const projectsList = projectsPrefixes.CommonPrefixes.map((d) => {
     const path = d.Prefix;
