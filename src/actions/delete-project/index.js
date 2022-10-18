@@ -8,7 +8,7 @@ import { getStoreValue, removeProject } from '../../store';
  * This also delete all associated illustrations.
  * @param {String} projectSlug Project slug name (e.g. `my-new-project`)
  */
-async function deleteProject(projectSlug) {
+export async function deleteProject(projectSlug) {
   const projectsFolder = await getStoreValue('projectsFolder');
 
   const projectPath = await resolve(projectsFolder, projectSlug);
@@ -20,5 +20,3 @@ async function deleteProject(projectSlug) {
     console.error(e);
   }
 }
-
-export { deleteProject };

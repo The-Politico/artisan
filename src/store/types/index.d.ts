@@ -1,4 +1,4 @@
-export interface SettingsKeys {
+interface SettingsKeys {
   authorEmail: String;
   athorName: String;
   projectsFolder: String;

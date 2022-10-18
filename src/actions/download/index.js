@@ -1,7 +1,11 @@
-import { ListObjectsCommand, S3Client } from '@aws-sdk/client-s3';
+import { ListObjectsCommand } from '@aws-sdk/client-s3';
 import { createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 import { basename, join } from '@tauri-apps/api/path';
-import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
+import { s3Client } from '../../utils/s3-client';
+import {
+  PROJECTS_ARCHIVE_PREFIX,
+  AWS_BACKUP_BUCKET_NAME,
+} from '../../constants/paths';
 import {
   addIllustration,
   addProject,
@@ -12,14 +16,7 @@ import { downloadS3Object } from '../../utils/download-from-s3';
 import { fetchProjectMeta } from './project-meta';
 
 export async function downloadProject(projectSlug) {
-  const bucket = import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME;
-  const s3 = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
-    },
-  });
+  const bucket = AWS_BACKUP_BUCKET_NAME;
 
   const keyPath = await join(PROJECTS_ARCHIVE_PREFIX, projectSlug);
   const projectListCommand = new ListObjectsCommand({
@@ -28,7 +25,7 @@ export async function downloadProject(projectSlug) {
   });
 
   // Grabs file names in project folder
-  const { Contents } = await s3.send(projectListCommand);
+  const { Contents } = await s3Client.send(projectListCommand);
   const files = await Promise.all(
     Contents.map(async (d) => {
       const name = await basename(d.Key, '.ai');
@@ -42,7 +39,7 @@ export async function downloadProject(projectSlug) {
   // Gets text file for project name
   // This should be a JSON file that stores
   // the illustration names as well
-  const projectName = await fetchProjectMeta(s3, files);
+  const projectName = await fetchProjectMeta(files);
   await addProject(projectName, { isUploaded: true });
 
   // Start of downloading illustrator files
@@ -56,12 +53,12 @@ export async function downloadProject(projectSlug) {
         .map(async ({ key, illoName }) => {
           const destination = await join(projectPath, illoName);
           const illoPath = await join(destination, `${illoName}.ai`);
-          const arr = await downloadS3Object({
+          const byteArray = await downloadS3Object({
             key,
             bucket,
           });
           await createDir(destination, { recursive: true });
-          await writeBinaryFile(illoPath, arr);
+          await writeBinaryFile(illoPath, byteArray);
           return illoName;
         }),
     );
@@ -74,6 +71,6 @@ export async function downloadProject(projectSlug) {
     return getProject(projectSlug);
   } catch (error) {
     console.error(error);
-    return null;
+    return undefined;
   }
 }

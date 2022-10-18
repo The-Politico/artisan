@@ -6,7 +6,7 @@ import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
  * @param {Object} opts
  * @param {String} opts.bucket S3 bucket name.
  * @param {String} opts.key S3 key path to download file from.
- * @return {Uint16Array}
+ * @return {Uint16Array} Byte array for writing to binary file
  */
 export async function downloadS3Object({ bucket, key } = {}) {
   const s3 = new S3Client({
@@ -25,8 +25,7 @@ export async function downloadS3Object({ bucket, key } = {}) {
   try {
     const { Body } = await s3.send(command);
 
-    // eslint-disable-next-line no-undef
-    const res = new Response(Body);
+    const res = new window.Response(Body);
 
     const buffer = await res.arrayBuffer();
 
