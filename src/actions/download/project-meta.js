@@ -1,4 +1,5 @@
 import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { s3Client } from '../../utils/s3-client';
 
 /**
  *
@@ -6,7 +7,7 @@ import { GetObjectCommand } from '@aws-sdk/client-s3';
  * @param {Object[]} files
  * @return {String} Project display name
  */
-export async function fetchProjectMeta(s3Client, files) {
+export async function fetchProjectMeta(files) {
   const { key: projectNameFile } = files.find(
     ({ illoName }) => illoName === 'project-name.txt',
   );
@@ -17,8 +18,7 @@ export async function fetchProjectMeta(s3Client, files) {
   });
 
   const { Body } = await s3Client.send(getTextFile);
-  // eslint-disable-next-line no-undef
-  const res = new Response(Body);
+  const res = new window.Response(Body);
   const projectName = await res.text();
   return projectName;
 }

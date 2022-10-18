@@ -4,7 +4,7 @@ export * from './operations';
 export { updateAppSettings } from './update-settings';
 
 /**
- * @typedef {import('./types/SettingsKeys').Key} Key
+ * @typedef {import('./types').Key} Key
  */
 
 /**
