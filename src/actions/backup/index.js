@@ -1,9 +1,9 @@
-/* eslint-disable import/prefer-default-export */
-import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { PutObjectCommand } from '@aws-sdk/client-s3';
 import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
 import { join, resolve } from '@tauri-apps/api/path';
 import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
 import { getProject, getStoreValue, updateProject } from '../../store';
+import { s3Client } from '../../utils/s3-client';
 
 /**
  * By default, will upload all .ai files found in a project folder
@@ -13,15 +13,7 @@ import { getProject, getStoreValue, updateProject } from '../../store';
  * @param {String[]} [opts.files] Adobe Illustartor file names
  * WITHOUT the extension (e.g. `['illo-one', 'illo-two']`)
  */
-async function backupFilesS3(projectSlug, { files } = {}) {
-  const s3 = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
-    },
-  });
-
+export async function backupFilesS3(projectSlug, { files } = {}) {
   const projectsFolderPath = await getStoreValue('projectsFolder');
 
   // Path to project folder
@@ -59,7 +51,7 @@ async function backupFilesS3(projectSlug, { files } = {}) {
         StorageClass: 'STANDARD',
       };
       const uploadCommand = new PutObjectCommand(params);
-      return await s3.send(uploadCommand);
+      return await s3Client.send(uploadCommand);
     } catch (error) {
       console.error(error);
       return null;
@@ -83,7 +75,7 @@ async function backupFilesS3(projectSlug, { files } = {}) {
         StorageClass: 'STANDARD',
       };
       const uploadCommand = new PutObjectCommand(params);
-      await s3.send(uploadCommand);
+      await s3Client.send(uploadCommand);
     } catch (e) {
       console.error(e);
     }
@@ -104,5 +96,3 @@ async function backupFilesS3(projectSlug, { files } = {}) {
     return null;
   }
 }
-
-export { backupFilesS3 };

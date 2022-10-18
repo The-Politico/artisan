@@ -3,7 +3,11 @@ import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 import mime from 'mime/lite';
-import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
+import {
+  ARTISAN_OUTPUT_DIR,
+  AWS_BACKUP_BUCKET_NAME,
+  PROJECTS_ARCHIVE_PREFIX,
+} from '../../constants/paths';
 import { getProject, getStoreValue } from '../../store';
 // import { backupFilesS3 } from '../backup';
 
@@ -28,27 +32,29 @@ export async function publishProject(projectSlug) {
   await Promise.all(
     illustrations.map(async (d) => {
       const illoSlug = d.slug;
-      const outputPath = await join(pPath, illoSlug, 'ai2html-output');
+      const outputPath = await join(pPath, illoSlug, ARTISAN_OUTPUT_DIR);
       const output = await readDir(outputPath, { recursive: true });
 
-      await Promise.all(output.map(async (file) => {
-        const fileContent = await readBinaryFile(file.path);
-        const ContentType = mime.getType(file.path);
-        const Key = await join(
-          PROJECTS_ARCHIVE_PREFIX,
-          projectSlug,
-          illoSlug,
-          file.name,
-        );
-        const putCommand = new PutObjectCommand({
-          Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
-          StorageClass: 'STANDARD',
-          ContentType,
-          Body: fileContent,
-          Key,
-        });
-        await s3.send(putCommand);
-      }));
+      await Promise.all(
+        output.map(async (file) => {
+          const fileContent = await readBinaryFile(file.path);
+          const ContentType = mime.getType(file.path);
+          const Key = await join(
+            PROJECTS_ARCHIVE_PREFIX,
+            projectSlug,
+            illoSlug,
+            file.name,
+          );
+          const putCommand = new PutObjectCommand({
+            Bucket: AWS_BACKUP_BUCKET_NAME,
+            StorageClass: 'STANDARD',
+            ContentType,
+            Body: fileContent,
+            Key,
+          });
+          await s3.send(putCommand);
+        }),
+      );
     }),
   );
 }
