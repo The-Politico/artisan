@@ -1,7 +1,7 @@
 import { ListObjectsCommand } from '@aws-sdk/client-s3';
 import { createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 import { basename, join } from '@tauri-apps/api/path';
-import { s3Client } from '../../utils/s3-client';
+import { getS3Client } from '../../utils/s3-client';
 import {
   PROJECTS_ARCHIVE_PREFIX,
   AWS_BACKUP_BUCKET_NAME,
@@ -17,6 +17,7 @@ import { fetchProjectMeta } from './project-meta';
 
 export async function downloadProject(projectSlug) {
   const bucket = AWS_BACKUP_BUCKET_NAME;
+  const s3Client = getS3Client();
 
   const keyPath = await join(PROJECTS_ARCHIVE_PREFIX, projectSlug);
   const projectListCommand = new ListObjectsCommand({
