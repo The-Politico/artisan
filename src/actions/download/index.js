@@ -14,6 +14,7 @@ import {
 } from '../../store';
 import { downloadS3Object } from '../../utils/download-from-s3';
 import { fetchProjectMeta } from './project-meta';
+import { runPromisesSequentially } from '../../utils/promise-all-sequence';
 
 export async function downloadProject(projectSlug) {
   const bucket = AWS_BACKUP_BUCKET_NAME;
@@ -64,11 +65,14 @@ export async function downloadProject(projectSlug) {
         }),
     );
 
-    // eslint-disable-next-line no-restricted-syntax
-    for (const illustrationName of illos) {
-      // eslint-disable-next-line no-await-in-loop
-      await addIllustration({ projectSlug, illustrationName });
-    }
+    // Create array of functions to run async
+    const promises = illos.map((illustrationName) => () => {
+      const promise = addIllustration({ projectSlug, illustrationName });
+      return promise;
+    });
+
+    await runPromisesSequentially(promises);
+
     return getProject(projectSlug);
   } catch (error) {
     console.error(error);

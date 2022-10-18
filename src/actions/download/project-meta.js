@@ -7,6 +7,7 @@ import { getS3Client } from '../../utils/s3-client';
  * @return {String} Project display name
  */
 export async function fetchProjectMeta(files) {
+  const s3Client = getS3Client();
   const { key: projectNameFile } = files.find(
     ({ illoName }) => illoName === 'project-name.txt',
   );
@@ -16,7 +17,7 @@ export async function fetchProjectMeta(files) {
     ResponseContentType: 'text/plain',
   });
 
-  const { Body } = await getS3Client.send(getTextFile);
+  const { Body } = await s3Client.send(getTextFile);
   const res = new window.Response(Body);
   const projectName = await res.text();
   return projectName;
