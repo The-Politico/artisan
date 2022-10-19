@@ -30,5 +30,6 @@ export async function addIllustration({ projectSlug, illustrationName }) {
 
     return projects.get(projectSlug);
   }
-  return null;
+
+  return projects.get(projectSlug);
 }

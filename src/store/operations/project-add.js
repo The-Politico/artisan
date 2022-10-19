@@ -4,9 +4,16 @@ import { projects, store } from '../init';
  * Add a project to the store's projects array
  * and give it an entry in the store.
  * @param {String} projectName Name of the project entered by user
+ * @param {Object} [opts]
+ * @param {String} [opts.isUploaded]
+ * @param {String} [opts.isPublished]
+ * @param {String} [opts.lastUploaded]
  * @returns
  */
-export async function addProject(projectName) {
+export async function addProject(
+  projectName,
+  { isUploaded, isPublished, lastUploaded } = {},
+) {
   const projectsArr = await store.get('projects');
 
   const projectSlug = projectName.toLowerCase().replaceAll(' ', '-');
@@ -22,9 +29,9 @@ export async function addProject(projectName) {
   }
 
   await projects.set(projectSlug, {
-    isUploaded: false,
-    isPublished: false,
-    lastUploaded: null,
+    isUploaded: isUploaded || false,
+    isPublished: isPublished || false,
+    lastUploaded: lastUploaded || null,
     name: projectName,
     slug: projectSlug,
     illustrations: [],

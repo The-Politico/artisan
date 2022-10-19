@@ -6,20 +6,28 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "tauri": "tauri"
+    "tauri": "tauri",
+    "lint-scripts": "npx eslint \"./src/**/*.js?(x)\""
   },
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.181.0",
+    "@aws-sdk/client-s3": "^3.183.0",
+    "@aws-sdk/credential-providers": "^3.181.0",
+    "@aws-sdk/lib-storage": "^3.183.0",
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.11",
     "@tauri-apps/api": "^1.1.0",
+    "buffer": "^6.0.3",
     "classnames": "^2.3.2",
+    "isomorphic-unfetch": "^3.1.0",
+    "mime": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "stream": "^0.0.2",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#dev"
   },
   "devDependencies": {
+    "@politico/eslint-config-interactives": "^1.0.2",
     "@tauri-apps/cli": "^1.1.1",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",

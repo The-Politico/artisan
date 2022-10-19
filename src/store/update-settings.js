@@ -13,10 +13,18 @@ export async function updateAppSettings({
   authorName,
   authorEmail,
   projectsFolder,
-}) {
-  await store.set('authorName', authorName);
-  await store.set('authorEmail', authorEmail);
-  await store.set('projectsFolder', projectsFolder);
+} = {}) {
+  if (authorName) {
+    await store.set('authorName', authorName);
+  }
+
+  if (authorEmail) {
+    await store.set('authorEmail', authorEmail);
+  }
+
+  if (projectsFolder) {
+    await store.set('projectsFolder', projectsFolder);
+  }
 
   await store.save();
 }
