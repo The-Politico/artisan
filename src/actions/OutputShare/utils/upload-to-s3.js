@@ -1,4 +1,4 @@
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { PutObjectCommand, S3Client } from '@aws-sdk/client-s3';
 
 export default async function uploadS3Object(bucket, key, fileContents) {
   const s3 = new S3Client({
@@ -12,17 +12,14 @@ export default async function uploadS3Object(bucket, key, fileContents) {
   const commandInput = {
     Bucket: bucket,
     Key: key,
-    Body: fileContents
+    Body: fileContents,
+    ContentType: 'text/html',
 
-  }
-
+  };
   try {
-
     const command = new PutObjectCommand(commandInput);
-    const response = await s3.send(command);
-
-  } catch(error){
+    await s3.send(command);
+  } catch (error) {
     console.log(error);
   }
-
 }
