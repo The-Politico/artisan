@@ -29,7 +29,7 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         // onClick={() => downloadTemplate()}
-        onClick={() => CreateIllustration('proj-1', 'test-2')}
+        onClick={() => CreateIllustration('proj-1', 'test-illo')}
       >
         <PlusIcon className="h-6 mr-1" />
         Create Illustration

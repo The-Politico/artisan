@@ -12,6 +12,12 @@ export default async function Preview(projectSlug) {
     recursive: true,
   });
 
+  const command = new Command(
+    'start-local-server',
+    ['-m', 'http.server', '8080'],
+    { cwd: projectDir },
+  );
+
   const illoPaths = [];
 
   entries.forEach((entry) => {
@@ -21,8 +27,6 @@ export default async function Preview(projectSlug) {
     }
   });
 
-  console.log(projectDir);
-
   let activeProcess = await getStoreValue('active-preview-process');
 
   if (activeProcess) {
@@ -30,31 +34,26 @@ export default async function Preview(projectSlug) {
       String(activeProcess));
     await killCommand.spawn();
   }
-
-  const command = new Command(
-    'start-local-server',
-    ['-m', 'http.server', '8080'],
-    { cwd: projectDir },
-  );
-
   const childProcess = await command.spawn();
+
   updateStoreValue('active-preview-process',
     childProcess.pid, { override: true });
   activeProcess = childProcess.pid;
 
-  const webview = new WebviewWindow('embed-preview', {
-    url: 'src/actions/Preview/PreviewWindow/index.html',
-  });
-  webview.once('tauri://created', () => {
+  setTimeout(() => {
+    const webview = new WebviewWindow('embed-preview', {
+      url: 'src/actions/Preview/PreviewWindow/index.html',
+    });
+    webview.once('tauri://created', () => {
 
-  });
-  webview.once('tauri://error', (error) => {
-    console.log(error);
-  });
-  webview.once('tauri://close-requested', async () => {
-    const killCommand = new Command('kill-process',
-      String(activeProcess));
-    await killCommand.spawn();
-    console.log('preview was requested close');
-  });
+    });
+    webview.once('tauri://error', (error) => {
+      console.log(error);
+    });
+    webview.once('tauri://close-requested', async () => {
+      const killCommand = new Command('kill-process',
+        String(activeProcess));
+      await killCommand.spawn();
+    });
+  }, 1000);
 }
