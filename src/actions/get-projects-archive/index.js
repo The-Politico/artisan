@@ -1,6 +1,9 @@
 /* eslint-disable import/prefer-default-export */
 import { ListObjectsCommand } from '@aws-sdk/client-s3';
-import { PROJECTS_ARCHIVE_PREFIX } from '../../constants/paths';
+import {
+  AWS_BACKUP_BUCKET_NAME,
+  PROJECTS_ARCHIVE_PREFIX,
+} from '../../constants/paths';
 import { getStoreValue } from '../../store';
 import { getS3Client } from '../../utils/s3-client';
 
@@ -8,7 +11,7 @@ export async function getProjectsArchive() {
   const s3Client = getS3Client();
 
   const listCommand = new ListObjectsCommand({
-    Bucket: import.meta.env.VITE_AWS_BACKUP_BUCKET_NAME,
+    Bucket: AWS_BACKUP_BUCKET_NAME,
     Delimiter: '/',
     Prefix: PROJECTS_ARCHIVE_PREFIX,
   });
@@ -21,7 +24,7 @@ export async function getProjectsArchive() {
   });
 
   // compare to projects in store
-  const localProjects = await getStoreValue('projects') || [];
+  const localProjects = (await getStoreValue('projects')) || [];
 
   // Return projects not locally in the settigns store
   return projectsList.filter((p) => !localProjects.includes(p));
