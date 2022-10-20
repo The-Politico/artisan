@@ -10,6 +10,9 @@ import { flex, padding, effects } from '../../theme';
  * @param {String} [props.className] - Extra classes
  * @param {React.ReactNode} [props.children] - Children elements
  * @param {Function} [props.onClick] - onClick event listener
+ * @param {React.ReactElement} [props.icon] - Hero icon component {@link https://heroicons.com/}
+ * @param {String} [props.value] - Button text.
+ * Use instead of passing child text
  * @returns {React.ReactElement}
  */
 export default function Button(props) {
