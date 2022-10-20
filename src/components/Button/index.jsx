@@ -1,7 +1,7 @@
 import cls from 'classnames';
 import React, { useCallback } from 'react';
 import styles from './Button.module.css';
-import { layout } from '../../theme';
+import { flex, padding, effects } from '../../theme';
 
 /**
  * @param {Object} props
@@ -19,12 +19,18 @@ export default function Button(props) {
     disabled = false,
     className = '',
     onClick = () => null,
+    icon = null,
+    value = null,
   } = props;
+
   const btnClass = cls(
     styles.btn,
     styles[variant],
-    layout.flex,
-    layout.flexCenter,
+    flex.flex,
+    flex.flexCenter,
+    padding.px4,
+    padding.py1,
+    effects.transition,
     className,
   );
 
@@ -37,7 +43,8 @@ export default function Button(props) {
       onClick={handleClick}
       disabled={disabled}
     >
-      {children}
+      {icon}
+      <span>{value || children}</span>
     </button>
   );
 }

@@ -1,34 +1,28 @@
 import cls from 'classnames';
+import { PlusIcon } from '@heroicons/react/20/solid';
 import Button from '../Button';
 import styles from './AppView.module.css';
-import { layout, spacing } from '../../theme';
+import { flex, spacing, typography as type } from '../../theme';
 
 export default function AppView() {
   const classNames = cls(
-    layout.flex,
-    layout.flexCol,
-    layout.flexCenter,
-    spacing.y,
+    flex.flex,
+    flex.flexCol,
+    flex.flexCenter,
+    spacing.y4,
     styles.hScreen,
   );
 
   return (
     <div className={classNames}>
-      <Button
-        variant="ghost"
-      >
-        Ghost
-      </Button>
-      <Button
-        variant="outline"
-      >
-        Outline
-      </Button>
+      <Button variant="ghost">Ghost button</Button>
+      <Button variant="outline">Outline button</Button>
       <Button
         variant="solid"
-      >
-        Solid
-      </Button>
+        value="New Project"
+        className={type.textXl}
+        icon={<PlusIcon className={styles.icon} />}
+      />
     </div>
   );
 }

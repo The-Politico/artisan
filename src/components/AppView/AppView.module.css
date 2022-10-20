@@ -1,6 +1,8 @@
+.h-screen {
+  height: 100vh;
+}
 
-
-
-  .h-screen {
-    height: 100vh;
-  }
+.icon {
+  height: 1.5rem;
+  margin-right: 0.25rem;
+}
