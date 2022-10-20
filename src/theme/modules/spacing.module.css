@@ -1,0 +1,47 @@
+.x-1 > * ~ * {
+  --x: 1
+  margin-left: calc(0.25rem * var(--x));
+  margin-right: calc(0.25rem * var(--x));
+}
+
+.y-1 > * ~ * {
+  --y: 1
+  margin-top: calc(0.25rem * var(--x));
+  margin-bottom: calc(0.25rem * var(--x));
+}
+
+.x-2 > * ~ * {
+  --x: 2
+  margin-left: calc(0.25rem * var(--x));
+  margin-right: calc(0.25rem * var(--x));
+}
+
+.y-2 > * ~ * {
+  --y: 2
+  margin-top: calc(0.25rem * var(--x));
+  margin-bottom: calc(0.25rem * var(--x));
+}
+
+.x-4 > * ~ * {
+  --x: 4
+  margin-left: calc(0.25rem * var(--x));
+  margin-right: calc(0.25rem * var(--x));
+}
+
+.y-4 > * ~ * {
+  --y: 4
+  margin-top: calc(0.25rem * var(--x));
+  margin-bottom: calc(0.25rem * var(--x));
+}
+
+.x-6 > * ~ * {
+  --x: 6
+  margin-left: calc(0.25rem * var(--x));
+  margin-right: calc(0.25rem * var(--x));
+}
+
+.y-6 > * ~ * {
+  --y: 6
+  margin-top: calc(0.25rem * var(--x));
+  margin-bottom: calc(0.25rem * var(--x));
+}
