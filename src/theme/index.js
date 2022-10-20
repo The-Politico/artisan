@@ -2,6 +2,7 @@ export * as gap from './modules/gap.module.css';
 export * as layout from './modules/layout.module.css';
 export * as margin from './modules/margin.module.css';
 export * as padding from './modules/padding.module.css';
+export * as spacing from './modules/spacing.module.css';
 export * as effects from './modules/effects.module.css';
 export * as flex from './modules/flex.module.css';
 
