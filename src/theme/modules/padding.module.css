@@ -1,12 +1,12 @@
 /* ALL */
 .p-1 {
   --p: 1;
-  padding: calc(.25rem * var(--pt));
+  padding: calc(.25rem * var(--p));
 }
 
 .p-2 {
   --p: 2;
-  padding: calc(.25rem * var(--pt));
+  padding: calc(.25rem * var(--p));
 }
 
 /* TOP */
@@ -53,9 +53,9 @@
 }
 
 .px-6 {
-  --p: 6;
-  padding-right: calc(.25rem * var(--p));
-  padding-left: calc(.25rem * var(--p));
+  --px: 6;
+  padding-right: calc(.25rem * var(--px));
+  padding-left: calc(.25rem * var(--px));
 }
 
 /* TOP / BOTTOM */
