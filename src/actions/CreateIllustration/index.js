@@ -6,8 +6,10 @@ import { addIllustration } from '../../store/operations/illustration-add';
 import { downloadS3Object } from '../../utils/download-from-s3';
 import slugMaker from '../../utils/slug-maker';
 
-export default async function CreateIllustration(projectSlug,
-  illustrationName) {
+export default async function CreateIllustration(
+  projectSlug,
+  illustrationName
+) {
   const illustrationSlug = slugMaker(illustrationName);
   const illustrationFileName = `${illustrationSlug}.ai`;
 
