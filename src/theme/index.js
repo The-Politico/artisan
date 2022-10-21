@@ -1,3 +1,4 @@
+export * as borders from './modules/borders.module.css';
 export * as gap from './modules/gap.module.css';
 export * as layout from './modules/layout.module.css';
 export * as margin from './modules/margin.module.css';
