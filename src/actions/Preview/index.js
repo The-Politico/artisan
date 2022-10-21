@@ -30,8 +30,7 @@ export default async function Preview(projectSlug) {
   let activeProcess = await getStoreValue('active-preview-process');
 
   if (activeProcess) {
-    const killCommand = new Command('kill-process',
-      String(activeProcess));
+    const killCommand = new Command('kill-process', String(activeProcess));
     await killCommand.spawn();
   }
   const childProcess = await command.spawn();
@@ -43,9 +42,6 @@ export default async function Preview(projectSlug) {
   setTimeout(() => {
     const webview = new WebviewWindow('embed-preview', {
       url: 'src/actions/Preview/PreviewWindow/index.html',
-    });
-    webview.once('tauri://created', () => {
-
     });
     webview.once('tauri://error', (error) => {
       console.log(error);

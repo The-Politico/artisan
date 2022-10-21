@@ -9,8 +9,6 @@ import { projects } from '../init';
  * @returns
  */
 export async function addIllustration({ projectSlug, illustrationName }) {
-
-  console.log(projectSlug);
   const projectEntry = await projects.get(projectSlug);
 
   if (projectEntry) {
