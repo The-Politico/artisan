@@ -4,7 +4,7 @@
 
 .solid {
   --dark-blue: #02588d;
-  color: #f8fafc;
+  color: #fff;
   background-image: linear-gradient(to right, var(--politico-blue), var(--dark-blue));
 }
 
@@ -21,6 +21,8 @@
 }
 
 .outline {
+  font-weight: 500;
+  color: var(--slate-800);
   border-width: 1px;
   border-color: var(--slate-800);
 }
