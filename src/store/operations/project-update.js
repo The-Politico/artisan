@@ -28,4 +28,6 @@ export async function updateProject(
   });
 
   await projects.save();
+
+  return projects.get(projectSlug);
 }

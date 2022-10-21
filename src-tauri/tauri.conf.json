@@ -13,11 +13,13 @@
   "tauri": {
     "allowlist": {
       "all": true,
+      "path": {
+        "all": true
+      },
       "shell": {
-        "all": true, 
-        "execute": true, 
-        "sidecar": true, 
-        "open": true,
+        "all": true,
+        "execute": true,
+        "open": "(^https?://)|(^/)",
         "scope": [{
           "name": "run-osascript",
           "cmd": "osascript",
@@ -41,7 +43,7 @@
         "createDir": true,
         "removeDir": true,
         "removeFile": true,
-        "scope": ["$RESOURCE/*", "$DOCUMENT/*"]
+        "scope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*"]
       }
     },
     "bundle": {

@@ -1,38 +1,32 @@
-import { GetObjectCommand, S3Client } from '@aws-sdk/client-s3';
+import { GetObjectCommand } from '@aws-sdk/client-s3';
+import { getS3Client } from './s3-client';
 
 /**
  * Downloads files from an S3 bucket as a
- * `Unit8Array` written to a binary file.
+ * `Uint8Array` written to a binary file.
  * @param {Object} opts
  * @param {String} opts.bucket S3 bucket name.
  * @param {String} opts.key S3 key path to download file from.
+ * @return {Uint16Array} Byte array for writing to binary file
  */
-export async function downloadS3Object({
-  bucket,
-  key,
-} = {}) {
-  const s3 = new S3Client({
-    region: 'us-east-1',
-    credentials: {
-      accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-      secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
-    },
-  });
+export async function downloadS3Object({ bucket, key } = {}) {
+  const s3Client = getS3Client();
 
-  /**
-   * @type {import('@aws-sdk/client-s3').GetObjectCommandInput}
-   */
-  const inputParams = {
+  const command = new GetObjectCommand({
     Bucket: bucket,
     Key: key,
-  };
+  });
 
-  const command = new GetObjectCommand(inputParams);
-  const response = await s3.send(command);
+  try {
+    const { Body } = await s3Client.send(command);
 
-  const res = new Response(response.Body);
+    const res = new window.Response(Body);
 
-  const buffer = await res.arrayBuffer();
+    const buffer = await res.arrayBuffer();
 
-  return new Uint8Array(buffer);
+    return new Uint8Array(buffer);
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
 }
