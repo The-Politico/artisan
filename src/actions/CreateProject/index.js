@@ -6,8 +6,12 @@ import slugMaker from '../../utils/slug-maker';
 
 export default async function CreateProject(projectName) {
   const docsPath = await documentDir();
-  const projPath = await join(docsPath, 'Artisan', 'Projects',
-    slugMaker(projectName));
+  const projPath = await join(
+    docsPath, 
+    'Artisan', 
+    'Projects',
+    slugMaker(projectName)
+  );
 
   await createDir(projPath);
 
