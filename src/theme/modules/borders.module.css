@@ -1,0 +1,23 @@
+.rounded-sm {
+  --r: 1;
+  border-radius: calc(0.125rem * var(--r));
+}
+
+.rounded {
+  --r: 2;
+  border-radius: calc(0.125rem * var(--r));
+}
+
+.rounded-md {
+  --r: 3;
+  border-radius: calc(0.125rem * var(--r));
+}
+
+.rounded-lg {
+  --r: 4;
+  border-radius: calc(0.125rem * var(--r));
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
