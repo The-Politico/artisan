@@ -3,11 +3,23 @@
   gap: calc(.25rem * var(--gap));
 }
 
+/* X-axis spacing */
 .x-1 {
   --gap-x: 1;
   column-gap: calc(.25rem * var(--gap-x));
 }
 
+.x-2 {
+  --gap-x: 2;
+  column-gap: calc(.25rem * var(--gap-x));
+}
+
+.x-4 {
+  --gap-x: 4;
+  column-gap: calc(.25rem * var(--gap-x));
+}
+
+/* Y-axis spacing */
 .y-1  {
   --gap-y: 1;
   row-gap: calc(.25rem * var(--gap-y));
