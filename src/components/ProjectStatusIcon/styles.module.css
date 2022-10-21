@@ -1,0 +1,24 @@
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: var(--slate-500);
+}
+
+.lg {
+  height: 2rem;
+  width: 2rem;
+  color: var(--slate-600);
+}
+
+.published {
+  color: var(--emerald-500);
+}
+
+.archive {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--slate-200);
+  background-color: var(--slate-500);
+  border-radius: 9999px;
+}

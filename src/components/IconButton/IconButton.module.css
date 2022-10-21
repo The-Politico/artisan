@@ -1,0 +1,35 @@
+.btn {
+  color: var(--slate-800);
+}
+
+.btn:hover {
+  color: var(--politico-blue);
+}
+
+.btn:active {
+  color: var(--politico-dark-blue);
+}
+
+.white {
+  color: #fff;
+  padding: .25rem;
+  border-radius: 8px;
+}
+
+.white:hover {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.25);
+}
+
+.white:active {
+  color: #fff;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.label {
+  display: block;
+}
+
+.icon-sm {
+  height: 1.5rem;
+}
