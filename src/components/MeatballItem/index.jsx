@@ -21,7 +21,7 @@ export default function MeatballItem({ label, icon, action }) {
       type.textSm,
       borders.roundedMd,
       effects.transition,
-      styles.foobar,
+      styles.item,
       { [styles.active]: active },
     );
     return (
