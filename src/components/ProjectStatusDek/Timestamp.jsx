@@ -3,6 +3,8 @@ import { backupFilesS3 } from '../../actions/backup';
 import styles from './styles.module.css';
 
 export default function Timestamp({ status, timestamp, project }) {
+  const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('');
+
   const formatTime = () => {
     if (!status || status === 'archive') {
       return null;
@@ -12,7 +14,7 @@ export default function Timestamp({ status, timestamp, project }) {
     if (!isTodayResult) {
       return format(ts, 'MMM d, y K:mmaaa');
     }
-    return formatDistanceToNow(ts, { addSuffix: true });
+    return capitalize(formatDistanceToNow(ts, { addSuffix: true }));
   };
 
   if (!timestamp) {

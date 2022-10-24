@@ -7,7 +7,7 @@ export default function ProjectStatusDek({ status, timestamp, projectSlug }) {
   const dekClass = cls(styles.dek, type.textSm);
 
   if (status === 'archive') {
-    return <div>Download to start editing</div>;
+    return <div className={dekClass}>Download to start editing</div>;
   }
 
   const renderText = () => {

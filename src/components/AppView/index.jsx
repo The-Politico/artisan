@@ -53,6 +53,7 @@ export default function AppView() {
       </div>
       <div>
         <ProjectStatusDek />
+        <ProjectStatusDek status="archive" />
         <ProjectStatusDek
           status="published"
           timestamp="2022-10-24T18:23:42.536Z"
