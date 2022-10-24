@@ -1,12 +1,11 @@
 import cls from 'classnames';
 import { PlusIcon } from '@heroicons/react/20/solid';
-import Button from '../Button';
 import styles from './AppView.module.css';
-import {
-  flex, spacing, typography as type, gap,
-} from '../../theme';
+import { flex, spacing, typography as type, gap } from '../../theme';
 import IconButton from '../IconButton';
 import ProjectStatusIcon from '../ProjectStatusIcon';
+import ProjectStatusDek from '../ProjectStatusDek';
+import Button from '../Button';
 
 export default function AppView() {
   const classNames = cls(
@@ -43,8 +42,25 @@ export default function AppView() {
         <ProjectStatusIcon status="published" />
         <ProjectStatusIcon status="archive" />
         <ProjectStatusIcon size="lg" />
-        <ProjectStatusIcon status="published" size="lg" />
-        <ProjectStatusIcon status="archive" size="lg" />
+        <ProjectStatusIcon
+          status="published"
+          size="lg"
+        />
+        <ProjectStatusIcon
+          status="archive"
+          size="lg"
+        />
+      </div>
+      <div>
+        <ProjectStatusDek />
+        <ProjectStatusDek
+          status="published"
+          timestamp="2022-10-24T18:23:42.536Z"
+        />
+        <ProjectStatusDek
+          status="uploaded"
+          timestamp="2022-10-22T18:23:42.536Z"
+        />
       </div>
     </div>
   );
