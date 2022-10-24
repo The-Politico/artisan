@@ -1,4 +1,9 @@
 /* ALL */
+.p-0 {
+  --p: 0;
+  padding: calc(.25rem * var(--p));
+}
+
 .p-1 {
   --p: 1;
   padding: calc(.25rem * var(--p));
