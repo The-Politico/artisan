@@ -1,30 +1,43 @@
 import { createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 
-import { documentDir, join } from '@tauri-apps/api/path';
-import { addIllustration } from '../../store/operations/illustration-add';
+import { join } from '@tauri-apps/api/path';
+import * as store from '../../store/operations/illustration-add';
 
 import { downloadS3Object } from '../../utils/download-from-s3';
 import slugMaker from '../../utils/slug-maker';
 
-export default async function CreateIllustration(projectSlug,
-  illustrationName) {
+import {
+  AWS_STAGING_BUCKET,
+  ARTISAN_TEMPLATE_KEY,
+}
+  from '../../constants/buckets';
+
+import getProjectsFolder from '../../utils/get-projects-folder';
+
+export default async function CreateIllustration(
+  projectSlug,
+  illustrationName,
+) {
+  const projectsFolder = await getProjectsFolder();
   const illustrationSlug = slugMaker(illustrationName);
   const illustrationFileName = `${illustrationSlug}.ai`;
 
-  const docsPath = await documentDir();
-  const illoPath = await join(docsPath, 'Artisan', 'Projects',
-    projectSlug, illustrationSlug);
+  const illoPath = await join(
+    projectsFolder,
+    projectSlug,
+    illustrationSlug,
+  );
   await createDir(illoPath);
 
   const destinationFile = await join(illoPath, illustrationFileName);
 
   const s3Settings = {
-    bucket: import.meta.env.VITE_AWS_STAGING_BUCKET,
-    key: 'artisan-test/templates/base.ai',
+    bucket: AWS_STAGING_BUCKET,
+    key: ARTISAN_TEMPLATE_KEY,
   };
 
   const template = await downloadS3Object(s3Settings);
   await writeBinaryFile(destinationFile, template);
 
-  addIllustration({ projectSlug, illustrationName });
+  store.addIllustration({ projectSlug, illustrationName });
 }

@@ -16,10 +16,7 @@ export default async function uploadS3Object(bucket, key, fileContents) {
     ContentType: 'text/html',
 
   };
-  try {
-    const command = new PutObjectCommand(commandInput);
-    await s3.send(command);
-  } catch (error) {
-    console.log(error);
-  }
+
+  const command = new PutObjectCommand(commandInput);
+  await s3.send(command);
 }

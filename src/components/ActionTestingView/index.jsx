@@ -11,6 +11,8 @@ import OutputShare from '../../actions/OutputShare';
 import DuplicateProject from '../../actions/DuplicateProject';
 import CreateProject from '../../actions/CreateProject';
 
+import getSharePage from '../../utils/get-share-page';
+
 export default function ActionTestingView() {
   return (
     <div className={cls.view}>
@@ -75,7 +77,13 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
       >
-        <a target="_blank" href="https://int-staging.politico.com/artisan-test/proj-1/share/index.html" rel="noreferrer">Test Share</a>
+        <a
+          target="_blank"
+          href={getSharePage('proj-1')}
+          rel="noreferrer"
+        >
+          Test Share
+        </a>
 
       </Button>
       <br />

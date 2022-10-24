@@ -1,14 +1,32 @@
-import { useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import cls from './styles.module.css';
 
-function PreviewWindow() {
-  const iframeRef = useRef(null);
-  const url = 'http://localhost:8080';
+import { getStoreValue } from '../../../store';
+import { PREVIEW_PORT } from '../../../constants/buckets';
 
-  // right now, this naively serves up the directory the local
-  // server was started in -- would be good to have an active-project
-  // key in STORE so that we can use Tauri to grab the appropriate
-  // ai2html-output directory paths for each illo.
+import getLocalIlloSlugs from '../../../utils/get-local-illo-slugs';
+
+const baseURL = `http://localhost:${PREVIEW_PORT}/`;
+
+function PreviewWindow() {
+  const [url, setURL] = useState(baseURL);
+  const [illos, setIllos] = useState(null);
+  const iframeRef = useRef(null);
+
+  useEffect(() => {
+    async function getSlugs() {
+      const projectSlug = await getStoreValue('active-project');
+      const illoSlugs = await getLocalIlloSlugs(projectSlug);
+      const illoURL = `http://localhost:${PREVIEW_PORT}/${illoSlugs[0]}/ai2html-output/index.html`;
+      setIllos(illoSlugs);
+      setURL(illoURL);
+    }
+
+    getSlugs();
+  }, []);
+
+  // placeholder for when we want to create a dropdown of illos later
+  console.log(illos);
 
   return (
     <>

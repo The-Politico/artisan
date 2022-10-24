@@ -1,15 +1,23 @@
 import { readDir, createDir, copyFile } from '@tauri-apps/api/fs';
-import { documentDir, join } from '@tauri-apps/api/path';
+import { join } from '@tauri-apps/api/path';
 
-import { addProject } from '../../store/operations/project-add';
+import * as store from '../../store/operations/project-add';
 
-export default async function DuplicateProject(originalProjectSlug,
-  newProjectSlug) {
-  const docsPath = await documentDir();
-  const originalProjectPath = await join(docsPath, 'Artisan', 'Projects',
-    originalProjectSlug);
-  const newProjectPath = await join(docsPath, 'Artisan', 'Projects',
-    newProjectSlug);
+import getProjectsFolder from '../../utils/get-projects-folder';
+
+export default async function DuplicateProject(
+  originalProjectSlug,
+  newProjectSlug,
+) {
+  const projectsFolder = await getProjectsFolder();
+  const originalProjectPath = await join(
+    projectsFolder,
+    originalProjectSlug,
+  );
+  const newProjectPath = await join(
+    projectsFolder,
+    newProjectSlug,
+  );
   await createDir(newProjectPath);
 
   const entries = await readDir(originalProjectPath, { recursive: true });
@@ -18,7 +26,7 @@ export default async function DuplicateProject(originalProjectSlug,
     if ('children' in entry) {
       return Promise.all(entry.children.map(async (child) => {
         if (child.name.includes('.ai')) {
-          const illoSlug = child.name.slice(0, -3);
+          const illoSlug = child.name.split('.ai')[0];
           const illoDir = await join(newProjectPath, illoSlug);
           await createDir(illoDir);
 
@@ -30,5 +38,5 @@ export default async function DuplicateProject(originalProjectSlug,
     return null;
   }));
 
-  addProject(newProjectSlug);
+  store.addProject(newProjectSlug);
 }

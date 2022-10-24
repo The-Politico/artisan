@@ -1,19 +1,28 @@
 import { Command } from '@tauri-apps/api/shell';
-import { documentDir, join } from '@tauri-apps/api/path';
+import { join } from '@tauri-apps/api/path';
+
+import getProjectsFolder from '../../utils/get-projects-folder';
 
 export default async function OpenIllustration(projectSlug, illustrationSlug) {
+  const projectsFolder = await getProjectsFolder();
   const illoFile = `${illustrationSlug}.ai`;
-  const docsPath = await documentDir();
-  const illustrationFilePath = await join(docsPath, 'Artisan', 'Projects',
-    projectSlug, illustrationSlug, illoFile);
 
-  try {
-    const scriptCommand = await new Command('run-osascript',
-      ['-e', 'tell application id "com.adobe.illustrator"', '-e', 'activate', '-e', `open POSIX file "${illustrationFilePath}" without dialogs`,
-        '-e', 'end tell']);
+  const illustrationFilePath = await join(
+    projectsFolder,
+    projectSlug,
+    illustrationSlug,
+    illoFile,
+  );
 
-    scriptCommand.execute();
-  } catch (error) {
-    console.log(error);
-  }
+  const scriptCommand = await new Command(
+    'run-osascript',
+    [
+      '-e', 'tell application id "com.adobe.illustrator"',
+      '-e', 'activate',
+      '-e', `open POSIX file "${illustrationFilePath}" without dialogs`,
+      '-e', 'end tell',
+    ],
+  );
+
+  scriptCommand.execute();
 }

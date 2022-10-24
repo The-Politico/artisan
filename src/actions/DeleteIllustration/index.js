@@ -1,15 +1,22 @@
 import { removeDir } from '@tauri-apps/api/fs';
-import { documentDir, join } from '@tauri-apps/api/path';
+import { join } from '@tauri-apps/api/path';
 
-import { removeIllustration }
+import * as store
   from '../../store/operations/illustration-remove';
 
-export default async function DeleteIllustration(projectSlug,
-  illustrationSlug) {
-  const docsPath = await documentDir();
-  const illustrationDirPath = await join(docsPath, 'Artisan', 'Projects',
-    projectSlug, illustrationSlug);
+import getProjectsFolder from '../../utils/get-projects-folder';
+
+export default async function DeleteIllustration(
+  projectSlug,
+  illustrationSlug,
+) {
+  const projectsFolder = await getProjectsFolder();
+  const illustrationDirPath = await join(
+    projectsFolder,
+    projectSlug,
+    illustrationSlug,
+  );
 
   await removeDir(illustrationDirPath, { recursive: true });
-  await removeIllustration({ projectSlug, illustrationSlug });
+  await store.removeIllustration({ projectSlug, illustrationSlug });
 }

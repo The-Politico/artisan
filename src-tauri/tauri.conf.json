@@ -28,7 +28,7 @@
         {
           "name": "start-local-server",
           "cmd": "python3",
-          "args": ["-m", "http.server", "8080"]
+          "args": true
         },
         {
           "name": "kill-process",
