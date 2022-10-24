@@ -42,5 +42,7 @@
   align-items: stretch;
 }
 
-
+.inline-block {
+  display: inline-block;
+}
 
