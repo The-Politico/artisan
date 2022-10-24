@@ -14,7 +14,6 @@ export default async function uploadS3Object(bucket, key, fileContents) {
     Key: key,
     Body: fileContents,
     ContentType: 'text/html',
-
   };
 
   const command = new PutObjectCommand(commandInput);
