@@ -40,6 +40,8 @@ export default function AppView() {
       </div>
       <div>
         <ProjectStatusIcon />
+        <ProjectStatusIcon status="published" />
+        <ProjectStatusIcon status="archive" />
         <ProjectStatusIcon size="lg" />
         <ProjectStatusIcon status="published" size="lg" />
         <ProjectStatusIcon status="archive" size="lg" />

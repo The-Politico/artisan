@@ -1,12 +1,10 @@
 import cls from 'classnames';
 import {
-  ArchiveBoxIcon,
   CheckCircleIcon,
   MinusCircleIcon,
 } from '@heroicons/react/24/solid';
 import styles from './styles.module.css';
 import ArchiveIcon from './ArchiveIcon';
-import { padding, flex } from '../../theme';
 
 /**
  *
@@ -23,9 +21,7 @@ export default function ProjectStatusIcon({ status, size = 'md' }) {
     }
     if (status === 'archive') {
       return (
-        <ArchiveBoxIcon
-          className={cls(flex.flexAuto, padding.p2)}
-        />
+        <ArchiveIcon />
       );
     }
     return <MinusCircleIcon />;
