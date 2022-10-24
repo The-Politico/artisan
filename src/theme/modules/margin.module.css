@@ -43,6 +43,11 @@
   margin-right: calc(.25rem * var(--mr));
 }
 
+.mr-2 {
+  --mr: 2;
+  margin-right: calc(.25rem * var(--mr));
+}
+
 /* LEFT / RIGHT */
 .mx-1 {
   --mx: 1;
