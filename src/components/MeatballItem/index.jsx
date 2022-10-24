@@ -11,26 +11,30 @@ import {
 } from '../../theme';
 import Icon from './Icon';
 
-export default function MeatballItem({ label, icon, action }) {
-  const handleClick = useCallback(action, [action]);
+export default function MeatballItem({
+  label, iconName, action, danger,
+}) {
+  const onClick = useCallback(action, [action]);
+
   const renderItem = ({ active }) => {
     const itemClass = cls(
       flex.flex,
       flex.itemsCenter,
       padding.p2,
       type.textSm,
+      type.fontMedium,
       borders.roundedMd,
       effects.transition,
       styles.item,
-      { [styles.active]: active },
+      { [styles.isActive]: active, [styles.isDanger]: danger },
     );
     return (
       <button
         className={itemClass}
         type="button"
-        onClick={handleClick}
+        onClick={onClick}
       >
-        <Icon iconName={icon} />
+        <Icon iconName={iconName} />
         {label}
       </button>
     );

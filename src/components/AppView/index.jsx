@@ -2,14 +2,13 @@ import cls from 'classnames';
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { Menu } from '@headlessui/react';
 import styles from './AppView.module.css';
-import {
-  flex, spacing, typography as type, gap,
-} from '../../theme';
+import { flex, spacing, typography as type, gap } from '../../theme';
 import IconButton from '../IconButton';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
 import Button from '../Button';
-import MeatballItem from '../MeatBallItem';
+import MeatballItem from '../MeatballItem';
+import { getStoreValue } from '../../store';
 
 export default function AppView() {
   const classNames = cls(
@@ -19,6 +18,11 @@ export default function AppView() {
     spacing.y4,
     styles.hScreen,
   );
+
+  async function doAction() {
+    const f = await getStoreValue('projects');
+    console.log(f);
+  }
 
   return (
     <div className={classNames}>
@@ -67,10 +71,28 @@ export default function AppView() {
           timestamp="2022-10-22T18:23:42.536Z"
         />
       </div>
-      <Menu>
+      <Menu as="div">
         <MeatballItem
-          icon="ServerIcon"
-          label="Publish"
+          iconName="ServerIcon"
+          label="Backup"
+          action={() => doAction()}
+        />
+        <MeatballItem
+          iconName="ArchiveBoxIcon"
+          label="Archive"
+        />
+        <MeatballItem
+          iconName="FolderIcon"
+          label="Open in Finder"
+        />
+        <MeatballItem
+          iconName="DocumentDuplicateIcon"
+          label="Duplicate"
+        />
+        <MeatballItem
+          iconName="TrashIcon"
+          label="Delete Project"
+          danger
         />
       </Menu>
     </div>
