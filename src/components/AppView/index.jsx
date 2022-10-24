@@ -1,11 +1,15 @@
 import cls from 'classnames';
 import { PlusIcon } from '@heroicons/react/20/solid';
+import { Menu } from '@headlessui/react';
 import styles from './AppView.module.css';
-import { flex, spacing, typography as type, gap } from '../../theme';
+import {
+  flex, spacing, typography as type, gap,
+} from '../../theme';
 import IconButton from '../IconButton';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
 import Button from '../Button';
+import MeatballItem from '../MeatBallItem';
 
 export default function AppView() {
   const classNames = cls(
@@ -63,6 +67,12 @@ export default function AppView() {
           timestamp="2022-10-22T18:23:42.536Z"
         />
       </div>
+      <Menu>
+        <MeatballItem
+          icon="ServerIcon"
+          label="Publish"
+        />
+      </Menu>
     </div>
   );
 }

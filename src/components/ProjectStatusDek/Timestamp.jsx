@@ -20,7 +20,7 @@ export default function Timestamp({ status, timestamp, project }) {
   if (!timestamp) {
     return (
       <button
-        onClick={backupFilesS3(project)}
+        onClick={() => backupFilesS3(project)}
         type="button"
         className={styles.timestampBtn}
       >
