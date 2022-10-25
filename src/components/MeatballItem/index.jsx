@@ -6,10 +6,11 @@ import {
   flex,
   padding,
   borders,
+  margin,
   typography as type,
   effects,
 } from '../../theme';
-import Icon from './Icon';
+import BaseIcon from '../BaseIcon';
 
 export default function MeatballItem({
   label, iconName, action, danger,
@@ -26,7 +27,10 @@ export default function MeatballItem({
       borders.roundedMd,
       effects.transition,
       styles.item,
-      { [styles.isActive]: active, [styles.isDanger]: danger },
+      {
+        [styles.isActive]: active,
+        [styles.isDanger]: danger,
+      },
     );
     return (
       <button
@@ -34,7 +38,11 @@ export default function MeatballItem({
         type="button"
         onClick={onClick}
       >
-        <Icon iconName={iconName} />
+        <BaseIcon
+          size="20"
+          iconName={iconName}
+          className={cls(styles.iconSm, margin.mr2)}
+        />
         {label}
       </button>
     );

@@ -1,10 +1,10 @@
 import cls from 'classnames';
 import React, { useCallback } from 'react';
-import * as icon from '@heroicons/react/24/solid';
 import styles from './IconButton.module.css';
 import {
   flex, effects, typography as type, margin,
 } from '../../theme';
+import BaseIcon from '../BaseIcon';
 
 /**
  * @param {Object} props
@@ -37,11 +37,6 @@ export default function IconButton(props) {
 
   const handleClick = useCallback(onClick, [onClick]);
 
-  const renderIcon = () => {
-    const Icon = icon[iconName];
-    return <Icon className={cls(styles.iconSm, margin.mb1)} />;
-  };
-
   return (
     <button
       type="button"
@@ -49,7 +44,11 @@ export default function IconButton(props) {
       onClick={handleClick}
       disabled={disabled}
     >
-      {renderIcon()}
+      <BaseIcon
+        size="24"
+        iconName={iconName}
+        className={cls(styles.iconSm, margin.mb1)}
+      />
       <span className={cls(styles.label, type.textXs)}>{label}</span>
     </button>
   );

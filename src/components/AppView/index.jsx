@@ -2,7 +2,12 @@ import cls from 'classnames';
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { Menu } from '@headlessui/react';
 import styles from './AppView.module.css';
-import { flex, spacing, typography as type, gap } from '../../theme';
+import {
+  flex,
+  spacing,
+  typography as type,
+  gap,
+} from '../../theme';
 import IconButton from '../IconButton';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
