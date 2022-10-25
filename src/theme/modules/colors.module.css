@@ -38,3 +38,42 @@
   background-color: var(--slate-50);
 }
 
+.text-slate-50 {
+  color: var(--slate-50);
+}
+
+.text-slate-100 {
+  color: var(--slate-100);
+}
+
+.text-slate-200 {
+  color: var(--slate-200);
+}
+
+.text-slate-300 {
+  color: var(--slate-300);
+}
+
+.text-slate-400 {
+  color: var(--slate-400);
+}
+
+.text-slate-500 {
+  color: var(--slate-500);
+}
+
+.text-slate-600 {
+  color: var(--slate-50);
+}
+
+.text-slate-700 {
+  color: var(--slate-50);
+}
+
+.text-slate-800 {
+  color: var(--slate-50);
+}
+
+.text-slate-900 {
+  color: var(--slate-50);
+}
