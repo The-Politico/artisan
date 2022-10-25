@@ -1,6 +1,6 @@
 import cls from 'classnames';
 import React, { useCallback } from 'react';
-import styles from './Button.module.css';
+import styles from './styles.module.css';
 import { flex, padding, effects } from '../../theme';
 
 /**

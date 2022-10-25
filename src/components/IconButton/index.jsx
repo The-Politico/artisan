@@ -1,6 +1,6 @@
 import cls from 'classnames';
 import React, { useCallback } from 'react';
-import styles from './IconButton.module.css';
+import styles from './styles.module.css';
 import {
   flex, effects, typography as type, margin,
 } from '../../theme';
