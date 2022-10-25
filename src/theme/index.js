@@ -6,6 +6,7 @@ export * as padding from './modules/padding.module.css';
 export * as spacing from './modules/spacing.module.css';
 export * as effects from './modules/effects.module.css';
 export * as flex from './modules/flex.module.css';
+export * as typography from './modules/typography.module.css';
 export * as colors from './modules/colors.module.css';
 
 export const themeColors = {
