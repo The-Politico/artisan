@@ -1,24 +1,42 @@
-import { copyFile, createDir } from '@tauri-apps/api/fs';
-import { resolveResource, documentDir, join } from '@tauri-apps/api/path';
-import { addIllustration } from '../../store/operations/illustration-add';
+import { createDir, writeBinaryFile } from '@tauri-apps/api/fs';
 
-import SlugMaker from '../../utils/SlugMaker';
+import { join } from '@tauri-apps/api/path';
+import * as store from '../../store/operations/illustration-add';
 
-export default async function CreateIllustration({projectSlug, illustrationName}) {
+import { downloadS3Object } from '../../utils/download-from-s3';
+import slugMaker from '../../utils/slug-maker';
 
-  // get your template file
-  const templateFile = await resolveResource('template-standard.ai');
+import {
+  AWS_STAGING_BUCKET,
+  ARTISAN_TEMPLATE_KEY,
+} from '../../constants/buckets';
 
-  const illustrationSlug = SlugMaker(illustrationName);
-  const illustrationFileName = illustrationSlug + ".ai";
+import getProjectsFolder from '../../utils/get-projects-folder';
 
-  const docsPath = await documentDir();
-  const illoPath = await join(docsPath, 'Artisan', 'Projects', projectSlug, illustrationSlug);
-  await createDir(illoPath); 
+export default async function CreateIllustration(
+  projectSlug,
+  illustrationName,
+) {
+  const projectsFolder = await getProjectsFolder();
+  const illustrationSlug = slugMaker(illustrationName);
+  const illustrationFileName = `${illustrationSlug}.ai`;
+
+  const illoPath = await join(
+    projectsFolder,
+    projectSlug,
+    illustrationSlug,
+  );
+  await createDir(illoPath);
 
   const destinationFile = await join(illoPath, illustrationFileName);
 
-  await copyFile(templateFile, destinationFile);
-  addIllustration(projectSlug, illustrationName);
+  const s3Settings = {
+    bucket: AWS_STAGING_BUCKET,
+    key: ARTISAN_TEMPLATE_KEY,
+  };
 
+  const template = await downloadS3Object(s3Settings);
+  await writeBinaryFile(destinationFile, template);
+
+  store.addIllustration({ projectSlug, illustrationName });
 }

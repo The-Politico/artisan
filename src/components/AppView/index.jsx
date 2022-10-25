@@ -12,6 +12,10 @@ import { openInFinder } from '../../actions/open-in-finder';
 import { deleteProject } from '../../actions/delete-project';
 import { getProjectsArchive } from '../../actions/get-projects-archive';
 
+import CreateIllustration from '../../actions/CreateIllustration';
+import Generate from '../../actions/Generate';
+import Preview from '../../actions/Preview';
+
 export default function AppView() {
   const [p, setP] = useState([]);
   const [ap, setAp] = useState([]);
