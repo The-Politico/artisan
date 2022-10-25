@@ -9,8 +9,7 @@ import slugMaker from '../../utils/slug-maker';
 import {
   AWS_STAGING_BUCKET,
   ARTISAN_TEMPLATE_KEY,
-}
-  from '../../constants/buckets';
+} from '../../constants/buckets';
 
 import getProjectsFolder from '../../utils/get-projects-folder';
 
