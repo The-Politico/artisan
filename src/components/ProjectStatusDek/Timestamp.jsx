@@ -1,6 +1,5 @@
 import { formatDistanceToNow, isToday, format } from 'date-fns';
-import { backupFilesS3 } from '../../actions/backup';
-import styles from './styles.module.css';
+import BackupPrompt from './BackupPrompt';
 
 export default function Timestamp({ status, timestamp, project }) {
   const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('');
@@ -18,15 +17,7 @@ export default function Timestamp({ status, timestamp, project }) {
   };
 
   if (!timestamp) {
-    return (
-      <button
-        onClick={() => backupFilesS3(project)}
-        type="button"
-        className={styles.timestampBtn}
-      >
-        Backup now
-      </button>
-    );
+    return <BackupPrompt project={project} />;
   }
 
   return <span>{formatTime()}</span>;

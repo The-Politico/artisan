@@ -5,14 +5,10 @@ import styles from './TabToggleItem.module.css';
 import { borders, effects } from '../../theme';
 
 export default function TabToggleItem({ size = '20', iconName }) {
-  function tabClass(selected) {
-    return cls(borders.roundedLg, effects.transition, styles.tab, {
-      [styles.isActive]: selected,
-    });
-  }
+  const tabClass = cls(styles.tab, borders.roundedLg, effects.transition);
 
   return (
-    <Tab className={({ selected }) => tabClass(selected)}>
+    <Tab className={tabClass}>
       <BaseIcon
         size={size}
         iconName={iconName}

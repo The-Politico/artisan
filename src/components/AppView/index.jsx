@@ -17,7 +17,7 @@ export default function AppView() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 
-  const isEmpty = true;
+  const isEmpty = false;
 
   const classNames = cls(
     flex.flex,
@@ -35,7 +35,7 @@ export default function AppView() {
   if (isEmpty) {
     return (
       <div className={styles.emptyGrid}>
-        <div/>
+        <div />
         <EmptyProject />
       </div>
     );
