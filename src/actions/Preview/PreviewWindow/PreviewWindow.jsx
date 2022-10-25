@@ -17,7 +17,8 @@ function PreviewWindow() {
     async function getSlugs() {
       const projectSlug = await getStoreValue('active-project');
       const illoSlugs = await getLocalIlloSlugs(projectSlug);
-      const illoURL = `http://localhost:${PREVIEW_PORT}/${illoSlugs[0]}/ai2html-output/index.html`;
+      const illoURL = `http://localhost:${PREVIEW_PORT}/${illoSlugs[0]}/`
+        + `ai2html-output/index.html`;
       setIllos(illoSlugs);
       setURL(illoURL);
     }
