@@ -52,3 +52,12 @@
   padding: .65rem;
   background-image: linear-gradient(to right, var(--politico-blue), var(--politico-dark-blue));
 }
+
+.empty-grid {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 240px repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(1, minmax(0, 1fr));
+  justify-items: center;
+  align-items: center;
+}

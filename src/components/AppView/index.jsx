@@ -11,10 +11,13 @@ import Button from '../Button';
 import MeatballItem from '../MeatballItem';
 import { getStoreValue } from '../../store';
 import TabToggleItem from '../TabToggleItem';
+import EmptyProject from '../EmptyProject';
 
 export default function AppView() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
+
+  const isEmpty = true;
 
   const classNames = cls(
     flex.flex,
@@ -27,6 +30,15 @@ export default function AppView() {
   async function doAction() {
     const f = await getStoreValue('projects');
     console.log(f);
+  }
+
+  if (isEmpty) {
+    return (
+      <div className={styles.emptyGrid}>
+        <div/>
+        <EmptyProject />
+      </div>
+    );
   }
 
   return (
