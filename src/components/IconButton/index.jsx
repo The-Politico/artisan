@@ -7,10 +7,13 @@ import {
 import BaseIcon from '../BaseIcon';
 
 /**
+ * Render a button with a full-sized icon and label
  * @param {Object} props
  * @param {Boolean} [props.disabled] - Set disabled state
  * @param {String} [props.className] - Extra classes
  * @param {Function} [props.onClick] - onClick event listener
+ * @param {Boolean} [props.setWhite] - Set to `true` to use the
+ * alternate white version
  * @param {String} props.iconName - Hero icon component name. All names end in `Icon` (e.g. `"GlobeAltIcon"`) {@link https://heroicons.com/}
  * @param {String} props.label - Label of button below icon
  * @returns {React.ReactElement}

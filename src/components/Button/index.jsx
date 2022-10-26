@@ -4,8 +4,9 @@ import styles from './styles.module.css';
 import { flex, padding, effects } from '../../theme';
 
 /**
+ * Render a button in one of three styles
  * @param {Object} props
- * @param {"solid" | "outline" | "ghost"} props.variant - Button style variant
+ * @param {'solid' | 'outline' | 'ghost'} props.variant - Button style variant
  * @param {Boolean} [props.disabled] - Set disabled state
  * @param {String} [props.className] - Extra classes
  * @param {React.ReactNode} [props.children] - Children elements
@@ -13,7 +14,7 @@ import { flex, padding, effects } from '../../theme';
  * @param {React.ReactElement} [props.icon] - Hero icon component {@link https://heroicons.com/}
  * @param {String} [props.value] - Button text.
  * Use instead of passing child text
- * @returns {React.ReactElement}
+ * @returns {JSX.Element}
  */
 export default function Button(props) {
   const {

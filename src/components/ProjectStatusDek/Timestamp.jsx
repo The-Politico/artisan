@@ -1,7 +1,6 @@
 import { formatDistanceToNow, isToday, format } from 'date-fns';
-import BackupPrompt from './BackupPrompt';
 
-export default function Timestamp({ status, timestamp, project }) {
+export default function Timestamp({ status, timestamp }) {
   const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('');
 
   const formatTime = () => {
@@ -15,10 +14,6 @@ export default function Timestamp({ status, timestamp, project }) {
     }
     return capitalize(formatDistanceToNow(ts, { addSuffix: true }));
   };
-
-  if (!timestamp) {
-    return <BackupPrompt project={project} />;
-  }
 
   return <span>{formatTime()}</span>;
 }

@@ -12,6 +12,11 @@ import {
 } from '../../theme';
 import BaseIcon from '../BaseIcon';
 
+/**
+ * Renders a button for a meatball menu item
+ * @param {Object} props
+ * @returns
+ */
 export default function MeatballItem({
   label, iconName, action, danger,
 }) {
@@ -19,6 +24,11 @@ export default function MeatballItem({
 
   const renderItem = ({ active }) => {
     const itemClass = cls(
+      styles.item,
+      {
+        [styles.isActive]: active,
+        [styles.isDanger]: danger,
+      },
       flex.flex,
       flex.itemsCenter,
       padding.p2,
@@ -26,11 +36,6 @@ export default function MeatballItem({
       type.fontMedium,
       borders.roundedMd,
       effects.transition,
-      styles.item,
-      {
-        [styles.isActive]: active,
-        [styles.isDanger]: danger,
-      },
     );
     return (
       <button

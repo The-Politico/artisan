@@ -8,6 +8,10 @@ import {
 } from '../../theme';
 import styles from './styles.module.css';
 
+/**
+ * Render an empty frame to show no projects have been created yet
+ * @returns {JSX.Element}
+ */
 export default function EmptyProject() {
   return (
     <div className={styles.container}>
