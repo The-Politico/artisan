@@ -3,7 +3,7 @@ import Button from '../Button';
 import styles from './styles.module.css';
 
 import ArtisanSwitch from '../ArtisanSwitch';
-import TestComponent from '../TestComponent';
+import NewIllustration from '../NewIllustration';
 
 export default function UITestingView() {
   return (
@@ -16,6 +16,7 @@ export default function UITestingView() {
         {' '}
         New Project
       </Button>
+      <NewIllustration />
       <br />
       <ArtisanSwitch switchLabel="Show Article" />
     </div>
