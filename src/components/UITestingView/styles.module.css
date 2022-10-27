@@ -1,3 +1,4 @@
-.h-screen {
+.view {
   height: 100vh;
+  background: linear-gradient(90deg, #007BC7 0%, #02588D 100%);
 }

@@ -1,13 +1,13 @@
 import { PlusIcon } from '@heroicons/react/20/solid';
 import Button from '../Button';
-import cls from './styles.module.css';
+import styles from './styles.module.css';
 
 import ArtisanSwitch from '../ArtisanSwitch';
 import TestComponent from '../TestComponent';
 
 export default function UITestingView() {
   return (
-    <div className={cls.view}>
+    <div className={styles.view}>
       <Button
         variant="solid"
         className="text-lg !text-red"
@@ -17,8 +17,7 @@ export default function UITestingView() {
         New Project
       </Button>
       <br />
-      <ArtisanSwitch />
-      <TestComponent content="sample" />
+      <ArtisanSwitch switchLabel="Show Article" />
     </div>
   );
 }
