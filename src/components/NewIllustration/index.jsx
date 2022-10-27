@@ -5,7 +5,7 @@ import Button from '../Button';
 import styles from './styles.module.css';
 
 import {
-  colors, margin, borders, flex, layout, padding,
+  colors, margin, borders, flex, layout,
 } from '../../theme';
 
 export default function NewIllustration() {
