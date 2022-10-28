@@ -1,13 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import ActionTestingView from './components/ActionTestingView';
-
-// import AppView from './components/AppView';
-
-import './main.scss';
+import PreviewWindow from './PreviewWindow';
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
-    <ActionTestingView />
+    <PreviewWindow />
   </React.StrictMode>,
 );
