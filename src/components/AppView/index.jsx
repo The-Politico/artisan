@@ -1,18 +1,17 @@
 import cls from 'classnames';
-import { Menu } from '@headlessui/react';
 import { useState } from 'react';
 import styles from './styles.module.css';
-import { flex, spacing } from '../../theme';
-import MeatballItem from '../MeatballItem';
+import { flex, spacing, borders, colors, effects } from '../../theme';
 import { getStoreValue } from '../../store';
-import EmptyProject from '../EmptyProject';
 import TabToggle from '../TabToggle';
+import MeatballMenu from '../MeatballMenu';
+import ProjectToolbar from '../ProjectToolbar';
 
 export default function AppView() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 
-  const isEmpty = false;
+  const isEmpty = true;
 
   const classNames = cls(
     flex.flex,
@@ -31,7 +30,18 @@ export default function AppView() {
     return (
       <div className={styles.emptyGrid}>
         <div />
-        <EmptyProject />
+        <div className={styles.container}>
+          <ProjectToolbar selectedProject="My Project Name" />
+          <div
+            className={cls(
+              flex.flex,
+              flex.flexAuto,
+              colors.bgWhite,
+              borders.roundedLg,
+              effects.shadowMd,
+            )}
+          />
+        </div>
       </div>
     );
   }
@@ -47,32 +57,38 @@ export default function AppView() {
     { iconName: 'DeviceTabletIcon', mode: 'tablet' },
   ];
 
+  const meatballItems = [
+    {
+      iconName: 'ServerIcon',
+      label: 'Backup',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'ArchiveBoxIcon',
+      label: 'Archive',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'FolderIcon',
+      label: 'Open in Finder',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'DocumentDuplicateIcon',
+      label: 'Duplicate',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'TrashIcon',
+      label: 'Delete Project',
+      action: () => doAction(),
+      danger: true,
+    },
+  ];
+
   return (
     <div className={classNames}>
-      <Menu as="div">
-        <MeatballItem
-          iconName="ServerIcon"
-          label="Backup"
-          action={() => doAction()}
-        />
-        <MeatballItem
-          iconName="ArchiveBoxIcon"
-          label="Archive"
-        />
-        <MeatballItem
-          iconName="FolderIcon"
-          label="Open in Finder"
-        />
-        <MeatballItem
-          iconName="DocumentDuplicateIcon"
-          label="Duplicate"
-        />
-        <MeatballItem
-          iconName="TrashIcon"
-          label="Delete Project"
-          danger
-        />
-      </Menu>
+      <MeatballMenu items={meatballItems} />
       <TabToggle
         selectedIndex={selectedIndex}
         setSelectedIndex={setSelectedIndex}

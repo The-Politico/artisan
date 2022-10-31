@@ -28,3 +28,11 @@
   justify-items: center;
   align-items: center;
 }
+
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 3;
+  width: 95%;
+  height: 95%;
+}

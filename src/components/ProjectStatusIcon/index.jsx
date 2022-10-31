@@ -14,8 +14,8 @@ import ArchiveIcon from './ArchiveIcon';
  * Otherwise dispalys `"MinuseCircleIcon"`
  * @returns {JSX.Element}
  */
-export default function ProjectStatusIcon({ status, size = 'md' }) {
-  const iconClass = cls(styles.icon, styles[size], styles[status]);
+export default function ProjectStatusIcon({ status, size = 'md', className }) {
+  const iconClass = cls(styles.icon, styles[size], styles[status], className);
 
   const renderIcon = () => {
     if (status === 'published') {

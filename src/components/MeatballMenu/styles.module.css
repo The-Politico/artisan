@@ -1,0 +1,55 @@
+.menu {
+  position: relative;
+  display: inline-block;
+  text-align: left;
+}
+
+.menu:focus {
+  outline: none;
+}
+
+.menu-btn {
+  padding: .25rem;
+}
+
+.menu-btn:hover {
+  background-color: var(--slate-300);
+}
+
+.items {
+  position: absolute;
+  right: 0;
+  transform-origin: top right;
+  z-index: 9999;
+  width: 10rem;
+}
+
+.items:focus {
+  outline: none;
+}
+
+.icon-sm {
+  --size: 1.5rem;
+  height: var(--size);
+  width: var(--size);
+}
+
+.enter {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 100ms;
+}
+
+.enter-from, .leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.enter-to, .leave-from {
+  opacity: 100;
+  transform: scale(1);
+}
+
+.leave {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 75ms;
+}
