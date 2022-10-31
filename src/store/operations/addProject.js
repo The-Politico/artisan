@@ -13,7 +13,8 @@ import {
  * @param {String} [opts.isUploaded]
  * @param {String} [opts.isPublished]
  * @param {String} [opts.lastUploaded]
- * @returns
+ * @returns {Promise<import('../types').ProjectDetails | null>}
+ * Project detail object
  */
 export default async function addProject(
   projectName,
