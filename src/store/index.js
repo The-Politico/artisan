@@ -1,8 +1,20 @@
-import { store, projects } from './init';
+import { STORE, PROJECTS } from './init';
 
-export * from './operations';
-export { updateAppSettings } from './update-settings';
+import addIllustration from './operations/addIllustration';
+import addProject from './operations/addProject';
+import getPreview from './operations/getPreview';
+import getProject from './operations/getProject';
+import getProjectsList from './operations/getProjectsList';
+import getSettings from './operations/getSettings';
+import getWorkingDir from './operations/getWorkingDir';
+import removeIllustration from './operations/removeIllustration';
+import removeProject from './operations/removeProject';
+import updateIllustration from './operations/updateIllustration';
+import updatePreview from './operations/updatePreview';
+import updateProject from './operations/updateProject';
+import updateSettings from './operations/updateSettings';
 
+<<<<<<< HEAD
 /**
  * @typedef {import('./types').Key} Key
  */
@@ -44,3 +56,25 @@ export async function getStoreValue(key) {
 export async function getProject(key) {
   return projects.get(key);
 }
+=======
+export default {
+  addIllustration,
+  addProject,
+  getPreview,
+  getProject,
+  getProjectsList,
+  getSettings,
+  getWorkingDir,
+  removeIllustration,
+  removeProject,
+  updateIllustration,
+  updatePreview,
+  updateProject,
+  updateSettings,
+
+  stores: {
+    STORE,
+    PROJECTS,
+  },
+};
+>>>>>>> 8b476586ef1a17a2307ec3cdfaef13b0da35f1c3
