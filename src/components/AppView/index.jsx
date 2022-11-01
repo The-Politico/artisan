@@ -6,8 +6,13 @@ import { getStoreValue } from '../../store';
 import TabToggle from '../TabToggle';
 import MeatballMenu from '../MeatballMenu';
 import ProjectToolbar from '../ProjectToolbar';
+import ProjectContext from '../ProjectContext';
 
 export default function AppView() {
+  const [selectedProject, setSelectedProject] = useState({
+    projectSlug: null,
+    status: undefined,
+  });
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 
@@ -28,21 +33,23 @@ export default function AppView() {
 
   if (isEmpty) {
     return (
-      <div className={styles.emptyGrid}>
-        <div />
-        <div className={styles.container}>
-          <ProjectToolbar selectedProject="My Project Name" />
-          <div
-            className={cls(
-              flex.flex,
-              flex.flexAuto,
-              colors.bgWhite,
-              borders.roundedLg,
-              effects.shadowMd,
-            )}
-          />
+      <ProjectContext.Provider value={selectedProject}>
+        <div className={styles.emptyGrid}>
+          <div />
+          <div className={styles.container}>
+            <ProjectToolbar />
+            <div
+              className={cls(
+                flex.flex,
+                flex.flexAuto,
+                colors.bgWhite,
+                borders.roundedLg,
+                effects.shadowMd,
+              )}
+            />
+          </div>
         </div>
-      </div>
+      </ProjectContext.Provider>
     );
   }
 
