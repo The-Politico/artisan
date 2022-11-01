@@ -5,7 +5,7 @@ import DownloadButton from './DownloadButton';
 import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
 
-export default function ButtonsGroup({ selectedProject, status }) {
+export default function ButtonsGroup({ projectSlug, status }) {
   const meatballItems = [
     {
       iconName: 'ServerIcon',

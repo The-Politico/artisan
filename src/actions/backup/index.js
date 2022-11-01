@@ -14,7 +14,7 @@ import { s3Client } from '../../utils/s3-client';
  * WITHOUT the extension (e.g. `['illo-one', 'illo-two']`)
  */
 export async function backupFilesS3(projectSlug, { files } = {}) {
-  const projectsFolderPath = await getStoreValue('projectsFolder');
+  const projectsFolderPath = await getStoreValue('working-directory');
 
   // Path to project folder
   const projectPath = await resolve(projectsFolderPath, projectSlug);

@@ -1,22 +1,18 @@
 import cls from 'classnames';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import { flex, spacing, borders, colors, effects } from '../../theme';
 import { getStoreValue } from '../../store';
 import TabToggle from '../TabToggle';
 import MeatballMenu from '../MeatballMenu';
 import ProjectToolbar from '../ProjectToolbar';
-import ProjectContext from '../ProjectContext';
 
 export default function AppView() {
-  const [selectedProject, setSelectedProject] = useState({
-    projectSlug: null,
-    status: undefined,
-  });
+  const [selectedProject, setSelectedProject] = useState('project-one');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 
-  const isEmpty = true;
+  const isToolbar = true;
 
   const classNames = cls(
     flex.flex,
@@ -31,25 +27,36 @@ export default function AppView() {
     console.log(f);
   }
 
-  if (isEmpty) {
+  if (isToolbar) {
     return (
-      <ProjectContext.Provider value={selectedProject}>
-        <div className={styles.emptyGrid}>
-          <div />
-          <div className={styles.container}>
-            <ProjectToolbar />
-            <div
-              className={cls(
-                flex.flex,
-                flex.flexAuto,
-                colors.bgWhite,
-                borders.roundedLg,
-                effects.shadowMd,
-              )}
-            />
-          </div>
+      <div className={styles.emptyGrid}>
+        <div>
+          <button
+            type="button"
+            onClick={() => setSelectedProject('project-one')}
+          >
+            Project One
+          </button>
+          <button
+            type="button"
+            onClick={() => setSelectedProject('project-two')}
+          >
+            Project Two
+          </button>
         </div>
-      </ProjectContext.Provider>
+        <div className={styles.container}>
+          <ProjectToolbar selectedProject={selectedProject} />
+          <div
+            className={cls(
+              flex.flex,
+              flex.flexAuto,
+              colors.bgWhite,
+              borders.roundedLg,
+              effects.shadowMd,
+            )}
+          />
+        </div>
+      </div>
     );
   }
 
