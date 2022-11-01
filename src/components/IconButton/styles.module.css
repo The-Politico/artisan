@@ -2,6 +2,11 @@
   color: var(--slate-800);
 }
 
+.btn:disabled {
+  pointer-events: none;
+  color: var(--slate-300);
+}
+
 .btn:hover {
   color: var(--politico-blue);
 }

@@ -22,7 +22,7 @@ export default function MeatballMenu({ items, children }) {
     >
       <Menu.Button className={cls(styles.menuBtn, borders.rounded)}>
         <EllipsisHorizontalIcon
-          className={cls(styles.iconSm, colors.textSlate500)}
+          className={cls(styles.iconSm, colors.textSlate600)}
         />
       </Menu.Button>
       <Transition
