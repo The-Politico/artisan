@@ -12,16 +12,14 @@ export async function getProjectsArchive() {
   const params = {
     bucket: AWS_ARTISAN_BUCKET,
     delimiter: '/',
-    prefix: ARCHIVE_PROJECTS_DIRECTORY,
+    prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/`,
   };
 
   const projectsPrefixes = await s3.list(params);
 
-  console.log(projectsPrefixes);
-
-  const projectsList = projectsPrefixes.CommonPrefixes.map((d) => {
+  const projectsList = projectsPrefixes?.CommonPrefixes.map((d) => {
     const path = d.Prefix;
-    return path.replace(ARCHIVE_PROJECTS_DIRECTORY, '').replace('/', '');
+    return path.replace(`${ARCHIVE_PROJECTS_DIRECTORY}/`, '').replace('/', '');
   });
 
   // compare to projects in store

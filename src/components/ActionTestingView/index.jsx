@@ -101,7 +101,7 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Create Project"
-          onClick={() => createProject('Project Two')}
+          onClick={() => createProject('Project One')}
         />
 
         <TestButton
@@ -161,7 +161,7 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Archive Project"
-          onClick={() => archiveProject('project-two')}
+          onClick={() => archiveProject('project-one')}
         />
 
         <TestButton
@@ -176,7 +176,7 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Delete Project"
-          onClick={() => deleteProject('project-two')}
+          onClick={() => deleteProject('project-one')}
         />
       </div>
     </div>
