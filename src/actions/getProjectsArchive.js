@@ -8,7 +8,7 @@ import s3 from '../utils/s3';
  * Fetches list of projects in the archive by slug name
  * @returns {Array<Object>}
  */
-export async function getProjectsArchive() {
+export default async function getProjectsArchive() {
   const params = {
     bucket: AWS_ARTISAN_BUCKET,
     delimiter: '/',

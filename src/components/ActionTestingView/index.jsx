@@ -19,7 +19,7 @@ import publishProject from '../../actions/publishProject';
 import downloadProject from '../../actions/downloadProject';
 import duplicateProject from '../../actions/duplicateProject';
 import deleteProject from '../../actions/deleteProject';
-import { getProjectsArchive } from '../../actions/get-projects-archive';
+import getProjectsArchive from '../../actions/getProjectsArchive';
 
 function SettingsWatcher() {
   const [settings, setSettings] = useState({});
