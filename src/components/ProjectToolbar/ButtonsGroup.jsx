@@ -1,4 +1,5 @@
 import cls from 'classnames';
+import { useState } from 'react';
 import { open } from '@tauri-apps/api/shell';
 import IconButton from '../IconButton';
 import MeatballMenu from '../MeatballMenu';
@@ -13,8 +14,11 @@ import deleteProject from '../../actions/deleteProject';
 import publishProject from '../../actions/publishProject';
 import launchPreview from '../../actions/launchPreview';
 import getSharePath from '../../utils/paths/getSharePath';
+import ConfirmPublishAlert from '../ConfirmPublishAlert';
 
 export default function ButtonsGroup({ projectSlug, status }) {
+  const [showPubilshAlert, setShowPublishAlert] = useState(true);
+
   const meatballItems = [
     {
       iconName: 'ServerIcon',
@@ -59,7 +63,7 @@ export default function ButtonsGroup({ projectSlug, status }) {
       <IconButton
         iconName="GlobeAltIcon"
         label="Publish"
-        onClick={() => publishProject(projectSlug)}
+        onClick={() => setShowPublishAlert(true)}
       />
       <IconButton
         iconName="EyeIcon"
@@ -73,6 +77,12 @@ export default function ButtonsGroup({ projectSlug, status }) {
         onClick={handleShareClick}
       />
       <MeatballMenu items={meatballItems} />
+      {showPubilshAlert && (
+        <ConfirmPublishAlert
+          setShowPublishAlert={setShowPublishAlert}
+          projectSlug={projectSlug}
+        />
+      )}
     </div>
   );
 }

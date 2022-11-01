@@ -23,7 +23,7 @@ export default function AppView() {
   );
 
   async function doAction() {
-    const f = await store.getProjects('projects');
+    const f = await store.getProjects();
     console.log(f);
   }
 
