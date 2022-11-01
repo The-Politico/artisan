@@ -4,7 +4,9 @@ import { EllipsisHorizontalIcon } from '@heroicons/react/20/solid';
 import cls from 'classnames';
 import MeatballItem from '../MeatballItem';
 import styles from './styles.module.css';
-import { colors, effects, padding, borders } from '../../theme';
+import {
+  colors, effects, padding, borders,
+} from '../../theme';
 
 export default function MeatballMenu({ items, children }) {
   const itemsClass = cls(
@@ -35,7 +37,14 @@ export default function MeatballMenu({ items, children }) {
         leaveTo={styles.leaveTo}
       >
         <Menu.Items className={itemsClass}>
-          {items ? items.map((item) => <MeatballItem {...item} />) : children}
+          {items
+            ? items.map((item) => (
+              <MeatballItem
+                key={item.label}
+                {...item}
+              />
+            ))
+            : children}
         </Menu.Items>
       </Transition>
     </Menu>

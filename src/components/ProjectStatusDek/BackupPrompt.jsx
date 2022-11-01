@@ -1,10 +1,10 @@
-import { backupFilesS3 } from '../../actions/backup';
+import backupFiles from '../../actions/backupFiles';
 import styles from './styles.module.css';
 
 export default function BackupPrompt({ project }) {
   return (
     <button
-      onClick={() => backupFilesS3(project)}
+      onClick={() => backupFiles(project)}
       type="button"
       className={styles.timestampBtn}
     >

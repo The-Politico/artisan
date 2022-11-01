@@ -1,8 +1,8 @@
 import cls from 'classnames';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './styles.module.css';
 import { flex, spacing, borders, colors, effects } from '../../theme';
-import { getStoreValue } from '../../store';
+import store from '../../store';
 import TabToggle from '../TabToggle';
 import MeatballMenu from '../MeatballMenu';
 import ProjectToolbar from '../ProjectToolbar';
@@ -23,7 +23,7 @@ export default function AppView() {
   );
 
   async function doAction() {
-    const f = await getStoreValue('projects');
+    const f = await store.getProjects('projects');
     console.log(f);
   }
 

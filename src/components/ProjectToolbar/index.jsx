@@ -1,47 +1,40 @@
 import cls from 'classnames';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
 import { flex, layout, margin, colors, typography as type } from '../../theme';
 import ButtonsGroup from './ButtonsGroup';
-import { getProject } from '../../store';
-import { projects } from '../../store/init';
+import store from '../../store';
 
-export default function ProjectToolbar({ selectedProject }) {
+export default function ProjectToolbar({ selectedProject, isArchive }) {
   const [projectDetail, setProjectDetail] = useState({});
   const [status, setStatus] = useState(undefined);
   const [timestamp, setTimestamp] = useState(undefined);
-  const [unlisten, setUnlisten] = useState(() => () => {});
-
-  const handleChange = useCallback(async () => {
-    const un = await projects.onKeyChange(selectedProject, (e) => {
-      console.log('Listening for changes to: ', selectedProject);
-      setProjectDetail(e);
-    });
-    setUnlisten(un);
-  }, [selectedProject]);
 
   useEffect(() => {
     (async () => {
-      const project = await getProject(selectedProject);
+      const project = await store.getProject(selectedProject);
       setProjectDetail(project);
     })();
   }, [selectedProject]);
 
   useEffect(() => {
-    if (selectedProject) {
-      console.log('Selected Project changed');
-      handleChange();
-    }
+    const { stores: { PROJECTS } } = store;
+    const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
+      console.log('Listening for changes to: ', selectedProject);
+      setProjectDetail(e);
+    });
     return () => {
-      unlisten();
+      unlisten.then((f) => f());
     };
-  }, []);
+  }, [selectedProject]);
 
   useEffect(() => {
     if (projectDetail) {
       const { isUploaded, isPublished, lastUploaded } = projectDetail;
-      if (isPublished) {
+      if (isArchive) {
+        setStatus('archive');
+      } else if (isPublished) {
         setStatus('published');
         setTimestamp(lastUploaded);
       } else if (isUploaded) {
@@ -49,6 +42,11 @@ export default function ProjectToolbar({ selectedProject }) {
         setTimestamp(lastUploaded);
       }
     }
+
+    return () => {
+      setStatus(undefined);
+      setTimestamp(undefined);
+    };
   }, [projectDetail]);
 
   return (
