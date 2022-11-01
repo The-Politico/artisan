@@ -4,6 +4,13 @@ import styles from './styles.module.css';
 
 import ArtisanSwitch from '../ArtisanSwitch';
 import NewIllustration from '../NewIllustration';
+import Dropdown from '../Dropdown';
+
+const testIllos = [
+  { title: 'web-large', path: '/some/location/sample.ai' },
+  { title: 'web-medium', path: '/some/location/sample2.ai' },
+  { title: 'mobile-small', path: '/some/location/sample2.ai' },
+];
 
 export default function UITestingView() {
   return (
@@ -19,6 +26,8 @@ export default function UITestingView() {
       <NewIllustration />
       <br />
       <ArtisanSwitch switchLabel="Show Article" />
+      <br />
+      <Dropdown optionsList={testIllos} />
     </div>
   );
 }
