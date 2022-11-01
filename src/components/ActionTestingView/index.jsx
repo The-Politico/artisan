@@ -19,12 +19,14 @@ import publishProject from '../../actions/publishProject';
 import downloadProject from '../../actions/downloadProject';
 import duplicateProject from '../../actions/duplicateProject';
 import deleteProject from '../../actions/deleteProject';
+import { getProjectsArchive } from '../../actions/get-projects-archive';
 
 function SettingsWatcher() {
   const [settings, setSettings] = useState({});
   const [projects, setProjects] = useState({});
   const [projectOne, setProjectOne] = useState({});
   const [preview, setPreview] = useState({});
+  const [archive, setArchive] = useState({});
 
   useEffect(() => {
     const interval = setInterval(async () => {
@@ -40,8 +42,8 @@ function SettingsWatcher() {
       const newPreview = await store.getPreview();
       setPreview(newPreview);
 
-      // const newArchive = await fetchProjectsArchive();
-      // setArchive(newArchive);
+      const newArchive = await getProjectsArchive();
+      setArchive(newArchive);
     }, 1000);
 
     return () => clearInterval(interval);
@@ -53,12 +55,17 @@ function SettingsWatcher() {
       <textarea
         readOnly
         style={{ width: '100%', height: '200px' }}
-        value={JSON.stringify({
-          settings,
-          projects,
-          projectOne,
-          preview,
-        }, null, 2)}
+        value={JSON.stringify(
+          {
+            settings,
+            projects,
+            projectOne,
+            preview,
+            archive,
+          },
+          null,
+          2,
+        )}
       />
     </div>
   );
@@ -94,7 +101,7 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Create Project"
-          onClick={() => createProject('Project One')}
+          onClick={() => createProject('Project Two')}
         />
 
         <TestButton
@@ -104,44 +111,42 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Create Illustration"
-          onClick={() => createIllustration(
-            'project-one', 'My Cool Illustration',
-          )}
+          onClick={() =>
+            createIllustration('project-one', 'My Cool Illustration')
+          }
         />
 
         <TestButton
           name="Create Illustration Two"
-          onClick={() => createIllustration(
-            'project-one', 'My Second Illustration',
-          )}
+          onClick={() =>
+            createIllustration('project-one', 'My Second Illustration')
+          }
         />
 
         <TestButton
           name="Delete Illustration Two"
-          onClick={() => deleteIllustration(
-            'project-one', 'my-second-illustration',
-          )}
+          onClick={() =>
+            deleteIllustration('project-one', 'my-second-illustration')
+          }
         />
 
         <TestButton
           name="Open Illustration"
-          onClick={() => openIllustration(
-            'project-one', 'my-cool-illustration',
-          )}
+          onClick={() =>
+            openIllustration('project-one', 'my-cool-illustration')
+          }
         />
 
         <TestButton
           name="Generate Illustration"
-          onClick={() => generateIllustration(
-            'project-one', 'my-cool-illustration',
-          )}
+          onClick={() =>
+            generateIllustration('project-one', 'my-cool-illustration')
+          }
         />
 
         <TestButton
           name="Launch Preview"
-          onClick={() => launchPreview(
-            'project-one',
-          )}
+          onClick={() => launchPreview('project-one')}
         />
 
         <TestButton
@@ -156,7 +161,7 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Archive Project"
-          onClick={() => archiveProject('project-one')}
+          onClick={() => archiveProject('project-two')}
         />
 
         <TestButton
@@ -173,9 +178,7 @@ export default function ActionTestingView() {
           name="Delete Project"
           onClick={() => deleteProject('project-two')}
         />
-
       </div>
-
     </div>
   );
 }
