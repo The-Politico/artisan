@@ -28,10 +28,6 @@ export default function ConfirmPublishAlert({
     effects.shadowLg,
   );
 
-  const handlePublish = async () => {
-    await publishProject(projectSlug);
-  };
-
   const {
     enter, enterTo, enterFrom, leave, leaveFrom, leaveTo,
   } = styles;
@@ -66,7 +62,7 @@ export default function ConfirmPublishAlert({
           <Button
             value="Publish"
             variant="solid"
-            onClick={() => handlePublish()}
+            onClick={() => publishProject(projectSlug)}
           />
         </div>
       </div>
