@@ -1,4 +1,5 @@
 import cls from 'classnames';
+import { Transition } from '@headlessui/react';
 import Button from '../Button';
 import styles from './styles.module.css';
 import {
@@ -7,12 +8,13 @@ import {
   effects,
   padding,
   flex,
-  margin,
   typography as type,
 } from '../../theme';
+import publishProject from '../../actions/publishProject';
 
 export default function ConfirmPublishAlert({
   projectSlug,
+  showPubilshAlert,
   setShowPublishAlert,
 }) {
   const alertClass = cls(
@@ -26,8 +28,28 @@ export default function ConfirmPublishAlert({
     effects.shadowLg,
   );
 
+  const handlePublish = async () => {
+    await publishProject(projectSlug);
+  };
+
+  const {
+    enter, enterTo, enterFrom, leave, leaveFrom, leaveTo,
+  } = styles;
+  const timings = {
+    enter,
+    enterTo,
+    enterFrom,
+    leave,
+    leaveFrom,
+    leaveTo,
+  };
+
   return (
-    <div className={styles.container}>
+    <Transition
+      show={showPubilshAlert}
+      className={styles.container}
+      {...timings}
+    >
       <div className={alertClass}>
         <h2 className={cls(colors.textSlate700, type.textLg, type.fontBold)}>
           Confirm Publish
@@ -44,9 +66,10 @@ export default function ConfirmPublishAlert({
           <Button
             value="Publish"
             variant="solid"
+            onClick={() => handlePublish()}
           />
         </div>
       </div>
-    </div>
+    </Transition>
   );
 }

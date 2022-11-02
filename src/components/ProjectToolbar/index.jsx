@@ -11,6 +11,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
   const [status, setStatus] = useState(undefined);
   const [timestamp, setTimestamp] = useState(undefined);
 
+  // Gets project details when selected project changes
   useEffect(() => {
     (async () => {
       const project = await store.getProject(selectedProject);
@@ -18,10 +19,10 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
     })();
   }, [selectedProject]);
 
+  // Listener for changes to a project in the store (like backup time)
   useEffect(() => {
     const { stores: { PROJECTS } } = store;
     const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-      console.log('Listening for changes to: ', selectedProject);
       setProjectDetail(e);
     });
     return () => {
@@ -29,6 +30,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
     };
   }, [selectedProject]);
 
+  // Sets status and timestamp from project details
   useEffect(() => {
     if (projectDetail) {
       const { isUploaded, isPublished, lastUploaded } = projectDetail;
@@ -43,6 +45,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
       }
     }
 
+    // Cleanup incase changing projects causes some odd dispaly status
     return () => {
       setStatus(undefined);
       setTimestamp(undefined);

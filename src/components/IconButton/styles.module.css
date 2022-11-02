@@ -4,7 +4,7 @@
 
 .btn:disabled {
   pointer-events: none;
-  color: var(--slate-300);
+  color: var(--slate-400);
 }
 
 .btn:hover {

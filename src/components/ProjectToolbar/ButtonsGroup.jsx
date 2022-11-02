@@ -3,21 +3,22 @@ import { useState } from 'react';
 import { open } from '@tauri-apps/api/shell';
 import IconButton from '../IconButton';
 import MeatballMenu from '../MeatballMenu';
-import DownloadButton from './DownloadButton';
 import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
-import backupFiles from '../../actions/backupFiles';
-import archiveProject from '../../actions/archiveProject';
-import openInFinder from '../../actions/openInFinder';
-import duplicateProject from '../../actions/duplicateProject';
-import deleteProject from '../../actions/deleteProject';
-import publishProject from '../../actions/publishProject';
-import launchPreview from '../../actions/launchPreview';
+import {
+  backupFiles,
+  archiveProject,
+  downloadProject,
+  openInFinder,
+  duplicateProject,
+  deleteProject,
+  launchPreview,
+} from '../../actions';
 import getSharePath from '../../utils/paths/getSharePath';
 import ConfirmPublishAlert from '../ConfirmPublishAlert';
 
 export default function ButtonsGroup({ projectSlug, status }) {
-  const [showPubilshAlert, setShowPublishAlert] = useState(true);
+  const [showPubilshAlert, setShowPublishAlert] = useState(false);
 
   const meatballItems = [
     {
@@ -48,14 +49,24 @@ export default function ButtonsGroup({ projectSlug, status }) {
     },
   ];
 
+  // Opens generated share link in default browser
   const handleShareClick = async (e) => {
     e.preventDefault();
     const url = getSharePath(projectSlug, { asUrl: true });
     await open(url);
   };
 
+  // Only show download button when viewing archive project
   if (status === 'archive') {
-    return <DownloadButton />;
+    return (
+      <div className={cls(styles.btnGroup)}>
+        <IconButton
+          iconName="ArrowDownTrayIcon"
+          label="Download"
+          action={() => downloadProject(projectSlug)}
+        />
+      </div>
+    );
   }
 
   return (
@@ -77,12 +88,11 @@ export default function ButtonsGroup({ projectSlug, status }) {
         onClick={handleShareClick}
       />
       <MeatballMenu items={meatballItems} />
-      {showPubilshAlert && (
-        <ConfirmPublishAlert
-          setShowPublishAlert={setShowPublishAlert}
-          projectSlug={projectSlug}
-        />
-      )}
+      <ConfirmPublishAlert
+        projectSlug={projectSlug}
+        showPubilshAlert={showPubilshAlert}
+        setShowPublishAlert={setShowPublishAlert}
+      />
     </div>
   );
 }

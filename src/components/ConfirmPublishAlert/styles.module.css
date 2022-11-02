@@ -20,3 +20,21 @@
   color: var(--slate-800);
   margin: .75rem 0;
 }
+
+.enter {
+  transition-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  transition-duration: 100ms;
+}
+
+.enter-from, .leave-to {
+  opacity: 0;
+}
+
+.enter-to, .leave-from {
+  opacity: 100;
+}
+
+.leave {
+  transition-timing-function: cubic-bezier(0.4, 0, 1, 1);
+  transition-duration: 75ms;
+}
