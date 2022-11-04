@@ -1,3 +1,8 @@
+.container {
+  align-items: center;
+  width: 100px;
+}
+
 .enabled {
   background-color: var(--slate-900);
   opacity: 0.8;
@@ -9,11 +14,11 @@
 }
 
 .switch {
-  position: relative;
+  /* position: relative; */
   display: inline-flex;
   height: 24px;
   width: 44px;
-  flex-shrink: 0;
+  /* flex-shrink: 0; */
   cursor: pointer;
   border-radius: 50px;
   border-width: 2px;

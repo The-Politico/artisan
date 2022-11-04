@@ -96,7 +96,6 @@
 .list-options:focus {
   outline: 2px solid transparent;
   outline-offset: 2px;
-  /* background-color: var(--slate600); */
 }
 
 .option {

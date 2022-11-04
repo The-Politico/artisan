@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { useState } from 'react';
 import styles from './styles.module.css';
 
@@ -15,7 +16,7 @@ const testIllos = [
 ];
 
 export default function UITestingView() {
-  const [fname, setFname] = useState('');
+  const [fname, setFirstName] = useState('');
   const [showArticle, setShowArticle] = useState(false);
   const [option, setDropdownOption] = useState(null);
 
@@ -29,10 +30,9 @@ export default function UITestingView() {
       <Dropdown optionsList={testIllos} setOption={setDropdownOption} />
       <br />
       <br />
-      <br />
-      <br />
+
       <Input
-        setTextInput={setFname}
+        setTextInput={setFirstName}
         inputLabel="First Name"
         darkMode
       />

@@ -26,7 +26,7 @@ export default function ArtisanSwitch({ switchLabel, setToggle }) {
   );
 
   const labelClass = cls(styles.label);
-  const containerClass = cls(flex.flex, flex.flexCenter, flex.flexCol);
+  const containerClass = cls(flex.flex, flex.flexCol, styles.container);
 
   return (
 
