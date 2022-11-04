@@ -8,7 +8,7 @@ import PreviewTestingView from './components/PreviewTestingView';
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <UITestingView /> */}
-    <PreviewTestingView />
+    <UITestingView />
+    {/* <PreviewTestingView /> */}
   </React.StrictMode>,
 );

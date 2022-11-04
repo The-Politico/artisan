@@ -16,6 +16,7 @@ export default function IllustrationPreview(props) {
     breakpoint,
     showArticle = true,
     embedType = 'standard',
+    url,
     children,
   } = props;
 
@@ -49,10 +50,11 @@ export default function IllustrationPreview(props) {
             scrolling="yes"
             title="live-preview-frame"
             className={styles['live-preview-frame']}
+            src={url}
             ref={frame}
             frameBorder="0"
             width="100%"
-            height="775"
+            height="500px"
           />
         </DevicePreview>
       </div>

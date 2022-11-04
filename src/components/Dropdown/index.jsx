@@ -37,9 +37,10 @@ export default function Dropdown(props) {
                   key={illo.title + illo.path}
                   className={({ active }) => `${
                     active ? cls(
+                      styles.option,
                       styles.optionActive,
                       colors.bgSlate600,
-                    ) : styles.optionInActive
+                    ) : cls(styles.option, styles.optionInActive)
                   }`}
                   value={illo}
                 >

@@ -11,9 +11,11 @@ const testIllos = [
 ];
 
 export default function UITestingView() {
+  // this is where we want to pass in a URL
   const [embedPreview, setEmbedPreview] = useState('hello');
-  const [embedType, setEmbedType] = useState('standard');
-  const [showArticle, setShowArticle] = useState(false);
+  const [localURL, setLocalURL] = useState('http://localhost:8000/');
+  const [embedType, setEmbedType] = useState('mobile');
+  const [showArticle, setShowArticle] = useState(true);
   const [breakpoint, setBreakpoint] = useState(NO_BREAKPOINT.value);
 
   return (
@@ -22,8 +24,9 @@ export default function UITestingView() {
         breakpoint={breakpoint}
         embedType={embedType}
         showArticle={showArticle}
+        url={localURL}
       >
-        {embedPreview}
+        {/* {embedPreview} */}
       </IllustrationPreview>
 
     </div>

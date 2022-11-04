@@ -16,6 +16,7 @@ const testIllos = [
 
 export default function UITestingView() {
   const [fname, setFname] = useState('');
+  const [showArticle, setShowArticle] = useState(false);
 
   return (
     <div className={styles.view}>
