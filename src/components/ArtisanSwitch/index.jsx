@@ -7,9 +7,12 @@ import {
   flex,
 } from '../../theme';
 
-export default function ArtisanSwitch(props) {
-  const { switchLabel } = props;
+export default function ArtisanSwitch({ switchLabel, setToggle }) {
   const [enabled, setEnabled] = useState(false);
+  const changeHandler = (val) => {
+    setEnabled(val);
+    setToggle(val);
+  };
   const switchClass = cls(
     styles.switch,
     { [styles.enabled]: enabled },
@@ -31,7 +34,7 @@ export default function ArtisanSwitch(props) {
       <Switch.Group>
         <Switch
           checked={enabled}
-          onChange={setEnabled}
+          onChange={changeHandler}
           className={switchClass}
         >
           <span

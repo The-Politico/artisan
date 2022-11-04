@@ -8,13 +8,17 @@ import cls from 'classnames';
 import { colors } from '../../theme';
 import styles from './styles.module.css';
 
-export default function Dropdown(props) {
-  const { optionsList } = props;
+export default function Dropdown({ optionsList, setOption }) {
   const [selected, setSelected] = useState(optionsList[0]);
+
+  const changeHandler = (val) => {
+    setSelected(val);
+    setOption(val);
+  };
 
   return (
     <div className={styles.container}>
-      <Listbox value={selected} onChange={setSelected}>
+      <Listbox value={selected} onChange={changeHandler}>
         <div className={styles.innerContainer}>
           <Listbox.Button className={styles.listButton}>
             <span className={styles.buttonSpan}>{selected.title}</span>

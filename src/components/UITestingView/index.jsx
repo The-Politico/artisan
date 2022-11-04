@@ -17,15 +17,16 @@ const testIllos = [
 export default function UITestingView() {
   const [fname, setFname] = useState('');
   const [showArticle, setShowArticle] = useState(false);
+  const [option, setDropdownOption] = useState(null);
 
   return (
     <div className={styles.view}>
       <br />
       <NewIllustration />
       <br />
-      <ArtisanSwitch switchLabel="Show Article" />
+      <ArtisanSwitch switchLabel="Show Article" setToggle={setShowArticle} />
 
-      <Dropdown optionsList={testIllos} />
+      <Dropdown optionsList={testIllos} setOption={setDropdownOption} />
       <br />
       <br />
       <br />
