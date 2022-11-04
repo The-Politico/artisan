@@ -4,9 +4,11 @@ import AppView from './components/AppView';
 import './main.css';
 
 import UITestingView from './components/UITestingView';
+import PreviewTestingView from './components/PreviewTestingView';
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
-    <UITestingView />
+    {/* <UITestingView /> */}
+    <PreviewTestingView />
   </React.StrictMode>,
 );

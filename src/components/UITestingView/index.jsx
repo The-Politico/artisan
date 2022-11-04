@@ -1,10 +1,12 @@
-import { PlusIcon } from '@heroicons/react/20/solid';
-import Button from '../Button';
+import { useState } from 'react';
 import styles from './styles.module.css';
 
 import ArtisanSwitch from '../ArtisanSwitch';
 import NewIllustration from '../NewIllustration';
 import Dropdown from '../Dropdown';
+import Input from '../Input';
+import HelpButton from '../HelpButton';
+import Logo from '../Logo';
 
 const testIllos = [
   { title: 'web-large', path: '/some/location/sample.ai' },
@@ -13,21 +15,30 @@ const testIllos = [
 ];
 
 export default function UITestingView() {
+  const [fname, setFname] = useState('');
+
   return (
     <div className={styles.view}>
-      <Button
-        variant="solid"
-        className="text-lg !text-red"
-      >
-        <PlusIcon className="h-6 mr-1" />
-        {' '}
-        New Project
-      </Button>
+      <br />
       <NewIllustration />
       <br />
       <ArtisanSwitch switchLabel="Show Article" />
-      <br />
+
       <Dropdown optionsList={testIllos} />
+      <br />
+      <br />
+      <br />
+      <br />
+      <Input
+        setTextInput={setFname}
+        inputLabel="First Name"
+        darkMode
+      />
+
+      <HelpButton />
+      <br />
+
+      <Logo />
     </div>
   );
 }

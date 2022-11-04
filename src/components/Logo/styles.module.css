@@ -1,0 +1,25 @@
+.container {
+  display: flex; 
+  flex-direction: row;
+  align-items: center; 
+  justify-items: flex-start;
+  gap: 2px;
+
+}
+
+.logo-text {
+  color: #33FFFF;
+  opacity: 80%;
+  font-size: 96px;
+  font-weight: 700;
+  line-height: 96px;
+  letter-spacing: 0em;
+}
+
+.name {
+  font-size: 72px;
+  color: #000;
+  line-height: 72px;
+  font-weight: 600;
+  margin-left: 20px;
+}

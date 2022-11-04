@@ -1,12 +1,14 @@
 import { useState, Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 
-import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid';
+import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 import cls from 'classnames';
+
+import { colors } from '../../theme';
 import styles from './styles.module.css';
 
-export default function Example(props) {
+export default function Dropdown(props) {
   const { optionsList } = props;
   const [selected, setSelected] = useState(optionsList[0]);
 
@@ -34,7 +36,10 @@ export default function Example(props) {
                 <Listbox.Option
                   key={illo.title + illo.path}
                   className={({ active }) => `${
-                    active ? styles.optionActive : styles.optionInActive
+                    active ? cls(
+                      styles.optionActive,
+                      colors.bgSlate600,
+                    ) : styles.optionInActive
                   }`}
                   value={illo}
                 >
@@ -48,14 +53,6 @@ export default function Example(props) {
                       >
                         {illo.title}
                       </span>
-                      {selected ? (
-                        <span className={styles.selectedSpan}>
-                          <CheckIcon
-                            className={styles.checkIcon}
-                            aria-hidden="true"
-                          />
-                        </span>
-                      ) : null}
                     </>
                   )}
                 </Listbox.Option>
