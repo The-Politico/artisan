@@ -1,0 +1,31 @@
+.item {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.item:hover {
+  cursor: pointer;
+  background: rgba(0, 123, 199, 0.2);
+}
+
+.item:active {
+  background: rgba(0, 123, 199, 0.4);
+}
+
+.divider {
+  width: 100%;
+  border-top: 1px solid var(--slate-300);
+}
+
+.item-name {
+  max-width: 100%;
+  -webkit-user-select: none;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  flex-shrink: 200;
+}
+
+.icon {
+  flex-basis: 1.5rem;
+}

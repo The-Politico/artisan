@@ -1,11 +1,13 @@
 import cls from 'classnames';
 import { useState } from 'react';
 import styles from './styles.module.css';
-import { flex, spacing, borders, colors, effects } from '../../theme';
+import { flex, spacing, borders, colors, effects, layout } from '../../theme';
 import store from '../../store';
 import TabToggle from '../TabToggle';
 import MeatballMenu from '../MeatballMenu';
 import ProjectToolbar from '../ProjectToolbar';
+import CreateProject from '../CreateProject';
+import ProjectListItem from '../ProjectListItem';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState('project-one');
@@ -30,7 +32,27 @@ export default function AppView() {
   if (isToolbar) {
     return (
       <div className={styles.emptyGrid}>
-        <div>
+        <div className={cls(styles.sidebar, flex.flex, flex.flexCol)}>
+          <CreateProject />
+          <ul className={styles.ul}>
+            <ProjectListItem
+              index={0}
+              projectName="Project One"
+            />
+            <ProjectListItem
+              index={1}
+              projectName="Project Two"
+            />
+            <ProjectListItem
+              index={2}
+              projectName="Project Three"
+            />
+            <ProjectListItem
+              index={3}
+              last
+              projectName="Even better project super long name"
+            />
+          </ul>
           <button
             type="button"
             onClick={() => setSelectedProject('project-one')}
