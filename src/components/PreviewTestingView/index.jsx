@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import styles from './styles.module.css';
 
 import IllustrationPreview from '../IllustrationPreview';
@@ -11,10 +11,9 @@ const testIllos = [
 ];
 
 export default function UITestingView() {
-  // this is where we want to pass in a URL
-  const [embedPreview, setEmbedPreview] = useState('hello');
+  const iframeRef = useRef(null);
   const [localURL, setLocalURL] = useState('http://localhost:8000/');
-  const [embedType, setEmbedType] = useState('mobile');
+  const [embedType, setEmbedType] = useState('standard');
   const [showArticle, setShowArticle] = useState(true);
   const [breakpoint, setBreakpoint] = useState(NO_BREAKPOINT.value);
 
@@ -26,7 +25,18 @@ export default function UITestingView() {
         showArticle={showArticle}
         url={localURL}
       >
-        {/* {embedPreview} */}
+        {`<iframe
+          scrolling="no"
+          width="100%"
+          height="100%"
+          src=${localURL}
+          ref=${iframeRef}
+          frameBorder="0"
+          title="embed-preview"
+          sandbox="allow-scripts allow-same-origin allow-top-navigation"
+        />
+        <script>window.newswireFrames.autoInitFrames();</script>
+      `}
       </IllustrationPreview>
 
     </div>

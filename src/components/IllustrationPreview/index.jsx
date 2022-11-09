@@ -1,6 +1,9 @@
 import {
   useEffect, useRef,
+  useState,
 } from 'react';
+import { appWindow } from '@tauri-apps/api/window';
+import { app } from '@tauri-apps/api';
 import { ALL_TYPES as EMBED_TYPES } from './_constants/embedTypes';
 
 import ensureMeta from './_utils/ensureMeta';
@@ -16,11 +19,11 @@ export default function IllustrationPreview(props) {
     breakpoint,
     showArticle = true,
     embedType = 'standard',
-    url,
     children,
   } = props;
 
   const frame = useRef();
+  const [windowHeight, setWindowHeight] = useState(500);
 
   useEffect(() => {
     if (frame.current) {
@@ -38,6 +41,16 @@ export default function IllustrationPreview(props) {
         runInjectedScripts(frame);
       }, 1000);
     }
+
+    async function getSize() {
+      const factor = await appWindow.scaleFactor();
+      const size = await appWindow.innerSize();
+      const logical = size.toLogical(factor);
+      const adjustedHeight = logical.height - (45 * factor);
+      setWindowHeight(adjustedHeight);
+    }
+
+    getSize();
   }, [embedType, children, showArticle]);
 
   return (
@@ -50,11 +63,10 @@ export default function IllustrationPreview(props) {
             scrolling="yes"
             title="live-preview-frame"
             className={styles['live-preview-frame']}
-            src={url}
             ref={frame}
             frameBorder="0"
             width="100%"
-            height="500px"
+            height={windowHeight}
           />
         </DevicePreview>
       </div>
