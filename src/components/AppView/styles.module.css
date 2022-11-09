@@ -39,4 +39,6 @@
 
 .sidebar {
   max-width: 100%;
+  justify-self: stretch;
+  margin-left: .75rem;
 }

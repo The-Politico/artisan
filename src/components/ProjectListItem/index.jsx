@@ -1,6 +1,8 @@
 import cls from 'classnames';
+import { useState, useEffect } from 'react';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import styles from './styles.module.css';
+import store from '../../store';
 import {
   borders,
   effects,
@@ -16,10 +18,39 @@ export default function ProjectListItem({
   last,
   index,
   projectSlug,
-  projectName,
-  status,
-  setActiveProject,
+  isArchive,
+  setSelectedProject,
 }) {
+  const [projectDetail, setProjectDetail] = useState();
+  const [status, setStatus] = useState(undefined);
+  const [projectName, setProjectName] = useState('...');
+
+  useEffect(() => {
+    (async () => {
+      const project = await store.getProject(projectSlug);
+      setProjectDetail(project);
+    })();
+  }, [isArchive]);
+
+  useEffect(() => {
+    if (projectDetail) {
+      const { isUploaded, isPublished, name } = projectDetail;
+      setProjectName(name);
+      if (isArchive) {
+        setStatus('archive');
+      } else if (isPublished) {
+        setStatus('published');
+      } else if (isUploaded) {
+        setStatus('uploaded');
+      }
+    }
+
+    return () => {
+      setStatus(undefined);
+      setProjectName('...');
+    };
+  }, [projectDetail]);
+
   const itemClass = cls(
     styles.item,
     colors.textSlate900,
@@ -38,9 +69,12 @@ export default function ProjectListItem({
         <button
           type="button"
           className={itemClass}
-          onClick={() => setActiveProject(projectSlug)}
+          onClick={() => setSelectedProject(projectSlug)}
         >
-          <ProjectStatusIcon className={styles.icon} status={status} />
+          <ProjectStatusIcon
+            className={styles.icon}
+            status={status}
+          />
           <p className={cls(styles.itemName, type.textLg, margin.ml1)}>
             {projectName}
           </p>

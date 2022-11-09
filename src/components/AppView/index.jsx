@@ -8,11 +8,14 @@ import MeatballMenu from '../MeatballMenu';
 import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProject';
 import ProjectListItem from '../ProjectListItem';
+import ProjectList from '../ProjectList';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState('project-one');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
+
+  const [isArchive, setIsArchive] = useState(false);
 
   const isToolbar = true;
 
@@ -34,40 +37,17 @@ export default function AppView() {
       <div className={styles.emptyGrid}>
         <div className={cls(styles.sidebar, flex.flex, flex.flexCol)}>
           <CreateProject />
-          <ul className={styles.ul}>
-            <ProjectListItem
-              index={0}
-              projectName="Project One"
-            />
-            <ProjectListItem
-              index={1}
-              projectName="Project Two"
-            />
-            <ProjectListItem
-              index={2}
-              projectName="Project Three"
-            />
-            <ProjectListItem
-              index={3}
-              last
-              projectName="Even better project super long name"
-            />
-          </ul>
-          <button
-            type="button"
-            onClick={() => setSelectedProject('project-one')}
-          >
-            Project One
-          </button>
-          <button
-            type="button"
-            onClick={() => setSelectedProject('project-two')}
-          >
-            Project Two
-          </button>
+          <ProjectList
+            setIsArchive={setIsArchive}
+            setSelectedProject={setSelectedProject}
+            isArchive={isArchive}
+          />
         </div>
         <div className={styles.container}>
-          <ProjectToolbar selectedProject={selectedProject} />
+          <ProjectToolbar
+            isArchive={isArchive}
+            selectedProject={selectedProject}
+          />
           <div
             className={cls(
               flex.flex,
