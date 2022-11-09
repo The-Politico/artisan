@@ -14,20 +14,28 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
   // Gets project details when selected project changes
   useEffect(() => {
     (async () => {
-      const project = await store.getProject(selectedProject);
-      setProjectDetail(project);
+      if (!isArchive) {
+        const project = await store.getProject(selectedProject);
+        setProjectDetail(project);
+      } else {
+        setProjectDetail(selectedProject);
+      }
     })();
   }, [selectedProject]);
 
   // Listener for changes to a project in the store (like backup time)
   useEffect(() => {
-    const { stores: { PROJECTS } } = store;
-    const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-      setProjectDetail(e);
-    });
-    return () => {
-      unlisten.then((f) => f());
-    };
+    if (!isArchive) {
+      const {
+        stores: { PROJECTS },
+      } = store;
+      const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
+        setProjectDetail(e);
+      });
+      return () => {
+        unlisten.then((f) => f());
+      };
+    }
   }, [selectedProject]);
 
   // Sets status and timestamp from project details

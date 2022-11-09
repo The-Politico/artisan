@@ -26,5 +26,20 @@ export default async function getProjectsArchive() {
   const localProjects = (await store.getProjectsList()) || [];
 
   // Return projects not locally in the settigns store
-  return projectsList.filter((p) => !localProjects.includes(p));
+  const archivedProjects = projectsList.filter(
+    (p) => !localProjects.includes(p),
+  );
+
+  return Promise.all(
+    archivedProjects.map(async (d) => {
+      const { Metadata } = await s3.head({
+        bucket: AWS_ARTISAN_BUCKET,
+        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
+      });
+      return {
+        slug: d,
+        name: Metadata.name,
+      };
+    }),
+  );
 }

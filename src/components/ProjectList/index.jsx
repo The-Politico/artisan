@@ -16,21 +16,17 @@ export default function ProjectList({
   const [projectsList, setProjectsList] = useState([]);
 
   useEffect(() => {
-    setIsArchive(selectedIndex === 1);
-  }, [selectedIndex]);
-
-  useEffect(() => {
     (async () => {
-      if (!isArchive) {
+      if (selectedIndex === 0) {
         const projects = await store.getProjectsList();
         setProjectsList(projects);
       } else {
         const archive = await getProjectsArchive();
-        console.log(archive);
         setProjectsList(archive);
       }
+      setIsArchive(selectedIndex === 1);
     })();
-  }, [isArchive]);
+  }, [selectedIndex]);
 
   const tabItems = ['DocumentIcon', 'ArchiveBoxIcon'];
 
@@ -60,6 +56,7 @@ export default function ProjectList({
           <ProjectListItem
             key={slug}
             projectSlug={slug}
+            archiveProject={slug}
             index={idx}
             last={idx === projectsList.at(-1)}
             isArchive={isArchive}

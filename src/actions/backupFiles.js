@@ -2,7 +2,6 @@ import { readBinaryFile } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 import {
   ARCHIVE_PROJECTS_DIRECTORY,
-  METADATA_FILE_NAME,
 } from '../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../constants/aws';
 import store from '../store';
@@ -36,11 +35,17 @@ export default async function backupFiles(
       `${file}.ai`,
     );
 
+    const { illustrations } = await store.getProject(projectSlug);
+    const { name } = illustrations.find((d) => d.slug === file);
+
     return s3.upload({
       bucket: AWS_ARTISAN_BUCKET,
       body: content,
       key: keyPath,
       storageClass: 'STANDARD',
+      metadata: {
+        name,
+      },
     });
   };
 
@@ -49,7 +54,7 @@ export default async function backupFiles(
     const keyPath = await join(
       ARCHIVE_PROJECTS_DIRECTORY,
       projectSlug,
-      METADATA_FILE_NAME,
+      '/',
     );
     const { name } = await store.getProject(projectSlug);
 
@@ -57,7 +62,10 @@ export default async function backupFiles(
       bucket: AWS_ARTISAN_BUCKET,
       body: name,
       key: keyPath,
-      contentType: 'text/plain',
+      contentType: 'application/x-directory',
+      metadata: {
+        name,
+      },
     });
   };
 

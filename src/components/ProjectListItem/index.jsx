@@ -18,6 +18,7 @@ export default function ProjectListItem({
   last,
   index,
   projectSlug,
+  archiveProject,
   isArchive,
   setSelectedProject,
 }) {
@@ -27,8 +28,13 @@ export default function ProjectListItem({
 
   useEffect(() => {
     (async () => {
-      const project = await store.getProject(projectSlug);
-      setProjectDetail(project);
+      if (!isArchive) {
+        const project = await store.getProject(projectSlug);
+        setProjectDetail(project);
+      } else if (isArchive) {
+        // when archive, project slug comes over as an object
+        setProjectName(archiveProject.name);
+      }
     })();
   }, [isArchive]);
 
@@ -43,13 +49,10 @@ export default function ProjectListItem({
       } else if (isUploaded) {
         setStatus('uploaded');
       }
+    } else if (isArchive) {
+      setStatus('archive');
     }
-
-    return () => {
-      setStatus(undefined);
-      setProjectName('...');
-    };
-  }, [projectDetail]);
+  }, [isArchive, projectDetail]);
 
   const itemClass = cls(
     styles.item,
@@ -69,7 +72,7 @@ export default function ProjectListItem({
         <button
           type="button"
           className={itemClass}
-          onClick={() => setSelectedProject(projectSlug)}
+          onClick={() => setSelectedProject(archiveProject || projectSlug)}
         >
           <ProjectStatusIcon
             className={styles.icon}
