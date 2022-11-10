@@ -9,7 +9,6 @@ import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
 import Button from '../Button';
 import MeatballItem from '../MeatballItem';
-import { getStoreValue } from '../../store';
 import TabToggleItem from '../TabToggleItem';
 import EmptyProject from '../EmptyProject';
 
@@ -26,11 +25,6 @@ export default function AppView() {
     spacing.y4,
     styles.hScreen,
   );
-
-  async function doAction() {
-    const f = await getStoreValue('projects');
-    console.log(f);
-  }
 
   if (isEmpty) {
     return (
@@ -96,7 +90,6 @@ export default function AppView() {
         <MeatballItem
           iconName="ServerIcon"
           label="Backup"
-          action={() => doAction()}
         />
         <MeatballItem
           iconName="ArchiveBoxIcon"
