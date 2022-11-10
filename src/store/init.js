@@ -1,13 +1,17 @@
 import { Store } from 'tauri-plugin-store-api';
+import {
+  BASE_STORE_NAME,
+  PROJECTS_STORE_NAME,
+} from './constants';
 
 /**
  * Use to access the settings store instance and its methods
  * @type {Store}
  */
-export const store = new Store('.artisan-settings');
+export const STORE = new Store(BASE_STORE_NAME);
 
 /**
  * Use to access the projects store instance and its methods
  * @type {Store}
  */
-export const projects = new Store('.artisan-projects');
+export const PROJECTS = new Store(PROJECTS_STORE_NAME);
