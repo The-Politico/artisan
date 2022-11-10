@@ -1,8 +1,5 @@
-import Base from './_base';
-import Prefix from './_prefix';
 import Container from './_container';
-import Section from './_section';
-import Suffix from './_suffix';
+import Main from './_main';
 
 export const NAME = 'bump-out';
 
@@ -10,13 +7,10 @@ export default function BumpOut({ children, showArticle }) {
   return Container({
     showArticle,
     children:
-      Prefix({ showArticle })
-      + Base({ showArticle })
-      + Section({
+      Main({
         children,
-        className: 'is-medium-width',
         showArticle,
-      })
-      + Suffix({ showArticle }),
+        className: 'bump-out',
+      }),
   });
 }

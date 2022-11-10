@@ -29,12 +29,13 @@ export default function UITestingView() {
           scrolling="no"
           width="100%"
           height="100%"
+          class=${styles.embedFrame} 
           src=${localURL}
           ref=${iframeRef}
           frameBorder="0"
           title="embed-preview"
           sandbox="allow-scripts allow-same-origin allow-top-navigation"
-        />
+        ></iframe>
         <script>window.newswireFrames.autoInitFrames();</script>
       `}
       </IllustrationPreview>

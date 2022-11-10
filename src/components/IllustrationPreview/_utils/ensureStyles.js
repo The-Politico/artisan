@@ -1,11 +1,11 @@
 const ensureStyles = function ensureStyles(frame) {
   const doc = frame.current.contentWindow.document;
   [
-    'https://static3.politico.com/resource/assets/battletoads/css/shared--base.min.cc62bc586cca8c0f6659b3f17ed46eae.gz.css',
-    'https://static3.politico.com/resource/assets/battletoads/css/shared--header.min.b7b4231d05cbf1fce18848b54ddd9031.gz.css',
-    'https://static3.politico.com/resource/assets/battletoads/css/shared--footer.min.4e2b31ee297e14a89e4c233d57eb8645.gz.css',
-    'https://static3.politico.com/resource/assets/battletoads/css/shared--article.min.2c0125c8d877a13ac6143c84408cf042.gz.css',
-    'https://static3.politico.com/resource/assets/battletoads/css/shared--utility.min.e66df854ea12e9d55dd4732272b01497.gz.css',
+    'https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--base.js.a721a78317a0f65befbae0d80a1cf867.gz.css',
+    'https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--header.js.fc4b5ba636efcf3dd3e7be40bc86dc1f.gz.css',
+    'https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--footer.js.32c02709d09d2108cd4f315c846e666d.gz.css',
+    'https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--article.js.fc4bebe451dc662e546f22ce4e798946.gz.css',
+    'https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--utility.js.ae674724dac481b43c3015f787aa93e9.gz.css',
   ].forEach((sheet) => {
     if (!doc.head.querySelector(`link[href="${sheet}"]`)) {
       const link = doc.createElement('link');

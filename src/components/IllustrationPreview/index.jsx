@@ -3,7 +3,6 @@ import {
   useState,
 } from 'react';
 import { appWindow } from '@tauri-apps/api/window';
-import { app } from '@tauri-apps/api';
 import { ALL_TYPES as EMBED_TYPES } from './_constants/embedTypes';
 
 import ensureMeta from './_utils/ensureMeta';

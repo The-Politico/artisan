@@ -1,6 +1,11 @@
+import cls from 'classnames';
 import styles from './styles.module.css';
 
+import { typography } from '../../theme';
+
 export default function Logo() {
+  const logoClass = cls(styles.name, typography.fontSemibold);
+
   return (
     <div className={styles.container}>
       <svg width="146" height="146" viewBox="0 0 146 146" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,7 +22,7 @@ export default function Logo() {
         </defs>
       </svg>
       <div>
-        <span className={styles.name}>Artisan</span>
+        <span className={logoClass}>Artisan</span>
       </div>
     </div>
   );

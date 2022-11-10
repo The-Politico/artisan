@@ -1,8 +1,5 @@
-import Base from './_base';
-import Prefix from './_prefix';
+import Main from './_main';
 import Container from './_container';
-import Section from './_section';
-import Suffix from './_suffix';
 
 export const NAME = 'page-width';
 
@@ -10,13 +7,10 @@ export default function PageWidth({ children, showArticle }) {
   return Container({
     showArticle,
     children:
-      Prefix({ showArticle })
-      + Base({ showArticle })
-      + Section({
+      Main({
         children,
-        className: 'is-bg-full-width',
         showArticle,
-      })
-      + Suffix({ showArticle }),
+        className: 'page-width',
+      }),
   });
 }
