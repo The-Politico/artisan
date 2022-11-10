@@ -4,7 +4,6 @@ import { basename, join } from '@tauri-apps/api/path';
 import runPromisesSequentially from '../utils/runPromisesSequentially';
 
 import s3 from '../utils/s3';
-import fetchProjecctMeta from '../utils/archive/fetchProjectMeta';
 import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
 import store from '../store';
 
@@ -36,15 +35,19 @@ export default async function downloadProject(projectSlug) {
   // Gets text file for project name
   // This should be a JSON file that stores
   // the illustration names as well
-  const projectName = await fetchProjecctMeta(projectSlug);
-  await store.addProject(projectName, { isUploaded: true });
+  const { Metadata } = await s3.head({
+    bucket: AWS_ARTISAN_BUCKET,
+    key: `${keyPath}/`,
+  });
+
+  await store.addProject(Metadata.name, { isUploaded: true });
 
   // Start of downloading illustrator files
   const projectPath = await getWorkingProjectPath(projectSlug);
 
   const illos = await Promise.all(
     files
-      .filter(({ illoSlug }) => illoSlug !== METADATA_FILE_NAME)
+      .filter(({ illoSlug }) => illoSlug !== projectSlug)
       .map(async ({ key, illoSlug }) => {
         const destination = await join(projectPath, illoSlug);
         const illoPath = await join(destination, `${illoSlug}.ai`);

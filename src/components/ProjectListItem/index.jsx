@@ -28,10 +28,10 @@ export default function ProjectListItem({
 
   useEffect(() => {
     (async () => {
-      if (!isArchive) {
+      if (!isArchive && projectSlug) {
         const project = await store.getProject(projectSlug);
         setProjectDetail(project);
-      } else if (isArchive) {
+      } else if (isArchive && archiveProject) {
         // when archive, project slug comes over as an object
         setProjectName(archiveProject.name);
       }
@@ -42,9 +42,7 @@ export default function ProjectListItem({
     if (projectDetail) {
       const { isUploaded, isPublished, name } = projectDetail;
       setProjectName(name);
-      if (isArchive) {
-        setStatus('archive');
-      } else if (isPublished) {
+      if (isPublished) {
         setStatus('published');
       } else if (isUploaded) {
         setStatus('uploaded');

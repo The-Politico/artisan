@@ -58,12 +58,13 @@ export default function ButtonsGroup({ projectSlug, status }) {
 
   // Only show download button when viewing archive project
   if (status === 'archive') {
+    console.log({projectSlug});
     return (
       <div className={cls(styles.btnGroup)}>
         <IconButton
           iconName="ArrowDownTrayIcon"
           label="Download"
-          action={() => downloadProject(projectSlug)}
+          onClick={() => downloadProject(projectSlug)}
         />
       </div>
     );

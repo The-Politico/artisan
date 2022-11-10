@@ -36,6 +36,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
         unlisten.then((f) => f());
       };
     }
+    return () => {};
   }, [selectedProject]);
 
   // Sets status and timestamp from project details
@@ -82,7 +83,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
         />
       </div>
       <ButtonsGroup
-        projectSlug={selectedProject}
+        projectSlug={projectDetail.slug}
         status={status}
       />
     </div>

@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import cls from 'classnames';
 import TabToggle from '../TabToggle';
-import { colors, flex, layout, margin, typography as type } from '../../theme';
+import {
+  colors, flex, layout, margin, typography as type,
+} from '../../theme';
 import styles from './styles.module.css';
 import store from '../../store';
 import { getProjectsArchive } from '../../actions';
@@ -14,6 +16,7 @@ export default function ProjectList({
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [projectsList, setProjectsList] = useState([]);
+  const [archiveList, setArchivesList] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -22,13 +25,38 @@ export default function ProjectList({
         setProjectsList(projects);
       } else {
         const archive = await getProjectsArchive();
-        setProjectsList(archive);
+        setArchivesList(archive);
       }
       setIsArchive(selectedIndex === 1);
     })();
   }, [selectedIndex]);
 
   const tabItems = ['DocumentIcon', 'ArchiveBoxIcon'];
+
+  const renderListItems = () => {
+    if (selectedIndex === 0) {
+      return projectsList.map((slug, idx) => (
+        <ProjectListItem
+          key={slug}
+          projectSlug={slug}
+          index={idx}
+          last={idx === projectsList.at(-1)}
+          isArchive={isArchive}
+          setSelectedProject={setSelectedProject}
+        />
+      ));
+    }
+    return archiveList.map((archiveItem, idx) => (
+      <ProjectListItem
+        key={archiveItem.slug}
+        archiveProject={archiveItem}
+        index={idx}
+        last={idx === projectsList.at(-1)}
+        isArchive={isArchive}
+        setSelectedProject={setSelectedProject}
+      />
+    ));
+  };
 
   return (
     <div>
@@ -52,17 +80,7 @@ export default function ProjectList({
         />
       </div>
       <ul>
-        {projectsList.map((slug, idx) => (
-          <ProjectListItem
-            key={slug}
-            projectSlug={slug}
-            archiveProject={slug}
-            index={idx}
-            last={idx === projectsList.at(-1)}
-            isArchive={isArchive}
-            setSelectedProject={setSelectedProject}
-          />
-        ))}
+        {renderListItems()}
       </ul>
     </div>
   );
