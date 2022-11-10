@@ -1,7 +1,6 @@
 {
   "html_output_path": "./ai2html-output/",
   "html_output_extension": ".html",
-  "include_resizer_script": false,
   "settings_block": ["image_format", "png_number_of_colors", "jpg_quality", "responsiveness"],
 
   "config_file": [],
