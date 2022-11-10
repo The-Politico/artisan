@@ -14,6 +14,11 @@
   column-gap: calc(.25rem * var(--gap-x));
 }
 
+.x-3 {
+  --gap-x: 3;
+  column-gap: calc(.25rem * var(--gap-x));
+}
+
 .x-4 {
   --gap-x: 4;
   column-gap: calc(.25rem * var(--gap-x));
