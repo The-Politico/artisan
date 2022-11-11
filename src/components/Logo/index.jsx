@@ -1,19 +1,22 @@
 import cls from 'classnames';
 import styles from './styles.module.css';
 
-import { typography, margin, flex } from '../../theme';
+import {
+  typography, margin, flex, layout,
+} from '../../theme';
 
 export default function Logo() {
   const containerClass = cls(
     styles.container,
     flex.flex,
     flex.flexRow,
+    layout.itemsEnd,
   );
 
   const logoClass = cls(
-    styles.name,
     typography.fontSemibold,
     margin.mx1,
+    typography.textXl,
   );
 
   return (

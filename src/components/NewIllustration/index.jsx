@@ -29,11 +29,17 @@ export default function NewIllustration() {
     styles.iconSize,
   );
 
+  const clickHandler = () => {
+    // eslint-disable-next-line no-console
+    console.log('Placeholder for new illustration Action');
+  };
+
   return (
     <div className={containerClass}>
       <Button
         variant="solid"
         className={buttonClass}
+        onClick={clickHandler}
       >
         <PlusIcon className={iconClass} />
         {' '}

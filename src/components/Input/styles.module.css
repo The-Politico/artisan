@@ -1,26 +1,11 @@
-.container {
-  display: flex;
-  flex-direction: column;
-}
-
-.label-text {
-  font-size: 14px;
-  line-height: 20px;
-  margin-bottom: 7px;
-}
-
 .text-input {
   border: 1px solid var(--slate-300);
   height: 36px;
-  padding: 4px;
   padding-left: 11px;
-  color: var(--slate-700);
 }
 
 .dark-text-input {
   border: 1px solid var(--slate-300);
   height: 24px;
   padding-left: 14px;
-  color: var(--slate-200);
-  font-size: 12px;
 }

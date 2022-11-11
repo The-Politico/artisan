@@ -5,7 +5,9 @@ import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
 
 import cls from 'classnames';
 
-import { colors } from '../../theme';
+import {
+  colors, typography, borders, padding, flex, margin, layout,
+} from '../../theme';
 import styles from './styles.module.css';
 
 export default function Dropdown({ optionsList, setOption }) {
@@ -19,10 +21,27 @@ export default function Dropdown({ optionsList, setOption }) {
   return (
     <div className={styles.container}>
       <Listbox value={selected} onChange={changeHandler}>
-        <div className={styles.innerContainer}>
-          <Listbox.Button className={styles.listButton}>
+        <div className={cls(
+          styles.innerContainer,
+          margin.mt1,
+        )}
+        >
+          <Listbox.Button className={cls(
+            styles.listButton,
+            padding.py2,
+            typography.textSm,
+            colors.textSlate900,
+            borders.roundedLg,
+          )}
+          >
             <span className={styles.buttonSpan}>{selected.title}</span>
-            <span className={styles.buttonIcon}>
+            <span className={cls(
+              styles.buttonIcon,
+              padding.pr2,
+              flex.flex,
+              layout.itemsCenter,
+            )}
+            >
               <ChevronUpDownIcon
                 className={styles.chevronIcon}
                 aria-hidden="true"
@@ -35,7 +54,13 @@ export default function Dropdown({ optionsList, setOption }) {
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
           >
-            <Listbox.Options className={styles.listOptions}>
+            <Listbox.Options className={cls(
+              styles.listOptions,
+              typography.textSm,
+              margin.mt1,
+              borders.roundedMd,
+            )}
+            >
               {optionsList.map((illo) => (
                 <Listbox.Option
                   key={illo.title + illo.path}
@@ -44,7 +69,12 @@ export default function Dropdown({ optionsList, setOption }) {
                       styles.option,
                       styles.optionActive,
                       colors.bgSlate600,
-                    ) : cls(styles.option, styles.optionInActive)
+                      padding.py2,
+                    ) : cls(
+                      styles.option,
+                      colors.textSlate900,
+                      padding.py2,
+                    )
                   }`}
                   value={illo}
                 >
@@ -53,7 +83,14 @@ export default function Dropdown({ optionsList, setOption }) {
                       <span
                         className={`${
                           selected
-                            ? styles.selectedText : styles.notSelectedText
+                            ? cls(
+                              styles.optionText,
+                              typography.fontBold,
+                            )
+                            : cls(
+                              styles.optionText,
+                              typography.fontNormal,
+                            )
                         }`}
                       >
                         {illo.title}

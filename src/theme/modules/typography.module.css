@@ -83,17 +83,17 @@
 }
 
 .text-slate-600 {
-  color: var(--slate-50);
+  color: var(--slate-600);
 }
 
 .text-slate-700 {
-  color: var(--slate-50);
+  color: var(--slate-700);
 }
 
 .text-slate-800 {
-  color: var(--slate-50);
+  color: var(--slate-800);
 }
 
 .text-slate-900 {
-  color: var(--slate-50);
+  color: var(--slate-900);
 }

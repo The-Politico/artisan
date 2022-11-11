@@ -1,24 +1,19 @@
 .container {
-  align-items: center;
   width: 100px;
 }
 
 .enabled {
-  background-color: var(--slate-900);
   opacity: 0.8;
 }
 
 .disabled {
-  background-color: var(--slate-900);
   opacity: 0.4;
 }
 
 .switch {
-  /* position: relative; */
   display: inline-flex;
-  height: 24px;
-  width: 44px;
-  /* flex-shrink: 0; */
+  height: 1.5rem;
+  width: 2.75rem;
   cursor: pointer;
   border-radius: 50px;
   border-width: 2px;
@@ -31,11 +26,9 @@
 .knob {
   pointer-events: none;
   display: inline-block;
-  height: 20px;
-  width: 20px;
-  border-radius: 9999px;
-  --tw-bg-opacity: 1;
-  background-color: rgb(255 255 255 / var(--tw-bg-opacity));
+  height: 1.25rem;
+  width: 1.25rem;
+  background-color: #fff;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -47,11 +40,10 @@
 
 .knob-disabled {
   --tw-translate-x: 0px;
-  transform: translate(var(--tw-translate-x), 0);
+  transform: translate(0, 0);
 }
 
 .label {
   color: #fff;
-  padding-top: 14px;
 }
 

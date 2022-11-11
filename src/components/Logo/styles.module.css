@@ -1,13 +1,5 @@
 .container {
-  align-items: flex-end; 
   justify-items: flex-start;
   gap: 2px;
-
-}
-
-.name {
-  font-size: 20px;
-  color: #000;
-  line-height: 20px;
 
 }
