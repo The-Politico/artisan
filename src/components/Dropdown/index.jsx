@@ -1,4 +1,4 @@
-import { useState, Fragment } from 'react';
+import { Fragment } from 'react';
 import { Listbox, Transition } from '@headlessui/react';
 
 import { ChevronUpDownIcon } from '@heroicons/react/20/solid';
@@ -10,17 +10,14 @@ import {
 } from '../../theme';
 import styles from './styles.module.css';
 
-export default function Dropdown({ optionsList, setOption }) {
-  const [selected, setSelected] = useState(optionsList[0]);
-
+export default function Dropdown({ optionsList, selectedOption, setOption }) {
   const changeHandler = (val) => {
-    setSelected(val);
     setOption(val);
   };
 
   return (
     <div className={styles.container}>
-      <Listbox value={selected} onChange={changeHandler}>
+      <Listbox value={selectedOption} onChange={changeHandler}>
         <div className={cls(
           styles.innerContainer,
           margin.mt1,
@@ -34,7 +31,7 @@ export default function Dropdown({ optionsList, setOption }) {
             borders.roundedLg,
           )}
           >
-            <span className={styles.buttonSpan}>{selected.title}</span>
+            <span className={styles.buttonSpan}>{selectedOption.title}</span>
             <span className={cls(
               styles.buttonIcon,
               padding.pr2,
@@ -79,23 +76,21 @@ export default function Dropdown({ optionsList, setOption }) {
                   value={illo}
                 >
                   {({ selected }) => (
-                    <>
-                      <span
-                        className={`${
-                          selected
-                            ? cls(
-                              styles.optionText,
-                              typography.fontBold,
-                            )
-                            : cls(
-                              styles.optionText,
-                              typography.fontNormal,
-                            )
-                        }`}
-                      >
-                        {illo.title}
-                      </span>
-                    </>
+                    <span
+                      className={`${
+                        selected
+                          ? cls(
+                            styles.optionText,
+                            typography.fontBold,
+                          )
+                          : cls(
+                            styles.optionText,
+                            typography.fontNormal,
+                          )
+                      }`}
+                    >
+                      {illo.title}
+                    </span>
                   )}
                 </Listbox.Option>
               ))}

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import cls from 'classnames';
 import { Switch } from '@headlessui/react';
 import styles from './styles.module.css';
@@ -11,11 +10,8 @@ import {
   layout,
 } from '../../theme';
 
-export default function ArtisanSwitch({ switchLabel, setToggle }) {
-  const [enabled, setEnabled] = useState(false);
-
+export default function ArtisanSwitch({ switchLabel, enabled, setToggle }) {
   const changeHandler = (val) => {
-    setEnabled(val);
     setToggle(val);
   };
 

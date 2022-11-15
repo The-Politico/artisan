@@ -8,12 +8,24 @@ import styles from './styles.module.css';
 
 export default function Input({ setTextInput, inputLabel, darkMode }) {
   const typingHandler = (event) => {
-    if (event.target.value !== '') {
-      setTextInput(event.target.value);
-    } else {
-      setTextInput('');
-    }
+    setTextInput(event.target.value);
   };
+
+  const darkModeClass = cls(
+    styles.darkTextInput,
+    borders.roundedLg,
+    colors.bgSlate600,
+    typography.textXs,
+    typography.textSlate200,
+  );
+
+  const lightModeClass = cls(
+    styles.textInput,
+    borders.roundedLg,
+    colors.bgSlate100,
+    typography.textSlate700,
+    padding.p1,
+  );
 
   return (
     <div className={
@@ -36,20 +48,7 @@ export default function Input({ setTextInput, inputLabel, darkMode }) {
       <label htmlFor="textInput">
         <input
           className={
-            darkMode ? cls(
-              styles.darkTextInput,
-              borders.roundedLg,
-              colors.bgSlate600,
-              typography.textXs,
-              typography.textSlate200,
-            )
-              : cls(
-                styles.textInput,
-                borders.roundedLg,
-                colors.bgSlate100,
-                typography.textSlate700,
-                padding.p1,
-              )
+            darkMode ? darkModeClass : lightModeClass
             }
           type="text"
           id="textInput"
