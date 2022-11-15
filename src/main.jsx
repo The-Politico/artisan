@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+
 import AppView from './components/AppView';
 import './main.css';
 

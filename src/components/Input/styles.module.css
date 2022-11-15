@@ -1,0 +1,11 @@
+.text-input {
+  border: 1px solid var(--slate-300);
+  height: 36px;
+  padding-left: 11px;
+}
+
+.dark-text-input {
+  border: 1px solid var(--slate-300);
+  height: 24px;
+  padding-left: 14px;
+}

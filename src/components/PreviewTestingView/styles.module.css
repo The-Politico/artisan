@@ -1,0 +1,5 @@
+.view {
+  height: 100vh;
+  background: linear-gradient(90deg, var(--politico-blue) 0%, var(--politico-dark-blue) 100%);
+}
+ 

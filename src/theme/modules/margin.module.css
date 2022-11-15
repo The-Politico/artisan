@@ -82,10 +82,16 @@
   margin-left: calc(0.25rem * var(--mx));
 }
 
+.mx-5 {
+  --mx: 5;
+  margin-right: calc(0.25rem * var(--mx));
+  margin-left: calc(0.25rem * var(--mx));
+}
+
 .mx-6 {
-  --m: 6;
-  margin-right: calc(0.25rem * var(--m));
-  margin-left: calc(0.25rem * var(--m));
+  --mx: 6;
+  margin-right: calc(0.25rem * var(--mx));
+  margin-left: calc(0.25rem * var(--mx));
 }
 
 /* top / bottom */
