@@ -1,0 +1,14 @@
+.tab {
+  --size: 1.25rem;
+  color: var(--politico-black);
+  height: var(--size);
+  width: var(--size);
+  padding: 4px 6px;
+  box-sizing: content-box;
+  outline: none;
+  position: relative;
+}
+
+.tab:hover {
+  background-color: rgba(255, 255, 255, .4);
+}

@@ -1,60 +1,156 @@
-/* eslint-disable react/jsx-one-expression-per-line */
-import { ServerIcon } from '@heroicons/react/24/solid';
 import cls from 'classnames';
+import { PlusIcon } from '@heroicons/react/20/solid';
+import { Menu, Tab } from '@headlessui/react';
+import { useState } from 'react';
+import styles from './styles.module.css';
+import { flex, spacing, typography as type, gap } from '../../theme';
+import IconButton from '../IconButton';
+import ProjectStatusIcon from '../ProjectStatusIcon';
+import ProjectStatusDek from '../ProjectStatusDek';
 import Button from '../Button';
-import styles from './AppView.module.css';
-import { layout, spacing } from '../../theme';
-import { backupFilesS3 } from '../../actions/backup';
-import SetFolder from '../SetFolder';
-import { getProjects } from '../../actions/get-projects-archive';
-import { deleteProject } from '../../actions/delete-project';
+import MeatballItem from '../MeatballItem';
+import TabToggleItem from '../TabToggleItem';
+import EmptyProject from '../EmptyProject';
 
 export default function AppView() {
-  const handleClick = () => {
-    backupFilesS3({
-      project: 'project-three',
-      files: ['test-one.ai'],
-    });
-  };
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const [selectedIndex2, setSelectedIndex2] = useState(0);
 
-  const listArchive = async () => {
-    const p = await getProjects();
-    console.log({ p });
-  };
-
-  const deleteProj = () => {
-    deleteProject('project-one');
-  };
+  const isEmpty = false;
 
   const classNames = cls(
-    layout.flex,
-    layout.flexCol,
-    layout.flexCenter,
-    spacing.y,
+    flex.flex,
+    flex.flexCol,
+    flex.flexCenter,
+    spacing.y4,
     styles.hScreen,
   );
 
+  if (isEmpty) {
+    return (
+      <div className={styles.emptyGrid}>
+        <div />
+        <EmptyProject />
+      </div>
+    );
+  }
+
   return (
     <div className={classNames}>
-      <SetFolder />
-      <Button
-        onClick={listArchive}
-        variant="ghost"
+      <div className={cls(flex.flex, spacing.x4)}>
+        <Button variant="ghost">Ghost button</Button>
+        <Button variant="outline">Outline button</Button>
+        <Button
+          variant="solid"
+          value="Solid w/ icon"
+          className={type.textXl}
+          icon={<PlusIcon className={styles.icon} />}
+        />
+      </div>
+      <div className={cls(flex.flex, flex.flexCenter, gap.x4)}>
+        <div className={styles.groupBg}>
+          <IconButton
+            iconName="GlobeAltIcon"
+            label="Publish"
+            setWhite
+          />
+        </div>
+        <IconButton
+          iconName="EyeIcon"
+          label="Preview"
+        />
+      </div>
+      <div className={styles.statusIcons}>
+        <ProjectStatusIcon />
+        <ProjectStatusIcon status="published" />
+        <ProjectStatusIcon status="archive" />
+        <ProjectStatusIcon size="lg" />
+        <ProjectStatusIcon
+          status="published"
+          size="lg"
+        />
+        <ProjectStatusIcon
+          status="archive"
+          size="lg"
+        />
+      </div>
+      <div>
+        <ProjectStatusDek />
+        <ProjectStatusDek status="archive" />
+        <ProjectStatusDek
+          status="published"
+          timestamp="2022-10-24T18:23:42.536Z"
+        />
+        <ProjectStatusDek
+          status="uploaded"
+          timestamp="2022-10-22T18:23:42.536Z"
+        />
+      </div>
+      <Menu as="div">
+        <MeatballItem
+          iconName="ServerIcon"
+          label="Backup"
+        />
+        <MeatballItem
+          iconName="ArchiveBoxIcon"
+          label="Archive"
+        />
+        <MeatballItem
+          iconName="FolderIcon"
+          label="Open in Finder"
+        />
+        <MeatballItem
+          iconName="DocumentDuplicateIcon"
+          label="Duplicate"
+        />
+        <MeatballItem
+          iconName="TrashIcon"
+          label="Delete Project"
+          danger
+        />
+      </Menu>
+      <Tab.Group
+        selectedIndex={selectedIndex}
+        onChange={setSelectedIndex}
       >
-        List archive
-      </Button>
-      <Button
-        onClick={deleteProj}
-        variant="outline"
+        <Tab.List className={cls(styles.tabList)}>
+          <TabToggleItem iconName="DocumentIcon" />
+          <TabToggleItem iconName="ArchiveBoxIcon" />
+          <span
+            style={{
+              '--translate': selectedIndex,
+            }}
+            className={cls(styles.glider)}
+          />
+        </Tab.List>
+      </Tab.Group>
+      <Tab.Group
+        selectedIndex={selectedIndex2}
+        onChange={setSelectedIndex2}
+        as="div"
+        className={styles.groupBg}
       >
-        Delete Project
-      </Button>
-      <Button
-        variant="solid"
-        onClick={handleClick}
-      >
-        <ServerIcon className={cls(spacing.mr)} /> Backup
-      </Button>
+        <Tab.List className={cls(styles.tabList, styles.transparentBg)}>
+          <TabToggleItem
+            size="24"
+            iconName="ComputerDesktopIcon"
+          />
+          <TabToggleItem
+            size="24"
+            iconName="DevicePhoneMobileIcon"
+          />
+          <TabToggleItem
+            size="24"
+            iconName="DeviceTabletIcon"
+          />
+          <span
+            style={{
+              '--translate': selectedIndex2,
+            }}
+            className={cls(styles.glider)}
+          />
+        </Tab.List>
+      </Tab.Group>
     </div>
   );
 }

@@ -1,0 +1,19 @@
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: var(--slate-500);
+}
+
+.archive {
+  color: var(--slate-400)
+}
+
+.lg {
+  height: 2rem;
+  width: 2rem;
+  color: var(--slate-600);
+}
+
+.published {
+  color: var(--emerald-500);
+}

@@ -1,0 +1,13 @@
+.dek {
+  color: var(--slate-700);
+}
+
+.timestamp-btn {
+  display: inline-block;
+  border-bottom: 1px solid;
+}
+
+.timestamp-btn:hover {
+  color: var(--politico-dark-blue);
+  border-bottom-color:var(--politico-dark-blue);
+}

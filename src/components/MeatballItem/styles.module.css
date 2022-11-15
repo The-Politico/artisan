@@ -1,0 +1,22 @@
+.item {
+  color: var(--slate-600);
+  width: 100%;
+}
+
+.is-active {
+  color: #fff;
+  background-color: var(--slate-600);
+}
+
+.is-active:active {
+  background-color: var(--slate-800);
+}
+
+.is-danger {
+  color: var(--red-500);
+}
+
+.icon-sm {
+  height: 1.25rem;
+  width: 1.25rem;
+}

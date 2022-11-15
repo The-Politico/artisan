@@ -7,6 +7,9 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "files.associations": {
-    "*.css": "postcss"
+    "*.css": "postcss",
+  },
+  "emmet.includeLanguages": {
+    "postcss": "css",
   }
 }
