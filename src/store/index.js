@@ -28,7 +28,6 @@ export default {
   updatePreview,
   updateProject,
   updateSettings,
-
   stores: {
     STORE,
     PROJECTS,

@@ -1,7 +1,9 @@
 import cls from 'classnames';
 import React, { useCallback } from 'react';
 import styles from './styles.module.css';
-import { flex, padding, effects } from '../../theme';
+import {
+  flex, padding, effects, borders,
+} from '../../theme';
 
 /**
  * Render a button in one of three styles
@@ -28,8 +30,8 @@ export default function Button(props) {
   } = props;
 
   const btnClass = cls(
-    styles.btn,
     styles[variant],
+    borders.roundedFull,
     flex.flex,
     flex.flexCenter,
     padding.px4,

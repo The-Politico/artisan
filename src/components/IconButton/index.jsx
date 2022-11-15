@@ -30,12 +30,12 @@ export default function IconButton(props) {
 
   const btnClass = cls(
     styles.btn,
-    setWhite && styles.white,
     flex.flex,
     flex.flexCol,
     flex.flexCenter,
     effects.transition,
     className,
+    { [styles.white]: setWhite },
   );
 
   const handleClick = useCallback(onClick, [onClick]);

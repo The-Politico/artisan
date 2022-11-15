@@ -22,36 +22,38 @@ export default function MeatballItem({
 }) {
   const onClick = useCallback(action, [action]);
 
-  const renderItem = ({ active }) => {
-    const itemClass = cls(
-      styles.item,
-      {
-        [styles.isActive]: active,
-        [styles.isDanger]: danger,
-      },
-      flex.flex,
-      flex.itemsCenter,
-      padding.p2,
-      type.textSm,
-      type.fontMedium,
-      borders.roundedMd,
-      effects.transition,
-    );
-    return (
-      <button
-        className={itemClass}
-        type="button"
-        onClick={onClick}
-      >
-        <BaseIcon
-          size="20"
-          iconName={iconName}
-          className={cls(styles.iconSm, margin.mr2)}
-        />
-        {label}
-      </button>
-    );
-  };
+  // Pass active render prop to item class
+  const itemClass = (isActive) => cls(
+    styles.item,
+    {
+      [styles.isActive]: isActive,
+      [styles.isDanger]: danger,
+    },
+    flex.flex,
+    flex.itemsCenter,
+    padding.p2,
+    type.textSm,
+    type.fontMedium,
+    borders.roundedMd,
+    effects.transition,
+  );
 
-  return <Menu.Item>{renderItem}</Menu.Item>;
+  return (
+    <Menu.Item>
+      {({ active }) => (
+        <button
+          className={itemClass(active)}
+          type="button"
+          onClick={onClick}
+        >
+          <BaseIcon
+            size="20"
+            iconName={iconName}
+            className={cls(styles.iconSm, margin.mr2)}
+          />
+          {label}
+        </button>
+      )}
+    </Menu.Item>
+  );
 }
