@@ -1,10 +1,6 @@
 import cls from 'classnames';
-import {
-  CheckCircleIcon,
-  MinusCircleIcon,
-} from '@heroicons/react/24/solid';
+import { ICONS } from './icons';
 import styles from './styles.module.css';
-import ArchiveIcon from './ArchiveIcon';
 
 /**
  *
@@ -17,17 +13,11 @@ import ArchiveIcon from './ArchiveIcon';
 export default function ProjectStatusIcon({ status, size = 'md' }) {
   const iconClass = cls(styles.icon, styles[size], styles[status]);
 
-  const renderIcon = () => {
-    if (status === 'published') {
-      return <CheckCircleIcon />;
-    }
-    if (status === 'archive') {
-      return (
-        <ArchiveIcon />
-      );
-    }
-    return <MinusCircleIcon />;
-  };
+  const IconComponent = ICONS[status] || ICONS.default;
 
-  return <div className={cls(iconClass)}>{renderIcon()}</div>;
+  return (
+    <div className={cls(iconClass)}>
+      <IconComponent />
+    </div>
+  );
 }

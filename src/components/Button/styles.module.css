@@ -1,7 +1,3 @@
-.btn {
-  border-radius: 9999px;
-}
-
 .solid {
   color: #fff;
   background-image: linear-gradient(to right, var(--politico-blue), var(--politico-dark-blue));
@@ -36,7 +32,7 @@
 }
 
 .ghost {
-  color: #334155;
+  color: var(--slate-700);
 }
 
 .ghost:hover {
