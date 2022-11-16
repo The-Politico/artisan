@@ -1,12 +1,12 @@
 /* ALL */
 .m-1 {
   --m: 1;
-  margin: calc(0.25rem * var(--mt));
+  margin: calc(0.25rem * var(--m));
 }
 
 .m-2 {
   --m: 2;
-  margin: calc(0.25rem * var(--mt));
+  margin: calc(0.25rem * var(--m));
 }
 
 /* top */
