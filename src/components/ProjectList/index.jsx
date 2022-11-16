@@ -4,10 +4,9 @@ import TabToggle from '../TabToggle';
 import {
   colors, flex, layout, margin, typography as type,
 } from '../../theme';
-import styles from './styles.module.css';
 import store from '../../store';
 import { getProjectsArchive } from '../../actions';
-import ProjectListItem from '../ProjectListItem';
+import ListItems from './ListItems';
 
 export default function ProjectList({
   setSelectedProject,
@@ -31,32 +30,22 @@ export default function ProjectList({
     })();
   }, [selectedIndex]);
 
-  const tabItems = ['DocumentIcon', 'ArchiveBoxIcon'];
+  // Updates project list when new one is added
+  useEffect(() => {
+    const {
+      stores: { STORE },
+    } = store;
 
-  const renderListItems = () => {
-    if (selectedIndex === 0) {
-      return projectsList.map((slug, idx) => (
-        <ProjectListItem
-          key={slug}
-          projectSlug={slug}
-          index={idx}
-          last={idx === projectsList.at(-1)}
-          isArchive={isArchive}
-          setSelectedProject={setSelectedProject}
-        />
-      ));
-    }
-    return archiveList.map((archiveItem, idx) => (
-      <ProjectListItem
-        key={archiveItem.slug}
-        archiveProject={archiveItem}
-        index={idx}
-        last={idx === projectsList.at(-1)}
-        isArchive={isArchive}
-        setSelectedProject={setSelectedProject}
-      />
-    ));
-  };
+    const unlisten = STORE.onKeyChange('projects', (e) => {
+      setProjectsList(e);
+    });
+
+    return () => {
+      unlisten.then((f) => f());
+    };
+  }, []);
+
+  const tabItems = ['DocumentIcon', 'ArchiveBoxIcon'];
 
   return (
     <div>
@@ -71,7 +60,7 @@ export default function ProjectList({
         <h4
           className={cls(type.textLg, type.fontSemibold, colors.textSlate800)}
         >
-          {isArchive ? 'Archive' : 'Projects'}
+          {isArchive ? 'Archive' : 'My Projects'}
         </h4>
         <TabToggle
           items={tabItems}
@@ -80,7 +69,13 @@ export default function ProjectList({
         />
       </div>
       <ul>
-        {renderListItems()}
+        <ListItems
+          isArchive={isArchive}
+          projectsList={projectsList}
+          archiveList={archiveList}
+          selectedIndex={selectedIndex}
+          setSelectedProject={setSelectedProject}
+        />
       </ul>
     </div>
   );
