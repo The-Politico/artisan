@@ -1,6 +1,5 @@
 .container {
-  position: fixed;
-  width: 10rem;
+  min-width: 8rem;
 }
 
 .inner-container {

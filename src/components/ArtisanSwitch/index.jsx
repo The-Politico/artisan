@@ -31,7 +31,7 @@ export default function ArtisanSwitch({ switchLabel, enabled, setToggle }) {
     { [styles.knobDisabled]: !enabled },
   );
 
-  const labelClass = cls(styles.label, padding.py4);
+  const labelClass = cls(styles.label, padding.pt2);
   const containerClass = cls(
     flex.flex,
     flex.flexCol,
