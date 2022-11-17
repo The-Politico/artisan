@@ -30,6 +30,16 @@
   margin-top: calc(0.25rem * var(--mt));
 }
 
+.mt-5 {
+  --mt: 5;
+  margin-top: calc(0.25rem * var(--mt));
+}
+
+.mt-6 {
+  --mt: 6;
+  margin-top: calc(0.25rem * var(--mt));
+}
+
 /* bottom */
 .mb-1 {
   --mb: 1;
