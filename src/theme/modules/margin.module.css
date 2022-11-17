@@ -46,6 +46,16 @@
   margin-bottom: calc(0.25rem * var(--mb));
 }
 
+.mb-5 {
+  --mb: 5;
+  margin-bottom: calc(0.25rem * var(--mb));
+}
+
+.mb-6 {
+  --mb: 6;
+  margin-bottom: calc(0.25rem * var(--mb));
+}
+
 /* LEFT */
 .ml-1 {
   --ml: 1;
