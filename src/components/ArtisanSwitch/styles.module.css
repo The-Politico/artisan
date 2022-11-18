@@ -21,6 +21,8 @@
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   outline: 2px solid transparent;
   outline-offset: 2px;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .knob {
@@ -46,5 +48,6 @@
 .label {
   color: #fff;
   font-size: 14px;
+  padding-top: 0.25rem;
 }
 

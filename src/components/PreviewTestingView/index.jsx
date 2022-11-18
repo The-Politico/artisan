@@ -3,7 +3,11 @@ import styles from './styles.module.css';
 
 import IllustrationPreview from '../IllustrationPreview';
 import PreviewToolbar from '../PreviewToolbar';
-import { NO_BREAKPOINT } from '../IllustrationPreview/_constants/breakpoints';
+import {
+  NO_BREAKPOINT,
+  MOBILE_PORTRAIT,
+  TABLET_PORTRAIT,
+} from '../IllustrationPreview/_constants/breakpoints';
 
 const illoList = [
   { title: 'web-large', path: '/some/location/sample.ai' },
@@ -12,12 +16,12 @@ const illoList = [
 ];
 
 const embedList = [
-  { title: 'standard', path: '1' },
-  { title: 'bump-in', path: '2' },
-  { title: 'bump-out', path: '3' },
-  { title: 'browser-width', path: '4' },
-  { title: 'browser-width-full', path: '5' },
-  { title: 'page-width', path: '6' },
+  { title: 'standard', path: '' },
+  { title: 'bump-in', path: '' },
+  { title: 'bump-out', path: '' },
+  { title: 'browser-width', path: '' },
+  { title: 'browser-width-full', path: '' },
+  { title: 'page-width', path: '' },
 ];
 
 const screenSizes = [
@@ -26,14 +30,19 @@ const screenSizes = [
   'DeviceTabletIcon',
 ];
 
+const breakpointsSubset = [
+  NO_BREAKPOINT.value,
+  MOBILE_PORTRAIT.value,
+  TABLET_PORTRAIT.value,
+];
+
 export default function UITestingView() {
   const iframeRef = useRef(null);
-  const [localURL, setLocalURL] = useState('http://localhost:8000/');
+  const localURL = 'http://localhost:8000/';
   const [showArticle, setShowArticle] = useState(true);
-  const [breakpoint, setBreakpoint] = useState(NO_BREAKPOINT.value);
+  const [breakpoint, setBreakpoint] = useState(0);
   const [embedType, setEmbedType] = useState(embedList[0]);
   const [illo, setIllo] = useState(illoList[0]);
-  const [screenSize, setScreenSize] = useState(0);
 
   return (
     <div className={styles.view}>
@@ -46,12 +55,12 @@ export default function UITestingView() {
         setEmbedType={setEmbedType}
         showArticle={showArticle}
         setShowArticle={setShowArticle}
-        selectedIndex={screenSize}
-        setSelectedIndex={setScreenSize}
+        selectedIndex={breakpoint}
+        setSelectedIndex={setBreakpoint}
         items={screenSizes}
       />
       <IllustrationPreview
-        breakpoint={breakpoint}
+        breakpoint={breakpointsSubset[breakpoint]}
         embedType={embedType.title}
         showArticle={showArticle}
         url={localURL}

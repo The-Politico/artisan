@@ -7,8 +7,10 @@ import TabToggle from '../TabToggle';
 
 import {
   flex,
-  padding,
   layout,
+  margin,
+  typography,
+  padding,
 } from '../../theme';
 
 import styles from './styles.module.css';
@@ -26,12 +28,32 @@ export default function PreviewToolbar({
     flex.flex,
     flex.flexRow,
     styles.container,
+    padding.p3,
+  );
+
+  const labelClass = cls(
+    styles.label,
+    typography.textSm,
   );
 
   const itemContainerClass = cls(
     flex.flex,
     flex.flexCol,
     layout.itemsCenter,
+  );
+
+  const reloadContainerClass = cls(
+    flex.flex,
+    flex.flexCol,
+    layout.itemsCenter,
+    margin.mt2,
+  );
+
+  const tabContainerClass = cls(
+    flex.flex,
+    flex.flexCol,
+    layout.itemsCenter,
+    styles.tabToggle,
   );
 
   const reloadHandler = () => {
@@ -52,16 +74,17 @@ export default function PreviewToolbar({
           selectedOption={illo}
           setOption={setIllo}
         />
-        <span className={styles.label}>Illustration</span>
+        <span className={labelClass}>Illustration</span>
       </div>
-
-      <IconButton
-        iconName="ArrowPathIcon"
-        label="Reload"
-        setWhite
-        onClick={reloadHandler}
-        className={styles.iconOverride}
-      />
+      <div className={reloadContainerClass}>
+        <IconButton
+          iconName="ArrowPathIcon"
+          label="Reload"
+          setWhite
+          onClick={reloadHandler}
+          className={styles.iconOverride}
+        />
+      </div>
 
       <div className={itemContainerClass}>
         <Dropdown
@@ -69,9 +92,9 @@ export default function PreviewToolbar({
           selectedOption={embedType}
           setOption={setEmbedType}
         />
-        <span className={styles.label}>Embed Width</span>
+        <span className={labelClass}>Embed Width</span>
       </div>
-      <div className={itemContainerClass}>
+      <div className={tabContainerClass}>
         <TabToggle
           selectedIndex={selectedIndex}
           setSelectedIndex={setSelectedIndex}
@@ -79,7 +102,7 @@ export default function PreviewToolbar({
           size="24"
           transparent
         />
-        <span className={styles.label}>Screen Size</span>
+        <span className={labelClass}>Screen Size</span>
       </div>
     </div>
   );
