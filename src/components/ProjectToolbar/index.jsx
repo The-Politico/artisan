@@ -2,7 +2,9 @@ import cls from 'classnames';
 import { useEffect, useState } from 'react';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
-import { flex, layout, margin, colors, typography as type } from '../../theme';
+import {
+  flex, layout, margin, colors, typography as type,
+} from '../../theme';
 import ButtonsGroup from './ButtonsGroup';
 import store from '../../store';
 
@@ -63,7 +65,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
 
   return (
     <div
-      className={cls(flex.flex, flex.flexRow, layout.itemsCenter, margin.mb4)}
+      className={cls(flex.flex, flex.flexRow, layout.itemsCenter, margin.my2)}
     >
       <ProjectStatusIcon
         size="lg"
@@ -83,7 +85,7 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
         />
       </div>
       <ButtonsGroup
-        projectSlug={projectDetail.slug}
+        projectSlug={projectDetail?.slug}
         status={status}
       />
     </div>

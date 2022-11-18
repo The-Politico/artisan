@@ -20,6 +20,7 @@ export default function ProjectListItem({
   projectSlug,
   archiveProject,
   isArchive,
+  selectedProject,
   setSelectedProject,
 }) {
   const [projectDetail, setProjectDetail] = useState();
@@ -36,7 +37,7 @@ export default function ProjectListItem({
         setProjectName(archiveProject.name);
       }
     })();
-  }, [isArchive]);
+  });
 
   useEffect(() => {
     if (projectDetail) {
@@ -50,6 +51,9 @@ export default function ProjectListItem({
     } else if (isArchive) {
       setStatus('archive');
     }
+    return () => {
+      setStatus(undefined);
+    };
   }, [isArchive, projectDetail]);
 
   const itemClass = cls(
@@ -61,6 +65,7 @@ export default function ProjectListItem({
     layout.itemsCenter,
     borders.roundedLg,
     effects.transition,
+    { [styles.selected]: selectedProject === (projectSlug || archiveProject) },
   );
 
   return (

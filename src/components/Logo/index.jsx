@@ -2,7 +2,7 @@ import cls from 'classnames';
 import styles from './styles.module.css';
 
 import {
-  typography, margin, flex, layout,
+  typography, margin, flex, layout, colors,
 } from '../../theme';
 
 export default function Logo() {
@@ -10,13 +10,15 @@ export default function Logo() {
     styles.container,
     flex.flex,
     flex.flexRow,
-    layout.itemsEnd,
+    layout.itemsCenter,
+    margin.mb4,
   );
 
   const logoClass = cls(
+    colors.textSlate800,
     typography.fontSemibold,
-    margin.mx1,
-    typography.textXl,
+    margin.mx2,
+    typography.text3Xl,
   );
 
   return (

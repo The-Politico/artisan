@@ -34,11 +34,17 @@
   flex-direction: column;
   grid-column: span 3;
   width: 95%;
-  height: 95%;
+  height: 100%;
+}
+
+.illo-container {
+  margin-bottom: 2.5%;
 }
 
 .sidebar {
   max-width: 100%;
+  align-self: flex-start;
   justify-self: stretch;
   margin-left: .75rem;
+  margin-top: calc(4 * .25rem);
 }

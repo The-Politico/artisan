@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { Fragment, useState } from 'react';
 import cls from 'classnames';
-import { Popover } from '@headlessui/react';
+import { Popover, Transition } from '@headlessui/react';
 import Input from '../Input';
 import Button from '../Button';
 import styles from './styles.module.css';
@@ -19,6 +19,16 @@ export default function NewProjectPopover() {
     effects.sahdowLg,
   );
 
+  const { enter, enterTo, enterFrom, leave, leaveFrom, leaveTo } = styles;
+  const timings = {
+    enter,
+    enterTo,
+    enterFrom,
+    leave,
+    leaveFrom,
+    leaveTo,
+  };
+
   const handleCreate = async (close) => {
     const { slug } = await createProject(newProjectName);
     await createIllustration(slug, newIlloName);
@@ -26,33 +36,36 @@ export default function NewProjectPopover() {
   };
 
   return (
-    <Popover.Panel className={panelClass}>
-      {({ close }) => (
-        <>
-          <Input
-            inputLabel="Project Name"
-            setTextInput={setNewProjectName}
-          />
-          <Input
-            inputLabel="Illustration Name"
-            setTextInput={setNewIlloName}
-          />
-          <div className={cls(flex.flex, layout.justifyCenter)}>
-            <Popover.Button
-              as={Button}
-              variant="ghost"
-            >
-              Cancel
-            </Popover.Button>
-            <Button
-              variant="solid"
-              onClick={() => handleCreate(close)}
-            >
-              Create
-            </Button>
-          </div>
-        </>
-      )}
-    </Popover.Panel>
+    <Transition as={Fragment} {...timings}>
+      <Popover.Panel className={panelClass}>
+        {({ close }) => (
+          <>
+            <Input
+              inputLabel="Project Name"
+              setTextInput={setNewProjectName}
+            />
+            <Input
+              inputLabel="Illustration Name"
+              setTextInput={setNewIlloName}
+            />
+            <div className={cls(flex.flex, layout.justifyCenter)}>
+              <Popover.Button
+                as={Button}
+                variant="ghost"
+              >
+                Cancel
+              </Popover.Button>
+              <Button
+                submit
+                variant="solid"
+                onClick={() => handleCreate(close)}
+              >
+                Create
+              </Button>
+            </div>
+          </>
+        )}
+      </Popover.Panel>
+    </Transition>
   );
 }

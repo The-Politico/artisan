@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import styles from './styles.module.css';
 import {
   flex, padding, effects, borders,
@@ -18,11 +18,12 @@ import {
  * Use instead of passing child text
  * @returns {JSX.Element}
  */
-export default function Button(props) {
+const Button = forwardRef((props, ref) => {
   const {
     variant = 'solid',
     children,
     disabled = false,
+    submit = false,
     className = '',
     onClick = () => null,
     icon = null,
@@ -44,7 +45,8 @@ export default function Button(props) {
 
   return (
     <button
-      type="button"
+      ref={ref}
+      type={submit ? 'submit' : 'button'}
       className={btnClass}
       onClick={handleClick}
       disabled={disabled}
@@ -53,4 +55,6 @@ export default function Button(props) {
       <span>{value || children}</span>
     </button>
   );
-}
+});
+
+export default Button;

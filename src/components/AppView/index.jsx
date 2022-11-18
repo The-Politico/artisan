@@ -1,14 +1,16 @@
 import cls from 'classnames';
 import { useState } from 'react';
 import styles from './styles.module.css';
-import { flex, spacing, borders, colors, effects, layout } from '../../theme';
+import {
+  flex, spacing, borders, colors, effects,
+} from '../../theme';
 import store from '../../store';
 import TabToggle from '../TabToggle';
 import MeatballMenu from '../MeatballMenu';
 import ProjectToolbar from '../ProjectToolbar';
-import CreateProject from '../CreateProject';
-import ProjectListItem from '../ProjectListItem';
+import CreateProject from '../CreateProjectButton';
 import ProjectList from '../ProjectList';
+import Logo from '../Logo';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState('project-one');
@@ -36,9 +38,11 @@ export default function AppView() {
     return (
       <div className={styles.emptyGrid}>
         <div className={cls(styles.sidebar, flex.flex, flex.flexCol)}>
+          <Logo />
           <CreateProject />
           <ProjectList
             setIsArchive={setIsArchive}
+            selectedProject={selectedProject}
             setSelectedProject={setSelectedProject}
             isArchive={isArchive}
           />
@@ -50,6 +54,7 @@ export default function AppView() {
           />
           <div
             className={cls(
+              styles.illoContainer,
               flex.flex,
               flex.flexAuto,
               colors.bgWhite,
