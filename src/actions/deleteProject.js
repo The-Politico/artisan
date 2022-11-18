@@ -1,4 +1,5 @@
 import { removeDir } from '@tauri-apps/api/fs';
+import { confirm } from '@tauri-apps/api/dialog';
 import store from '../store';
 import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
 
@@ -11,6 +12,13 @@ import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
 export default async function deleteProject(projectSlug) {
   const projectDir = await getWorkingProjectPath(projectSlug);
 
-  await removeDir(projectDir, { recursive: true });
-  await store.removeProject(projectSlug);
+  const confirmed = await confirm(
+    'This will delete the project from your computer and all associated illustrator files. Are you sure?',
+    { title: 'Delete Project', type: 'warning' },
+  );
+
+  if (confirmed) {
+    await removeDir(projectDir, { recursive: true });
+    await store.removeProject(projectSlug);
+  }
 }

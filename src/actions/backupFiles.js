@@ -49,19 +49,18 @@ export default async function backupFiles(
     });
   };
 
-  // Uploader for project name text file
-  const uploadProjectName = async () => {
+  // Upload project folder with metadata
+  const uploadProjectFolderMeta = async () => {
     const keyPath = await join(
       ARCHIVE_PROJECTS_DIRECTORY,
       projectSlug,
-      '/',
     );
     const { name } = await store.getProject(projectSlug);
 
     return s3.upload({
       bucket: AWS_ARTISAN_BUCKET,
       body: name,
-      key: keyPath,
+      key: `${keyPath}/`, // slash indicates folder creation
       contentType: 'application/x-directory',
       metadata: {
         name,
@@ -73,8 +72,8 @@ export default async function backupFiles(
   const illoNames = await getIllosFromProject(projectSlug, {});
   const filesToUpload = files || illoNames;
 
+  await uploadProjectFolderMeta();
   await Promise.all(filesToUpload.map(handleUpload));
-  await uploadProjectName();
 
   return store.updateProject(projectSlug, {
     isUploaded: true,
