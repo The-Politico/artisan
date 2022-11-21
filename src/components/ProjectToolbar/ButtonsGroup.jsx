@@ -39,7 +39,7 @@ export default function ButtonsGroup({ projectSlug, status }) {
     {
       iconName: 'DocumentDuplicateIcon',
       label: 'Duplicate',
-      action: () => duplicateProject(projectSlug, `${projectSlug} Copy`),
+      action: () => duplicateProject(projectSlug, `${projectSlug}-copy`),
     },
     {
       iconName: 'TrashIcon',

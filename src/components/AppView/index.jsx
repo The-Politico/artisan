@@ -14,7 +14,7 @@ import Logo from '../Logo';
 import SettingsPanel from '../SettingsPanel';
 
 export default function AppView() {
-  const [selectedProject, setSelectedProject] = useState('project-one');
+  const [selectedProject, setSelectedProject] = useState();
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 

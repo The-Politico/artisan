@@ -17,6 +17,7 @@ export default function ProjectList({
   const [archiveList, setArchivesList] = useState([]);
   const [selectedList, setSelectedList] = useState([]);
 
+  // Determs whehter to show local projects or archive projcts
   useEffect(() => {
     (async () => {
       if (selectedIndex === 0) {
@@ -32,10 +33,16 @@ export default function ProjectList({
     })();
   }, [selectedIndex]);
 
+  // Used to dertmined selected list to show
+  // This is the two-lane highway
+  // This doesn't rely on `isArchive` state
+  // for performance and re-render reasons
   useEffect(() => {
     setSelectedList(selectedIndex === 0 ? projectsList : archiveList);
   }, [projectsList, selectedIndex, archiveList]);
 
+  // Listens for changes in selected project.
+  // Switches to first in list if one is deleted or doesn't exist
   useEffect(() => {
     const {
       stores: { PROJECTS },
@@ -85,7 +92,7 @@ export default function ProjectList({
         <h4
           className={cls(type.textLg, type.fontSemibold, colors.textSlate800)}
         >
-          {isArchive ? 'Archive' : 'My Projects'}
+          {!isArchive ? 'My Projects' : 'Archive'}
         </h4>
         <TabToggle
           items={tabItems}
