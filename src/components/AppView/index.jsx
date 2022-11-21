@@ -23,7 +23,7 @@ export default function AppView() {
   const [isArchive, setIsArchive] = useState(false);
 
   const isToolbar = true;
-  const showSettings = true;
+  const showSettings = false;
 
   const classNames = cls(
     flex.flex,
