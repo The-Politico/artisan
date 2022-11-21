@@ -73,7 +73,11 @@ export default async function backupFiles(
   const filesToUpload = files || illoNames;
 
   await uploadProjectFolderMeta();
-  await Promise.all(filesToUpload.map(handleUpload));
+  try {
+    await Promise.all(filesToUpload.map(handleUpload));
+  } catch (error) {
+    console.error(error);
+  }
 
   return store.updateProject(projectSlug, {
     isUploaded: true,
