@@ -6,7 +6,7 @@ import {
 
 import styles from './styles.module.css';
 
-export default function Input({ setTextInput, inputLabel, darkMode }) {
+export default function Input({value, setTextInput, inputLabel, darkMode }) {
   const typingHandler = (event) => {
     setTextInput(event.target.value);
   };
@@ -53,6 +53,7 @@ export default function Input({ setTextInput, inputLabel, darkMode }) {
           type="text"
           id="textInput"
           onChange={typingHandler}
+          value={value}
         />
       </label>
       <br />
