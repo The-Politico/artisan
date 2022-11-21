@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import {
   flex, spacing, borders, colors, effects,
@@ -11,15 +11,19 @@ import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProjectButton';
 import ProjectList from '../ProjectList';
 import Logo from '../Logo';
+import SettingsPanel from '../SettingsPanel';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState('project-one');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 
+  const [illos, setIllos] = useState([]);
+
   const [isArchive, setIsArchive] = useState(false);
 
   const isToolbar = true;
+  const showSettings = true;
 
   const classNames = cls(
     flex.flex,
@@ -34,6 +38,13 @@ export default function AppView() {
     console.log(f);
   }
 
+  useEffect(() => {
+    (async () => {
+      const { illustrations } = await store.getProject(selectedProject);
+      setIllos(illustrations);
+    })();
+  }, [selectedProject]);
+
   if (isToolbar) {
     return (
       <div className={styles.emptyGrid}>
@@ -46,6 +57,7 @@ export default function AppView() {
             setSelectedProject={setSelectedProject}
             isArchive={isArchive}
           />
+          {showSettings && <SettingsPanel />}
         </div>
         <div className={styles.container}>
           <ProjectToolbar
@@ -61,7 +73,9 @@ export default function AppView() {
               borders.roundedLg,
               effects.shadowMd,
             )}
-          />
+          >
+            {illos.map(({ name }) => <span key={name}>{`* ${name}`}</span>)}
+          </div>
         </div>
       </div>
     );
