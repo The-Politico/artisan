@@ -1,13 +1,48 @@
 import { useState, useRef, useEffect } from 'react';
-import cls from './styles.module.css';
+import styles from './styles.module.css';
 
 import store from '../store';
+import IllustrationPreview from '../components/IllustrationPreview';
+import PreviewToolbar from '../components/PreviewToolbar';
+
+import {
+  NO_BREAKPOINT,
+  MOBILE_PORTRAIT,
+  TABLET_PORTRAIT,
+} from '../components/IllustrationPreview/_constants/breakpoints';
 import getIllosFromProject from '../utils/fs/getIllosFromProject';
 
+const embedList = [
+  { title: 'standard', path: '' },
+  { title: 'bump-in', path: '' },
+  { title: 'bump-out', path: '' },
+  { title: 'browser-width', path: '' },
+  { title: 'browser-width-full', path: '' },
+  { title: 'page-width', path: '' },
+];
+
+const screenSizes = [
+  'ComputerDesktopIcon',
+  'DevicePhoneMobileIcon',
+  'DeviceTabletIcon',
+];
+
+const breakpointsSubset = [
+  NO_BREAKPOINT.value,
+  MOBILE_PORTRAIT.value,
+  TABLET_PORTRAIT.value,
+];
+
 function PreviewWindow() {
+  const iframeRef = useRef(null);
+  // const localURL = 'http://localhost:8000/';
+  const [showArticle, setShowArticle] = useState(true);
+  const [breakpoint, setBreakpoint] = useState(0);
+  const [embedType, setEmbedType] = useState(embedList[0]);
+
   const [url, setURL] = useState();
   const [illos, setIllos] = useState(null);
-  const iframeRef = useRef(null);
+  // const iframeRef = useRef(null);
 
   useEffect(() => {
     async function getSlugs() {
@@ -38,17 +73,41 @@ function PreviewWindow() {
   }
 
   return (
-    <>
-      <h1>cms embed preview</h1>
-      {/* <p>Child process {child?.pid}</p> */}
-      <iframe
-        ref={iframeRef}
-        className={cls.iframe}
-        src={url}
-        frameBorder="0"
-        title="embed-preview"
+    <div className={styles.view}>
+      <PreviewToolbar
+        illoList={illos}
+        setIllo={setIllos}
+        embedList={embedList}
+        embedType={embedType}
+        setEmbedType={setEmbedType}
+        showArticle={showArticle}
+        setShowArticle={setShowArticle}
+        selectedIndex={breakpoint}
+        setSelectedIndex={setBreakpoint}
+        items={screenSizes}
       />
-    </>
+      <IllustrationPreview
+        breakpoint={breakpointsSubset[breakpoint]}
+        embedType={embedType.title}
+        showArticle={showArticle}
+        url={url}
+      >
+        {`<iframe
+          scrolling="no"
+          width="100%"
+          height="100%"
+          class=${styles.embedFrame} 
+          src=${url}
+          ref=${iframeRef}
+          frameBorder="0"
+          title="embed-preview"
+          sandbox="allow-scripts allow-same-origin allow-top-navigation"
+        ></iframe>
+        <script>window.newswireFrames.autoInitFrames();</script>
+      `}
+      </IllustrationPreview>
+
+    </div>
   );
 }
 

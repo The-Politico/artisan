@@ -15,40 +15,39 @@ const illoList = [
   { title: 'mobile-small', path: '/some/location/sample2.ai' },
 ];
 
-const embedList = [
-  { title: 'standard', path: '' },
-  { title: 'bump-in', path: '' },
-  { title: 'bump-out', path: '' },
-  { title: 'browser-width', path: '' },
-  { title: 'browser-width-full', path: '' },
-  { title: 'page-width', path: '' },
-];
+// const embedList = [
+//   { title: 'standard', path: '' },
+//   { title: 'bump-in', path: '' },
+//   { title: 'bump-out', path: '' },
+//   { title: 'browser-width', path: '' },
+//   { title: 'browser-width-full', path: '' },
+//   { title: 'page-width', path: '' },
+// ];
 
-const screenSizes = [
-  'ComputerDesktopIcon',
-  'DevicePhoneMobileIcon',
-  'DeviceTabletIcon',
-];
+// const screenSizes = [
+//   'ComputerDesktopIcon',
+//   'DevicePhoneMobileIcon',
+//   'DeviceTabletIcon',
+// ];
 
-const breakpointsSubset = [
-  NO_BREAKPOINT.value,
-  MOBILE_PORTRAIT.value,
-  TABLET_PORTRAIT.value,
-];
+// const breakpointsSubset = [
+//   NO_BREAKPOINT.value,
+//   MOBILE_PORTRAIT.value,
+//   TABLET_PORTRAIT.value,
+// ];
 
 export default function UITestingView() {
-  const iframeRef = useRef(null);
-  const localURL = 'http://localhost:8000/';
-  const [showArticle, setShowArticle] = useState(true);
-  const [breakpoint, setBreakpoint] = useState(0);
-  const [embedType, setEmbedType] = useState(embedList[0]);
+  // const iframeRef = useRef(null);
+  // const localURL = 'http://localhost:8000/';
+  // const [showArticle, setShowArticle] = useState(true);
+  // const [breakpoint, setBreakpoint] = useState(0);
+  // const [embedType, setEmbedType] = useState(embedList[0]);
   const [illo, setIllo] = useState(illoList[0]);
   // this iframe is the actually illustration
   return (
     <div className={styles.view}>
       <PreviewToolbar
         illoList={illoList}
-        illo={illo}
         setIllo={setIllo}
         embedList={embedList}
         embedType={embedType}

@@ -17,7 +17,7 @@ import styles from './styles.module.css';
 
 export default function PreviewToolbar({
   illoList,
-  illo, setIllo,
+  setIllo,
   embedList,
   embedType, setEmbedType,
   showArticle, setShowArticle,
@@ -72,7 +72,7 @@ export default function PreviewToolbar({
       <div className={itemContainerClass}>
         <Dropdown
           optionsList={illoList}
-          selectedOption={illo}
+          selectedOption={illoList[0]}
           setOption={setIllo}
         />
         <span className={labelClass}>Illustration</span>
