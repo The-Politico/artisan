@@ -40,6 +40,7 @@ export default function PreviewToolbar({
     flex.flex,
     flex.flexCol,
     layout.itemsCenter,
+    styles.top,
   );
 
   const reloadContainerClass = cls(

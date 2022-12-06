@@ -19,3 +19,7 @@
 .tab-toggle {
   margin-top: 0.375rem;
 }
+
+.top {
+  z-index: 3;
+}

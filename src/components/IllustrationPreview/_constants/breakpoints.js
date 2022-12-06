@@ -72,12 +72,12 @@ export const TABLET_PORTRAIT = {
   label: 'Tablet Portrait (768px)',
   styles: {
     wrapper: {
-      width: '1024px',
+      width: '100%',
     },
     mockup: {
       width: '1084px',
-      top: '150px',
-      left: '-30px',
+      top: '120px',
+      left: '-5px',
       transform: 'rotate(90deg)',
       boxShadow: '2px 2px 13px 11px rgba(100,100,100,0.5)',
       borderRadius: '43px',
@@ -86,7 +86,7 @@ export const TABLET_PORTRAIT = {
       left: '12.5%',
       right: '12.5%',
       top: '52px',
-      height: '1024px',
+      height: '730px',
     },
   },
 };
@@ -125,18 +125,18 @@ export const MOBILE_PORTRAIT = {
   label: 'Mobile Portrait (320px)',
   styles: {
     wrapper: {
-      width: '427px',
+      width: '400px',
     },
     mockup: {
       width: '374px',
       top: '10px',
-      left: '26px',
+      left: '-5px',
       boxShadow: '2px 2px 13px 11px rgba(100,100,100,0.5)',
       borderRadius: '61px',
     },
     inner: {
-      left: '12.5%',
-      right: '12.5%',
+      left: '2.5%',
+      right: '7%',
       top: '82px',
       height: '644px',
     },

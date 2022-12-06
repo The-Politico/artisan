@@ -8,20 +8,19 @@ const DevicePreview = (props) => {
 
   return (
     <div
-      className={classes['device-wrapper']}
+      className={classes.deviceWrapper}
       style={styles.wrapper}
     >
       {background && (
-        <img
-          className={classes.mockup}
-          src={background}
-          alt={breakpoint}
-          style={styles.mockup}
-        />
+      <img
+        className={classes.mockup}
+        src={background}
+        alt={breakpoint}
+        style={styles.mockup}
+      />
       )}
-
       <div
-        className={classes['inner-content']}
+        className={classes.innerContent}
         style={styles.inner}
       >
         {children}
