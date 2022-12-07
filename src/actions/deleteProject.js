@@ -9,15 +9,22 @@ import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
  * This also delete all associated illustrations.
  * @param {String} projectSlug Project slug name (e.g. `my-new-project`)
  */
-export default async function deleteProject(projectSlug) {
+export default async function deleteProject(
+  projectSlug,
+  { isAfterArchive = false } = {},
+) {
   const projectDir = await getWorkingProjectPath(projectSlug);
 
-  const confirmed = await confirm(
-    'This will delete the project from your computer and all associated illustrator files. Are you sure?',
-    { title: 'Delete Project', type: 'warning' },
-  );
+  let confirmed;
 
-  if (confirmed) {
+  if (!isAfterArchive) {
+    confirmed = await confirm(
+      'This will delete the project from your computer and all associated illustrator files. Are you sure?',
+      { title: 'Delete Project', type: 'warning' },
+    );
+  }
+
+  if (confirmed || isAfterArchive) {
     await removeDir(projectDir, { recursive: true });
     await store.removeProject(projectSlug);
   }

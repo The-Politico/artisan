@@ -5,16 +5,16 @@
 
 .item:hover {
   cursor: pointer;
-  background-color: rgba(0, 123, 199, 0.2);
+  background-color: rgba(0, 123, 199, 0.2) !important;
 }
 
 .item:active {
-  background-color: rgba(0, 123, 199, 0.4);
+  background-color: rgba(0, 123, 199, 0.4) !important;
 }
 
 .selected {
   font-weight: 600;
-  background-color: rgba(0, 123, 199, 0.1);
+  background-color: rgba(0, 123, 199, 0.1) !important;
 }
 
 .divider {

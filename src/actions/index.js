@@ -16,7 +16,7 @@ import outputShare from './outputShare';
 import publishProject from './publishProject';
 import shutdownPreview from './shutdownPreview';
 
-export {
+export default {
   archiveProject,
   backupFiles,
   createIllustration,
