@@ -5,7 +5,7 @@
 
 .is-active {
   color: #fff;
-  background-color: var(--slate-600);
+  background-color: var(--slate-600) !important;
 }
 
 .is-active:active {

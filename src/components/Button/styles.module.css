@@ -1,6 +1,6 @@
 .solid {
   color: #fff;
-  background-image: linear-gradient(to right, var(--politico-blue), var(--politico-dark-blue));
+  background: linear-gradient(to right, var(--politico-blue), var(--politico-dark-blue));
 }
 
 .solid:hover {

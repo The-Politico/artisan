@@ -1,7 +1,7 @@
 import { Tab } from '@headlessui/react';
 import cls from 'classnames';
 import BaseIcon from '../BaseIcon';
-import styles from './TabToggleItem.module.css';
+import styles from './styles.module.css';
 import { borders, effects } from '../../theme';
 
 /**

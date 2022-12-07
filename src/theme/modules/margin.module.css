@@ -1,12 +1,12 @@
 /* ALL */
 .m-1 {
   --m: 1;
-  margin: calc(0.25rem * var(--mt));
+  margin: calc(0.25rem * var(--m));
 }
 
 .m-2 {
   --m: 2;
-  margin: calc(0.25rem * var(--mt));
+  margin: calc(0.25rem * var(--m));
 }
 
 /* top */
@@ -30,6 +30,16 @@
   margin-top: calc(0.25rem * var(--mt));
 }
 
+.mt-5 {
+  --mt: 5;
+  margin-top: calc(0.25rem * var(--mt));
+}
+
+.mt-6 {
+  --mt: 6;
+  margin-top: calc(0.25rem * var(--mt));
+}
+
 /* bottom */
 .mb-1 {
   --mb: 1;
@@ -43,6 +53,16 @@
 
 .mb-4 {
   --mb: 4;
+  margin-bottom: calc(0.25rem * var(--mb));
+}
+
+.mb-5 {
+  --mb: 5;
+  margin-bottom: calc(0.25rem * var(--mb));
+}
+
+.mb-6 {
+  --mb: 6;
   margin-bottom: calc(0.25rem * var(--mb));
 }
 

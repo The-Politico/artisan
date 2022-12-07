@@ -13,5 +13,5 @@ export default async function createProject(projectName) {
 
   await createDir(projPath);
 
-  await store.addProject(projectName);
+  return store.addProject(projectName);
 }

@@ -1,6 +1,7 @@
 import { readDir, createDir, copyFile } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 
+import runPromisesSequentially from '../utils/runPromisesSequentially';
 import store from '../store';
 
 export default async function duplicateProject(
@@ -24,7 +25,7 @@ export default async function duplicateProject(
     originalProjectPath, { recursive: true },
   );
 
-  await Promise.all(entries.map((entry) => {
+  const illos = await Promise.all(entries.map((entry) => {
     if ('children' in entry) {
       return Promise.all(entry.children.map(async (child) => {
         if (child.name.includes('.ai')) {
@@ -33,13 +34,23 @@ export default async function duplicateProject(
           await createDir(illoDir);
 
           const newFilePath = await join(illoDir, child.name);
-          copyFile(child.path, newFilePath);
+          await copyFile(child.path, newFilePath);
+          return illoSlug;
         }
+        return null;
       }));
     }
 
     return null;
   }));
 
-  store.addProject(newProjectSlug);
+  const illosToAdd = illos.flat().filter((d) => d);
+
+  await store.addProject(newProjectSlug);
+  // Add illos to store one by one
+  await runPromisesSequentially(illosToAdd.map(
+    (illustrationName) => () => store.addIllustration(
+      { projectSlug: newProjectSlug, illustrationName },
+    ),
+  ));
 }

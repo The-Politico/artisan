@@ -4,7 +4,7 @@
 
 .timestamp-btn {
   display: inline-block;
-  border-bottom: 1px solid;
+  text-decoration: underline;
 }
 
 .timestamp-btn:hover {

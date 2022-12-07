@@ -1,22 +1,29 @@
 import cls from 'classnames';
-import { PlusIcon } from '@heroicons/react/20/solid';
-import { Menu, Tab } from '@headlessui/react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import { flex, spacing, typography as type, gap } from '../../theme';
-import IconButton from '../IconButton';
-import ProjectStatusIcon from '../ProjectStatusIcon';
-import ProjectStatusDek from '../ProjectStatusDek';
-import Button from '../Button';
-import MeatballItem from '../MeatballItem';
-import TabToggleItem from '../TabToggleItem';
-import EmptyProject from '../EmptyProject';
+import {
+  flex, spacing, borders, colors, effects,
+} from '../../theme';
+import store from '../../store';
+import TabToggle from '../TabToggle';
+import MeatballMenu from '../MeatballMenu';
+import ProjectToolbar from '../ProjectToolbar';
+import CreateProject from '../CreateProjectButton';
+import ProjectList from '../ProjectList';
+import Logo from '../Logo';
+import SettingsPanel from '../SettingsPanel';
 
 export default function AppView() {
+  const [selectedProject, setSelectedProject] = useState('project-one');
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedIndex2, setSelectedIndex2] = useState(0);
 
-  const isEmpty = false;
+  const [illos, setIllos] = useState([]);
+
+  const [isArchive, setIsArchive] = useState(false);
+
+  const isToolbar = true;
+  const showSettings = false;
 
   const classNames = cls(
     flex.flex,
@@ -26,131 +33,113 @@ export default function AppView() {
     styles.hScreen,
   );
 
-  if (isEmpty) {
+  async function doAction() {
+    const f = await store.getProjects();
+    console.log(f);
+  }
+
+  useEffect(() => {
+    (async () => {
+      const { illustrations } = await store.getProject(selectedProject);
+      setIllos(illustrations);
+    })();
+  }, [selectedProject]);
+
+  if (isToolbar) {
     return (
       <div className={styles.emptyGrid}>
-        <div />
-        <EmptyProject />
+        <div className={cls(styles.sidebar, flex.flex, flex.flexCol)}>
+          <Logo />
+          <CreateProject />
+          <ProjectList
+            setIsArchive={setIsArchive}
+            selectedProject={selectedProject}
+            setSelectedProject={setSelectedProject}
+            isArchive={isArchive}
+          />
+          {showSettings && <SettingsPanel />}
+        </div>
+        <div className={styles.container}>
+          <ProjectToolbar
+            isArchive={isArchive}
+            selectedProject={selectedProject}
+          />
+          <div
+            className={cls(
+              styles.illoContainer,
+              flex.flex,
+              flex.flexAuto,
+              colors.bgWhite,
+              borders.roundedLg,
+              effects.shadowMd,
+            )}
+          >
+            {illos.map(({ name }) => <span key={name}>{`* ${name}`}</span>)}
+          </div>
+        </div>
       </div>
     );
   }
 
+  const tabItems = [
+    { iconName: 'DocumentIcon', mode: 'local' },
+    { mode: 'archive', iconName: 'ArchiveBoxIcon' },
+  ];
+
+  const screenSizes = [
+    { iconName: 'ComputerDesktopIcon', mode: 'desktop' },
+    { iconName: 'DevicePhoneMobileIcon', mode: 'mobile' },
+    { iconName: 'DeviceTabletIcon', mode: 'tablet' },
+  ];
+
+  const meatballItems = [
+    {
+      iconName: 'ServerIcon',
+      label: 'Backup',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'ArchiveBoxIcon',
+      label: 'Archive',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'FolderIcon',
+      label: 'Open in Finder',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'DocumentDuplicateIcon',
+      label: 'Duplicate',
+      action: () => doAction(),
+    },
+    {
+      iconName: 'TrashIcon',
+      label: 'Delete Project',
+      action: () => doAction(),
+      danger: true,
+    },
+  ];
+
   return (
     <div className={classNames}>
-      <div className={cls(flex.flex, spacing.x4)}>
-        <Button variant="ghost">Ghost button</Button>
-        <Button variant="outline">Outline button</Button>
-        <Button
-          variant="solid"
-          value="Solid w/ icon"
-          className={type.textXl}
-          icon={<PlusIcon className={styles.icon} />}
-        />
-      </div>
-      <div className={cls(flex.flex, flex.flexCenter, gap.x4)}>
-        <div className={styles.groupBg}>
-          <IconButton
-            iconName="GlobeAltIcon"
-            label="Publish"
-            setWhite
-          />
-        </div>
-        <IconButton
-          iconName="EyeIcon"
-          label="Preview"
-        />
-      </div>
-      <div className={styles.statusIcons}>
-        <ProjectStatusIcon />
-        <ProjectStatusIcon status="published" />
-        <ProjectStatusIcon status="archive" />
-        <ProjectStatusIcon size="lg" />
-        <ProjectStatusIcon
-          status="published"
-          size="lg"
-        />
-        <ProjectStatusIcon
-          status="archive"
-          size="lg"
-        />
-      </div>
-      <div>
-        <ProjectStatusDek />
-        <ProjectStatusDek status="archive" />
-        <ProjectStatusDek
-          status="published"
-          timestamp="2022-10-24T18:23:42.536Z"
-        />
-        <ProjectStatusDek
-          status="uploaded"
-          timestamp="2022-10-22T18:23:42.536Z"
-        />
-      </div>
-      <Menu as="div">
-        <MeatballItem
-          iconName="ServerIcon"
-          label="Backup"
-        />
-        <MeatballItem
-          iconName="ArchiveBoxIcon"
-          label="Archive"
-        />
-        <MeatballItem
-          iconName="FolderIcon"
-          label="Open in Finder"
-        />
-        <MeatballItem
-          iconName="DocumentDuplicateIcon"
-          label="Duplicate"
-        />
-        <MeatballItem
-          iconName="TrashIcon"
-          label="Delete Project"
-          danger
-        />
-      </Menu>
-      <Tab.Group
+      <MeatballMenu items={meatballItems} />
+      <TabToggle
         selectedIndex={selectedIndex}
-        onChange={setSelectedIndex}
-      >
-        <Tab.List className={cls(styles.tabList)}>
-          <TabToggleItem iconName="DocumentIcon" />
-          <TabToggleItem iconName="ArchiveBoxIcon" />
-          <span
-            style={{
-              '--translate': selectedIndex,
-            }}
-            className={cls(styles.glider)}
-          />
-        </Tab.List>
-      </Tab.Group>
-      <Tab.Group
-        selectedIndex={selectedIndex2}
-        onChange={setSelectedIndex2}
-        as="div"
-        className={styles.groupBg}
-      >
-        <Tab.List className={cls(styles.tabList, styles.transparentBg)}>
-          <TabToggleItem
-            size="24"
-            iconName="ComputerDesktopIcon"
-          />
-          <TabToggleItem
-            size="24"
-            iconName="DevicePhoneMobileIcon"
-          />
-          <TabToggleItem
-            size="24"
-            iconName="DeviceTabletIcon"
-          />
-          <span
-            style={{
-              '--translate': selectedIndex2,
-            }}
-            className={cls(styles.glider)}
-          />
-        </Tab.List>
-      </Tab.Group>
+        setSelectedIndex={setSelectedIndex}
+        items={tabItems.map(({ iconName }) => iconName)}
+      />
+      <p>{`Project list to show: ${tabItems[selectedIndex].mode}`}</p>
+      <div className={styles.groupBg}>
+        <TabToggle
+          selectedIndex={selectedIndex2}
+          setSelectedIndex={setSelectedIndex2}
+          items={screenSizes.map(({ iconName }) => iconName)}
+          size="24"
+          transparent
+        />
+      </div>
+      <p>{`Device selected: ${screenSizes[selectedIndex2].mode}`}</p>
     </div>
   );
 }

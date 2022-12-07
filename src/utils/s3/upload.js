@@ -7,6 +7,7 @@ export default async function upload({
   body,
   contentType,
   storageClass = 'STANDARD',
+  metadata,
 }) {
   const client = getClient();
 
@@ -16,6 +17,7 @@ export default async function upload({
     Body: body,
     ContentType: contentType,
     StorageClass: storageClass,
+    Metadata: metadata,
   };
 
   const command = new PutObjectCommand(commandInput);

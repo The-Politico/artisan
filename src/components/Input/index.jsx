@@ -6,9 +6,9 @@ import {
 
 import styles from './styles.module.css';
 
-export default function Input({ setTextInput, inputLabel, darkMode }) {
+export default function Input({ value, setValue, label, darkMode }) {
   const typingHandler = (event) => {
-    setTextInput(event.target.value);
+    setValue(event.target.value);
   };
 
   const darkModeClass = cls(
@@ -43,7 +43,7 @@ export default function Input({ setTextInput, inputLabel, darkMode }) {
         margin.mb2,
       )}
       >
-        {inputLabel}
+        {label}
       </span>
       <label htmlFor="textInput">
         <input
@@ -53,6 +53,7 @@ export default function Input({ setTextInput, inputLabel, darkMode }) {
           type="text"
           id="textInput"
           onChange={typingHandler}
+          value={value}
         />
       </label>
       <br />
