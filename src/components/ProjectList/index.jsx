@@ -3,7 +3,7 @@ import cls from 'classnames';
 import TabToggle from '../TabToggle';
 import { colors, flex, layout, margin, typography as type } from '../../theme';
 import store from '../../store';
-import { getProjectsArchive } from '../../actions';
+import getProjectsArchive from '../../actions/getProjectsArchive';
 import ProjectListItem from '../ProjectListItem';
 
 export default function ProjectList({

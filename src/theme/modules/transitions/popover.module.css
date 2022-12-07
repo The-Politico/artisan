@@ -1,0 +1,19 @@
+.enter {
+  transition-timing-function: ease-out;
+  transition-duration: 200ms;
+}
+
+.enter-from, .leave-to {
+  opacity: 0;
+  transform: translateY(-.5rem);
+}
+
+.enter-to, .leave-from {
+  opacity: 100;
+  transform: translateY(0px);
+}
+
+.leave {
+  transition-timing-function: ease-in;
+  transition-duration: 150ms;
+}

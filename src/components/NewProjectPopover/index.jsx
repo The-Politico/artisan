@@ -4,8 +4,16 @@ import { Popover, Transition } from '@headlessui/react';
 import Input from '../Input';
 import Button from '../Button';
 import styles from './styles.module.css';
-import { borders, effects, flex, layout, margin, padding } from '../../theme';
-import { createIllustration, createProject } from '../../actions';
+import {
+  borders,
+  effects,
+  flex,
+  layout,
+  margin,
+  padding,
+  transitions,
+} from '../../theme';
+import act from '../../actions';
 
 export default function NewProjectPopover() {
   const [newProjectName, setNewProjectName] = useState('');
@@ -19,34 +27,27 @@ export default function NewProjectPopover() {
     effects.sahdowLg,
   );
 
-  const { enter, enterTo, enterFrom, leave, leaveFrom, leaveTo } = styles;
-  const timings = {
-    enter,
-    enterTo,
-    enterFrom,
-    leave,
-    leaveFrom,
-    leaveTo,
-  };
-
   const handleCreate = async (close) => {
-    const { slug } = await createProject(newProjectName);
-    await createIllustration(slug, newIlloName);
+    const { slug } = await act.createProject(newProjectName);
+    await act.createIllustration(slug, newIlloName);
     close();
   };
 
   return (
-    <Transition as={Fragment} {...timings}>
+    <Transition
+      as={Fragment}
+      {...transitions.popover}
+    >
       <Popover.Panel className={panelClass}>
         {({ close }) => (
           <>
             <Input
-              inputLabel="Project Name"
-              setTextInput={setNewProjectName}
+              label="Project Name"
+              setValue={setNewProjectName}
             />
             <Input
-              inputLabel="Illustration Name"
-              setTextInput={setNewIlloName}
+              label="Illustration Name"
+              setValue={setNewIlloName}
             />
             <div className={cls(flex.flex, layout.justifyCenter)}>
               <Popover.Button

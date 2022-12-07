@@ -5,17 +5,9 @@ import IconButton from '../IconButton';
 import MeatballMenu from '../MeatballMenu';
 import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
-import {
-  backupFiles,
-  archiveProject,
-  downloadProject,
-  openInFinder,
-  duplicateProject,
-  deleteProject,
-  launchPreview,
-} from '../../actions';
+import act from '../../actions';
 import getSharePath from '../../utils/paths/getSharePath';
-import ConfirmPublishAlert from '../ConfirmPublishAlert';
+import PublishButton from './PublishButton';
 
 export default function ButtonsGroup({ projectSlug, status }) {
   const [showPubilshAlert, setShowPublishAlert] = useState(false);
@@ -24,27 +16,27 @@ export default function ButtonsGroup({ projectSlug, status }) {
     {
       iconName: 'ServerIcon',
       label: 'Backup',
-      action: () => backupFiles(projectSlug),
+      action: () => act.backupFiles(projectSlug),
     },
     {
       iconName: 'ArchiveBoxIcon',
       label: 'Archive',
-      action: () => archiveProject(projectSlug),
+      action: () => act.archiveProject(projectSlug),
     },
     {
       iconName: 'FolderIcon',
       label: 'Open in Finder',
-      action: () => openInFinder(projectSlug),
+      action: () => act.openInFinder(projectSlug),
     },
     {
       iconName: 'DocumentDuplicateIcon',
       label: 'Duplicate',
-      action: () => duplicateProject(projectSlug, `${projectSlug}-copy`),
+      action: () => act.duplicateProject(projectSlug, `${projectSlug}-copy`),
     },
     {
       iconName: 'TrashIcon',
       label: 'Delete Project',
-      action: () => deleteProject(projectSlug),
+      action: () => act.deleteProject(projectSlug),
       danger: true,
     },
   ];
@@ -63,7 +55,7 @@ export default function ButtonsGroup({ projectSlug, status }) {
         <IconButton
           iconName="ArrowDownTrayIcon"
           label="Download"
-          onClick={() => downloadProject(projectSlug)}
+          onClick={() => act.downloadProject(projectSlug)}
         />
       </div>
     );
@@ -71,15 +63,15 @@ export default function ButtonsGroup({ projectSlug, status }) {
 
   return (
     <div className={cls(styles.btnGroup, flex.flex, flex.flexRow, gap.x3)}>
-      <IconButton
-        iconName="GlobeAltIcon"
-        label="Publish"
-        onClick={() => setShowPublishAlert(true)}
+      <PublishButton
+        projectSlug={projectSlug}
+        showPubilshAlert={showPubilshAlert}
+        setShowPublishAlert={setShowPublishAlert}
       />
       <IconButton
         iconName="EyeIcon"
         label="Preview"
-        onClick={() => launchPreview(projectSlug)}
+        onClick={() => act.launchPreview(projectSlug)}
       />
       <IconButton
         iconName="ShareIcon"
@@ -88,11 +80,6 @@ export default function ButtonsGroup({ projectSlug, status }) {
         onClick={handleShareClick}
       />
       <MeatballMenu items={meatballItems} />
-      <ConfirmPublishAlert
-        projectSlug={projectSlug}
-        showPubilshAlert={showPubilshAlert}
-        setShowPublishAlert={setShowPublishAlert}
-      />
     </div>
   );
 }
