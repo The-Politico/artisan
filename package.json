@@ -7,7 +7,10 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "lint-scripts": "npx eslint \"./src/**/*.js?(x)\""
+    "lint-scripts": "npx eslint \"./src/**/*.js?(x)\"",
+    "share:dev": "npx vite dev src/share -c=vite.config.share.js",
+    "share:build": "npx vite build -c=vite.config.share.js",
+    "share:publish": "echo \"Not yet implemented.\""
   },
   "license": "MIT",
   "dependencies": {
