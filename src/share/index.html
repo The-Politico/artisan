@@ -9,14 +9,15 @@
   </head>
   <body>
   <div id="root"></div>
-	<script type="module" src="/main.jsx"></script>
+  <script type="module" src="/main.jsx"></script>
   <script>
+    // Timeout here for now, because for some reason, the above script 
+    // isn't done loading when this runs
     setTimeout(() => {
       initSharePage({
         // Config goes here
       })
     }, 500)
-    
   </script>
   </body>
 </html>
