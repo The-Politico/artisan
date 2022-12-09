@@ -15,5 +15,3 @@ export default function init(config) {
     </React.StrictMode>,
   );
 }
-
-window.initSharePage = init;
