@@ -1,9 +1,0 @@
-.panel {
-  background-color: white;
-}
-
-.divider {
-  width: 90%;
-  height: 1px;
-  border-bottom: 1px solid var(--slate-300);
-}

@@ -1,9 +1,7 @@
 import cls from 'classnames';
 import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import {
-  flex, spacing, borders, colors, effects,
-} from '../../theme';
+import { flex, spacing, borders, colors, effects } from '../../theme';
 import store from '../../store';
 import TabToggle from '../TabToggle';
 import MeatballMenu from '../MeatballMenu';
@@ -11,7 +9,7 @@ import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProjectButton';
 import ProjectList from '../ProjectList';
 import Logo from '../Logo';
-import SettingsPanel from '../SettingsPanel';
+import SettingsButton from '../SettingsButton';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState('project-one');
@@ -23,7 +21,6 @@ export default function AppView() {
   const [isArchive, setIsArchive] = useState(false);
 
   const isToolbar = true;
-  const showSettings = false;
 
   const classNames = cls(
     flex.flex,
@@ -57,7 +54,7 @@ export default function AppView() {
             setSelectedProject={setSelectedProject}
             isArchive={isArchive}
           />
-          {showSettings && <SettingsPanel />}
+          <SettingsButton />
         </div>
         <div className={styles.container}>
           <ProjectToolbar
@@ -74,7 +71,9 @@ export default function AppView() {
               effects.shadowMd,
             )}
           >
-            {illos.map(({ name }) => <span key={name}>{`* ${name}`}</span>)}
+            {illos.map(({ name }) => (
+              <span key={name}>{`* ${name}`}</span>
+            ))}
           </div>
         </div>
       </div>

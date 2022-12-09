@@ -1,0 +1,25 @@
+.panel-container {
+  position: relative;
+  margin-top: auto;
+}
+
+.panel {
+  background-color: white;
+  position: absolute;
+  bottom: 2rem;
+  z-index: 3;
+}
+
+.divider {
+  width: 90%;
+  height: 1px;
+  border-bottom: 1px solid var(--slate-300);
+}
+
+.settings-input {
+ margin-bottom: 1rem;
+}
+
+.settings-input > br {
+  display: none;
+}
