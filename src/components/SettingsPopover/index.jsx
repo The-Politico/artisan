@@ -1,6 +1,6 @@
 import cls from 'classnames';
 import { useState, useEffect, Fragment } from 'react';
-import { Popover, Transition } from '@headlessui/react';
+import { Popover, Portal, Transition } from '@headlessui/react';
 import store from '../../store';
 import Input from '../Input';
 import Button from '../Button';
@@ -16,16 +16,18 @@ import {
   transitions,
 } from '../../theme';
 import styles from './styles.module.css';
-import ProjectsFolder from './ProjectsFolder';
+import Advanced from './Advanced';
 
 export default function SettingsPopover() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [projectsDir, setProjectsDir] = useState('');
+  const [port, setPort] = useState('');
 
   const panelClass = cls(
     styles.panel,
-    padding.p4,
+    padding.p2,
+    padding.pb4,
     flex.flex,
     flex.flexCol,
     layout.itemsCenter,
@@ -37,17 +39,19 @@ export default function SettingsPopover() {
     await store.updateSettings({
       authorName: name,
       authorEmail: email,
+      preferredPort: port,
     });
   };
 
   useEffect(() => {
     (async () => {
-      const { authorName, authorEmail, workingDir } =
+      const { authorName, authorEmail, workingDir, preferredPort } =
         await store.getSettings();
 
       setName(authorName);
       setEmail(authorEmail);
       setProjectsDir(workingDir);
+      setPort(preferredPort);
     })();
   }, []);
 
@@ -66,7 +70,6 @@ export default function SettingsPopover() {
           value={name}
           className={styles.settingsInput}
         />
-        <div className={styles.divider} />
         <Input
           label="Email"
           setValue={setEmail}
@@ -74,8 +77,10 @@ export default function SettingsPopover() {
           className={styles.settingsInput}
         />
         <div className={styles.divider} />
-        <ProjectsFolder
+        <Advanced
           projectsDir={projectsDir}
+          port={port}
+          setPort={setPort}
           isInitial={false}
         />
         <Button

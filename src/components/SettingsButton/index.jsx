@@ -8,7 +8,7 @@ export default function SettingsButton() {
     <Popover className={styles.panelContainer}>
       <Popover.Button
         as={IconButton}
-        iconName="Cog8ToothIcon"
+        iconName="CogIcon"
       />
       <SettingsPopover />
     </Popover>
