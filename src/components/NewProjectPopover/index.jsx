@@ -24,7 +24,7 @@ export default function NewProjectPopover() {
     padding.p3,
     margin.mt2,
     borders.roundedLg,
-    effects.sahdowLg,
+    effects.shadowLg,
   );
 
   const handleCreate = async (close) => {
