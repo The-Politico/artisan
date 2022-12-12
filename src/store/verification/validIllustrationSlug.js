@@ -8,6 +8,7 @@ export default async function validIllustrationSlug(
   illustrationSlug,
 ) {
   const project = await PROJECTS.get(projectSlug);
+
   const existingIlloIdx = project
     .illustrations
     .findIndex((illo) => illo.slug === illustrationSlug);

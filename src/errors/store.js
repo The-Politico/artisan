@@ -22,5 +22,5 @@ export const NO_ILLUSTRATION_EXISTS_ERROR = new Error(
 
 export const PROJECT_NO_RENAME = new Error(
   'Project is uploaded and cannot be renamed. Please contact'
-  + ' an Artisan admin to change the name of this project.',
+  + ' an Artisan admin to change existing project or illustration names.',
 );

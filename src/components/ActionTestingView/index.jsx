@@ -229,6 +229,22 @@ export default function ActionTestingView() {
           name="Rename To Existing Project"
           onClick={() => renameProject('new-project', 'project-one')}
         />
+        <TestButton
+          name="Rename To Existing Illustration"
+          onClick={() => renameIllustration(
+            'project-one',
+            'my-second-illustration',
+            'My Cool Illustration',
+          )}
+        />
+        <TestButton
+          name="Rename Backed Up Illustration"
+          onClick={() => renameIllustration(
+            'project-one',
+            'my-second-illustration',
+            'My Third Illustration',
+          )}
+        />
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
 import { PROJECTS } from '../init';
+import { PROJECT_NO_RENAME } from '../../errors/store';
 import slugify from '../../utils/text/slugify';
-import getProject from './getProject';
 import verifyIlloExists from '../verification/illustrationExists';
+import validIllustrationSlug from '../verification/validIllustrationSlug';
 
 export default async function renameIllustration({
   project: projectSlug,
@@ -11,7 +12,13 @@ export default async function renameIllustration({
   await verifyIlloExists(projectSlug, slug);
 
   const newIlloSlug = slugify(name);
-  const projectInfo = await getProject(projectSlug);
+  await validIllustrationSlug(projectSlug, newIlloSlug);
+
+  const projectInfo = await PROJECTS.get(projectSlug);
+  if (projectInfo.isUploaded) {
+    throw PROJECT_NO_RENAME;
+  }
+
   const illoInfo = projectInfo
     .illustrations
     .find((illo) => illo.slug === slug);
