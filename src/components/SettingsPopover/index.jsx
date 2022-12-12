@@ -26,7 +26,7 @@ export default function SettingsPopover() {
 
   const panelClass = cls(
     styles.panel,
-    padding.p2,
+    padding.p4,
     padding.pb4,
     flex.flex,
     flex.flexCol,
@@ -45,8 +45,10 @@ export default function SettingsPopover() {
 
   useEffect(() => {
     (async () => {
-      const { authorName, authorEmail, workingDir, preferredPort } =
-        await store.getSettings();
+      const settings = await store.getSettings();
+      const {
+        authorName, authorEmail, workingDir, preferredPort,
+      } = settings;
 
       setName(authorName);
       setEmail(authorEmail);

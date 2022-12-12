@@ -18,6 +18,8 @@
 
 .settings-input {
  margin-bottom: 1rem;
+ margin-left: 0;
+ margin-right: 0;
 }
 
 .settings-input > br {
@@ -25,10 +27,30 @@
 }
 
 .advanced {
-  margin-left: .5rem;
-  margin-right: .5rem;
   margin-top: .5rem;
+  width: 100%;
   align-self: flex-start;
+}
+
+.button-dropdown {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 6px;
+  padding: .1rem .25rem;
+}
+
+.button-dropdown:hover {
+  background-color: var(--slate-200);
+}
+
+.icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.icon-reverse {
+  transform: rotate(180deg);
 }
 
 .dir {
