@@ -7,5 +7,6 @@ import {
 export default async function updatePreview(projectSlug, pid) {
   await STORE.set(ACTIVE_PREVIEW_PROCESS, pid);
   await STORE.set(ACTIVE_PREVIEW_PROJECT, projectSlug);
+
   await STORE.save();
 }

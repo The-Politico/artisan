@@ -46,7 +46,7 @@ export default async function duplicateProject(
 
   const illosToAdd = illos.flat().filter((d) => d);
 
-  await store.addProject(newProjectSlug);
+  await store.addProject(newProjectSlug, { method: 'duplicate' });
   // Add illos to store one by one
   await runPromisesSequentially(illosToAdd.map(
     (illustrationName) => () => store.addIllustration(

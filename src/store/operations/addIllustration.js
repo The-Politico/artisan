@@ -1,4 +1,7 @@
 import { PROJECTS } from '../init';
+import slugify from '../../utils/text/slugify';
+import verifyProjectExists from '../verification/projectExists';
+import verifyIllustrationSlug from '../verification/validIllustrationSlug';
 
 /**
  * Adds an illustration to a project with `publicURL` set to `null`.
@@ -11,27 +14,27 @@ import { PROJECTS } from '../init';
 export default async function addIllustration(
   { projectSlug, illustrationName },
 ) {
+  await verifyProjectExists(projectSlug);
+
+  const slug = slugify(illustrationName);
+  await verifyIllustrationSlug(projectSlug, slug);
+
   const projectEntry = await PROJECTS.get(projectSlug);
 
-  if (projectEntry) {
-    const { illustrations } = projectEntry;
-    const slug = illustrationName.toLowerCase().replaceAll(' ', '-');
+  const { illustrations } = projectEntry;
 
-    const newIllustration = {
-      name: illustrationName,
-      slug,
-      publicURL: null,
-    };
+  const newIllustration = {
+    name: illustrationName,
+    slug,
+    publicURL: null,
+  };
 
-    await PROJECTS.set(projectSlug, {
-      ...projectEntry,
-      illustrations: [...illustrations, newIllustration],
-    });
+  await PROJECTS.set(projectSlug, {
+    ...projectEntry,
+    illustrations: [...illustrations, newIllustration],
+  });
 
-    await PROJECTS.save();
-
-    return PROJECTS.get(projectSlug);
-  }
+  await PROJECTS.save();
 
   return PROJECTS.get(projectSlug);
 }

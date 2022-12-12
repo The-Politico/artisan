@@ -26,6 +26,7 @@ export default async function backupFiles(
 
   // Upload handler for .ai files
   const handleUpload = async (file) => {
+    console.log('Upload', file);
     const filePath = await join(projectPath, file, `${file}.ai`);
     const content = await readBinaryFile(filePath);
 
