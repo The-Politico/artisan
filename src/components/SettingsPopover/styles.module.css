@@ -16,6 +16,10 @@
   border-bottom: 1px solid var(--slate-300);
 }
 
+/**
+  These are some overwrites to clean up the input styles that were just a
+  little too opinionated to fit nicely in the popover.
+**/
 .settings-input {
  margin-bottom: 1rem;
  margin-left: 0;
