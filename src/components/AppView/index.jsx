@@ -17,8 +17,6 @@ export default function AppView() {
 
   const [isArchive, setIsArchive] = useState(false);
 
-  const showSettings = false;
-
   useEffect(() => {
     (async () => {
       if (selectedProject) {
