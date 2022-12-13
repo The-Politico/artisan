@@ -7,7 +7,7 @@ import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProjectButton';
 import ProjectList from '../ProjectList';
 import Logo from '../Logo';
-import SettingsPanel from '../SettingsPanel';
+import SettingsButton from '../SettingsButton';
 import EmptyProject from '../EmptyProject';
 
 export default function AppView() {
@@ -41,7 +41,7 @@ export default function AppView() {
           setSelectedProject={setSelectedProject}
           isArchive={isArchive}
         />
-        {showSettings && <SettingsPanel />}
+        <SettingsButton />
       </div>
       {selectedProject ? (
         <div className={styles.container}>
