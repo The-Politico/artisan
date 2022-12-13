@@ -31,7 +31,7 @@ export default function Dropdown({ optionsList, selectedOption, setOption }) {
             borders.roundedLg,
           )}
           >
-            <span className={styles.buttonSpan}>{selectedOption.title}</span>
+            <span className={styles.buttonSpan}>{selectedOption}</span>
             <span className={cls(
               styles.buttonIcon,
               padding.pr2,
@@ -60,7 +60,7 @@ export default function Dropdown({ optionsList, selectedOption, setOption }) {
             >
               {optionsList.map((illo) => (
                 <Listbox.Option
-                  key={illo.title + illo.path}
+                  key={illo}
                   className={({ active }) => `${
                     active ? cls(
                       styles.option,
@@ -89,7 +89,7 @@ export default function Dropdown({ optionsList, selectedOption, setOption }) {
                           )
                       }`}
                     >
-                      {illo.title}
+                      {illo}
                     </span>
                   )}
                 </Listbox.Option>

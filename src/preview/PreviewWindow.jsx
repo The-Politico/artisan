@@ -13,12 +13,12 @@ import {
 import getIllosFromProject from '../utils/fs/getIllosFromProject';
 
 const embedList = [
-  { title: 'standard', path: '' },
-  { title: 'bump-in', path: '' },
-  { title: 'bump-out', path: '' },
-  { title: 'browser-width', path: '' },
-  { title: 'browser-width-full', path: '' },
-  { title: 'page-width', path: '' },
+  'standard',
+  'bump-in',
+  'bump-out',
+  'browser-width',
+  'browser-width-full',
+  'page-width',
 ];
 
 const screenSizes = [
@@ -35,33 +35,33 @@ const breakpointsSubset = [
 
 function PreviewWindow() {
   const iframeRef = useRef(null);
-  // const localURL = 'http://localhost:8000/';
   const [showArticle, setShowArticle] = useState(true);
   const [breakpoint, setBreakpoint] = useState(0);
   const [embedType, setEmbedType] = useState(embedList[0]);
-
   const [url, setURL] = useState();
   const [illos, setIllos] = useState(null);
-  // const iframeRef = useRef(null);
+  const [selectedIllo, setSelectedIllo] = useState(null);
 
   useEffect(() => {
     async function getSlugs() {
       const { project, port } = await store.getPreview();
       const illoSlugs = await getIllosFromProject(project);
+      let illoURL = '';
 
-      const illoURL = `http://localhost:${port}/${illoSlugs[0]}/`
+      if (selectedIllo) {
+        illoURL = `http://localhost:${port}/${selectedIllo}/`
         + 'ai2html-output/index.html';
-
+      } else {
+        illoURL = `http://localhost:${port}/${illoSlugs[0]}/`
+        + 'ai2html-output/index.html';
+        setSelectedIllo(illoSlugs[0]);
+      }
       setIllos(illoSlugs);
       setURL(illoURL);
     }
 
     getSlugs();
-  }, []);
-
-  // placeholder for when we want to create a dropdown of illos later
-  // eslint-disable-next-line no-console
-  console.log(illos);
+  }, [url, selectedIllo]);
 
   if (!url) {
     return (
@@ -75,8 +75,9 @@ function PreviewWindow() {
   return (
     <div className={styles.view}>
       <PreviewToolbar
+        selectedIllo={selectedIllo}
+        setSelectedIllo={setSelectedIllo}
         illoList={illos}
-        setIllo={setIllos}
         embedList={embedList}
         embedType={embedType}
         setEmbedType={setEmbedType}
@@ -88,7 +89,7 @@ function PreviewWindow() {
       />
       <IllustrationPreview
         breakpoint={breakpointsSubset[breakpoint]}
-        embedType={embedType.title}
+        embedType={embedType}
         showArticle={showArticle}
         url={url}
       >

@@ -1,7 +1,7 @@
 import { PlusIcon } from '@heroicons/react/20/solid';
 import { useEffect, useState } from 'react';
 import Button from '../Button';
-import cls from './ActionTestingView.module.scss';
+import cls from './ActionTestingView.module.css';
 
 import store from '../../store';
 
@@ -111,37 +111,27 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Create Illustration"
-          onClick={() =>
-            createIllustration('project-one', 'My Cool Illustration')
-          }
+          onClick={() => createIllustration('project-one', 'My Cool Illustration')}
         />
 
         <TestButton
           name="Create Illustration Two"
-          onClick={() =>
-            createIllustration('project-one', 'My Second Illustration')
-          }
+          onClick={() => createIllustration('project-one', 'My Second Illustration')}
         />
 
         <TestButton
           name="Delete Illustration Two"
-          onClick={() =>
-            deleteIllustration('project-one', 'my-second-illustration')
-          }
+          onClick={() => deleteIllustration('project-one', 'my-second-illustration')}
         />
 
         <TestButton
           name="Open Illustration"
-          onClick={() =>
-            openIllustration('project-one', 'my-cool-illustration')
-          }
+          onClick={() => openIllustration('project-one', 'my-cool-illustration')}
         />
 
         <TestButton
           name="Generate Illustration"
-          onClick={() =>
-            generateIllustration('project-one', 'my-cool-illustration')
-          }
+          onClick={() => generateIllustration('project-one', 'my-cool-illustration')}
         />
 
         <TestButton
