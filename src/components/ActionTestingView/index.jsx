@@ -79,7 +79,6 @@ export default function ActionTestingView() {
         className="text-lg"
         onClick={onClick}
       >
-        <PlusIcon className="h-6 mr-1" />
         {name}
       </Button>
       <br />

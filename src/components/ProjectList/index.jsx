@@ -22,7 +22,7 @@ export default function ProjectList({
     (async () => {
       if (selectedIndex === 0) {
         const projects = await store.getProjectsList();
-        setProjectsList(projects);
+        setProjectsList(projects || []);
         setSelectedProject(projects[0]);
       } else {
         const archive = await getProjectsArchive();
@@ -101,7 +101,7 @@ export default function ProjectList({
         />
       </div>
       <ul>
-        {selectedList.map((item, idx) => (
+        {selectedList.length > 0 && selectedList.map((item, idx) => (
           <ProjectListItem
             key={item.slug || item}
             projectSlug={typeof item === 'string' ? item : undefined}
