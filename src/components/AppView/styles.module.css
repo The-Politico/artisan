@@ -47,4 +47,5 @@
   justify-self: stretch;
   margin-left: .75rem;
   margin-top: calc(4 * .25rem);
+  height: calc(100vh - 1.25rem);
 }
