@@ -6,7 +6,7 @@ import {
 
 import styles from './styles.module.css';
 
-export default function Input({ value, setValue, label, darkMode }) {
+export default function Input({ value, setValue, label, darkMode, className }) {
   const typingHandler = (event) => {
     setValue(event.target.value);
   };
@@ -33,6 +33,7 @@ export default function Input({ value, setValue, label, darkMode }) {
         flex.flex,
         flex.flexCol,
         margin.m2,
+        className,
       )
         }
     >

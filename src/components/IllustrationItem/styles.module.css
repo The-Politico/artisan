@@ -1,0 +1,47 @@
+.container {
+  height: 180px;
+  width: 230px;
+  background-color: var(--slate-700);
+}
+
+.name-bar {
+  position: relative;
+  margin-top: auto;
+  color: var(--slate-800);
+  background-color: var(--slate-200);
+}
+
+.name-bar > *:last-child {
+  position: absolute;
+  right: .25rem;
+  max-height: 2rem;
+}
+
+.illo-img {
+  position: relative;
+  flex-basis: 100%;
+}
+
+.illo-img:hover {
+  cursor: pointer;
+}
+
+.hover-state {
+  position: absolute;
+  background-color: rgba(0, 123, 199, .1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.arrow-icn {
+  height: 3rem;
+}
+
+.folder-icn {
+  height: 6rem;
+}

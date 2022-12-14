@@ -9,6 +9,9 @@ import ProjectList from '../ProjectList';
 import Logo from '../Logo';
 import SettingsPanel from '../SettingsPanel';
 import EmptyProject from '../EmptyProject';
+import IllustrationItem from '../IllustrationItem';
+import NewIllustration from '../NewIllustration';
+import { PROJECTS } from '../../store/init';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -28,6 +31,16 @@ export default function AppView() {
         setIllos([]);
       }
     })();
+  }, [selectedProject]);
+
+  useEffect(() => {
+    const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
+      const { illustrations } = e;
+      setIllos(illustrations);
+    });
+    return () => {
+      unlisten.then((f) => f());
+    };
   }, [selectedProject]);
 
   return (
@@ -59,9 +72,16 @@ export default function AppView() {
               effects.shadowMd,
             )}
           >
-            {illos.map(({ name }) => (
-              <span key={name}>{`* ${name}`}</span>
+            {illos.map(({ name, slug, publicUrl }) => (
+              <IllustrationItem
+                projectSlug={selectedProject}
+                key={name}
+                name={name}
+                slug={slug}
+                publicURL={publicUrl}
+              />
             ))}
+            <NewIllustration projectSlug={selectedProject} />
           </div>
         </div>
       ) : (

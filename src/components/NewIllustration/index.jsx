@@ -1,50 +1,46 @@
 import cls from 'classnames';
+import { useState } from 'react';
 import { PlusIcon } from '@heroicons/react/24/solid';
-import Button from '../Button';
-
+import InputBox from './InputBox';
 import styles from './styles.module.css';
 
-import {
-  colors, margin, borders, flex, layout,
-} from '../../theme';
+import { colors, margin, borders, flex, layout, effects } from '../../theme';
 
-export default function NewIllustration() {
+export default function NewIllustration({ projectSlug }) {
+  const [showInput, setShowInput] = useState(false);
+
   const containerClass = cls(
-    styles.buttonSize,
+    styles.container,
     colors.bgSlate100,
+    colors.textSlate400,
     borders.roundedLg,
     flex.flex,
+    flex.flexCol,
     flex.flexCenter,
     layout.itemsCenter,
-  );
-  const buttonClass = cls(
-    colors.bgSlate100,
-    colors.textSlate300,
-    borders.roundedLg,
-  );
-  const textClass = cls(colors.textSlate400);
-  const iconClass = cls(
-    colors.textSlate300,
-    margin.mb4,
-    styles.iconSize,
+    effects.transition,
   );
 
-  const clickHandler = () => {
-    // eslint-disable-next-line no-console
-    console.log('Placeholder for new illustration Action');
-  };
+  const iconClass = cls(margin.mb4, styles.iconSize);
 
-  return (
-    <div className={containerClass}>
-      <Button
-        variant="solid"
-        className={buttonClass}
-        onClick={clickHandler}
+  if (!showInput) {
+    return (
+      <button
+        type="button"
+        className={containerClass}
+        onClick={() => setShowInput(true)}
       >
         <PlusIcon className={iconClass} />
-        {' '}
-        <p className={textClass}>Create</p>
-      </Button>
-    </div>
+        <p>Create</p>
+      </button>
+    );
+  }
+
+  return (
+    <InputBox
+      showInput={showInput}
+      setShowInput={setShowInput}
+      projectSlug={projectSlug}
+    />
   );
 }
