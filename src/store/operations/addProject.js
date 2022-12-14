@@ -11,6 +11,7 @@ import validProjectSlug from '../verification/validProjectSlug';
  * @param {String} [opts.isUploaded]
  * @param {String} [opts.isPublished]
  * @param {String} [opts.lastUploaded]
+ * @param {String} [opts.method]
  * @returns {Promise<import('../types').ProjectDetails | null>}
  * Project detail object
  */
