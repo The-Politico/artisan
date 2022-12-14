@@ -19,7 +19,8 @@ export default async function deleteProject(
 
   if (!isAfterArchive) {
     confirmed = await confirm(
-      'This will delete the project from your computer and all associated illustrator files. Are you sure?',
+      'This will delete the project from your computer and all'
+      + ' associated illustrator files. Are you sure?',
       { title: 'Delete Project', type: 'warning' },
     );
   }

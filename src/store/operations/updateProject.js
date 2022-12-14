@@ -1,7 +1,5 @@
 import { PROJECTS } from '../init';
-import {
-  NO_PROJECT_EXISTS_ERROR,
-} from '../../errors/store';
+import verifyProjectExists from '../verification/projectExists';
 
 /**
  * Update a project's upload state and last uploaded timestamp
@@ -21,11 +19,9 @@ export default async function updateProject(
     lastUploaded = null,
   } = {},
 ) {
-  const projectEntry = await PROJECTS.get(projectSlug);
+  await verifyProjectExists(projectSlug);
 
-  if (!projectEntry) {
-    throw NO_PROJECT_EXISTS_ERROR;
-  }
+  const projectEntry = await PROJECTS.get(projectSlug);
 
   await PROJECTS.set(projectSlug, {
     ...projectEntry,
