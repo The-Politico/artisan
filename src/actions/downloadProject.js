@@ -8,7 +8,6 @@ import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
 import store from '../store';
 
 import {
-  METADATA_FILE_NAME,
   ARCHIVE_PROJECTS_DIRECTORY,
 } from '../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../constants/aws';

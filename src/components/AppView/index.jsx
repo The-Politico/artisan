@@ -16,6 +16,7 @@ import Illustrationlist from '../IllustrationList';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedList, setSelectedList] = useState([]);
 
   const [illos, setIllos] = useState([]);
 
@@ -23,17 +24,18 @@ export default function AppView() {
 
   useEffect(() => {
     (async () => {
-      if (selectedProject) {
+      if (!isArchive) {
         const { illustrations } = await store.getProject(selectedProject);
         setIllos(illustrations);
       } else {
-        setIllos([]);
+        console.log(selectedProject);
+        setIllos(selectedProject.illos);
       }
     })();
-  }, [selectedProject]);
+  }, [selectedProject, isArchive]);
 
   useEffect(() => {
-    if (!isArchive) {
+    if (!isArchive && selectedProject) {
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
         const { illustrations } = e;
         setIllos(illustrations);
@@ -42,7 +44,6 @@ export default function AppView() {
         unlisten.then((f) => f());
       };
     }
-    setIllos([]);
   }, [selectedProject, isArchive]);
 
   return (
@@ -55,6 +56,8 @@ export default function AppView() {
           selectedProject={selectedProject}
           setSelectedProject={setSelectedProject}
           isArchive={isArchive}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
         />
         <SettingsButton />
       </div>

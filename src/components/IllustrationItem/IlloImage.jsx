@@ -7,18 +7,22 @@ import { colors, flex } from '../../theme';
 import styles from './styles.module.css';
 
 export default function IlloImage({
-  url, slug, onClick, hoverState, setHoverState,
+  url,
+  slug,
+  onClick,
+  hoverState,
+  setHoverState,
+  isArchive,
 }) {
+  const imgContainer = cls(styles.imgContainer, flex.flex, flex.flexCenter, {
+    [colors.bgSlate700]: !isArchive,
+  });
+
   if (!url) {
     return (
       <button
         type="button"
-        className={cls(
-          styles.imgContainer,
-          styles.fallback,
-          flex.flex,
-          flex.flexCenter,
-        )}
+        className={imgContainer}
         onMouseEnter={() => setHoverState(true)}
         onMouseLeave={() => setHoverState(false)}
         onClick={onClick}
@@ -30,7 +34,11 @@ export default function IlloImage({
             />
           </div>
         )}
-        <DocumentIcon className={cls(styles.folderIcn, colors.textSlate600)} />
+        <DocumentIcon
+          className={cls(styles.folderIcn, colors.textSlate400, {
+            [colors.textSlate600]: !isArchive,
+          })}
+        />
       </button>
     );
   }
@@ -38,7 +46,7 @@ export default function IlloImage({
   return (
     <button
       type="button"
-      className={cls(styles.imgContainer, flex.flex, flex.flexCenter)}
+      className={imgContainer}
       onMouseEnter={() => setHoverState(true)}
       onMouseLeave={() => setHoverState(false)}
       onClick={onClick}

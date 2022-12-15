@@ -1,7 +1,5 @@
 import cls from 'classnames';
 import { useState, useEffect } from 'react';
-import { join, desktopDir } from '@tauri-apps/api/path';
-import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { exists } from '@tauri-apps/api/fs';
 import act from '../../actions';
 import styles from './styles.module.css';
@@ -22,24 +20,12 @@ export default function IllustrationItem({
   publicURL,
   slug,
   projectSlug,
+  isArchive,
 }) {
   const [hoverState, setHoverState] = useState(false);
-  const [foo, setFoo] = useState(null);
-
   const handleClick = async () => {
     await act.openIllustration(projectSlug, slug);
   };
-
-  useEffect(() => {
-    (async () => {
-      const dir = await store.getWorkingDir();
-      const path = await join(dir, projectSlug, slug, 'fallback_mobile.png');
-      const hasFallback = await exists(path);
-      if (hasFallback) {
-        setFoo(`asset://localhost/${path}`);
-      }
-    })();
-  }, []);
 
   const meatballItems = [
     {
@@ -60,7 +46,10 @@ export default function IllustrationItem({
     flex.flex,
     flex.flexCol,
     borders.roundedMd,
-    effects.shadow,
+    {
+      [styles.isArchive]: isArchive,
+      [effects.shadow]: !isArchive,
+    },
   );
 
   const nameClass = cls(
@@ -69,6 +58,9 @@ export default function IllustrationItem({
     layout.itemsCenter,
     layout.justifyCenter,
     padding.p2,
+    {
+      [styles.isArchive]: isArchive,
+    },
   );
 
   return (
@@ -77,8 +69,9 @@ export default function IllustrationItem({
         hoverState={hoverState}
         setHoverState={setHoverState}
         onClick={handleClick}
-        url={foo || publicURL}
+        url={publicURL}
         slug={slug}
+        isArchive={isArchive}
       />
       <div className={nameClass}>
         <button
@@ -90,7 +83,7 @@ export default function IllustrationItem({
         >
           {name}
         </button>
-        <MeatballMenu items={meatballItems} />
+        {!isArchive && <MeatballMenu items={meatballItems} />}
       </div>
     </div>
   );

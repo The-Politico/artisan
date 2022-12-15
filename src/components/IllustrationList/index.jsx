@@ -3,7 +3,11 @@ import IllustrationItem from '../IllustrationItem';
 import NewIllustration from '../NewIllustration';
 import styles from './styles.module.css';
 
-export default function Illustrationlist({ illos, selectedProject, isArchive }) {
+export default function Illustrationlist({
+  illos,
+  selectedProject,
+  isArchive,
+}) {
   const containerClass = cls(styles.container);
 
   return (
@@ -15,6 +19,7 @@ export default function Illustrationlist({ illos, selectedProject, isArchive }) 
           name={name}
           slug={slug}
           publicURL={publicUrl}
+          isArchive={isArchive}
         />
       ))}
       {!isArchive && <NewIllustration projectSlug={selectedProject} />}

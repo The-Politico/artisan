@@ -3,17 +3,19 @@
   width: 230px;
   background-color: var(--slate-200);
   color: var(--slate-800);
-  overflow: hidden;
+}
+
+.is-archive {
+  pointer-events: none;
+  color: var(--slate-400);
 }
 
 .name-bar {
   position: relative;
   margin-top: auto;
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px;
 }
 
-.name-bar > *:last-child {
+.name-bar > :not(button):last-child {
   position: absolute;
   right: .25rem;
   max-height: 2rem;
@@ -22,7 +24,8 @@
 .img-container {
   position: relative;
   flex-basis: 100%;
-  background-color: var(--slate-800) !important;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
 }
 
 .img-container:hover {

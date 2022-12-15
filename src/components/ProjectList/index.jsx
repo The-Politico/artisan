@@ -11,11 +11,12 @@ export default function ProjectList({
   setSelectedProject,
   isArchive = false,
   setIsArchive,
+  selectedList,
+  setSelectedList,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [projectsList, setProjectsList] = useState([]);
   const [archiveList, setArchivesList] = useState([]);
-  const [selectedList, setSelectedList] = useState([]);
 
   // Determs whehter to show local projects or archive projcts
   useEffect(() => {
