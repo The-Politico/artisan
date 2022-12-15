@@ -5,6 +5,7 @@ import {
   flex, effects, typography as type, margin,
 } from '../../theme';
 import BaseIcon from '../BaseIcon';
+import { forwardRef } from 'react';
 
 /**
  * Render a button with a full-sized icon and label
@@ -18,7 +19,7 @@ import BaseIcon from '../BaseIcon';
  * @param {String} props.label - Label of button below icon
  * @returns {React.ReactElement}
  */
-export default function IconButton(props) {
+const IconButton = forwardRef((props, ref) => {
   const {
     disabled = false,
     className = '',
@@ -42,6 +43,7 @@ export default function IconButton(props) {
 
   return (
     <button
+      ref={ref}
       type="button"
       className={btnClass}
       onClick={handleClick}
@@ -55,4 +57,6 @@ export default function IconButton(props) {
       <span className={cls(styles.label, type.textXs)}>{label}</span>
     </button>
   );
-}
+});
+
+export default IconButton;
