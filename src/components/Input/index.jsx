@@ -1,14 +1,24 @@
 import cls from 'classnames';
 import {
-  flex, margin, borders, colors, typography, padding,
-}
-  from '../../theme';
+  flex,
+  margin,
+  borders,
+  colors,
+  typography,
+  padding,
+} from '../../theme';
 
 import styles from './styles.module.css';
 
-export default function Input({ setTextInput, inputLabel, darkMode }) {
+export default function Input({
+  value,
+  setValue,
+  label,
+  darkMode,
+  className,
+}) {
   const typingHandler = (event) => {
-    setTextInput(event.target.value);
+    setValue(event.target.value);
   };
 
   const darkModeClass = cls(
@@ -28,31 +38,24 @@ export default function Input({ setTextInput, inputLabel, darkMode }) {
   );
 
   return (
-    <div className={
-      cls(
-        flex.flex,
-        flex.flexCol,
-        margin.m2,
-      )
-        }
-    >
-      <span className={cls(
-        styles.labelText,
-        typography.textSm,
-        colors.textSlate700,
-        margin.mb2,
-      )}
+    <div className={cls(flex.flex, flex.flexCol, margin.m2, className)}>
+      <span
+        className={cls(
+          styles.labelText,
+          typography.textSm,
+          colors.textSlate700,
+          margin.mb2,
+        )}
       >
-        {inputLabel}
+        {label}
       </span>
       <label htmlFor="textInput">
         <input
-          className={
-            darkMode ? darkModeClass : lightModeClass
-            }
+          className={darkMode ? darkModeClass : lightModeClass}
           type="text"
           id="textInput"
           onChange={typingHandler}
+          value={value}
         />
       </label>
       <br />

@@ -1,8 +1,5 @@
 import { PROJECTS } from '../init';
-import {
-  NO_PROJECT_EXISTS_ERROR,
-  NO_ILLUSTRATION_EXISTS_ERROR,
-} from '../../errors/store';
+import verifyIlloExists from '../verification/illustrationExists';
 
 /**
  * Updates an illustration's public URL field.
@@ -18,20 +15,14 @@ export default async function updateIllustrationURL({
   illustrationSlug,
   publicURL,
 }) {
-  const projectEntry = await PROJECTS.get(projectSlug);
+  await verifyIlloExists(projectSlug, illustrationSlug);
 
-  if (!projectEntry) {
-    throw NO_PROJECT_EXISTS_ERROR;
-  }
+  const projectEntry = await PROJECTS.get(projectSlug);
 
   const { illustrations } = projectEntry;
   const illoIndex = illustrations.findIndex(
     (d) => d.slug === illustrationSlug,
   );
-
-  if (illoIndex < 0) {
-    throw NO_ILLUSTRATION_EXISTS_ERROR;
-  }
 
   const illosUpdated = illustrations.map((d, i) => {
     if (i === illoIndex) {

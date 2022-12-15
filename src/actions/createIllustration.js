@@ -17,6 +17,8 @@ export default async function createIllustration(
   projectSlug,
   illustrationName,
 ) {
+  await store.addIllustration({ projectSlug, illustrationName });
+
   const projectsFolder = await getWorkingProjectPath(projectSlug);
   const illustrationSlug = slugify(illustrationName);
   const illustrationFileName = `${illustrationSlug}.ai`;
@@ -34,6 +36,4 @@ export default async function createIllustration(
     key: `${ARCHIVE_TEMPLATES_DIRECTORY}/${ARTISAN_BASE_TEMPLATE_NAME}`,
   });
   await writeBinaryFile(destinationFile, template);
-
-  store.addIllustration({ projectSlug, illustrationName });
 }

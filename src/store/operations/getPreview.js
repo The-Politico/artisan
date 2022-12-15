@@ -5,7 +5,7 @@ import {
   PREFERRED_PORT,
 } from '../constants';
 
-export default async function getPreviewPid() {
+export default async function getPreview() {
   const pid = await STORE.get(ACTIVE_PREVIEW_PROCESS);
   const project = await STORE.get(ACTIVE_PREVIEW_PROJECT);
   const port = await STORE.get(PREFERRED_PORT);

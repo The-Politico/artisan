@@ -1,3 +1,4 @@
+import { confirm } from '@tauri-apps/api/dialog';
 import { removeDir } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 import store from '../store';
@@ -8,11 +9,16 @@ export default async function deleteIllustration(
   illustrationSlug,
 ) {
   const projectFolder = await getWorkingProjectPath(projectSlug);
-  const illustrationDirPath = await join(
-    projectFolder,
-    illustrationSlug,
+  const illustrationDirPath = await join(projectFolder, illustrationSlug);
+
+  const confirmed = await confirm(
+    'This will delete the Adobe Illustrator file from your computer.'
+     + ' Are you sure?',
+    { title: 'Delete illustration', type: 'warning' },
   );
 
-  await removeDir(illustrationDirPath, { recursive: true });
-  await store.removeIllustration({ projectSlug, illustrationSlug });
+  if (confirmed) {
+    await removeDir(illustrationDirPath, { recursive: true });
+    await store.removeIllustration({ projectSlug, illustrationSlug });
+  }
 }

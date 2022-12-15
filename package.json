@@ -7,13 +7,17 @@
     "build": "vite build",
     "preview": "vite preview",
     "tauri": "tauri",
-    "lint-scripts": "npx eslint \"./src/**/*.js?(x)\""
+    "lint-scripts": "npx eslint \"./src/**/*.js?(x)\"",
+    "share:dev": "npx vite dev src/share -c=vite.config.share.js",
+    "share:build": "npx vite build -c=vite.config.share.js",
+    "share:publish": "node src/share/publish.mjs"
   },
   "license": "MIT",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.183.0",
     "@aws-sdk/credential-providers": "^3.181.0",
     "@aws-sdk/lib-storage": "^3.183.0",
+    "@aws-sdk/node-config-provider": "^3.226.0",
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.11",
     "@newswire/frames": "^1.0.0",
@@ -23,7 +27,6 @@
     "date-fns": "^2.29.3",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
-    "modern-normalize": "^1.1.0",
     "mime": "^3.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

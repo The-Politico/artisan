@@ -20,11 +20,14 @@ import downloadProject from '../../actions/downloadProject';
 import duplicateProject from '../../actions/duplicateProject';
 import deleteProject from '../../actions/deleteProject';
 import getProjectsArchive from '../../actions/getProjectsArchive';
+import renameProject from '../../actions/renameProject';
+import renameIllustration from '../../actions/renameIllustration';
+import backupFiles from '../../actions/backupFiles';
 
 function SettingsWatcher() {
   const [settings, setSettings] = useState({});
   const [projects, setProjects] = useState({});
-  const [projectOne, setProjectOne] = useState({});
+  const [projectData, setProjectData] = useState({});
   const [preview, setPreview] = useState({});
   const [archive, setArchive] = useState({});
 
@@ -36,8 +39,26 @@ function SettingsWatcher() {
       const newProjects = await store.getProjectsList();
       setProjects(newProjects);
 
-      const newProjOne = await store.getProject('project-one');
-      setProjectOne(newProjOne);
+      const newProjectData = {};
+      try {
+        newProjectData['project-one'] = await store.getProject('project-one');
+      } catch (error) { /* ignore */ }
+      try {
+        newProjectData['project-two'] = await store.getProject('project-two');
+      } catch (error) { /* ignore */ }
+      try {
+        newProjectData['project-three'] = await store
+          .getProject('project-three');
+      } catch (error) { /* ignore */ }
+      try {
+        newProjectData['project-four'] = await store
+          .getProject('project-four');
+      } catch (error) { /* ignore */ }
+      try {
+        newProjectData['new-project'] = await store.getProject('new-project');
+      } catch (error) { /* ignore */ }
+
+      setProjectData(newProjectData);
 
       const newPreview = await store.getPreview();
       setPreview(newPreview);
@@ -59,7 +80,7 @@ function SettingsWatcher() {
           {
             settings,
             projects,
-            projectOne,
+            projectData,
             preview,
             archive,
           },
@@ -78,8 +99,8 @@ export default function ActionTestingView() {
         variant="solid"
         className="text-lg"
         onClick={onClick}
+        icon={<PlusIcon />}
       >
-        <PlusIcon className="h-6 mr-1" />
         {name}
       </Button>
       <br />
@@ -101,7 +122,12 @@ export default function ActionTestingView() {
 
         <TestButton
           name="Create Project"
-          onClick={() => createProject('Project One')}
+          onClick={() => createProject('New Project')}
+        />
+
+        <TestButton
+          name="Download Project"
+          onClick={() => downloadProject('project-one')}
         />
 
         <TestButton
@@ -155,8 +181,8 @@ export default function ActionTestingView() {
         />
 
         <TestButton
-          name="Download Project"
-          onClick={() => downloadProject('project-one')}
+          name="Backup Project"
+          onClick={() => backupFiles('project-one')}
         />
 
         <TestButton
@@ -165,100 +191,61 @@ export default function ActionTestingView() {
         />
 
         <TestButton
+          name="Rename Project"
+          onClick={() => renameProject('project-two', 'Project Three')}
+        />
+
+        <TestButton
+          name="Rename Illustration"
+          onClick={() => renameIllustration(
+            'project-three',
+            'my-cool-illustration',
+            'my-okay-illustration',
+          )}
+        />
+
+        <TestButton
           name="Delete Project"
           onClick={() => deleteProject('project-one')}
+        />
+      </div>
+      <br />
+      <h2>These Should Throw Errors</h2>
+
+      <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
+        <TestButton
+          name="Create Existing Project"
+          onClick={() => createProject('Project One')}
+        />
+        <TestButton
+          name="Create Reserved Project"
+          onClick={() => createProject('projects')}
+        />
+        <TestButton
+          name="Rename Downloaded Project"
+          onClick={() => renameProject('project-one', 'project-two')}
+        />
+        <TestButton
+          name="Rename To Existing Project"
+          onClick={() => renameProject('new-project', 'project-one')}
+        />
+        <TestButton
+          name="Rename To Existing Illustration"
+          onClick={() => renameIllustration(
+            'project-one',
+            'my-second-illustration',
+            'My Cool Illustration',
+          )}
+        />
+        <TestButton
+          name="Rename Backed Up Illustration"
+          onClick={() => renameIllustration(
+            'project-one',
+            'my-second-illustration',
+            'My Third Illustration',
+          )}
         />
       </div>
     </div>
   );
 }
-
-// <Button
-// variant="solid"
-// className="text-lg"
-// // onClick={() => downloadTemplate()}
-// onClick={() => CreateProject('proj-1')}
-// >
-// <PlusIcon className="h-6 mr-1" />
-// Create Project
-
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// // onClick={() => downloadTemplate()}
-// onClick={() => CreateIllustration('proj-1', 'test-illo')}
-// >
-// <PlusIcon className="h-6 mr-1" />
-// Create Illustration
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// // onClick={() => downloadTemplate()}
-// onClick={() => OpenIllustration('proj-1', 'test-illo')}
-// >
-// Open Illustration
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// // onClick={() => downloadTemplate()}
-// onClick={() => Generate('proj-1', 'test-illo')}
-// >
-// Generate
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// onClick={() => Preview('proj-1')}
-// >
-// Preview
-
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// onClick={() => OutputShare('proj-1')}
-// >
-// Output Share
-
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// >
-// <a
-//   target="_blank"
-//   href={getSharePage('proj-1')}
-//   rel="noreferrer"
-// >
-//   Test Share
-// </a>
-
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// onClick={() => DuplicateProject('proj-1', 'proj-2')}
-// >
-// Duplicate Project
-
-// </Button>
-// <br />
-// <Button
-// variant="solid"
-// className="text-lg"
-// onClick={() => DeleteIllustration('proj-1', 'test-illo')}
-// >
-// Delete Illustration
-
-// </Button>
-// <br />
