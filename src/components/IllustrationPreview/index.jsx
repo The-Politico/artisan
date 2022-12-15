@@ -50,7 +50,7 @@ export default function IllustrationPreview(props) {
     }
 
     getSize();
-  }, [embedType, children, showArticle]);
+  }, [embedType, children, showArticle, breakpoint]);
   return (
     <div className={styles.livePreview}>
       <div

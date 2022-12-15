@@ -61,7 +61,7 @@ function PreviewWindow() {
     }
 
     getSlugs();
-  }, [url, selectedIllo, embedType]);
+  }, [url, selectedIllo]);
 
   if (!url) {
     return (
