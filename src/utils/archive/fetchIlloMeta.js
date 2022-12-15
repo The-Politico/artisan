@@ -4,17 +4,18 @@ import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 
 async function getMeta(key) {
   const {
-    Metadata: { name },
+    Metadata,
   } = await s3.head({
     bucket: AWS_ARTISAN_BUCKET,
     key,
   });
+  console.log(Metadata);
   const slug = await basename(key, '.ai');
-  return { name, slug };
+  return { name: Metadata.name, slug, publicUrl: Metadata.publicurl };
 }
 
 export async function fetchIlloMeta(illosList) {
-  const { Content: list } = illosList;
+  const { Contents: list } = illosList;
   const keys = list.filter(({ Key }) => Key.includes('.ai')).map((x) => x.Key);
   return Promise.all(keys.map(getMeta));
 }

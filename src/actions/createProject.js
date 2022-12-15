@@ -13,4 +13,6 @@ export default async function createProject(projectName) {
   );
 
   await createDir(projPath);
+
+  return { slug };
 }

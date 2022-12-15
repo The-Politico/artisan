@@ -24,11 +24,10 @@ export default function AppView() {
 
   useEffect(() => {
     (async () => {
-      if (!isArchive) {
+      if (!isArchive && selectedProject) {
         const { illustrations } = await store.getProject(selectedProject);
         setIllos(illustrations);
-      } else {
-        console.log(selectedProject);
+      } else if (selectedProject) {
         setIllos(selectedProject.illos);
       }
     })();
