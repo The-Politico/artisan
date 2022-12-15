@@ -22,7 +22,11 @@ const runInjectedScripts = function runInjectedScripts(frame) {
       })),
   ).then(() => {
     Array.from(doc.querySelectorAll('script:not([src])')).forEach((script) => {
-      cw.eval(script.textContent);
+      try {
+        cw.eval(script.textContent);
+      } catch (error) {
+        console.error('Script failed to run.', script.textContent);
+      }
     });
   })
     .catch((err) => {

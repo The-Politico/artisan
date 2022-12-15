@@ -61,7 +61,7 @@ function PreviewWindow() {
     }
 
     getSlugs();
-  }, [url, selectedIllo]);
+  }, [url, selectedIllo, embedType]);
 
   if (!url) {
     return (
@@ -93,18 +93,16 @@ function PreviewWindow() {
         showArticle={showArticle}
         url={url}
       >
-        {`<iframe
-          scrolling="no"
-          width="100%"
-          height="100%"
-          class=${styles.embedFrame} 
-          src=${url}
-          ref=${iframeRef}
-          frameBorder="0"
-          title="embed-preview"
-          sandbox="allow-scripts allow-same-origin allow-top-navigation"
-        ></iframe>
-        <script>window.newswireFrames.autoInitFrames();</script>
+        {`
+        <div id="embed-preview" data-frame-src="${url}" data-frame-sandbox="allow-scripts allow-same-origin allow-top-navigation">
+
+        </div>
+        <script src="https://www.politico.com/interactives/cdn/js/frames.js"></script>
+        <script>
+        window.newswireFrames.autoInitFrames();
+  
+
+        </script>
       `}
       </IllustrationPreview>
 

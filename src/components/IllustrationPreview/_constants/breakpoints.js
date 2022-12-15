@@ -4,7 +4,7 @@ export const NO_BREAKPOINT = {
   label: 'No Device',
   styles: {
     wrapper: {
-      width: '100%',
+      width: '80%',
     },
     inner: {
       left: 0,
@@ -47,7 +47,7 @@ export const TABLET_LANDSCAPE = {
   label: 'Tablet Landscape (1024px)',
   styles: {
     wrapper: {
-      width: '1366px',
+      width: '1100px',
     },
     mockup: {
       width: '1087px',
@@ -72,21 +72,23 @@ export const TABLET_PORTRAIT = {
   label: 'Tablet Portrait (768px)',
   styles: {
     wrapper: {
-      width: '100%',
+      minWidth: '954px',
     },
     mockup: {
-      width: '1084px',
-      top: '120px',
-      left: '-5px',
-      transform: 'rotate(90deg)',
-      boxShadow: '2px 2px 13px 11px rgba(100,100,100,0.5)',
+      left: '50%',
+      top: '147px',
+      transform: 'rotate(90deg) translate(-50%, 0)',
+      boxShadow: 'rgba(100, 100, 100, 0.5) 2px 2px 13px 11px',
       borderRadius: '43px',
+      transformOrigin: '0% 50%',
     },
     inner: {
-      left: '12.5%',
-      right: '12.5%',
+
+      left: '50%',
       top: '52px',
-      height: '730px',
+      height: '930px',
+      transform: 'translate(-50%, 0%)',
+      width: '725px',
     },
   },
 };

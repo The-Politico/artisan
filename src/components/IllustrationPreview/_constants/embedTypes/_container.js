@@ -40,15 +40,16 @@ ${!showArticle ? '' : `
 
     <link rel="stylesheet" href="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--base.js.a721a78317a0f65befbae0d80a1cf867.gz.css">
     <link rel="stylesheet" href="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--header.js.fc4b5ba636efcf3dd3e7be40bc86dc1f.gz.css">
-    <link rel="stylesheet" href="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--footer.js.32c02709d09d2108cd4f315c846e666d.gz.css">
+    <link rel="stylesheet" href="
+    ">
 
     <script type="text/javascript" async="" src="//munchkin.marketo.net/162/munchkin.js"></script><script src="https://rules.quantcount.com/rules-p-7bhLrd63bC8jI.js" async=""></script><script type="text/javascript" async="" charset="utf-8" id="utag_200" src="https://snap.licdn.com/li.lms-analytics/insight.min.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_191" src="//munchkin.marketo.net/munchkin.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_95" src="https://secure.quantserve.com/quant.js"></script><script type="text/javascript" async="" charset="utf-8" id="utag_214" src="//tags.crwdcntrl.net/lt/c/2643/lt.min.js"></script><script src="https://usasync01.admantx.com/admantx/service?request=%7B%22decorator%22%3A%22template.politico%22%2C%22key%22%3A%22821cd7dccbf73aa71c486ecbb4b909f9c3782ab51161515edeb9cc21efd18478%22%2C%22method%22%3A%22descriptor%22%2C%22filter%22%3A%5B%22default%22%5D%2C%22mode%22%3A%22async%22%2C%22type%22%3A%22URL%22%2C%22body%22%3A%22https%253A//cms.politico.com/cms/preview/null/_preview%253F_cms.db.previewId%253D00000184-6273-d07e-a5fd-f67b729c0000%2526_fields%253Dtrue%2526_date%253D%2526_csrf%253D57cf90a6-58ff-42df-b7a9-7325686b4a53%22%7D" type="text/javascript" async=""></script><script type="text/javascript" async="" src="https://www.gstatic.com/recaptcha/releases/Ixi5IiChXmIG6rRkjUa1qXHT/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-j2sah26WlMKQf8EQXBOwWyutNl4NgB7gRqS2vh6bQQwqHC1ZaweKdpbn33FwSCd8"></script><script src="//tags.tiqcdn.com/utag/politico/pro/prod/utag.js" type="text/javascript" async=""></script><script id="gpt" async="" type="text/javascript" src="https://securepubads.g.doubleclick.net/tag/js/gpt.js"></script><script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script type="text/javascript">window.jQuery || document.write('<script src="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/external-libraries/jquery-1.11.0.min.09e2302066dc95597682cbcb72b3e5b3.gz.js"><\/script></script>
+    <script type="text/javascript">window.jQuery || document.write('<script src="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/external-libraries/jquery-1.11.0.min.09e2302066dc95597682cbcb72b3e5b3.gz.js"></script></script>
 
     <script type="text/javascript" src="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/js.min/preload.30656cb71ce4d1821ef317118aa86ed9.gz.js"></script>
     <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 
-    <link rel="stylesheet" href="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--article.js.0b8e24f19c69f7266895f53f9b13ad05.gz.css">
+    <link rel="stylesheet" href="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--article.js.90fddc8dad09ddc17a855d4539d25794.gz.css">
     <link rel="stylesheet" href="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/battletoads/css/shared--utility.js.ae674724dac481b43c3015f787aa93e9.gz.css">
 
 

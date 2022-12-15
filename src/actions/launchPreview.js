@@ -27,7 +27,13 @@ export default async function launchPreview(projectSlug) {
   setTimeout(() => {
     const webview = new WebviewWindow(
       'embed-preview',
-      { url: 'src/preview/index.html' },
+      {
+        url: 'src/preview/index.html',
+        resizable: true,
+        width: 1100,
+        maxWidth: 1100,
+        maxHeight: 900,
+      },
     );
 
     webview.once('tauri://error', (error) => {

@@ -4337,9 +4337,13 @@ function main() {
                       "<script>window.newswireFrames.initFrameAndPoll();</script>\r";
   
     js = content.js + responsiveJs + politicoJS;
+
+    var docBeginning = "<!DOCTYPE html><html lang=\"en\" dir=\"ltr\"><head><meta charset=\"utf-8\" /><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" /><meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" /><meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" /><link rel=\"stylesheet\" href=\"https://use.typekit.net/qld1irc.css\" /><link rel=\"stylesheet\" href=\"https://use.typekit.net/zgn2zjh.css\" /><link rel=\"stylesheet\" href=\"https://use.typekit.net/bvr3gvp.css\" /></head><body>";
+
+    var docEnding = "</body></html>";
   
-    textForFile =  '\r' + commentBlock + css + '\r' + html + '\r' + js +
-       '<!-- End ai2html' + ' - ' + getDateTimeStamp() + ' -->\r';
+    textForFile =  '\r' + docBeginning + commentBlock + css + '\r' + html + '\r' + js +
+       '<!-- End ai2html' + ' - ' + getDateTimeStamp() + ' -->\r' + docEnding + '\r';
   
     textForFile = applyTemplate(textForFile, settings);
     htmlFileDestinationFolder = docPath + settings.html_output_path;
