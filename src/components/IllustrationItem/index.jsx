@@ -1,5 +1,8 @@
 import cls from 'classnames';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { join, desktopDir } from '@tauri-apps/api/path';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { exists } from '@tauri-apps/api/fs';
 import act from '../../actions';
 import styles from './styles.module.css';
 import MeatballMenu from '../MeatballMenu';
@@ -12,6 +15,7 @@ import {
   padding,
   typography as type,
 } from '../../theme';
+import store from '../../store';
 
 export default function IllustrationItem({
   name,
@@ -20,10 +24,22 @@ export default function IllustrationItem({
   projectSlug,
 }) {
   const [hoverState, setHoverState] = useState(false);
+  const [foo, setFoo] = useState(null);
 
   const handleClick = async () => {
     await act.openIllustration(projectSlug, slug);
   };
+
+  useEffect(() => {
+    (async () => {
+      const dir = await store.getWorkingDir();
+      const path = await join(dir, projectSlug, slug, 'fallback_mobile.png');
+      const hasFallback = await exists(path);
+      if (hasFallback) {
+        setFoo(`asset://localhost/${path}`);
+      }
+    })();
+  }, []);
 
   const meatballItems = [
     {
@@ -40,7 +56,7 @@ export default function IllustrationItem({
   ];
 
   const containerClass = cls(
-    styles.container,
+    styles.illoContainer,
     flex.flex,
     flex.flexCol,
     borders.roundedMd,
@@ -61,7 +77,7 @@ export default function IllustrationItem({
         hoverState={hoverState}
         setHoverState={setHoverState}
         onClick={handleClick}
-        url={publicURL || `https://picsum.photos/seed/${slug}/200/200`}
+        url={foo || publicURL}
         slug={slug}
       />
       <div className={nameClass}>

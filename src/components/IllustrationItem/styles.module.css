@@ -1,8 +1,9 @@
-.container {
+.illo-container {
   height: 180px;
   width: 230px;
   background-color: var(--slate-200);
   color: var(--slate-800);
+  overflow: hidden;
 }
 
 .name-bar {

@@ -49,7 +49,6 @@ export default function ProjectList({
     } = store;
     if (!isArchive) {
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-        console.log('Selected project change in list', e);
         if (e === null) {
           setSelectedProject(projectsList[0]);
         }

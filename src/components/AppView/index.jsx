@@ -1,7 +1,9 @@
 import cls from 'classnames';
 import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import { flex, borders, colors, effects } from '../../theme';
+import {
+  flex, borders, colors, effects,
+} from '../../theme';
 import store from '../../store';
 import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProjectButton';
@@ -9,8 +11,6 @@ import ProjectList from '../ProjectList';
 import Logo from '../Logo';
 import SettingsPanel from '../SettingsPanel';
 import EmptyProject from '../EmptyProject';
-import IllustrationItem from '../IllustrationItem';
-import NewIllustration from '../NewIllustration';
 import { PROJECTS } from '../../store/init';
 import Illustrationlist from '../IllustrationList';
 
@@ -35,14 +35,17 @@ export default function AppView() {
   }, [selectedProject]);
 
   useEffect(() => {
-    const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-      const { illustrations } = e;
-      setIllos(illustrations);
-    });
-    return () => {
-      unlisten.then((f) => f());
-    };
-  }, [selectedProject]);
+    if (!isArchive) {
+      const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
+        const { illustrations } = e;
+        setIllos(illustrations);
+      });
+      return () => {
+        unlisten.then((f) => f());
+      };
+    }
+    setIllos([]);
+  }, [selectedProject, isArchive]);
 
   return (
     <div className={styles.emptyGrid}>
@@ -76,6 +79,7 @@ export default function AppView() {
             <Illustrationlist
               illos={illos}
               selectedProject={selectedProject}
+              isArchive={isArchive}
             />
           </div>
         </div>
