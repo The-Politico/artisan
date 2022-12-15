@@ -1,5 +1,6 @@
 import { PROJECTS, STORE } from '../init';
 import { PROJECTS_LIST_NAME } from '../constants';
+import verifyProjectExists from '../verification/projectExists';
 
 /**
  * Remove a project from the store.
@@ -7,6 +8,8 @@ import { PROJECTS_LIST_NAME } from '../constants';
  * @param {String} projectsSlug Kebab-case project name string
  */
 export default async function removeProject(projectsSlug) {
+  await verifyProjectExists(projectsSlug);
+
   const projectsArr = await STORE.get('projects');
   const projectEntry = await PROJECTS.get(projectsSlug);
 

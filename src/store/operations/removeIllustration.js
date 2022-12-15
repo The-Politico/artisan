@@ -1,7 +1,5 @@
 import { PROJECTS } from '../init';
-import {
-  NO_PROJECT_EXISTS_ERROR,
-} from '../../errors/store';
+import verifyIlloExists from '../verification/illustrationExists';
 
 /**
  * Removes an illustration from a project.
@@ -13,11 +11,8 @@ import {
 export default async function removeIllustration(
   { projectSlug, illustrationSlug },
 ) {
+  await verifyIlloExists(projectSlug, illustrationSlug);
   const projectEntry = await PROJECTS.get(projectSlug);
-
-  if (!projectEntry) {
-    throw NO_PROJECT_EXISTS_ERROR;
-  }
 
   const { illustrations } = projectEntry;
   const illosUpdated = illustrations.filter(

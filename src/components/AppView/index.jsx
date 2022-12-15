@@ -9,7 +9,7 @@ import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProjectButton';
 import ProjectList from '../ProjectList';
 import Logo from '../Logo';
-import SettingsPanel from '../SettingsPanel';
+import SettingsButton from '../SettingsButton';
 import EmptyProject from '../EmptyProject';
 import { PROJECTS } from '../../store/init';
 import Illustrationlist from '../IllustrationList';
@@ -20,8 +20,6 @@ export default function AppView() {
   const [illos, setIllos] = useState([]);
 
   const [isArchive, setIsArchive] = useState(false);
-
-  const showSettings = false;
 
   useEffect(() => {
     (async () => {
@@ -58,7 +56,7 @@ export default function AppView() {
           setSelectedProject={setSelectedProject}
           isArchive={isArchive}
         />
-        {showSettings && <SettingsPanel />}
+        <SettingsButton />
       </div>
       {selectedProject ? (
         <div className={styles.container}>

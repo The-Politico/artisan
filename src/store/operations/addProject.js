@@ -1,9 +1,7 @@
+import slugify from '../../utils/text/slugify';
 import { PROJECTS, STORE } from '../init';
 import { PROJECTS_LIST_NAME } from '../constants';
-import {
-  RESRVED_PROJECT_NAME_ERROR,
-  PROJECT_NAME_EXISTS_ERROR,
-} from '../../errors/store';
+import validProjectSlug from '../verification/validProjectSlug';
 
 /**
  * Add a project to the store's projects array
@@ -13,35 +11,35 @@ import {
  * @param {String} [opts.isUploaded]
  * @param {String} [opts.isPublished]
  * @param {String} [opts.lastUploaded]
+ * @param {String} [opts.method]
  * @returns {Promise<import('../types').ProjectDetails | null>}
  * Project detail object
  */
 export default async function addProject(
   projectName,
-  { isUploaded, isPublished, lastUploaded } = {},
+  {
+    isUploaded,
+    isPublished,
+    lastUploaded,
+    method,
+  } = {},
 ) {
   const projectsArr = await STORE.get(PROJECTS_LIST_NAME);
 
-  const projectSlug = projectName.toLowerCase().replaceAll(' ', '-');
+  const projectSlug = slugify(projectName);
 
-  if (projectSlug === PROJECTS_LIST_NAME) {
-    throw RESRVED_PROJECT_NAME_ERROR;
-  }
+  await validProjectSlug(projectSlug, { method });
 
-  const projectEntry = await PROJECTS.get(projectSlug);
-
-  if (projectEntry) {
-    throw PROJECT_NAME_EXISTS_ERROR;
-  }
-
-  await PROJECTS.set(projectSlug, {
+  const newProjectConfig = {
     isUploaded: isUploaded || false,
     isPublished: isPublished || false,
     lastUploaded: lastUploaded || null,
     name: projectName,
     slug: projectSlug,
     illustrations: [],
-  });
+  };
+
+  await PROJECTS.set(projectSlug, newProjectConfig);
 
   if (projectsArr) {
     await STORE.set(PROJECTS_LIST_NAME, [...projectsArr, projectSlug]);

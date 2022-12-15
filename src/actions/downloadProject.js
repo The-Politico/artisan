@@ -40,7 +40,9 @@ export default async function downloadProject(projectSlug) {
     key: `${keyPath}/`,
   });
 
-  await store.addProject(Metadata.name, { isUploaded: true });
+  await store.addProject(
+    Metadata.name, { isUploaded: true, method: 'download' },
+  );
 
   // Start of downloading illustrator files
   const projectPath = await getWorkingProjectPath(projectSlug);
