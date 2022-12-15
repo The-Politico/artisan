@@ -1,14 +1,15 @@
 .container {
   height: 180px;
   width: 230px;
-  background-color: var(--slate-700);
+  background-color: var(--slate-200);
+  color: var(--slate-800);
 }
 
 .name-bar {
   position: relative;
   margin-top: auto;
-  color: var(--slate-800);
-  background-color: var(--slate-200);
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
 }
 
 .name-bar > *:last-child {
@@ -17,13 +18,19 @@
   max-height: 2rem;
 }
 
-.illo-img {
+.img-container {
   position: relative;
   flex-basis: 100%;
+  background-color: var(--slate-800) !important;
 }
 
-.illo-img:hover {
+.img-container:hover {
   cursor: pointer;
+}
+
+.img {
+  object-fit: cover;
+  max-height: calc(180px - 36px);
 }
 
 .hover-state {

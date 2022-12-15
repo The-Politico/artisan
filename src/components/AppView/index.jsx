@@ -12,6 +12,7 @@ import EmptyProject from '../EmptyProject';
 import IllustrationItem from '../IllustrationItem';
 import NewIllustration from '../NewIllustration';
 import { PROJECTS } from '../../store/init';
+import Illustrationlist from '../IllustrationList';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState(null);
@@ -72,16 +73,10 @@ export default function AppView() {
               effects.shadowMd,
             )}
           >
-            {illos.map(({ name, slug, publicUrl }) => (
-              <IllustrationItem
-                projectSlug={selectedProject}
-                key={name}
-                name={name}
-                slug={slug}
-                publicURL={publicUrl}
-              />
-            ))}
-            <NewIllustration projectSlug={selectedProject} />
+            <Illustrationlist
+              illos={illos}
+              selectedProject={selectedProject}
+            />
           </div>
         </div>
       ) : (

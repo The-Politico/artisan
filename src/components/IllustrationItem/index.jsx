@@ -1,5 +1,6 @@
 import cls from 'classnames';
-import deleteIllustration from '../../actions/deleteIllustration';
+import { useState } from 'react';
+import act from '../../actions';
 import styles from './styles.module.css';
 import MeatballMenu from '../MeatballMenu';
 import IlloImage from './IlloImage';
@@ -18,6 +19,12 @@ export default function IllustrationItem({
   slug,
   projectSlug,
 }) {
+  const [hoverState, setHoverState] = useState(false);
+
+  const handleClick = async () => {
+    await act.openIllustration(projectSlug, slug);
+  };
+
   const meatballItems = [
     {
       iconName: 'PencilIcon',
@@ -27,7 +34,7 @@ export default function IllustrationItem({
     {
       iconName: 'TrashIcon',
       label: 'Delete',
-      action: () => deleteIllustration(projectSlug, slug),
+      action: () => act.deleteIllustration(projectSlug, slug),
       danger: true,
     },
   ];
@@ -51,12 +58,22 @@ export default function IllustrationItem({
   return (
     <div className={containerClass}>
       <IlloImage
-        projectSlug={projectSlug}
-        url={publicURL}
+        hoverState={hoverState}
+        setHoverState={setHoverState}
+        onClick={handleClick}
+        url={publicURL || `https://picsum.photos/seed/${slug}/200/200`}
         slug={slug}
       />
       <div className={nameClass}>
-        <p className={cls(type.fontMedium, type.textSm)}>{name}</p>
+        <button
+          type="button"
+          onClick={handleClick}
+          className={cls(type.fontMedium, type.textSm)}
+          onMouseEnter={() => setHoverState(true)}
+          onMouseLeave={() => setHoverState(false)}
+        >
+          {name}
+        </button>
         <MeatballMenu items={meatballItems} />
       </div>
     </div>

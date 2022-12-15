@@ -1,13 +1,14 @@
 import cls from 'classnames';
 import {
-  ArrowRightCircleIcon,
+  CheckCircleIcon,
   DocumentPlusIcon,
+  XCircleIcon,
 } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import styles from './styles.module.css';
 import Input from '../Input';
 import act from '../../actions';
-import { flex, layout, margin, borders, colors } from '../../theme';
+import { flex, layout, margin, borders } from '../../theme';
 
 export default function InputBox({ showInput, setShowInput, projectSlug }) {
   const [illoName, setIlloName] = useState('');
@@ -32,6 +33,10 @@ export default function InputBox({ showInput, setShowInput, projectSlug }) {
   );
 
   const handleClick = async () => {
+    if (illoName === '') {
+      setShowInput(false);
+      return;
+    }
     await act.createIllustration(projectSlug, illoName);
     setShowInput(false);
   };
@@ -47,8 +52,15 @@ export default function InputBox({ showInput, setShowInput, projectSlug }) {
           setValue={setIlloName}
           className={styles.input}
         />
-        <button type="button" onClick={handleClick}>
-          <ArrowRightCircleIcon className={styles.inputIcon} />
+        <button
+          type="button"
+          onClick={handleClick}
+        >
+          {illoName !== '' ? (
+            <CheckCircleIcon className={styles.inputIcon} />
+          ) : (
+            <XCircleIcon className={styles.inputIcon} />
+          )}
         </button>
       </div>
     </div>
