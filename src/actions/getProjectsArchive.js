@@ -30,10 +30,7 @@ export default async function getProjectsArchive() {
         bucket: AWS_ARTISAN_BUCKET,
         prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
       });
-      const illosKeys = illosList.Contents
-        .filter(({ Key }) => Key.includes('.ai'))
-        .map((x) => x.Key);
-      const illos = await Promise.all(illosKeys.map(fetchIlloMeta));
+      const illos = await fetchIlloMeta(illosList);
       return {
         slug: d,
         name: Metadata.name,
