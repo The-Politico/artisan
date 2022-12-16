@@ -17,15 +17,25 @@
         "all": true
       },
       "shell": {
-        "all": true, 
-        "execute": true, 
-        "sidecar": true, 
-        "open": true,
+        "all": true,
+        "execute": true,
+        "open": "(^https?://)|(^/)",
         "scope": [{
           "name": "run-osascript",
           "cmd": "osascript",
           "args": true
-        }]
+        },
+        {
+          "name": "start-local-server",
+          "cmd": "python3",
+          "args": true
+        },
+        {
+          "name": "kill-process",
+          "cmd": "kill",
+          "args": true
+        }
+      ]
       },
       "fs": {
         "writeFile": true,

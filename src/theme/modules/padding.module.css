@@ -54,6 +54,11 @@
   padding-right: calc(.25rem * var(--pr));
 }
 
+.pr-2 {
+  --pr: 2;
+  padding-right: calc(.25rem * var(--pr));
+}
+
 /* LEFT / RIGHT */
 .px-0 {
   --px: 0;
