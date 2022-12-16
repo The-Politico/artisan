@@ -1,6 +1,5 @@
 import cls from 'classnames';
-import { useState, useEffect } from 'react';
-import { exists } from '@tauri-apps/api/fs';
+import { useState } from 'react';
 import act from '../../actions';
 import styles from './styles.module.css';
 import MeatballMenu from '../MeatballMenu';
@@ -13,7 +12,7 @@ import {
   padding,
   typography as type,
 } from '../../theme';
-import store from '../../store';
+import RenamePopup from '../RenamePopup';
 
 export default function IllustrationItem({
   name,
@@ -22,6 +21,7 @@ export default function IllustrationItem({
   projectSlug,
   isArchive,
 }) {
+  const [showRename, setShowRename] = useState(false);
   const [hoverState, setHoverState] = useState(false);
   const handleClick = async () => {
     await act.openIllustration(projectSlug, slug);
@@ -31,7 +31,7 @@ export default function IllustrationItem({
     {
       iconName: 'PencilIcon',
       label: 'Rename',
-      action: () => console.log('Enable rename for: ', name, slug),
+      action: () => setShowRename(true),
     },
     {
       iconName: 'TrashIcon',
@@ -85,6 +85,13 @@ export default function IllustrationItem({
         </button>
         {!isArchive && <MeatballMenu items={meatballItems} />}
       </div>
+      <RenamePopup
+        oldName={name}
+        showRename={showRename}
+        setShowRename={setShowRename}
+        projectSlug={projectSlug}
+        illoSlug={slug}
+      />
     </div>
   );
 }

@@ -2,44 +2,15 @@ import cls from 'classnames';
 import { useState } from 'react';
 import { open } from '@tauri-apps/api/shell';
 import IconButton from '../IconButton';
-import MeatballMenu from '../MeatballMenu';
 import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
 import act from '../../actions';
 import getSharePath from '../../utils/paths/getSharePath';
 import PublishButton from './PublishButton';
+import MeatballButton from './MeatballButton';
 
 export default function ButtonsGroup({ projectSlug, status }) {
   const [showPubilshAlert, setShowPublishAlert] = useState(false);
-
-  const meatballItems = [
-    {
-      iconName: 'ServerIcon',
-      label: 'Backup',
-      action: () => act.backupFiles(projectSlug),
-    },
-    {
-      iconName: 'ArchiveBoxIcon',
-      label: 'Archive',
-      action: () => act.archiveProject(projectSlug),
-    },
-    {
-      iconName: 'FolderIcon',
-      label: 'Open in Finder',
-      action: () => act.openInFinder(projectSlug),
-    },
-    {
-      iconName: 'DocumentDuplicateIcon',
-      label: 'Duplicate',
-      action: () => act.duplicateProject(projectSlug, `${projectSlug}-copy`),
-    },
-    {
-      iconName: 'TrashIcon',
-      label: 'Delete Project',
-      action: () => act.deleteProject(projectSlug),
-      danger: true,
-    },
-  ];
 
   // Opens generated share link in default browser
   const handleShareClick = async (e) => {
@@ -79,7 +50,7 @@ export default function ButtonsGroup({ projectSlug, status }) {
         disabled={status !== 'published'}
         onClick={handleShareClick}
       />
-      <MeatballMenu items={meatballItems} />
+      <MeatballButton projectSlug={projectSlug} />
     </div>
   );
 }

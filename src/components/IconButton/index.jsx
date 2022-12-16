@@ -1,11 +1,10 @@
 import cls from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import styles from './styles.module.css';
 import {
   flex, effects, typography as type, margin,
 } from '../../theme';
 import BaseIcon from '../BaseIcon';
-import { forwardRef } from 'react';
 
 /**
  * Render a button with a full-sized icon and label
