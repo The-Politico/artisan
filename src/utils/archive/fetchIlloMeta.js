@@ -9,7 +9,6 @@ async function getMeta(key) {
     bucket: AWS_ARTISAN_BUCKET,
     key,
   });
-  console.log(Metadata);
   const slug = await basename(key, '.ai');
   return { name: Metadata.name, slug, publicUrl: Metadata.publicurl };
 }

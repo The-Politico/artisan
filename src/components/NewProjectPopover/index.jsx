@@ -28,6 +28,7 @@ export default function NewProjectPopover() {
     effects.shadowLg,
   );
 
+  // TODO: Come up with a wholistic error messaging strategy
   const handleCreate = async (close) => {
     if (newProjectName === '' || newIlloName === '') {
       await message('Project Name and Illustration Name cannot be blank', {

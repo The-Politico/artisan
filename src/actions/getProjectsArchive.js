@@ -3,7 +3,6 @@ import { ARCHIVE_PROJECTS_DIRECTORY } from '../constants/paths';
 import store from '../store';
 import s3 from '../utils/s3';
 import fetchProjectsArchive from '../utils/archive/fetchProjectsArchive';
-import { fetchIlloMeta } from '../utils/archive/fetchIlloMeta';
 
 /**
  * Fetches list of projects in the archive by slug name
@@ -17,22 +16,17 @@ export default async function getProjectsArchive() {
 
   // Return projects not locally in the settigns store
   const archivedProjects = projectsList.filter(
-    (p) => !localProjects.includes(p),
+    ({ slug }) => !localProjects.includes({ slug }),
   );
 
   return Promise.all(
-    archivedProjects.map(async (d) => {
+    archivedProjects.map(async ({ slug, illos }) => {
       const { Metadata } = await s3.head({
         bucket: AWS_ARTISAN_BUCKET,
-        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
+        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${slug}/`,
       });
-      const illosList = await s3.list({
-        bucket: AWS_ARTISAN_BUCKET,
-        prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
-      });
-      const illos = await fetchIlloMeta(illosList);
       return {
-        slug: d,
+        slug,
         name: Metadata.name,
         illos,
       };

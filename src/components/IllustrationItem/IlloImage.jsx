@@ -1,10 +1,8 @@
 import cls from 'classnames';
-import {
-  ArrowTopRightOnSquareIcon,
-  DocumentIcon,
-} from '@heroicons/react/24/solid';
+import { DocumentIcon } from '@heroicons/react/24/solid';
 import { colors, flex } from '../../theme';
 import styles from './styles.module.css';
+import IlloHover from './IlloHover';
 
 export default function IlloImage({
   url,
@@ -18,31 +16,6 @@ export default function IlloImage({
     [colors.bgSlate700]: !isArchive,
   });
 
-  if (!url) {
-    return (
-      <button
-        type="button"
-        className={imgContainer}
-        onMouseEnter={() => setHoverState(true)}
-        onMouseLeave={() => setHoverState(false)}
-        onClick={onClick}
-      >
-        {hoverState && (
-          <div className={styles.hoverState}>
-            <ArrowTopRightOnSquareIcon
-              className={cls(styles.arrowIcn, colors.textSlate200)}
-            />
-          </div>
-        )}
-        <DocumentIcon
-          className={cls(styles.folderIcn, colors.textSlate400, {
-            [colors.textSlate600]: !isArchive,
-          })}
-        />
-      </button>
-    );
-  }
-
   return (
     <button
       type="button"
@@ -51,18 +24,20 @@ export default function IlloImage({
       onMouseLeave={() => setHoverState(false)}
       onClick={onClick}
     >
-      <img
-        className={styles.img}
-        src={url}
-        alt={`artisan illustration preview for ${slug}`}
-      />
-      {hoverState && (
-        <div className={styles.hoverState}>
-          <ArrowTopRightOnSquareIcon
-            className={cls(styles.arrowIcn, colors.textSlate200)}
-          />
-        </div>
+      {url ? (
+        <img
+          className={styles.img}
+          src={url}
+          alt={`artisan illustration preview for ${slug}`}
+        />
+      ) : (
+        <DocumentIcon
+          className={cls(styles.folderIcn, colors.textSlate400, {
+            [colors.textSlate600]: !isArchive,
+          })}
+        />
       )}
+      <IlloHover hoverState={hoverState} />
     </button>
   );
 }

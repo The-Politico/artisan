@@ -8,7 +8,6 @@ export default async function renameIllustration(
   illustrationSlug,
   newName,
 ) {
-  console.log("Inside rename now");
   const illoInfo = await store.renameIllustration({
     project: projectSlug,
     slug: illustrationSlug,
