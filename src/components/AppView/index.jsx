@@ -1,9 +1,7 @@
 import cls from 'classnames';
 import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import {
-  flex, borders, colors, effects,
-} from '../../theme';
+import { flex, borders, colors, effects } from '../../theme';
 import store from '../../store';
 import ProjectToolbar from '../ProjectToolbar';
 import CreateProject from '../CreateProjectButton';
@@ -22,6 +20,10 @@ export default function AppView() {
 
   const [isArchive, setIsArchive] = useState(false);
 
+  /**
+   * Swaps between showing illustrations
+   * from the store or fetched from the archive
+   */
   useEffect(() => {
     (async () => {
       if (!isArchive && selectedProject) {
@@ -33,6 +35,9 @@ export default function AppView() {
     })();
   }, [selectedProject, isArchive]);
 
+  /**
+   * Updates illustration list on project or illustration change
+   */
   useEffect(() => {
     if (!isArchive && selectedProject) {
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
@@ -43,6 +48,7 @@ export default function AppView() {
         unlisten.then((f) => f());
       };
     }
+    return () => {};
   }, [selectedProject, isArchive]);
 
   return (

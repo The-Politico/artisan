@@ -10,9 +10,11 @@ export default function MeatballButton({ projectSlug }) {
 
   useEffect(() => {
     (async () => {
-      const { name } = await store.getProject(projectSlug);
-      if (name) {
-        setOldName(name);
+      if (projectSlug) {
+        const { name } = await store.getProject(projectSlug);
+        if (name) {
+          setOldName(name);
+        }
       }
     })();
   }, []);
