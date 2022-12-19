@@ -107,7 +107,7 @@ export default function ProjectList({
             projectSlug={typeof item === 'string' ? item : undefined}
             archiveProject={typeof item === 'object' ? item : undefined}
             index={idx}
-            last={idx === selectedList.at(-1)}
+            last={idx === selectedList[selectedList.length - 1]}
             isArchive={isArchive}
             selectedProject={selectedProject}
             setSelectedProject={setSelectedProject}
