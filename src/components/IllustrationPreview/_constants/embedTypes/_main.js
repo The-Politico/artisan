@@ -2,7 +2,9 @@ import lorem, { LOREM_HEADLINE, LOREM_DEK } from '../lorem';
 
 export default function Main({ children, showArticle, className }) {
   if (!showArticle) {
-    return '';
+    return `<aside class="story-enhancement ${className}">
+             ${children}
+            </aside>`;
   }
 
   const now = new Date();
