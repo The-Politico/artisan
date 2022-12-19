@@ -121,15 +121,15 @@ export default function Main({ children, showArticle, className }) {
       </aside>
     </div>
   </div>
-${!showArticle ? '' : `<p class="story-text__paragraph   ">${lorem[0]}</p>
-<p class="story-text__paragraph   ">${lorem[1]}</p>`}
+<p class="story-text__paragraph   ">${lorem[0]}</p>
+<p class="story-text__paragraph   ">${lorem[1]}</p>
 
 <aside class="story-enhancement ${className}">
   ${children}
 </aside>
 
-${!showArticle ? '' : `<p class="story-text__paragraph   ">${lorem[2]}</p>
-<p class="story-text__paragraph   ">${lorem[3]}</p>`}
+<p class="story-text__paragraph   ">${lorem[2]}</p>
+<p class="story-text__paragraph   ">${lorem[3]}</p>
 </div>
               </div>
           </div>
