@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import cls from 'classnames';
 import { Popover, Transition } from '@headlessui/react';
+import { message } from '@tauri-apps/api/dialog';
 import Input from '../Input';
 import Button from '../Button';
 import styles from './styles.module.css';
@@ -28,6 +29,13 @@ export default function NewProjectPopover() {
   );
 
   const handleCreate = async (close) => {
+    if (newProjectName === '' || newIlloName === '') {
+      await message('Project Name and Illustration Name cannot be blank', {
+        title: 'Oops!',
+        type: 'error',
+      });
+      return;
+    }
     const { slug } = await act.createProject(newProjectName);
     await act.createIllustration(slug, newIlloName);
     close();
