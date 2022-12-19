@@ -4,7 +4,7 @@ export const NO_BREAKPOINT = {
   label: 'No Device',
   styles: {
     wrapper: {
-      width: '80%',
+      width: '100%',
     },
     inner: {
       left: 0,

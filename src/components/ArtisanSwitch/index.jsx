@@ -16,7 +16,7 @@ export default function ArtisanSwitch({ switchLabel, enabled, setToggle }) {
 
   const switchClass = cls(
     styles.switch,
-    colors.bgSlate900,
+    colors.bgSlate800,
     {
       [styles.enabled]: enabled,
       [styles.disabled]: !enabled,
