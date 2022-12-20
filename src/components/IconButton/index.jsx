@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import React, { useCallback } from 'react';
+import React, { useCallback, forwardRef } from 'react';
 import styles from './styles.module.css';
 import {
   flex, effects, typography as type, margin,
@@ -18,7 +18,7 @@ import BaseIcon from '../BaseIcon';
  * @param {String} props.label - Label of button below icon
  * @returns {React.ReactElement}
  */
-export default function IconButton(props) {
+const IconButton = forwardRef((props, ref) => {
   const {
     disabled = false,
     className = '',
@@ -42,6 +42,7 @@ export default function IconButton(props) {
 
   return (
     <button
+      ref={ref}
       type="button"
       className={btnClass}
       onClick={handleClick}
@@ -55,4 +56,6 @@ export default function IconButton(props) {
       <span className={cls(styles.label, type.textXs)}>{label}</span>
     </button>
   );
-}
+});
+
+export default IconButton;

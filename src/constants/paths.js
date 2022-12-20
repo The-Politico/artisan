@@ -11,3 +11,5 @@ export const PUBLISH_EMBED_PATH = 'interactives/artisan/embeds';
 
 export const SHARE_PAGE_SCRIPTS = 'interactives/artisan/common/bundle.js';
 export const SHARE_PAGE_STYLES = 'interactives/artisan/common/styles.css';
+
+export const FALLBACK_IMG_NAME = 'fallback_mobile.png';
