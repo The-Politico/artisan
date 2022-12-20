@@ -302,7 +302,7 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
         <div class="page-header">
         </div>
         <main id="main" tabindex="-1">
-            <div class="page-content page-content--story  story-type--core " data-modules="/fe-api/v2/modules?page=00000184-5a27-df5e-af8c-fb6707be0000" data-ad-slot-insertion-interval="0" data-ad-slot-first-insertion="1" data-viewport-ad-slot-id="">
+            <div class="page-content page-content--story  story-type--core " data-modules="/fe-api/v2/modules?page=00000184-5a27-df5e-af8c-fb6707be0000" data-ad-slot-insertion-interval="0" data-ad-slot-first-insertion="1" data-viewport-ad-slot-id="" style="margin: 0 auto !important;">
 `}
 ${children}
 ${!showArticle ? '' : `
