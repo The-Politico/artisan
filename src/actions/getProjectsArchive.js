@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { AWS_ARTISAN_BUCKET } from '../constants/aws';
 import { ARCHIVE_PROJECTS_DIRECTORY } from '../constants/paths';
 import store from '../store';
@@ -17,18 +16,19 @@ export default async function getProjectsArchive() {
 
   // Return projects not locally in the settigns store
   const archivedProjects = projectsList.filter(
-    (p) => !localProjects.includes(p),
+    ({ slug }) => !localProjects.includes({ slug }),
   );
 
   return Promise.all(
-    archivedProjects.map(async (d) => {
+    archivedProjects.map(async ({ slug, illos }) => {
       const { Metadata } = await s3.head({
         bucket: AWS_ARTISAN_BUCKET,
-        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
+        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${slug}/`,
       });
       return {
-        slug: d,
+        slug,
         name: Metadata.name,
+        illos,
       };
     }),
   );

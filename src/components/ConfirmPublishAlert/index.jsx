@@ -9,6 +9,7 @@ import {
   padding,
   flex,
   typography as type,
+  transitions,
 } from '../../theme';
 import publishProject from '../../actions/publishProject';
 
@@ -28,23 +29,11 @@ export default function ConfirmPublishAlert({
     effects.shadowLg,
   );
 
-  const {
-    enter, enterTo, enterFrom, leave, leaveFrom, leaveTo,
-  } = styles;
-  const timings = {
-    enter,
-    enterTo,
-    enterFrom,
-    leave,
-    leaveFrom,
-    leaveTo,
-  };
-
   return (
     <Transition
       show={showPubilshAlert}
       className={styles.container}
-      {...timings}
+      {...transitions.alert}
     >
       <div className={alertClass}>
         <h2 className={cls(colors.textSlate700, type.textLg, type.fontBold)}>

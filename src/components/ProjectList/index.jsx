@@ -11,11 +11,12 @@ export default function ProjectList({
   setSelectedProject,
   isArchive = false,
   setIsArchive,
+  selectedList,
+  setSelectedList,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [projectsList, setProjectsList] = useState([]);
   const [archiveList, setArchivesList] = useState([]);
-  const [selectedList, setSelectedList] = useState([]);
 
   // Determs whehter to show local projects or archive projcts
   useEffect(() => {
@@ -23,7 +24,7 @@ export default function ProjectList({
       if (selectedIndex === 0) {
         const projects = await store.getProjectsList();
         setProjectsList(projects || []);
-        setSelectedProject(projects[0]);
+        setSelectedProject(projects?.[0] || null);
       } else {
         const archive = await getProjectsArchive();
         setArchivesList(archive);
@@ -49,7 +50,6 @@ export default function ProjectList({
     } = store;
     if (!isArchive) {
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-        console.log('Selected project change in list', e);
         if (e === null) {
           setSelectedProject(projectsList[0]);
         }
@@ -107,7 +107,7 @@ export default function ProjectList({
             projectSlug={typeof item === 'string' ? item : undefined}
             archiveProject={typeof item === 'object' ? item : undefined}
             index={idx}
-            last={idx === selectedList.at(-1)}
+            last={idx === selectedList[selectedList.length - 1]}
             isArchive={isArchive}
             selectedProject={selectedProject}
             setSelectedProject={setSelectedProject}

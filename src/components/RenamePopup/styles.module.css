@@ -1,4 +1,4 @@
-.container {
+.popup-container {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -10,13 +10,7 @@
   background-color: rgba(0, 0, 0, .5);
 }
 
-.alert {
-  max-width: 300px;
+.rename-box {
+  max-width: 350px;
   background-color: white;
-}
-
-.note {
-  text-align: center;
-  color: var(--slate-800);
-  margin: .75rem 0;
 }
