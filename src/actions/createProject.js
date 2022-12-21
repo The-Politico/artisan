@@ -5,12 +5,14 @@ import store from '../store';
 export default async function createProject(projectName) {
   const projectsFolder = await store.getWorkingDir();
 
-  const { slug } = await store.addProject(projectName, { method: 'create' });
+  const project = await store.addProject(projectName, { method: 'create' });
 
   const projPath = await join(
     projectsFolder,
-    slug,
+    project.slug,
   );
 
   await createDir(projPath);
+
+  return project;
 }

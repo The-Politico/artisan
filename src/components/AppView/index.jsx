@@ -9,24 +9,47 @@ import ProjectList from '../ProjectList';
 import Logo from '../Logo';
 import SettingsButton from '../SettingsButton';
 import EmptyProject from '../EmptyProject';
+import { PROJECTS } from '../../store/init';
+import Illustrationlist from '../IllustrationList';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState(null);
+  const [selectedList, setSelectedList] = useState([]);
 
   const [illos, setIllos] = useState([]);
 
   const [isArchive, setIsArchive] = useState(false);
 
+  /**
+   * Swaps between showing illustrations
+   * from the store or fetched from the archive
+   */
   useEffect(() => {
     (async () => {
-      if (selectedProject) {
+      if (!isArchive && selectedProject) {
         const { illustrations } = await store.getProject(selectedProject);
         setIllos(illustrations);
-      } else {
-        setIllos([]);
+      } else if (selectedProject) {
+        setIllos(selectedProject.illos);
       }
     })();
-  }, [selectedProject]);
+  }, [selectedProject, isArchive]);
+
+  /**
+   * Updates illustration list on project or illustration change
+   */
+  useEffect(() => {
+    if (!isArchive && selectedProject) {
+      const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
+        const { illustrations } = e;
+        setIllos(illustrations);
+      });
+      return () => {
+        unlisten.then((f) => f());
+      };
+    }
+    return () => {};
+  }, [selectedProject, isArchive]);
 
   return (
     <div className={styles.emptyGrid}>
@@ -38,6 +61,8 @@ export default function AppView() {
           selectedProject={selectedProject}
           setSelectedProject={setSelectedProject}
           isArchive={isArchive}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
         />
         <SettingsButton />
       </div>
@@ -57,9 +82,11 @@ export default function AppView() {
               effects.shadowMd,
             )}
           >
-            {illos.map(({ name }) => (
-              <span key={name}>{`* ${name}`}</span>
-            ))}
+            <Illustrationlist
+              illos={illos}
+              selectedProject={selectedProject}
+              isArchive={isArchive}
+            />
           </div>
         </div>
       ) : (

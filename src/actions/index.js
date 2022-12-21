@@ -15,6 +15,8 @@ import openInFinder from './openInFinder';
 import outputShare from './outputShare';
 import publishProject from './publishProject';
 import shutdownPreview from './shutdownPreview';
+import renameProject from './renameProject';
+import renameIllustration from './renameIllustration';
 
 export default {
   archiveProject,
@@ -34,4 +36,6 @@ export default {
   outputShare,
   publishProject,
   shutdownPreview,
+  renameProject,
+  renameIllustration,
 };
