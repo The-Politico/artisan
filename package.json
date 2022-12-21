@@ -21,6 +21,7 @@
     "@headlessui/react": "^1.7.3",
     "@heroicons/react": "^2.0.11",
     "@newswire/frames": "^1.0.0",
+    "@recoiljs/refine": "^0.1.1",
     "@tauri-apps/api": "^1.1.0",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
@@ -31,9 +32,12 @@
     "modern-normalize": "^1.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "recoil": "^0.7.6",
+    "recoil-sync": "^0.2.0",
     "slugify": "^1.6.5",
     "stream": "^0.0.2",
-    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#dev"
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#dev",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@politico/eslint-config-interactives": "^1.0.2",
