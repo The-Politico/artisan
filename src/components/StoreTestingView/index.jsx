@@ -1,4 +1,4 @@
-import useEntities from '../../atoms/entities';
+import { useEntities } from '../../atoms/entities';
 
 export default function StoreTestingView() {
   const [entities] = useEntities();

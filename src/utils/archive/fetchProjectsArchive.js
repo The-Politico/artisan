@@ -18,19 +18,24 @@ export default async function fetchProjectsArchive() {
     return path.replace(`${ARCHIVE_PROJECTS_DIRECTORY}/`, '').replace('/', '');
   });
 
-  const projectsWithIllos = await Promise.all(
-    projectSlugs.map(async (d) => {
+  return Promise.all(
+    projectSlugs.map(async (slug) => {
+      const { Metadata } = await s3.head({
+        bucket: AWS_ARTISAN_BUCKET,
+        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${slug}/`,
+      });
+
       const illosList = await s3.list({
         bucket: AWS_ARTISAN_BUCKET,
-        prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
+        prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${slug}/`,
       });
-      const illos = await fetchIlloMeta(illosList);
+      const illustrations = await fetchIlloMeta(illosList);
+
       return {
-        slug: d,
-        illos,
+        slug,
+        illustrations,
+        ...Metadata,
       };
     }),
   );
-
-  return projectsWithIllos;
 }

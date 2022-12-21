@@ -10,7 +10,12 @@ async function getMeta(key) {
     key,
   });
   const slug = await basename(key, '.ai');
-  return { name: Metadata.name, slug, publicUrl: Metadata.publicurl };
+  return {
+    name: Metadata.name,
+    slug,
+    publicUrl: Metadata.publicurl,
+    id: Metadata.id,
+  };
 }
 
 export async function fetchIlloMeta(illosList) {

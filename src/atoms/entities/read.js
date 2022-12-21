@@ -1,11 +1,17 @@
+import { flatten } from 'lodash';
 import fetchProjectsArchive from '../../utils/archive/fetchProjectsArchive';
 
 export default async function onReadEntities() {
-  const test = await fetchProjectsArchive();
-
-  console.log(test);
+  const archive = await fetchProjectsArchive();
 
   return [
-    'a', 'b',
+    ...archive.map(({ id }) => id),
+    ...flatten(
+      archive.map(
+        ({ illustrations }) => illustrations.map(
+          ({ id }) => id,
+        ),
+      ),
+    ),
   ];
 }
