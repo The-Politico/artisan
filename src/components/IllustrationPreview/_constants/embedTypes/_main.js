@@ -13,8 +13,11 @@ export default function Main({ children, showArticle, className }) {
   });
 
   const nowFormatted = format(now);
-  const fullBleed = (className === 'browser-width-full')
-    ? 'is-full-width-bleed' : '';
+  // eslint-disable-next-line no-nested-ternary, max-len
+  const fullBleed = (className === 'browser-width-full') ? 'is-full-width-bleed'
+    : (className === 'bump-out') ? 'is-medium-width'
+    // eslint-disable-next-line indent
+    : '';
 
   console.log(fullBleed);
   console.log(className);
@@ -176,6 +179,7 @@ export default function Main({ children, showArticle, className }) {
         </div>
     </div>
 </section>
+
 <section class="page-content__row page-content__row--story main-section">
     <div class="container container--story story-layout--fixed-fluid">
         <div class="container__column container__column--story center-horizontally hide-under-medium">
