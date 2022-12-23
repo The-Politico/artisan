@@ -2,8 +2,10 @@ import { readBinaryFile } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 import {
   ARCHIVE_PROJECTS_DIRECTORY,
+  FALLBACK_IMG_NAME,
+  PUBLISH_EMBED_PATH,
 } from '../constants/paths';
-import { AWS_ARTISAN_BUCKET } from '../constants/aws';
+import { AWS_ARTISAN_BUCKET, AWS_STAGING_BASE_URL } from '../constants/aws';
 import store from '../store';
 import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
 import getIllosFromProject from '../utils/fs/getIllosFromProject';
@@ -17,10 +19,7 @@ import s3 from '../utils/s3';
  * @param {String[]} [opts.files] Adobe Illustartor file names
  * WITHOUT the extension (e.g. `['illo-one', 'illo-two']`)
  */
-export default async function backupFiles(
-  projectSlug,
-  { files } = {},
-) {
+export default async function backupFiles(projectSlug, { files } = {}) {
   // Path to project folder
   const projectPath = await getWorkingProjectPath(projectSlug);
 
@@ -37,6 +36,13 @@ export default async function backupFiles(
 
     const { illustrations } = await store.getProject(projectSlug);
     const { name } = illustrations.find((d) => d.slug === file);
+    const publicUrl = await join(
+      AWS_STAGING_BASE_URL,
+      PUBLISH_EMBED_PATH,
+      projectSlug,
+      file,
+      FALLBACK_IMG_NAME,
+    );
 
     return s3.upload({
       bucket: AWS_ARTISAN_BUCKET,
@@ -45,16 +51,14 @@ export default async function backupFiles(
       storageClass: 'STANDARD',
       metadata: {
         name,
+        publicUrl,
       },
     });
   };
 
   // Upload project folder with metadata
   const uploadProjectFolderMeta = async () => {
-    const keyPath = await join(
-      ARCHIVE_PROJECTS_DIRECTORY,
-      projectSlug,
-    );
+    const keyPath = await join(ARCHIVE_PROJECTS_DIRECTORY, projectSlug);
     const { name } = await store.getProject(projectSlug);
 
     return s3.upload({
