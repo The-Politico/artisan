@@ -300,11 +300,484 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
 
     <div class="page-wrapper">
         <div class="page-header">
+        <header class="header  on-core  " id="js-top-header">
+    <div class="header__row header__main">
+        <div class="header__branding" role="banner">
+            <h1>
+                <a href="https://www.politico.com/" tabindex="3">
+                    <svg height="100%" width="261" viewBox="0 0 261 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-labelledby="title" class="is-emphasized">
+                        <title>POLITICO</title>
+                        <desc>Politico Logo</desc>
+                        <path id="politico-logo" d="M221.9,12.7c3.6-3.6,7.9-5.4,13.1-5.4c5.2,0,9.6,1.8,13.1,5.4c3.5,3.6,5.3,8,5.3,13.3c0,5.2-1.8,9.7-5.4,13.3c-3.6,3.6-8,5.4-13.2,5.4c-4.8,0-9.1-1.8-12.7-5.3c-3.7-3.5-5.5-8.1-5.5-13.6C216.6,20.7,218.3,16.3,221.9,12.7 M217.4,45.1c5.1,4.4,10.9,6.7,17.3,6.7c7.3,0,13.5-2.5,18.6-7.5c5.1-5,7.7-11.1,7.7-18.2c0-7.1-2.5-13.2-7.6-18.3c-5.1-5.1-11.1-7.6-18.2-7.6c-7.2,0-13.3,2.5-18.4,7.5c-5.1,5-7.7,11-7.7,18C209,33.8,211.8,40.2,217.4,45.1 M195,0.2c-8.2,0-14.9,3-20,9.1c-4.2,5-6.3,10.6-6.3,16.9c0,7.1,2.5,13.1,7.5,18.1c5,5,11.1,7.4,18.2,7.4c4.7,0,9.2-1.2,13.5-3.7v-9.1c-1.2,1-2.4,1.9-3.5,2.6c-1.1,0.7-2.2,1.3-3.2,1.7c-1.8,0.9-4.1,1.3-6.7,1.3c-5.1,0-9.4-1.8-13-5.4c-3.5-3.6-5.3-8-5.3-13.2c0-5.3,1.8-9.8,5.3-13.4c3.5-3.7,7.8-5.5,12.9-5.5c4.6,0,9.1,1.8,13.5,5.4V3.8C203.8,1.4,199.5,0.2,195,0.2 M157,50.9h7.5V1.2H157V50.9z M153.5,8.2V1.2h-30.4v7.1h11.4v42.7h7.5V8.2H153.5z M112.2,50.9h7.5V1.2h-7.5V50.9z M86.5,1.2v49.8h22.1v-7.1H94V1.2H86.5z M43.2,12.7c3.6-3.6,7.9-5.4,13.1-5.4c5.2,0,9.6,1.8,13.1,5.4c3.5,3.6,5.3,8,5.3,13.3c0,5.2-1.8,9.7-5.4,13.3c-3.6,3.6-8,5.4-13.2,5.4c-4.8,0-9.1-1.8-12.7-5.3c-3.7-3.5-5.5-8.1-5.5-13.6C37.9,20.7,39.7,16.3,43.2,12.7 M38.7,45.1c5.1,4.4,10.9,6.7,17.3,6.7c7.3,0,13.5-2.5,18.6-7.5c5.1-5,7.7-11.1,7.7-18.2c0-7.1-2.5-13.2-7.6-18.3c-5.1-5.1-11.1-7.6-18.2-7.6c-7.2,0-13.3,2.5-18.4,7.5c-5.1,5-7.7,11-7.7,18C30.3,33.8,33.1,40.2,38.7,45.1 M7.5,8.1H10c7.1,0,10.7,2.6,10.7,7.7c0,5.3-3.4,8-10.3,8H7.5V8.1z M11,30.7c5.2,0,9.3-1.3,12.3-4c3.1-2.7,4.6-6.3,4.6-10.8c0-4.3-1.4-7.8-4.3-10.6C22,3.7,20.1,2.6,17.9,2c-2.1-0.6-5.3-0.9-9.4-0.9H0v49.8h7.5V30.7H11z"></path>
+                    </svg>
+                </a>
+            </h1>
         </div>
-        <main id="main" tabindex="-1">
-            <div class="page-content page-content--story  story-type--core " data-modules="/fe-api/v2/modules?page=00000184-5a27-df5e-af8c-fb6707be0000" data-ad-slot-insertion-interval="0" data-ad-slot-first-insertion="1" data-viewport-ad-slot-id="" style="margin: 0 auto !important;">
+        <div class="header__content">
+            <div class="header__left">
+                
+                    <button aria-label="Master menu" aria-expanded="false" class="hamburger js-hamburger" tabindex="2">
+                        <span></span>
+                    </button>
+                
+            </div>
+            <div class="header__right">
+                <div class="actions-lineup">
+                    <ul class="actions-lineup__list">
+                          
+
+<li class="actions-lineup__item  hide-at-mobile">  
+</li>  
+<li class="actions-lineup__item  hide-at-mobile">  
+</li>  
+<li class="actions-lineup__item  hide-at-mobile">  
+</li>  
+<li class="actions-lineup__item ">
+    <div class="slide-search" role="presentation">
+        <a href="#" class="slide-search__open js-tealium-tracking " aria-label="Open search form" aria-pressed="false" target="_top" role="button" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" id="search-open"><b class="bt-icon bt-icon--search"></b><span class="icon-text">Search</span></a>
+        <div class="slide-search__content " id="search-input" aria-hidden="true">
+            <form class="slide-search__form" action="q" method="get">
+                <input class="slide-search__input" type="search" name="q" id="searchTerm" aria-label="Search for any story" placeholder="Enter search term...">
+                <button class="slide-search__run" type="submit" aria-label="Start search"><b class="bt-icon bt-icon--search"></b><span class="icon-text">Search</span></button>
+                <button class="slide-search__close" id="search-close" type="button"><b class="bt-icon bt-icon--close" aria-label="Close Search"></b></button>
+            </form>
+        </div>
+    </div>
+</li>  
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+<nav class="master-menu js-master-menu" role="navigation" aria-hidden="true">
+    <div class="master-menu__content ">  
+            <div class="row row--6-col">  
+                    <div class="col is-menu">
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">SECTIONS</h2>
+                                <ul class="master-menu__list">
+                                    <li class="master-menu__item">Congress</a></li>
+                                    <li class="master-menu__item">White House</a></li>
+                                    <li class="master-menu__item">Magazine</a></li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                </ul>
+                            </div>
+                    </div>  
+                    <div class="col is-menu">
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">Elections</h2>
+                                <ul class="master-menu__list">
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item">  </li>
+                                </ul>
+
+                            </div>
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">SERIES</h2>
+                                
+                                <ul class="master-menu__list">
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">The Exchange</h2>
+                                
+                                <ul class="master-menu__list">
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                    </div>  
+                
+                    
+
+                    <div class="col is-menu">
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">NEWSLETTERS</h2>
+                                
+                                <ul class="master-menu__list">
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                    </div>  
+                
+                    
+
+                    <div class="col is-menu">
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">POLITICO LIVE</h2>
+                                
+                                <ul class="master-menu__list">
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">COLUMNS &amp; CARTOONS</h2>
+                                
+                                <ul class="master-menu__list">
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                </ul>
+                                
+                            </div>
+                        
+                    </div>  
+                
+                    
+
+                    <div class="col is-menu">
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">POLICY</h2>
+                                
+                                <ul class="master-menu__list">
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                </ul>
+                            </div>
+                    </div>                
+                    
+
+                    <div class="col is-menu">
+                        
+                            <div class="col is-menu">
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">EDITIONS</h2>
+                                
+                                <ul class="master-menu__list">
+                                        <li class="master-menu__item">
+                                          </li>
+                                        <li class="master-menu__item">
+                                          </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+                                        
+                                    
+                                        
+                                        
+
+                                        <li class="master-menu__item">  </li>
+
+                                </ul>
+                            </div>
+                    </div>
+            </div>
+        <footer class="row menu-footer">
+                <div class="menu-footer__follow">
+                    <h2 class="section-heading">Follow us</h2>
+                    <ul class="menu-footer__list menu-footer__list--follow">
+
+                            <li class="menu-footer__item">  </li>
+                        
+                        
+                        
+                            
+                            <li class="menu-footer__item">  </li>
+                        
+                        
+                        
+                            
+                            <li class="menu-footer__item">  </li>
+                        
+                        
+                    </ul>
+                </div>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+            
+            
+            
+                
+
+                <div class="menu-footer__actions">
+                    <ul class="menu-footer__list menu-footer__list--actions">
+                      <li class="menu-footer__item">
+                        <a href="https://www.politico.com/settings" class=" js-tealium-tracking " target="_top" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="-1">
+                        My Account</a>
+                      </li>
+
+                      <li class="menu-footer__item">
+                        <a href="https://www.politico.com//_login?base=https%253A%252F%252Fwww.politico.com&amp;redirect=%2F_login&amp;logout=%2F_logout&amp;lRedirect=true&amp;sRedirect=%2Fsettings&amp;js=false" class="politico-auth auth-logged-out js-tealium-tracking " style="" target="_top" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="-1">
+                          Log In
+                        </a>
+                      </li>
+
+                      <li class="menu-footer__item">
+                        <a href="https://www.politico.com//_logout?base=https%253A%252F%252Fwww.politico.com&amp;redirect=%2F_logout&amp;js=false" class="politico-auth auth-logged-out js-tealium-tracking " style="" target="_top" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="-1">Log Out
+                        </a>
+                      </li>
+                    </ul>
+                </div>
+
+        </footer>
+    </div>
+  </nav>
+</header>
+<script src="https://static.politico.com/resource/0000017e-7fd1-d4e5-adfe-7ff9f1280001/styleguide/assets/js.min/core-header.min.1886efdfaa09be872aaee4fa203b7078.gz.js"></script>
+</div>
+<main id="main" tabindex="-1">
+    <div class="page-content page-content--story  story-type--core " data-modules="/fe-api/v2/modules?page=00000184-5a27-df5e-af8c-fb6707be0000" data-ad-slot-insertion-interval="0" data-ad-slot-first-insertion="1" data-viewport-ad-slot-id="" style="margin: 0 auto !important;">
 `}
 ${children}
+</div>
+</main>
 ${!showArticle ? '' : `
       <div class="page-footer">
         <footer class="footer">

@@ -1,12 +1,6 @@
 import lorem, { LOREM_HEADLINE, LOREM_DEK } from '../lorem';
 
 export default function Main({ children, showArticle, className }) {
-  if (!showArticle) {
-    return `<aside class="story-enhancement ${className}">
-             ${children}
-            </aside>`;
-  }
-
   const now = new Date();
 
   const { format } = new Intl.DateTimeFormat('en-US', {
@@ -19,9 +13,28 @@ export default function Main({ children, showArticle, className }) {
   });
 
   const nowFormatted = format(now);
+  const fullBleed = (className === 'browser-width-full')
+    ? 'is-full-width-bleed' : '';
+
+  console.log(fullBleed);
+  console.log(className);
+  console.log(className === 'browser-width-full');
+
+  if (!showArticle) {
+    return `\
+        <section class="page-content__row page-content__row--story main-section ${fullBleed}">
+        <div class="container container--story">
+            <div class="container__column container__column--story">
+            <aside class="story-enhancement ${className}">
+                ${children}
+            </aside>
+            </div>
+        </div>
+        </section>`;
+  }
 
   return `\
-  <section class="page-content__row page-content__row--story">
+  <section class="page-content__row page-content__row--story" style="margin: 0 auto;">
   <div class="container container--story story-layout--fluid-fixed">
       <div class="container__column container__column--story summary-middle">
            <div class="container__row container__row--story story-layout--fixed-fluid">
@@ -34,17 +47,16 @@ export default function Main({ children, showArticle, className }) {
               <div class="container__column container__column--story"></div>
               <div class="container__column container__column--story center-horizontally">
               
-            
-<div class="story-text">
-<section class="media-item media-item--story media-item--story-lead">
-<div class="media-item__summary size--medium">
+    <div class="story-text" style="margin: 0 auto !important;">
+        <section class="media-item media-item--story media-item--story-lead">
+            <div class="media-item__summary size--medium">
 
-    <h2 class="headline">
-        ${LOREM_HEADLINE}
-    </h2>
-  <p class="dek">${LOREM_DEK}</p>  
-</div>
-</section>
+                <h2 class="headline">
+                    ${LOREM_HEADLINE}
+                </h2>
+            <p class="dek">${LOREM_DEK}</p>  
+            </div>
+        </section>
                   
   <div class="story-meta">                              
     <div class="story-meta__authors-timestamp has-social-tools ">
@@ -121,22 +133,83 @@ export default function Main({ children, showArticle, className }) {
       </aside>
     </div>
   </div>
-<p class="story-text__paragraph   ">${lorem[0]}</p>
-<p class="story-text__paragraph   ">${lorem[1]}</p>
-
-<aside class="story-enhancement ${className}">
-  ${children}
-</aside>
-
-<p class="story-text__paragraph   ">${lorem[2]}</p>
-<p class="story-text__paragraph   ">${lorem[3]}</p>
 </div>
               </div>
           </div>
       </div>
 
-      <div class="container__column container__column--story hide-under-small">
-      </div>
+      
   </div>
-</section>`;
+</section>
+
+<!-- NEW TEST SECTION -->
+<section class="page-content__row page-content__row--story main-section">
+    <div class="container container--story story-layout--fixed-fluid">
+        <div class="container__column container__column--story center-horizontally hide-under-medium">
+        
+        </div>
+
+        <div class="container__column container__column--story">
+            <div class="container__row container__row--story story-layout--fluid-fixed">
+                <div class="container__column container__column--story center-horizontally">
+                    <div class="story-text">
+                    <p class="story-text__paragraph   ">${lorem[0]}</p>
+                    <p class="story-text__paragraph   ">${lorem[1]}</p>
+                    <p class="story-text__paragraph   ">${lorem[3]}</p>
+
+                    </div>
+                </div>
+ 
+            </div>
+        </div>
+        
+    </div>
+</section>
+
+<!-- ATTEMPT AT A BETTER ASIDE -->
+<section class="page-content__row page-content__row--story main-section ${fullBleed}">
+    <div class="container container--story">
+        <div class="container__column container__column--story">
+        <aside class="story-enhancement ${className}">
+            ${children}
+        </aside>
+        </div>
+    </div>
+</section>
+<section class="page-content__row page-content__row--story main-section">
+    <div class="container container--story story-layout--fixed-fluid">
+        <div class="container__column container__column--story center-horizontally hide-under-medium">
+        
+        </div>
+
+        <div class="container__column container__column--story">
+            <div class="container__row container__row--story story-layout--fluid-fixed">
+                <div class="container__column container__column--story center-horizontally">
+                    <div class="story-text">
+                    <p class="story-text__paragraph   ">${lorem[3]}</p>
+                    <p class="story-text__paragraph   ">${lorem[0]}</p>
+                    <p class="story-text__paragraph   ">${lorem[1]}</p>
+                    </div>
+                </div>
+ 
+            </div>
+        </div>
+        
+    </div>
+</section>
+<section class="page-content__row page-content__row--story below-article-section">
+    <div class="container container--story story-layout--fixed-fluid">
+        <div class="container__column container__column--story center-horizontally"></div>
+        <div class="container__column container__column--story">
+            <div class="container__row container__row--story story-layout--fluid-fixed">
+                <div class="container__column container__column--story center-horizontally">
+                    <div class="below-story-text" id="below-story-text">
+                    </div>
+                </div>
+                <div class="container__column container__column--story center-vertically"></div>
+            </div>
+        </div>
+    </div>
+</section>
+`;
 }
