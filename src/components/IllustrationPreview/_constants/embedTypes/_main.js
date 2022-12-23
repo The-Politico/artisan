@@ -34,7 +34,7 @@ export default function Main({ children, showArticle, className }) {
   }
 
   return `\
-  <section class="page-content__row page-content__row--story" style="margin: 0 auto;">
+  <section class="page-content__row page-content__row--story" >
   <div class="container container--story story-layout--fluid-fixed">
       <div class="container__column container__column--story summary-middle">
            <div class="container__row container__row--story story-layout--fixed-fluid">

@@ -30,8 +30,8 @@ export default async function launchPreview(projectSlug) {
       {
         url: 'src/preview/index.html',
         resizable: true,
-        width: 1100,
-        maxWidth: 1100,
+        width: 1280,
+        maxWidth: 1280,
         maxHeight: 900,
       },
     );

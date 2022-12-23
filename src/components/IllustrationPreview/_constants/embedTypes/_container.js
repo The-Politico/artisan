@@ -283,7 +283,9 @@ background-position:center center;background-repeat:no-repeat}
 .at-expanding-share-button.at-expanding-share-button-mobile .at-expanding-share-button-click-flash.at-expanding-share-button-click-flash-animate{transform:scale(1);opacity:0}.at-expanding-share-button.at-expanding-share-button-mobile+.at-expanding-share-button-mobile-overlay{transition:opacity ease;bottom:0;background-color:hsla(0,0%,87%,.7);display:block;height:auto;left:0;opacity:0;position:fixed;right:0;top:0;width:auto;z-index:9998}.at-expanding-share-button.at-expanding-share-button-mobile+.at-expanding-share-button-mobile-overlay.at-expanding-share-button-hidden{height:0;width:0;z-index:-10000}.at-expanding-share-button.at-expanding-share-button-mobile.at-expanding-share-button-animate-in+.at-expanding-share-button-mobile-overlay{transition:opacity ease;opacity:1}</style><style type="text/css">.at-tjin-element .at300b,.at-tjin-element .at300m{display:inline-block;width:auto;padding:0;margin:0 2px 5px;outline-offset:-1px;transition:all .2s ease-in-out}.at-tjin-element .at300b:focus,.at-tjin-element .at300b:hover,.at-tjin-element .at300m:focus,.at-tjin-element .at300m:hover{transform:translateY(-4px)}.at-tjin-element .addthis_tjin_label{display:none}.at-tjin-element .addthis_vertical_style .at300b,.at-tjin-element .addthis_vertical_style .at300m{display:block}.at-tjin-element .addthis_vertical_style .at300b .addthis_tjin_label,.at-tjin-element .addthis_vertical_style .at300b .at-icon-wrapper,.at-tjin-element .addthis_vertical_style .at300m .addthis_tjin_label,.at-tjin-element .addthis_vertical_style .at300m .at-icon-wrapper{display:inline-block;vertical-align:middle;margin-right:5px}.at-tjin-element .addthis_vertical_style .at300b:focus,.at-tjin-element .addthis_vertical_style .at300b:hover,.at-tjin-element .addthis_vertical_style .at300m:focus,.at-tjin-element .addthis_vertical_style .at300m:hover{transform:none}.at-tjin-element .at-tjin-btn{margin:0 5px 5px 0;padding:0;outline-offset:-1px;display:inline-block;box-sizing:content-box;transition:all .2s ease-in-out}.at-tjin-element .at-tjin-btn:focus,.at-tjin-element .at-tjin-btn:hover{transform:translateY(-4px)}
 .at-tjin-element .at-tjin-title{margin:0 0 15px}</style><style type="text/css">#addthissmartlayerscssready{color:#bada55!important}.addthis-smartlayers,div#at4-follow,div#at4-share,div#at4-thankyou,div#at4-whatsnext{padding:0;margin:0}#at4-follow-label,#at4-share-label,#at4-whatsnext-label,.at4-recommended-label.hidden{padding:0;border:none;background:none;position:absolute;top:0;left:0;height:0;width:0;overflow:hidden;text-indent:-9999em}.addthis-smartlayers .at4-arrow:hover{cursor:pointer}.addthis-smartlayers .at4-arrow:after,.addthis-smartlayers .at4-arrow:before{content:none}a.at4-logo{background:url(data:image/gif;base64,R0lGODlhBwAHAJEAAP9uQf///wAAAAAAACH5BAkKAAIALAAAAAAHAAcAAAILFH6Ge8EBH2MKiQIAOw==) no-repeat left center}.at4-minimal a.at4-logo{background:url(data:image/gif;base64,R0lGODlhBwAHAJEAAP9uQf///wAAAAAAACH5BAkKAAIALAAAAAAHAAcAAAILFH6Ge8EBH2MKiQIAOw==) no-repeat left center!important}button.at4-closebutton{position:absolute;top:0;right:0;padding:0;margin-right:10px;cursor:pointer;background:transparent;border:0;-webkit-appearance:none;font-size:19px;line-height:1;color:#000;text-shadow:0 1px 0 #fff;opacity:.2}button.at4-closebutton:hover{color:#000;text-decoration:none;cursor:pointer;opacity:.5}
 div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAAAoCAYAAABpYH0BAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAV1JREFUeNrsmesOgyAMhQfxwfrofTM3E10ME2i5Oeppwr9a5OMUCrh1XV+wcvNAAIAA+BiAzrmtUWln27dbjEcC3AdODfo0BdEPhmcO4nIDvDNELi2jggk4/k8dT7skfeKzWIEd4VUpMQKvNB7X+OZSmAZkATWC1xvipbpnLmOosbJZC08CkAeA4E6qFUEMwLAGnlSBPCE8lW8CYnZTcimH2HoT7kSFOx5HBmCnDhTIu1p5s98G+QZrxGPhZVMY1vgyAQaAAAiAAAgDQACcBOD+BvJtBWfRy7NpJK5tBe4FNzXokywV734wPHMQlxvgnSGyNoUP/2ACjv/7iSeYKO3YWKzAjvCqlBiBVxqPa3ynexNJwOsN8TJbzL6JNIYYXWpMv4lIIAZgWANPqkCeEJ7KNwExu8lpLlSpAVQarO77TyKdBsyRPuwV0h0gmoGnTWFYzVkYBoAA+I/2FmAAt6+b5XM9mFkAAAAASUVORK5CYII=);background-repeat:no-repeat;width:20px;height:20px;margin:0;padding:0;overflow:hidden;text-indent:-9999em;text-align:left;cursor:pointer}#at4-recommendedpanel-outer-container .at4-arrow.at-right,div.at4-arrow.at-right{background-position:-20px 0}#at4-recommendedpanel-outer-container .at4-arrow.at-left,div.at4-arrow.at-left{background-position:0 0}div.at4-arrow.at-down{background-position:-60px 0}div.at4-arrow.at-up{background-position:-40px 0}.ats-dark div.at4-arrow.at-right{background-position:-20px -20px}.ats-dark div.at4-arrow.at-left{background-position:0 -20px}.ats-dark div.at4-arrow.at-down{background-position:-60px -20px}.ats-dark div.at4-arrow.at-up{background-position:-40px -20}.at4-opacity-hidden{opacity:0!important}.at4-opacity-visible{opacity:1!important}.at4-visually-hidden{position:absolute;clip:rect(1px,1px,1px,1px);padding:0;border:0;overflow:hidden}.at4-hidden-off-screen,.at4-hidden-off-screen *{position:absolute!important;top:-9999px!important;left:-9999px!important}.at4-show{display:block!important;opacity:1!important}.at4-show-content{opacity:1!important;visibility:visible}.at4-hide{display:none!important;opacity:0!important}.at4-hide-content{opacity:0!important;visibility:hidden}
-.at4-visible{display:block!important;opacity:0!important}.at-wordpress-hide{display:none!important;opacity:0!important}.addthis-animated{animation-fill-mode:both;animation-timing-function:ease-out;animation-duration:.3s}.slideInDown.addthis-animated,.slideInLeft.addthis-animated,.slideInRight.addthis-animated,.slideInUp.addthis-animated,.slideOutDown.addthis-animated,.slideOutLeft.addthis-animated,.slideOutRight.addthis-animated,.slideOutUp.addthis-animated{animation-duration:.4s}@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.fadeIn{animation-name:fadeIn}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fadeInUp{animation-name:fadeInUp}@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
+.at4-visible{display:block!important;opacity:0!important}.at-wordpress-hide{display:none!important;opacity:0!important}
+.addthis-animated{animation-fill-mode:both;animation-timing-function:ease-out;animation-duration:.3s}.slideInDown.addthis-animated,.slideInLeft.addthis-animated,.slideInRight.addthis-animated,.slideInUp.addthis-animated,.slideOutDown.addthis-animated,.slideOutLeft.addthis-animated,.slideOutRight.addthis-animated,.slideOutUp.addthis-animated{animation-duration:.4s}
+@keyframes fadeIn{0%{opacity:0}to{opacity:1}}.fadeIn{animation-name:fadeIn}@keyframes fadeInUp{0%{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}.fadeInUp{animation-name:fadeInUp}@keyframes fadeInDown{0%{opacity:0;transform:translateY(-20px)}to{opacity:1;transform:translateY(0)}}
 .fadeInDown{animation-name:fadeInDown}@keyframes fadeInLeft{0%{opacity:0;transform:translateX(-20px)}to{opacity:1;transform:translateX(0)}}.fadeInLeft{animation-name:fadeInLeft}@keyframes fadeInRight{0%{opacity:0;transform:translateX(20px)}to{opacity:1;transform:translateX(0)}}.fadeInRight{animation-name:fadeInRight}@keyframes fadeOut{0%{opacity:1}to{opacity:0}}.fadeOut{animation-name:fadeOut}@keyframes fadeOutUp{0%{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(-20px)}}.fadeOutUp{animation-name:fadeOutUp}@keyframes fadeOutDown{0%{opacity:1;transform:translateY(0)}to{opacity:0;transform:translateY(20px)}}.fadeOutDown{animation-name:fadeOutDown}@keyframes fadeOutLeft{0%{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(-20px)}}.fadeOutLeft{animation-name:fadeOutLeft}@keyframes fadeOutRight{0%{opacity:1;transform:translateX(0)}to{opacity:0;transform:translateX(20px)}}
 .fadeOutRight{animation-name:fadeOutRight}@keyframes slideInUp{0%{transform:translateY(1500px)}0%,to{opacity:1}to{transform:translateY(0)}}.slideInUp{animation-name:slideInUp}.slideInUp.addthis-animated{animation-duration:.4s}@keyframes slideInDown{0%{transform:translateY(-850px)}0%,to{opacity:1}to{transform:translateY(0)}}.slideInDown{animation-name:slideInDown}@keyframes slideOutUp{0%{transform:translateY(0)}0%,to{opacity:1}to{transform:translateY(-250px)}}.slideOutUp{animation-name:slideOutUp}@keyframes slideOutUpFast{0%{transform:translateY(0)}0%,to{opacity:1}to{transform:translateY(-1250px)}}#at4m-menu.slideOutUp{animation-name:slideOutUpFast}@keyframes slideOutDown{0%{transform:translateY(0)}0%,to{opacity:1}to{transform:translateY(350px)}}.slideOutDown{animation-name:slideOutDown}@keyframes slideOutDownFast{0%{transform:translateY(0)}0%,to{opacity:1}to{transform:translateY(1250px)}}#at4m-menu.slideOutDown{animation-name:slideOutDownFast}@keyframes slideInLeft{0%{opacity:0;transform:translateX(-850px)}to{transform:translateX(0)}}.slideInLeft{animation-name:slideInLeft}@keyframes slideInRight{0%{opacity:0;transform:translateX(1250px)}to{transform:translateX(0)}}.slideInRight{animation-name:slideInRight}@keyframes slideOutLeft{0%{transform:translateX(0)}to{opacity:0;transform:translateX(-350px)}}.slideOutLeft{animation-name:slideOutLeft}@keyframes slideOutRight{0%{transform:translateX(0)}to{opacity:0;transform:translateX(350px)}}
 .slideOutRight{animation-name:slideOutRight}.at4win{margin:0 auto;background:#fff;border:1px solid #ebeced;width:25pc;box-shadow:0 0 10px rgba(0,0,0,.3);border-radius:8px;font-family:helvetica neue,helvetica,arial,sans-serif;text-align:left;z-index:9999}.at4win .at4win-header{position:relative;border-bottom:1px solid #f2f2f2;background:#fff;height:49px;-webkit-border-top-left-radius:8px;-webkit-border-top-right-radius:8px;-moz-border-radius-topleft:8px;-moz-border-radius-topright:8px;border-top-left-radius:8px;border-top-right-radius:8px;cursor:default}.at4win .at4win-header .at-h3,.at4win .at4win-header h3{height:49px;line-height:49px;margin:0 50px 0 0;padding:1px 0 0;margin-left:20px;font-family:helvetica neue,helvetica,arial,sans-serif;font-size:1pc;font-weight:700;text-shadow:0 1px #fff;color:#333}
@@ -324,7 +326,6 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
             <div class="header__right">
                 <div class="actions-lineup">
                     <ul class="actions-lineup__list">
-                          
 
 <li class="actions-lineup__item  hide-at-mobile">  
 </li>  
@@ -356,13 +357,13 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">SECTIONS</h2>
                                 <ul class="master-menu__list">
-                                    <li class="master-menu__item">Congress</a></li>
-                                    <li class="master-menu__item">White House</a></li>
-                                    <li class="master-menu__item">Magazine</a></li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
+                                    <li class="master-menu__item"><a href="https://www.politico.com/congress" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Congress</a></li>
+                                    <li class="master-menu__item"><a href="https://www.politico.com/white-house" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">White House</a></li>
+                                    <li class="master-menu__item"><a href="https://www.politico.com/magazine" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Magazine</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/agenda" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">The Agenda</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/video" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Video</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/podcasts" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Podcasts</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/minutes/congress/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Congress Minutes </a></li>
                                 </ul>
                             </div>
                     </div>  
@@ -370,345 +371,101 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">Elections</h2>
                                 <ul class="master-menu__list">
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
-                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/2022-election/race-forecasts-ratings-and-predictions/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">2022 Election Forecast</a>  </li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/2022-election/results/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">2022 Election Results</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/2022-election/results/senate/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">2022 Senate Election Results</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/2022-election/results/house/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">2022 House Election Results</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/2022-election/results/governor/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">2022 Governor Election Results</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/news/2022-elections" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">2022 News</a></li>
                                 </ul>
-
                             </div>
                         
                             <div class="col is-menu">
-                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">SERIES</h2>
-                                
+                                <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">SERIES</h2> 
                                 <ul class="master-menu__list">
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
+                                        <li class="master-menu__item"><a href="https://www.politico.com/series/states/the-fifty" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">The Fifty</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/joe-biden-first-100-days-presidency" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">The First 100 Days</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/series/states/the-fifty#recovery-lab" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Recovery Lab</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/vaccinerace" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">The Vaccine Race</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/womenrule" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Women Rule</a></li>
                                 </ul>
-                                
                             </div>
-                        
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">The Exchange</h2>
-                                
                                 <ul class="master-menu__list">
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
+                                        <li class="master-menu__item"><a href="https://www.politico.com/womenrule/the-exchange" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Women Rule</a></li>
                                 </ul>
-                                
                             </div>
-                        
                     </div>  
-                
-                    
-
                     <div class="col is-menu">
-                        
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">NEWSLETTERS</h2>
-                                
                                 <ul class="master-menu__list">
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
+                                        <li class="master-menu__item"><a href="https://www.politico.com/playbook" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Playbook</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newsletters/playbook-pm" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Playbook PM</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newsletters/politico-nightly" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">POLITICO Nightly</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newsletters/west-wing-playbook" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">West Wing Playbook</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newsletters/the-recast" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">The Recast</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/huddle/" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Huddle</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newsletters" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">All Newsletters</a></li>
                                 </ul>
                                 
                             </div>
                         
                     </div>  
-                
-                    
-
                     <div class="col is-menu">
-                        
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">POLITICO LIVE</h2>
-                                
                                 <ul class="master-menu__list">
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                </ul>
-                                
+                                        <li class="master-menu__item"><a href="https://www.politico.com/live-events" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Live Home</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/live-events/upcoming" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Upcoming Events</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/live-events/previous" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Previous Events</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/live-events/about" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">About POLITICO Live</a></li>
+                                </ul>   
                             </div>
-                        
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">COLUMNS &amp; CARTOONS</h2>
-                                
                                 <ul class="master-menu__list">
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
+                                        <li class="master-menu__item"><a href="https://www.politico.com/news/rich-lowry" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Rich Lowry</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/news/fourth-estate" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Jack Shafer</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/news/matt-wuerker" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Matt Wuerker</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/cartoon-carousel" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Cartoon Carousel</a></li>
                                 </ul>
-                                
                             </div>
-                        
                     </div>  
-                
-                    
-
                     <div class="col is-menu">
-                        
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">POLICY</h2>
-                                
                                 <ul class="master-menu__list">
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/agriculture" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Agriculture</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/cannabis" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Cannabis</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/cybersecurity" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Cybersecurity</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/defense" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Defense</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/education" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Education</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/ehealth" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">eHealth</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/employment-immigration" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Employment &amp; Immigration</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/energy-and-environment" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Energy &amp; Environment</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/finance" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Finance &amp; Tax</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/health-care" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Health Care</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/space" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Space</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/news/sustainability" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Sustainability</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/technology" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Technology</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/trade" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Trade</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/transportation" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Transportation</a></li>
                                 </ul>
                             </div>
                     </div>                
-                    
-
                     <div class="col is-menu">
-                        
                             <div class="col is-menu">
                                 <h2 class="menu-toggle js-menu-toggle section-heading" tabindex="-1">EDITIONS</h2>
-                                
                                 <ul class="master-menu__list">
-                                        <li class="master-menu__item">
-                                          </li>
-                                        <li class="master-menu__item">
-                                          </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
-                                        
-                                    
-                                        
-                                        
-
-                                        <li class="master-menu__item">  </li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/california" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">California</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/tag/pro-canada" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Canada</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.eu/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Europe</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/florida" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Florida</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newjersey" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">New Jersey</a></li>
+                                        <li class="master-menu__item"><a href="https://www.politico.com/newyork" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">New York</a></li>
+                                        <li class="master-menu__item"><a href="https://subscriber.politicopro.com/" class=" js-tealium-tracking " data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Pro</a></li>
 
                                 </ul>
                             </div>
@@ -718,34 +475,11 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
                 <div class="menu-footer__follow">
                     <h2 class="section-heading">Follow us</h2>
                     <ul class="menu-footer__list menu-footer__list--follow">
-
-                            <li class="menu-footer__item">  </li>
-                        
-                        
-                        
-                            
-                            <li class="menu-footer__item">  </li>
-                        
-                        
-                        
-                            
-                            <li class="menu-footer__item">  </li>
-                        
-                        
+                            <li class="menu-footer__item"><a href="https://twitter.com/politico" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Twitter</a></li>
+                            <li class="menu-footer__item"><a href="https://www.instagram.com/politico/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Instagram</a></li>
+                            <li class="menu-footer__item"><a href="https://www.facebook.com/politico/" class=" js-tealium-tracking " target="_blank" data-tracking="mpos=&amp;mid=&amp;lindex=&amp;lcol=" tabindex="0">Facebook</a></li>
                     </ul>
                 </div>
-                  
-                  
-                  
-                  
-                  
-                  
-                  
-            
-            
-            
-                
-
                 <div class="menu-footer__actions">
                     <ul class="menu-footer__list menu-footer__list--actions">
                       <li class="menu-footer__item">
@@ -776,6 +510,7 @@ div.at4-arrow{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgA
     <div class="page-content page-content--story  story-type--core " data-modules="/fe-api/v2/modules?page=00000184-5a27-df5e-af8c-fb6707be0000" data-ad-slot-insertion-interval="0" data-ad-slot-first-insertion="1" data-viewport-ad-slot-id="" style="margin: 0 auto !important;">
 `}
 ${children}
+
 </div>
 </main>
 ${!showArticle ? '' : `

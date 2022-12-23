@@ -140,7 +140,7 @@ export const MOBILE_PORTRAIT = {
       transform: 'translate(-50%, 0)',
     },
     inner: {
-      left: '52%',
+      left: '50%',
       minWidth: '375px',
       top: '82px',
       height: '695px',
