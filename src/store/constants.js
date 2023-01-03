@@ -12,3 +12,4 @@ export const AUTHOR_NAME = 'author-name';
 export const AUTHOR_EMAIL = 'author-email';
 export const WORKING_DIRECTORY = 'working-directory';
 export const PREFERRED_PORT = 'preferred-port';
+export const FIRST_RUN = 'first-run';

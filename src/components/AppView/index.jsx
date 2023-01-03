@@ -5,8 +5,10 @@ import ProjectList from '../ProjectList';
 import { PROJECTS } from '../../store/init';
 import ArtisanProject from '../ArtisanProject';
 import Sidebar from '../Sidebar';
+import initialize from '../../actions/initialize';
 
 export default function AppView() {
+  const [didInit, setDidInit] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedList, setSelectedList] = useState([]);
 
@@ -44,6 +46,12 @@ export default function AppView() {
     }
     return () => {};
   }, [selectedProject, isArchive]);
+
+  useEffect(() => {
+    if (!didInit) {
+      initialize();
+    }
+  }, []);
 
   return (
     <div className={styles.emptyGrid}>

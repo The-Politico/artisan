@@ -4,6 +4,7 @@ import {
   AUTHOR_EMAIL,
   WORKING_DIRECTORY,
   PREFERRED_PORT,
+  FIRST_RUN,
 } from '../constants';
 
 /**
@@ -17,6 +18,7 @@ import {
  * @returns
  */
 export default async function updateSettings({
+  firstRun,
   authorName,
   authorEmail,
   workingDir,
@@ -36,6 +38,10 @@ export default async function updateSettings({
 
   if (preferredPort) {
     await STORE.set(PREFERRED_PORT, preferredPort);
+  }
+
+  if (firstRun) {
+    await STORE.set(FIRST_RUN, firstRun);
   }
 
   await STORE.save();

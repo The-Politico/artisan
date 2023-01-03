@@ -7,7 +7,7 @@ import './main.css';
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
-    <AppView />
-    {/* <ActionTestingView /> */}
+    {/* <AppView /> */}
+    <ActionTestingView />
   </React.StrictMode>,
 );

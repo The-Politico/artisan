@@ -8,14 +8,9 @@ export default async function initialize() {
   const defaultWorkingDir = await resolve(homeDir, 'Artisan');
 
   await store.stores.STORE.reset();
-  await store.stores.PROJECTS.reset();
+  await store.stores.PROJECTS.clear();
 
-  await store.updateSettings({
-    authorName: 'Polly Politico',
-    authorEmail: 'ppolitico@politico.com',
-    workingDir: defaultWorkingDir,
-    preferredPort: '8765',
-  });
+  await store.stores.STORE.save();
 
   await removeDir(defaultWorkingDir, { recursive: true });
   await createDir(defaultWorkingDir);

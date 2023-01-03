@@ -11,8 +11,10 @@ export default async function getSettings() {
   const authorEmail = await STORE.get(AUTHOR_EMAIL);
   const workingDir = await STORE.get(WORKING_DIRECTORY);
   const preferredPort = await STORE.get(PREFERRED_PORT);
+  const firstRun = await STORE.get('first-run');
 
   return {
+    firstRun,
     authorName,
     authorEmail,
     workingDir,
