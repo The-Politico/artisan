@@ -29,18 +29,6 @@
   align-items: center;
 }
 
-.container {
-  display: flex;
-  flex-direction: column;
-  grid-column: span 3;
-  width: 95%;
-  height: 100%;
-}
-
-.illo-container {
-  margin-bottom: 2.5%;
-}
-
 .sidebar {
   max-width: 100%;
   align-self: flex-start;
