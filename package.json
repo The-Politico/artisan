@@ -37,6 +37,7 @@
     "slugify": "^1.6.5",
     "stream": "^0.0.2",
     "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#dev",
+    "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#dev",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

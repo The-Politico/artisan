@@ -15,3 +15,5 @@ export const STORE = new Store(BASE_STORE_NAME);
  * @type {Store}
  */
 export const PROJECTS = new Store(PROJECTS_STORE_NAME);
+
+export const ENTITIES = new Store('.artisan-entities');

@@ -6,6 +6,9 @@ import SyncStore from './atoms/syncStore';
 // import AppView from './components/AppView';
 import StoreTestingView from './components/StoreTestingView';
 import './main.css';
+import startFsSync from './fsSync';
+
+startFsSync();
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>

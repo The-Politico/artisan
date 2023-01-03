@@ -2,9 +2,13 @@
 import { ARCHIVE_PROJECTS_DIRECTORY } from '../../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import s3 from '../s3';
-import { fetchIlloMeta } from './fetchIlloMeta';
+import fetchProjectMeta from './fetchProjectMeta';
 
-export default async function fetchProjectsArchive() {
+export default async function fetchProjectsArchive(
+  {
+    skipIllustrations = false,
+  } = {},
+) {
   const params = {
     bucket: AWS_ARTISAN_BUCKET,
     delimiter: '/',
@@ -18,24 +22,11 @@ export default async function fetchProjectsArchive() {
     return path.replace(`${ARCHIVE_PROJECTS_DIRECTORY}/`, '').replace('/', '');
   });
 
-  return Promise.all(
-    projectSlugs.map(async (slug) => {
-      const { Metadata } = await s3.head({
-        bucket: AWS_ARTISAN_BUCKET,
-        key: `${ARCHIVE_PROJECTS_DIRECTORY}/${slug}/`,
-      });
-
-      const illosList = await s3.list({
-        bucket: AWS_ARTISAN_BUCKET,
-        prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${slug}/`,
-      });
-      const illustrations = await fetchIlloMeta(illosList);
-
-      return {
-        slug,
-        illustrations,
-        ...Metadata,
-      };
-    }),
+  const projectsData = await Promise.all(
+    projectSlugs.map(async (slug) => fetchProjectMeta(
+      slug, { skipIllustrations },
+    )),
   );
+
+  return projectsData.filter((p) => 'id' in p);
 }
