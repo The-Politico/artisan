@@ -47,25 +47,23 @@ export default function AppView() {
   }, [selectedProject, isArchive]);
 
   return (
-    <>
-      <div className={styles.grid}>
-        <Sidebar>
-          <ProjectList
-            setIsArchive={setIsArchive}
-            selectedProject={selectedProject}
-            setSelectedProject={setSelectedProject}
-            isArchive={isArchive}
-            selectedList={selectedList}
-            setSelectedList={setSelectedList}
-          />
-        </Sidebar>
-        <ArtisanProject
-          isArchive={isArchive}
+    <div className={styles.grid}>
+      <Sidebar>
+        <ProjectList
+          setIsArchive={setIsArchive}
           selectedProject={selectedProject}
-          illos={illos}
+          setSelectedProject={setSelectedProject}
+          isArchive={isArchive}
+          selectedList={selectedList}
+          setSelectedList={setSelectedList}
         />
-      </div>
+      </Sidebar>
+      <ArtisanProject
+        isArchive={isArchive}
+        selectedProject={selectedProject}
+        illos={illos}
+      />
       <WelcomeScreen />
-    </>
+    </div>
   );
 }
