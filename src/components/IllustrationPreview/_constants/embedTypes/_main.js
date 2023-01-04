@@ -22,6 +22,7 @@ export default function Main({ children, showArticle, className }) {
   console.log(fullBleed);
   console.log(className);
   console.log(className === 'browser-width-full');
+  console.log('january');
 
   if (!showArticle) {
     return `\
