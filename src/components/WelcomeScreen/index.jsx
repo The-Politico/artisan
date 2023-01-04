@@ -73,7 +73,7 @@ export default function WelcomeScreen() {
           >
             <SettingsForm
               setIsOpen={setIsOpen}
-              isWelcome
+              isFirstRun
             />
           </div>
         </Dialog.Panel>

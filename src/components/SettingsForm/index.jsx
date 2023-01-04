@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import cls from 'classnames';
+import { createDir, exists } from '@tauri-apps/api/fs';
 import styles from './styles.module.css';
 import { margin, padding, typography as type } from '../../theme';
 import store from '../../store';
@@ -8,7 +9,7 @@ import Advanced from './Advanced';
 import Button from '../Button';
 import WorkingDir from './WorkingDir';
 
-export default function SettingsForm({ setIsOpen, isWelcome = false }) {
+export default function SettingsForm({ setIsOpen, isFirstRun = false }) {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [projectsDir, setProjectsDir] = useState('');
@@ -23,7 +24,11 @@ export default function SettingsForm({ setIsOpen, isWelcome = false }) {
       workingDir: projectsDir,
     });
 
-    if (isWelcome) {
+    if (isFirstRun) {
+      const dirExists = await exists(projectsDir);
+      if (!dirExists) {
+        await createDir(projectsDir);
+      }
       setIsOpen(false);
     }
   };
@@ -57,7 +62,7 @@ export default function SettingsForm({ setIsOpen, isWelcome = false }) {
         className={styles.settingsInput}
       />
       <div className={styles.divider} />
-      {!isWelcome ? (
+      {!isFirstRun ? (
         <Advanced
           projectsDir={projectsDir}
           port={port}
@@ -71,13 +76,13 @@ export default function SettingsForm({ setIsOpen, isWelcome = false }) {
       )}
       <Button
         className={cls(margin.mt4, {
-          [type.textXl]: isWelcome,
-          [padding.px8]: isWelcome,
+          [type.textXl]: isFirstRun,
+          [padding.px8]: isFirstRun,
         })}
         variant="solid"
         onClick={handleClick}
       >
-        {isWelcome ? 'Start' : 'Save'}
+        {isFirstRun ? 'Start' : 'Save'}
       </Button>
     </>
   );
