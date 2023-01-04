@@ -138,3 +138,21 @@
   margin-top: calc(0.25rem * var(--my));
   margin-bottom: calc(0.25rem * var(--my));
 }
+
+.my-7 {
+  --my: 7;
+  margin-top: calc(0.25rem * var(--my));
+  margin-bottom: calc(0.25rem * var(--my));
+}
+
+.my-8 {
+  --my: 8;
+  margin-top: calc(0.25rem * var(--my));
+  margin-bottom: calc(0.25rem * var(--my));
+}
+
+.my-10 {
+  --my: 10;
+  margin-top: calc(0.25rem * var(--my));
+  margin-bottom: calc(0.25rem * var(--my));
+}
