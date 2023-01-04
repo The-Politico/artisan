@@ -40,7 +40,7 @@ export default async function updateSettings({
     await STORE.set(PREFERRED_PORT, preferredPort);
   }
 
-  if (firstRun) {
+  if (typeof firstRun === 'boolean') {
     await STORE.set(FIRST_RUN, firstRun);
   }
 

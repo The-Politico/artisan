@@ -5,10 +5,9 @@ import ProjectList from '../ProjectList';
 import { PROJECTS } from '../../store/init';
 import ArtisanProject from '../ArtisanProject';
 import Sidebar from '../Sidebar';
-import initialize from '../../actions/initialize';
+import WelcomeScreen from '../WelcomeScreen';
 
 export default function AppView() {
-  const [didInit, setDidInit] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [selectedList, setSelectedList] = useState([]);
 
@@ -47,29 +46,26 @@ export default function AppView() {
     return () => {};
   }, [selectedProject, isArchive]);
 
-  useEffect(() => {
-    if (!didInit) {
-      initialize();
-    }
-  }, []);
-
   return (
-    <div className={styles.emptyGrid}>
-      <Sidebar>
-        <ProjectList
-          setIsArchive={setIsArchive}
-          selectedProject={selectedProject}
-          setSelectedProject={setSelectedProject}
+    <>
+      <div className={styles.emptyGrid}>
+        <Sidebar>
+          <ProjectList
+            setIsArchive={setIsArchive}
+            selectedProject={selectedProject}
+            setSelectedProject={setSelectedProject}
+            isArchive={isArchive}
+            selectedList={selectedList}
+            setSelectedList={setSelectedList}
+          />
+        </Sidebar>
+        <ArtisanProject
           isArchive={isArchive}
-          selectedList={selectedList}
-          setSelectedList={setSelectedList}
+          selectedProject={selectedProject}
+          illos={illos}
         />
-      </Sidebar>
-      <ArtisanProject
-        isArchive={isArchive}
-        selectedProject={selectedProject}
-        illos={illos}
-      />
-    </div>
+      </div>
+      <WelcomeScreen />
+    </>
   );
 }
