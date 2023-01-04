@@ -133,6 +133,12 @@
   margin-bottom: calc(0.25rem * var(--my));
 }
 
+.my-5 {
+  --my: 5;
+  margin-top: calc(0.25rem * var(--my));
+  margin-bottom: calc(0.25rem * var(--my));
+}
+
 .my-6 {
   --my: 6;
   margin-top: calc(0.25rem * var(--my));
