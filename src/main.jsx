@@ -13,6 +13,9 @@ if (import.meta.env.DEV) {
     if (firstRun === null) {
       await store.updateSettings({ firstRun: true });
     }
+    window.enableFirstRun = async () => {
+      await store.updateSettings({ firstRun: true });
+    };
   })();
 }
 

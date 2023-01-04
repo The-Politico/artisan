@@ -39,7 +39,7 @@ export default function WelcomeScreen() {
   return (
     <Dialog
       open={isOpen}
-      onClose={() => setIsOpen(false)}
+      onClose={() => null}
       className={styles.dialog}
     >
       <div className={styles.backdrop} />
