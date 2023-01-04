@@ -29,6 +29,26 @@
   padding: calc(.25rem * var(--p));
 }
 
+.p-6 {
+  --p: 6;
+  padding: calc(.25rem * var(--p));
+}
+
+.p-7 {
+  --p: 7;
+  padding: calc(.25rem * var(--p));
+}
+
+.p-8 {
+  --p: 8;
+  padding: calc(.25rem * var(--p));
+}
+
+.p-10 {
+  --p: 10;
+  padding: calc(.25rem * var(--p));
+}
+
 
 /* TOP */
 .pt-1 {
