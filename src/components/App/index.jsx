@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
 import store from '../../store';
 import ProjectList from '../ProjectList';
-import { PROJECTS } from '../../store/init';
 import ArtisanProject from '../ArtisanProject';
 import Sidebar from '../Sidebar';
 import WelcomeScreen from '../WelcomeScreen';
@@ -35,6 +34,7 @@ export default function AppView() {
    */
   useEffect(() => {
     if (!isArchive && selectedProject) {
+      const { PROJECTS } = store.stores;
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
         const { illustrations } = e;
         setIllos(illustrations);
@@ -48,7 +48,7 @@ export default function AppView() {
 
   return (
     <>
-      <div className={styles.emptyGrid}>
+      <div className={styles.grid}>
         <Sidebar>
           <ProjectList
             setIsArchive={setIsArchive}

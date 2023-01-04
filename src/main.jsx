@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 
-import AppView from './components/AppView';
+import App from './components/App';
 // import ActionTestingView from './components/ActionTestingView';
 import './main.css';
 import store from './store';
@@ -18,7 +18,7 @@ if (import.meta.env.DEV) {
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
-    <AppView />
+    <App />
     {/* <ActionTestingView /> */}
   </React.StrictMode>,
 );
