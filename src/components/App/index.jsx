@@ -4,11 +4,10 @@ import store from '../../store';
 import ProjectList from '../ProjectList';
 import ArtisanProject from '../ArtisanProject';
 import Sidebar from '../Sidebar';
-import WelcomeScreen from '../WelcomeScreen';
+import WelcomeModal from '../WelcomeModal';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [selectedList, setSelectedList] = useState([]);
 
   const [illos, setIllos] = useState([]);
 
@@ -54,8 +53,6 @@ export default function AppView() {
           selectedProject={selectedProject}
           setSelectedProject={setSelectedProject}
           isArchive={isArchive}
-          selectedList={selectedList}
-          setSelectedList={setSelectedList}
         />
       </Sidebar>
       <ArtisanProject
@@ -63,7 +60,7 @@ export default function AppView() {
         selectedProject={selectedProject}
         illos={illos}
       />
-      <WelcomeScreen />
+      <WelcomeModal />
     </div>
   );
 }
