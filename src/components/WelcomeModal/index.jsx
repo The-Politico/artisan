@@ -15,7 +15,7 @@ import {
 import SettingsForm from '../SettingsForm';
 import store from '../../store';
 
-export default function WelcomeScreen() {
+export default function WelcomeModal() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
