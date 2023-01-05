@@ -1,0 +1,57 @@
+.dialog {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backdrop {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.container {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.panel {
+  min-width: 40rem;
+  min-height: 30rem;
+}
+
+.title {
+  color: var(--politico-blue);
+}
+
+.form {
+  background-color: #E2E8F0;
+  min-width: 25rem;
+}
+
+.form > button {
+  align-self: center;
+}
+
+.form input {
+  min-width: 20rem;
+}
+
+@supports (background-clip: text) and (-webkit-text-fill-color: transparent) {
+  .title {
+    background: linear-gradient(90.71deg, #007bc7 0%, #02588d 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}

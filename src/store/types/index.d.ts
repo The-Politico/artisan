@@ -4,22 +4,23 @@ interface SettingsStore {
   'working-directory': String;
   'preferred-port': String;
   projects: Array<ProjectDetails>;
+  'first-run': Boolean;
 }
 
 interface IllustrationDetails {
-  name: String,
-  slug: String,
-  publicURL: String,
+  name: String;
+  slug: String;
+  publicURL: String;
 }
 
 /**
  * Expected return values when running `getProject()`
  */
 export interface ProjectDetails {
-  illustrations: Array<IllustrationDetails>,
-  isPublished: Boolean,
-  isUploaded: Boolean,
-  lastUploaded: String,
-  name: String,
-  slug: String,
+  illustrations: Array<IllustrationDetails>;
+  isPublished: Boolean;
+  isUploaded: Boolean;
+  lastUploaded: String;
+  name: String;
+  slug: String;
 }

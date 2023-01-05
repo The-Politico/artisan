@@ -5,21 +5,13 @@ import {
   borders,
   colors,
   margin,
+  padding,
   typography as type,
 } from '../../theme';
 import Input from '../Input';
 import styles from './styles.module.css';
 
-export default function Advanced({
-  isInitial,
-  projectsDir,
-  port,
-  setPort,
-}) {
-  if (isInitial) {
-    return null;
-  }
-
+export default function Advanced({ projectsDir, port, setPort }) {
   return (
     <Disclosure
       as="div"
@@ -52,7 +44,16 @@ export default function Advanced({
             <p className={cls(type.textSm, colors.textSlate700, margin.mb2)}>
               Projects Folder
             </p>
-            <p className={cls(styles.dir, borders.roundedMd)}>{projectsDir}</p>
+            <p
+              className={cls(
+                styles.dir,
+                padding.py1,
+                padding.px2,
+                borders.roundedLg,
+              )}
+            >
+              {projectsDir}
+            </p>
           </Disclosure.Panel>
         </>
       )}

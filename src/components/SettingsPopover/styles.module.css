@@ -1,67 +1,6 @@
-.panel-container {
-  position: relative;
-  margin-top: auto;
-}
-
 .panel {
   background-color: white;
   position: absolute;
   bottom: 2rem;
   z-index: 3;
-}
-
-.divider {
-  width: 90%;
-  height: 1px;
-  border-bottom: 1px solid var(--slate-300);
-}
-
-/**
-  These are some overwrites to clean up the input styles that were just a
-  little too opinionated to fit nicely in the popover.
-**/
-.settings-input {
- margin-bottom: 1rem;
- margin-left: 0;
- margin-right: 0;
-}
-
-.settings-input > br {
-  display: none;
-}
-
-.advanced {
-  margin-top: .5rem;
-  width: 100%;
-  align-self: flex-start;
-}
-
-.button-dropdown {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-radius: 6px;
-  padding: .1rem .25rem;
-}
-
-.button-dropdown:hover {
-  background-color: var(--slate-200);
-}
-
-.icon {
-  width: 1.5rem;
-  height: 1.5rem;
-}
-
-.icon-reverse {
-  transform: rotate(180deg);
-}
-
-.dir {
-  padding: .25rem .5rem;
-  font-size: 12px;
-  color: white;
-  font-family: monospace;
-  border: 1px solid var(--slate-300);
-  background-color: var(--slate-600);
 }
