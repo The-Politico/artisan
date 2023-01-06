@@ -99,7 +99,9 @@ function PreviewWindow() {
         </div>
         <script src="https://www.politico.com/interactives/cdn/js/frames.js"></script>
         <script>
-        window.newswireFrames.autoInitFrames();
+        setTimeout(() => {
+          window.newswireFrames.autoInitFrames();
+        }, 1000);
   
 
         </script>

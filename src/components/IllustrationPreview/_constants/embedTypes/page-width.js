@@ -1,5 +1,6 @@
 import Main from './_main';
 import Container from './_container';
+import AsidePageWidth from './_asidePageWidth';
 
 export const NAME = 'page-width';
 
@@ -8,9 +9,9 @@ export default function PageWidth({ children, showArticle }) {
     showArticle,
     children:
       Main({
-        children,
+        children: AsidePageWidth({ children, className: NAME }),
         showArticle,
-        className: 'page-width',
+        className: NAME,
       }),
   });
 }

@@ -1,5 +1,6 @@
 import Container from './_container';
 import Main from './_main';
+import AsideBumpOut from './_asideBumpOut';
 
 export const NAME = 'bump-out';
 
@@ -8,9 +9,9 @@ export default function BumpOut({ children, showArticle }) {
     showArticle,
     children:
       Main({
-        children,
+        children: AsideBumpOut({ children, className: NAME }),
         showArticle,
-        className: 'bump-out',
+        className: NAME,
       }),
   });
 }

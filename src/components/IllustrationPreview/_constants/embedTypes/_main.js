@@ -45,24 +45,26 @@ export default function Main({ children, showArticle, className }) {
               <div class="container__column container__column--story"></div>
               <div class="container__column container__column--story">
 
+            <!-- HEADLINE AND DEK SECTION -->
+
+              <section class="media-item media-item--story media-item--story-lead">
+                    <div class="media-item__summary size--medium">
+        
+                        <h2 class="headline">
+                            ${LOREM_HEADLINE}
+                        </h2>
+                    <p class="dek">${LOREM_DEK}</p>  
+                    </div>
+              </section>
               </div>
           </div>
+
           <div class="container__row container__row--story story-layout--fixed-fluid">
               <div class="container__column container__column--story"></div>
               <div class="container__column container__column--story center-horizontally">
               
-    <div class="story-text" style="margin: 0 auto !important;">
-        <section class="media-item media-item--story media-item--story-lead">
-            <div class="media-item__summary size--medium">
-
-                <h2 class="headline">
-                    ${LOREM_HEADLINE}
-                </h2>
-            <p class="dek">${LOREM_DEK}</p>  
-            </div>
-        </section>
-                  
-  <div class="story-meta">                              
+    <div class="story-text">            
+    <div class="story-meta">                              
     <div class="story-meta__authors-timestamp has-social-tools ">
       <div class="story-meta__details">
           <p class="story-meta__authors">Author Name</p>
@@ -137,13 +139,19 @@ export default function Main({ children, showArticle, className }) {
       </aside>
     </div>
   </div>
-</div>
-              </div>
-          </div>
-      </div>
 
-      
+
+</div>
+</div>
+</div>
+</div>
+
+
+  <div class="container__column container__column--story hide-under-small">
+    <div id="pol-02-wrap" class="content-group ad" aria-label="Advertisement">
+    <div id="pol-02" class="ad-slot placeholder placeholder--250 " aria-hidden="true" data-ad-refresh="30" style="display: none;">
   </div>
+ </div>
 </section>
 
 <!-- NEW TEST SECTION -->
@@ -163,24 +171,19 @@ export default function Main({ children, showArticle, className }) {
 
                     </div>
                 </div>
+                <div class="container__column container__column--story center-vertically right-zone hide-under-small" aria-hidden="true"></div>
  
             </div>
         </div>
-        
     </div>
 </section>
 
-<!-- ATTEMPT AT A BETTER ASIDE -->
-<section class="page-content__row page-content__row--story main-section ${fullBleed}">
-    <div class="container container--story">
-        <div class="container__column container__column--story">
-        <aside class="story-enhancement ${className}">
-            ${children}
-        </aside>
-        </div>
-    </div>
-</section>
+<!-- IFRAME / ASIDE HERE -->
 
+                                ${children}
+
+
+<!-- BACK TO ARTICLE / PARAGRAPHS -->
 <section class="page-content__row page-content__row--story main-section">
     <div class="container container--story story-layout--fixed-fluid">
         <div class="container__column container__column--story center-horizontally hide-under-medium">
@@ -196,10 +199,11 @@ export default function Main({ children, showArticle, className }) {
                     <p class="story-text__paragraph   ">${lorem[1]}</p>
                     </div>
                 </div>
+
+                <div class="container__column container__column--story center-vertically right-zone hide-under-small" aria-hidden="true"></div>
  
             </div>
         </div>
-        
     </div>
 </section>
 <section class="page-content__row page-content__row--story below-article-section">
