@@ -24,7 +24,7 @@ export default function ProjectList({
     (async () => {
       if (selectedIndex === 0) {
         const projects = await store.getProjectsList();
-        setProjectsList([]);
+        setProjectsList(projects || []);
         setSelectedProject(projects[0] || null);
       } else {
         const archive = await getProjectsArchive();
