@@ -8,7 +8,6 @@ import getWorkingProjectPath from '../utils/paths/getWorkingProjectPath';
 import store from '../store';
 
 import {
-  METADATA_FILE_NAME,
   ARCHIVE_PROJECTS_DIRECTORY,
 } from '../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../constants/aws';
@@ -40,7 +39,9 @@ export default async function downloadProject(projectSlug) {
     key: `${keyPath}/`,
   });
 
-  await store.addProject(Metadata.name, { isUploaded: true });
+  await store.addProject(
+    Metadata.name, { isUploaded: true, method: 'download' },
+  );
 
   // Start of downloading illustrator files
   const projectPath = await getWorkingProjectPath(projectSlug);

@@ -9,6 +9,8 @@ import getSettings from './operations/getSettings';
 import getWorkingDir from './operations/getWorkingDir';
 import removeIllustration from './operations/removeIllustration';
 import removeProject from './operations/removeProject';
+import renameProject from './operations/renameProject';
+import renameIllustration from './operations/renameIllustration';
 import updateIllustration from './operations/updateIllustration';
 import updatePreview from './operations/updatePreview';
 import updateProject from './operations/updateProject';
@@ -24,6 +26,8 @@ export default {
   getWorkingDir,
   removeIllustration,
   removeProject,
+  renameProject,
+  renameIllustration,
   updateIllustration,
   updatePreview,
   updateProject,

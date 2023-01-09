@@ -1,0 +1,6 @@
+.panel {
+  background-color: white;
+  position: absolute;
+  bottom: 2rem;
+  z-index: 3;
+}

@@ -1,0 +1,58 @@
+.illo-container {
+  height: 180px;
+  width: 230px;
+  background-color: var(--slate-200);
+  color: var(--slate-800);
+}
+
+.is-archive {
+  pointer-events: none;
+  color: var(--slate-400);
+}
+
+.name-bar {
+  position: relative;
+  margin-top: auto;
+}
+
+.name-bar > :not(button):last-child {
+  position: absolute;
+  right: .25rem;
+  max-height: 2rem;
+}
+
+.img-container {
+  position: relative;
+  flex-basis: 100%;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+}
+
+.img-container:hover {
+  cursor: pointer;
+}
+
+.img {
+  object-fit: cover;
+  max-height: calc(180px - 36px);
+}
+
+.hover-state {
+  position: absolute;
+  background-color: rgba(0, 123, 199, .1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+}
+
+.arrow-icn {
+  height: 3rem;
+}
+
+.folder-icn {
+  height: 6rem;
+}

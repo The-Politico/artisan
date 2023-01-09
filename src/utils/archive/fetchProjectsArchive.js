@@ -1,23 +1,36 @@
 /* eslint-disable import/prefer-default-export */
 import { ARCHIVE_PROJECTS_DIRECTORY } from '../../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import store from '../../store';
 import s3 from '../s3';
+import { fetchIlloMeta } from './fetchIlloMeta';
 
 export default async function fetchProjectsArchive() {
-  const projectsPrefixes = s3.list({
+  const params = {
     bucket: AWS_ARTISAN_BUCKET,
-    prefix: ARCHIVE_PROJECTS_DIRECTORY,
-  });
+    delimiter: '/',
+    prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/`,
+  };
 
-  const projectsList = projectsPrefixes.CommonPrefixes.map((d) => {
+  const projectsPrefixes = await s3.list(params);
+
+  const projectSlugs = projectsPrefixes?.CommonPrefixes.map((d) => {
     const path = d.Prefix;
-    return path.replace(ARCHIVE_PROJECTS_DIRECTORY, '').replace('/', '');
+    return path.replace(`${ARCHIVE_PROJECTS_DIRECTORY}/`, '').replace('/', '');
   });
 
-  // compare to projects in store
-  const localProjects = (await store.getProjectsList()) || [];
+  const projectsWithIllos = await Promise.all(
+    projectSlugs.map(async (d) => {
+      const illosList = await s3.list({
+        bucket: AWS_ARTISAN_BUCKET,
+        prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${d}/`,
+      });
+      const illos = await fetchIlloMeta(illosList);
+      return {
+        slug: d,
+        illos,
+      };
+    }),
+  );
 
-  // Return projects not locally in the settigns store
-  return projectsList.filter((p) => !localProjects.includes(p));
+  return projectsWithIllos;
 }

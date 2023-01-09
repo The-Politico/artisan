@@ -12,7 +12,8 @@ export default async function deleteIllustration(
   const illustrationDirPath = await join(projectFolder, illustrationSlug);
 
   const confirmed = await confirm(
-    'This will delete the Adobe Illustrator from your computer. Are you sure?',
+    'This will delete the Adobe Illustrator file from your computer.'
+     + ' Are you sure?',
     { title: 'Delete illustration', type: 'warning' },
   );
 

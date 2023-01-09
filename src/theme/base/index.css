@@ -182,8 +182,8 @@ select {
 3. Comment out because it relies too much on new layer() browser feature
 */
 
+/* [type='button'], */
 button,
-[type='button'],
 [type='reset'],
 [type='submit'] {
   -webkit-appearance: button; /* 1 */

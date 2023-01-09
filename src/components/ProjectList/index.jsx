@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import cls from 'classnames';
 import TabToggle from '../TabToggle';
-import { colors, flex, layout, margin, typography as type } from '../../theme';
+import {
+  colors, flex, layout, margin, typography as type,
+} from '../../theme';
 import store from '../../store';
 import getProjectsArchive from '../../actions/getProjectsArchive';
 import ProjectListItem from '../ProjectListItem';
@@ -22,8 +24,8 @@ export default function ProjectList({
     (async () => {
       if (selectedIndex === 0) {
         const projects = await store.getProjectsList();
-        setProjectsList(projects);
-        setSelectedProject(projects[0]);
+        setProjectsList([]);
+        setSelectedProject(projects[0] || null);
       } else {
         const archive = await getProjectsArchive();
         setArchivesList(archive);
@@ -49,7 +51,6 @@ export default function ProjectList({
     } = store;
     if (!isArchive) {
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-        console.log('Selected project change in list', e);
         if (e === null) {
           setSelectedProject(projectsList[0]);
         }
@@ -101,13 +102,13 @@ export default function ProjectList({
         />
       </div>
       <ul>
-        {selectedList.map((item, idx) => (
+        {selectedList.length > 0 && selectedList.map((item, idx) => (
           <ProjectListItem
             key={item.slug || item}
             projectSlug={typeof item === 'string' ? item : undefined}
             archiveProject={typeof item === 'object' ? item : undefined}
             index={idx}
-            last={idx === selectedList.at(-1)}
+            last={idx === selectedList[selectedList.length - 1]}
             isArchive={isArchive}
             selectedProject={selectedProject}
             setSelectedProject={setSelectedProject}
