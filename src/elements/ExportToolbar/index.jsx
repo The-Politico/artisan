@@ -1,17 +1,22 @@
 import cls from 'classnames';
 import Dropdown from '../Dropdown';
+import ShareButton from '../ShareButton';
 import styles from './styles.module.css';
 
 export default function ExportToolbar({
-  illos,
+  illosList,
   selectedIllo,
   setSelectedIllo,
 }) {
   return (
-    <Dropdown
-      illosList={illos}
-      selectedIllo={selectedIllo}
-      setSelectedIllo={setSelectedIllo}
-    />
+    <div className={styles.toolbar}>
+      <Dropdown
+        illosList={illosList}
+        selectedIllo={selectedIllo}
+        setSelectedIllo={setSelectedIllo}
+      />
+      <ShareButton />
+    </div>
+
   );
 }

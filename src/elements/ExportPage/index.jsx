@@ -2,23 +2,21 @@ import { useState } from 'react';
 import ExportToolbar from '../ExportToolbar';
 
 export default function ExportPage({ config }) {
-  const options = config.illos;
-  const [selectedOption, setOption] = useState(options[0]);
-
-  console.log(selectedOption);
+  const illosList = config.illos;
+  const [selectedIllo, setSelectedIllo] = useState(illosList[0]);
 
   console.log(config);
   return (
     <div>
       <ExportToolbar
-        options={options}
-        selectedOption={selectedOption}
-        setOption={setOption}
+        illosList={illosList}
+        selectedIllo={selectedIllo}
+        setSelectedIllo={setSelectedIllo}
       />
       <div>
         Currently showing:
         {' '}
-        {selectedOption.title}
+        {selectedIllo.title}
       </div>
     </div>
   );

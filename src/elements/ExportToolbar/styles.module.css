@@ -1,0 +1,11 @@
+.toolbar {
+  width: 100vw;
+  padding: .5rem 1rem 1rem;
+  background: linear-gradient(90deg, #3571c0 0%, #ac0825 100%);
+  /* background: var(--politico-blue); */
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
