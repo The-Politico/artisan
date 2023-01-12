@@ -1,22 +1,25 @@
 import { useState } from 'react';
+import styles from './styles.module.css';
 import ExportToolbar from '../ExportToolbar';
+import ArtboardPreview from '../ArtboadPreview';
 
 export default function ExportPage({ config }) {
   const illosList = config.illos;
   const [selectedIllo, setSelectedIllo] = useState(illosList[0]);
 
-  console.log(config);
   return (
     <div>
       <ExportToolbar
         illosList={illosList}
         selectedIllo={selectedIllo}
         setSelectedIllo={setSelectedIllo}
+        projectName={config.projectName}
       />
-      <div>
-        Currently showing:
-        {' '}
-        {selectedIllo.title}
+      <div className={styles.container}>
+        <ArtboardPreview
+          {...config}
+          selectedIllo={selectedIllo}
+        />
       </div>
     </div>
   );

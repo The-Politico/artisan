@@ -1,0 +1,45 @@
+.preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.h3 {
+  color: var(--politico-black);
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.img-wrapper {
+  background-color: #fff;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  padding: .5rem;
+  border-radius: 6px;
+  margin-bottom: 1.5rem;
+}
+
+.size-select {
+  color: var(--politico-black);
+  display: flex;
+  align-items: center;
+  column-gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.size-select > span {
+  text-align: center;
+  min-width: 4rem;
+}
+
+.icon {
+  --size: 2.25rem;
+  width: var(--size);
+  height: var(--size);
+  transition: all 150ms linear;
+}
+
+.icon:hover {
+  cursor: pointer;
+  filter: brightness(0.6);
+}
