@@ -5,6 +5,7 @@
 }
 
 .h3 {
+  color: var(--politico-black);
   font-size: 1.25rem;
   line-height: 2.2rem;
 }
