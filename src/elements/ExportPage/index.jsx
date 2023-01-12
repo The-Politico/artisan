@@ -2,6 +2,7 @@ import { useState } from 'react';
 import styles from './styles.module.css';
 import ExportToolbar from '../ExportToolbar';
 import ArtboardPreview from '../ArtboadPreview';
+import EmbedCode from '../EmbedCode';
 
 export default function ExportPage({ config }) {
   const illosList = config.illos;
@@ -20,6 +21,7 @@ export default function ExportPage({ config }) {
           {...config}
           selectedIllo={selectedIllo}
         />
+        <EmbedCode />
       </div>
     </div>
   );

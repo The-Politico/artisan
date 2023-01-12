@@ -1,0 +1,27 @@
+.embeds-container {
+  width: 60%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.h3 {
+  font-size: 1.25rem;
+  line-height: 2.2rem;
+}
+
+.divider {
+  width: 70%;
+  align-self: center;
+  height: 1px;
+  background-color: var(--slate-300);
+  margin-bottom: 1.5rem;
+}
+
+.code-block {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+  background: var(--politico-light-gray-type);
+  border: 2px solid var(--politico-dark-gray-type);
+  margin-bottom: 2rem;
+}

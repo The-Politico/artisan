@@ -13,15 +13,16 @@ export default function ArtboardPreview({
 }) {
   const [size, setSize] = useState(1);
   const sizes = ['mobile', 'medium', 'large'];
+  const len = sizes.length - 1;
 
   const imgSrc = `${embedUrl}${projectSlug}/${selectedIllo.slug}/fallback_${sizes[size]}.png`;
 
   const back = () => {
-    setSize((i) => (i === 0 ? sizes.length - 1 : i - 1));
+    setSize((i) => (i === 0 ? len : i - 1));
   };
 
   const forward = () => {
-    setSize((i) => (i === sizes.length - 1 ? 0 : i + 1));
+    setSize((i) => (i === len ? 0 : i + 1));
   };
 
   return (
