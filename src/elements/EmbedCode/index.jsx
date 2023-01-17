@@ -14,11 +14,13 @@ export default function EmbedCode({ embedUrl, selectedIllo, projectSlug }) {
       <h3 className={styles.h3}>Google AMP</h3>
       <div className={styles.codeBlock}>
         {`<script async src="" /><div data-frame-src="${embedRoot}"></div>`}
+        <CopyToClipboard />
       </div>
       <div className={styles.divider} />
       <h3 className={styles.h3}>Apple News</h3>
       <div className={styles.codeBlock}>
         {`<script async src="" /><div data-frame-src="${embedRoot}"></div>`}
+        <CopyToClipboard />
       </div>
     </div>
   );
