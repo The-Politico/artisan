@@ -21,7 +21,11 @@ export default function ExportPage({ config }) {
           {...config}
           selectedIllo={selectedIllo}
         />
-        <EmbedCode />
+        <EmbedCode
+          selectedIllo={selectedIllo}
+          projectSlug={config.projectSlug}
+          embedUrl={config.embedUrl}
+        />
       </div>
     </div>
   );
