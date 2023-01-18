@@ -47,7 +47,7 @@
 }
 
 .icon.green {
-  color: var(--emerald-600);
+  color: var(--emerald-600) !important;
 }
 
 .icon:hover {

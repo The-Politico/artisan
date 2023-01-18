@@ -2,7 +2,7 @@ import CopyToClipboard from './CopyToClipboard';
 import styles from './styles.module.css';
 
 export default function EmbedCode({ embedUrl, selectedIllo, projectSlug }) {
-  const embedRoot = `${embedUrl}/${projectSlug}/${selectedIllo.slug}/index.html`;
+  const embedRoot = `https://wwww.politico.com${embedUrl}/${projectSlug}/${selectedIllo.slug}/index.html`;
   return (
     <div className={styles.embedsContainer}>
       <h3 className={styles.h3}>CMS Embed Code</h3>

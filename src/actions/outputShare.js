@@ -19,7 +19,7 @@ export default async function outputShare(projectSlug) {
   const config = {
     projectSlug,
     projectName,
-    embedUrl: `${AWS_STAGING_BASE_URL}${PUBLISH_EMBED_PATH}`,
+    embedUrl: `/${PUBLISH_EMBED_PATH}`,
     illos: illustrations.map(({ name, slug }) => ({
       name,
       slug,
@@ -38,6 +38,7 @@ export default async function outputShare(projectSlug) {
       http-equiv="X-UA-Compatible"
       content="ie=edge"
     />
+    <link rel="stylesheet" data-href="https://use.typekit.net/dsx2uhv.css" /><script>try{Typekit.load({ async: true });}catch(e){}</script>
       <title>${projectName} | Artisan Share Page</title>
       <link rel="stylesheet" href="https://staging.interactives.politico.com.s3.amazonaws.com/${SHARE_PAGE_STYLES}"></link>
       </head>
