@@ -8,7 +8,9 @@ import store from '../store';
 export default async function outputShare(projectSlug) {
   const shareKey = getSharePath(projectSlug);
 
-  const { name: projectName, illustrations } = store.getProject(projectSlug);
+  const { name: projectName, illustrations } = await store.getProject(
+    projectSlug,
+  );
 
   const config = {
     projectSlug,
@@ -32,12 +34,12 @@ export default async function outputShare(projectSlug) {
       http-equiv="X-UA-Compatible"
       content="ie=edge"
     />
-      <title>${projectName} Share Page</title>
-      <link rel="stylesheet" href="https://www.politico.com/${SHARE_PAGE_STYLES}"></link>
+      <title>${projectName} | Artisan Share Page</title>
+      <link rel="stylesheet" href="https://staging.interactives.politico.com.s3.amazonaws.com/${SHARE_PAGE_STYLES}"></link>
       </head>
       <body>
         <div id="root"></div>
-        <script src="https://www.politico.com/${SHARE_PAGE_SCRIPTS}"></script>
+        <script src="https://staging.interactives.politico.com.s3.amazonaws.com/${SHARE_PAGE_SCRIPTS}"></script>
         <script>
           initSharePage(${JSON.stringify(config)});
         </script>
