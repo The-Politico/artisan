@@ -15,7 +15,7 @@ export default async function outputShare(projectSlug) {
   const config = {
     projectSlug,
     projectName,
-    embedUrl: `${AWS_STAGING_BASE_URL}interactives/artisan-embeds`,
+    embedUrl: 'https://staging.interactives.politico.com.s3.amazonaws.com/interactives/artisan-embeds',
     illos: illustrations.map(({ name, slug }) => ({
       name,
       slug,
