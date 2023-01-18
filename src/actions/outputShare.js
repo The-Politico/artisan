@@ -1,5 +1,9 @@
 import { AWS_STAGING_BASE_URL, AWS_STAGING_BUCKET } from '../constants/aws';
-import { SHARE_PAGE_SCRIPTS, SHARE_PAGE_STYLES } from '../constants/paths';
+import {
+  PUBLISH_EMBED_PATH,
+  SHARE_PAGE_SCRIPTS,
+  SHARE_PAGE_STYLES,
+} from '../constants/paths';
 
 import s3 from '../utils/s3';
 import getSharePath from '../utils/paths/getSharePath';
@@ -15,7 +19,7 @@ export default async function outputShare(projectSlug) {
   const config = {
     projectSlug,
     projectName,
-    embedUrl: 'https://staging.interactives.politico.com.s3.amazonaws.com/interactives/artisan-embeds',
+    embedUrl: `${AWS_STAGING_BASE_URL}${PUBLISH_EMBED_PATH}`,
     illos: illustrations.map(({ name, slug }) => ({
       name,
       slug,
