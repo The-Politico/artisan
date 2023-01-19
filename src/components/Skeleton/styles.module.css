@@ -18,10 +18,6 @@
   border-radius: 100%;
 }
 
-.illo {
-  background-color: var(--slate-200);
-}
-
 @keyframes shine {
   0% {
     transform: translateX(-100%);

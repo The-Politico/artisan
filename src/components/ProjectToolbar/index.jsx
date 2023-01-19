@@ -3,15 +3,30 @@ import { useEffect, useState } from 'react';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
 import {
-  flex, layout, margin, colors, typography as type,
+  flex,
+  layout,
+  margin,
+  colors,
+  typography as type,
+  gap,
+  borders,
 } from '../../theme';
 import ButtonsGroup from './ButtonsGroup';
 import store from '../../store';
+import Skeleton from '../Skeleton';
 
 export default function ProjectToolbar({ selectedProject, isArchive }) {
+  const [isLoading, setIsLoading] = useState(true);
   const [projectDetail, setProjectDetail] = useState({});
   const [status, setStatus] = useState(undefined);
   const [timestamp, setTimestamp] = useState(undefined);
+
+  useEffect(() => {
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+  }, [selectedProject]);
 
   // Gets project details when selected project changes
   useEffect(() => {
@@ -62,6 +77,40 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
       setTimestamp(undefined);
     };
   }, [projectDetail]);
+
+  if (isLoading) {
+    return (
+      <div
+        className={cls(
+          flex.flex,
+          flex.flexRow,
+          layout.itemsCenter,
+          margin.my2,
+        )}
+      >
+        <Skeleton
+          variant="circle"
+          width="26px"
+          height="26px"
+        />
+        <div
+          className={cls(flex.flex, flex.flexCol, gap.y3, margin.ml2)}
+          style={{ width: '60%' }}
+        >
+          <Skeleton
+            className={borders.roundedMd}
+            width="100%"
+            height="28px"
+          />
+          <Skeleton
+            className={borders.roundedMd}
+            width="100%"
+            height="12px"
+          />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div

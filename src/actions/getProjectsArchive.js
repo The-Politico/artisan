@@ -16,7 +16,7 @@ export default async function getProjectsArchive() {
 
   // Return projects not locally in the settigns store
   const archivedProjects = projectsList.filter(
-    ({ slug }) => !localProjects.includes({ slug }),
+    ({ slug }) => !localProjects.includes(slug),
   );
 
   return Promise.all(
