@@ -1,4 +1,4 @@
-import { AWS_STAGING_BASE_URL, AWS_STAGING_BUCKET } from '../constants/aws';
+import { AWS_STAGING_BUCKET } from '../constants/aws';
 import {
   PUBLISH_EMBED_PATH,
   SHARE_PAGE_SCRIPTS,
@@ -38,13 +38,13 @@ export default async function outputShare(projectSlug) {
       http-equiv="X-UA-Compatible"
       content="ie=edge"
     />
-    <link rel="stylesheet" data-href="https://use.typekit.net/dsx2uhv.css" /><script>try{Typekit.load({ async: true });}catch(e){}</script>
+    <link rel="stylesheet" href="https://use.typekit.net/dsx2uhv.css" />
       <title>${projectName} | Artisan Share Page</title>
-      <link rel="stylesheet" href="https://staging.interactives.politico.com.s3.amazonaws.com/${SHARE_PAGE_STYLES}"></link>
+      <link rel="stylesheet" href="/${SHARE_PAGE_STYLES}"></link>
       </head>
       <body>
         <div id="root"></div>
-        <script src="https://staging.interactives.politico.com.s3.amazonaws.com/${SHARE_PAGE_SCRIPTS}"></script>
+        <script src="/${SHARE_PAGE_SCRIPTS}"></script>
         <script>
           initSharePage(${JSON.stringify(config)});
         </script>
