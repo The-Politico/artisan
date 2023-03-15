@@ -1,26 +1,22 @@
 import { atomFamily } from 'recoil';
 import { syncEffect } from 'recoil-sync';
-import {
-  string, object, jsonDate, nullable, literal,
-} from '@recoiljs/refine';
+import { TYPE_ENTITY_STORE_ITEM } from '../../constants/types';
 
-export default atomFamily({
+/**
+ * Represents the data for a project entity
+ * @type {atomFamily}
+ */
+const projectsAtomFamily = atomFamily({
   key: 'projects',
-  default: [],
+  default: {},
   effects: (id) => ([
     syncEffect({
       itemKey: `projects__${id}`,
       storeKey: 'store',
-      refine: object({
-        id: string(),
-        version: string(),
-        type: literal('project'),
-        name: string(),
-        slug: string(),
-        lastUpdated: nullable(jsonDate()),
-        lastUploaded: nullable(jsonDate()),
-        lastPublished: nullable(jsonDate()),
-      }),
+      refine: TYPE_ENTITY_STORE_ITEM,
     }),
   ]),
 });
+
+projectsAtomFamily.key = 'projects';
+export default projectsAtomFamily;

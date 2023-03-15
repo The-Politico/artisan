@@ -47,6 +47,7 @@
         "createDir": true,
         "removeDir": true,
         "removeFile": true,
+        "readFile": true,
         "scope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*"]
       }
     },

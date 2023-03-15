@@ -1,6 +1,13 @@
-import { useRecoilState } from 'recoil';
-import atomFamily from './atom';
+import atom from './atom';
 
-export function useIllustration(id) {
-  return useRecoilState(atomFamily(id));
-}
+import onReadEntities from './sync/read';
+import onWriteEntities from './sync/write';
+
+export default {
+  atom,
+
+  sync: {
+    onRead: onReadEntities,
+    onWrite: onWriteEntities,
+  },
+};

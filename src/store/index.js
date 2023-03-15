@@ -1,39 +1,22 @@
-import { STORE, PROJECTS } from './init';
+import get from './get';
+import reset from './reset';
+import set from './set';
+import refreshEntities from './refreshEntities';
+import { MAP } from './constants';
 
-import addIllustration from './operations/addIllustration';
-import addProject from './operations/addProject';
-import getPreview from './operations/getPreview';
-import getProject from './operations/getProject';
-import getProjectsList from './operations/getProjectsList';
-import getSettings from './operations/getSettings';
-import getWorkingDir from './operations/getWorkingDir';
-import removeIllustration from './operations/removeIllustration';
-import removeProject from './operations/removeProject';
-import renameProject from './operations/renameProject';
-import renameIllustration from './operations/renameIllustration';
-import updateIllustration from './operations/updateIllustration';
-import updatePreview from './operations/updatePreview';
-import updateProject from './operations/updateProject';
-import updateSettings from './operations/updateSettings';
+const makeBasicOperations = (storeName) => ({
+  get: (...args) => get(storeName, ...args),
+  reset: (...args) => reset(storeName, ...args),
+  set: (...args) => set(storeName, ...args),
+  onChange: MAP[storeName].onChange,
+  onKeyChange: MAP[storeName].onKeyChange,
+});
 
 export default {
-  addIllustration,
-  addProject,
-  getPreview,
-  getProject,
-  getProjectsList,
-  getSettings,
-  getWorkingDir,
-  removeIllustration,
-  removeProject,
-  renameProject,
-  renameIllustration,
-  updateIllustration,
-  updatePreview,
-  updateProject,
-  updateSettings,
-  stores: {
-    STORE,
-    PROJECTS,
+  settings: makeBasicOperations('settings'),
+  preview: makeBasicOperations('preview'),
+  entities: {
+    refresh: refreshEntities,
+    ...makeBasicOperations('entities'),
   },
 };

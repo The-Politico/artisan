@@ -28,6 +28,7 @@
     "date-fns": "^2.29.3",
     "isomorphic-unfetch": "^3.1.0",
     "lodash": "^4.17.21",
+    "lz-string": "^1.5.0",
     "mime": "^3.0.0",
     "modern-normalize": "^1.1.0",
     "react": "^18.2.0",
@@ -36,8 +37,9 @@
     "recoil-sync": "^0.2.0",
     "slugify": "^1.6.5",
     "stream": "^0.0.2",
-    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#dev",
     "tauri-plugin-fs-watch-api": "github:tauri-apps/tauri-plugin-fs-watch#dev",
+    "tauri-plugin-store-api": "github:tauri-apps/tauri-plugin-store#dev",
+    "url-join": "^5.0.0",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

@@ -8,8 +8,15 @@ import { fetchIlloMeta } from './fetchIlloMeta';
 import s3 from '../s3';
 
 /**
- * @param {String} files Array of file names
- * @return {String} Project display name
+ * Fetches metadata for a project with the given slug from S3.
+ *
+ * @param {string} projectSlug - The slug of the project to fetch metadata for.
+ * @param {Object} options - The options for fetching project metadata.
+ * @param {boolean} options.skipIllustrations - A flag indicating whether
+ *  to skip fetching illustration metadata.
+ *
+ * @returns {Promise<Object>} - A Promise that resolves with the metadata
+ *  of the project.
  */
 export default async function fetchProjectMeta(
   projectSlug,
@@ -34,7 +41,7 @@ export default async function fetchProjectMeta(
   return {
     slug: projectSlug,
     illustrations,
-    lastUploaded: LastModified.toISOString(),
+    lastUpdated: LastModified.toISOString(),
     ...Metadata,
   };
 }

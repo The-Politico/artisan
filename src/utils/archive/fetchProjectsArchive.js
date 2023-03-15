@@ -4,6 +4,16 @@ import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import s3 from '../s3';
 import fetchProjectMeta from './fetchProjectMeta';
 
+/**
+ * Fetches project metadata for all projects in the archive.
+ *
+ * @param {Object} options - The options for fetching project archive metadata.
+ * @param {boolean} options.skipIllustrations - A flag indicating whether to
+ *  skip fetching illustration metadata.
+ *
+ * @returns {Promise<Array<Object>>} - A Promise that resolves with the
+ *  metadata of all projects in the archive.
+ */
 export default async function fetchProjectsArchive(
   {
     skipIllustrations = false,

@@ -1,7 +1,11 @@
 import { atom } from 'recoil';
 import { syncEffect } from 'recoil-sync';
-import { string, array } from '@recoiljs/refine';
+import { TYPE_ENTITY_ID_COLLECTION } from '../../constants/types';
 
+/**
+ * Represents the list of entities in existence
+ * @type {atom}
+ */
 export default atom({
   key: 'entities',
   default: [],
@@ -9,7 +13,7 @@ export default atom({
     syncEffect({
       itemKey: 'entities',
       storeKey: 'store',
-      refine: array(string()),
+      refine: TYPE_ENTITY_ID_COLLECTION,
     }),
   ],
 });
