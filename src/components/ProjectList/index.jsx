@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import cls from 'classnames';
 import TabToggle from '../TabToggle';
-import { colors, flex, layout, margin, typography as type } from '../../theme';
+import {
+  colors, flex, layout, margin, typography as type,
+} from '../../theme';
 import store from '../../store';
 import getProjectsArchive from '../../actions/getProjectsArchive';
 import ProjectListItem from '../ProjectListItem';
@@ -11,20 +13,19 @@ export default function ProjectList({
   setSelectedProject,
   isArchive = false,
   setIsArchive,
-  selectedList,
-  setSelectedList,
 }) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [projectsList, setProjectsList] = useState([]);
   const [archiveList, setArchivesList] = useState([]);
+  const [selectedList, setSelectedList] = useState([]);
 
   // Determs whehter to show local projects or archive projcts
   useEffect(() => {
     (async () => {
       if (selectedIndex === 0) {
         const projects = await store.getProjectsList();
-        setProjectsList(projects || []);
-        setSelectedProject(projects?.[0] || null);
+        setProjectsList([]);
+        setSelectedProject(projects[0] || null);
       } else {
         const archive = await getProjectsArchive();
         setArchivesList(archive);

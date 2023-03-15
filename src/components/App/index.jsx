@@ -1,20 +1,13 @@
-import cls from 'classnames';
 import { useState, useEffect } from 'react';
 import styles from './styles.module.css';
-import { flex, borders, colors, effects } from '../../theme';
 import store from '../../store';
-import ProjectToolbar from '../ProjectToolbar';
-import CreateProject from '../CreateProjectButton';
 import ProjectList from '../ProjectList';
-import Logo from '../Logo';
-import SettingsButton from '../SettingsButton';
-import EmptyProject from '../EmptyProject';
-import { PROJECTS } from '../../store/init';
-import Illustrationlist from '../IllustrationList';
+import ArtisanProject from '../ArtisanProject';
+import Sidebar from '../Sidebar';
+import WelcomeModal from '../WelcomeModal';
 
 export default function AppView() {
   const [selectedProject, setSelectedProject] = useState(null);
-  const [selectedList, setSelectedList] = useState([]);
 
   const [illos, setIllos] = useState([]);
 
@@ -40,6 +33,7 @@ export default function AppView() {
    */
   useEffect(() => {
     if (!isArchive && selectedProject) {
+      const { PROJECTS } = store.stores;
       const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
         const { illustrations } = e;
         setIllos(illustrations);
@@ -52,46 +46,21 @@ export default function AppView() {
   }, [selectedProject, isArchive]);
 
   return (
-    <div className={styles.emptyGrid}>
-      <div className={cls(styles.sidebar, flex.flex, flex.flexCol)}>
-        <Logo />
-        <CreateProject />
+    <div className={styles.grid}>
+      <Sidebar>
         <ProjectList
           setIsArchive={setIsArchive}
           selectedProject={selectedProject}
           setSelectedProject={setSelectedProject}
           isArchive={isArchive}
-          selectedList={selectedList}
-          setSelectedList={setSelectedList}
         />
-        <SettingsButton />
-      </div>
-      {selectedProject ? (
-        <div className={styles.container}>
-          <ProjectToolbar
-            isArchive={isArchive}
-            selectedProject={selectedProject}
-          />
-          <div
-            className={cls(
-              styles.illoContainer,
-              flex.flex,
-              flex.flexAuto,
-              colors.bgWhite,
-              borders.roundedLg,
-              effects.shadowMd,
-            )}
-          >
-            <Illustrationlist
-              illos={illos}
-              selectedProject={selectedProject}
-              isArchive={isArchive}
-            />
-          </div>
-        </div>
-      ) : (
-        <EmptyProject />
-      )}
+      </Sidebar>
+      <ArtisanProject
+        isArchive={isArchive}
+        selectedProject={selectedProject}
+        illos={illos}
+      />
+      <WelcomeModal />
     </div>
   );
 }
