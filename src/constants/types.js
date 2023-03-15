@@ -38,6 +38,7 @@ export const TYPE_SETTINGS_STORE_KEYS = {
   'author-name': string(),
   'working-directory': string(),
   'preferred-port': string(),
+  'first-run': bool(),
 };
 
 // Valid object containing all the settings for a complete store

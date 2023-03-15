@@ -43,7 +43,7 @@ const atoms = {
 
 /**
  * Utility interface for each atom and selector
- * @typedef  {function(familyKey=)} Atoms~Use~Utility
+ * @typedef  {Object} AtomsUseUtility
  * @property {atom} atom - The atom (or selector) instance it represents
  * @property {string} key - A unique key for this data
  * @property {function} useRecoilValue - Gets just the value of the atom
@@ -53,27 +53,27 @@ const atoms = {
 
 /**
  * Interface to easily select atom and selector functions
- * @typedef  {Object} Atoms~Use
- * @property {Atoms~Use~Utility} entites - Entities atom
- * @property {Atoms~Use~Utility} project - Projects atom familiy
- * @property {Atoms~Use~Utility} illustration - Illustrations atom family
- * @property {Atoms~Use~Utility} settings - Settings atom
- * @property {Atoms~Use~Utility} preview - Preview atom
- * @property {Atoms~Use~Utility} projectsList - Projects list selector
- * @property {Atoms~Use~Utility} illustrationsList - Illustrations
+ * @typedef  {Object} AtomsUse
+ * @property {AtomsUseUtility} entites - Entities atom
+ * @property {AtomsUseUtility} project - Projects atom familiy
+ * @property {AtomsUseUtility} illustration - Illustrations atom family
+ * @property {AtomsUseUtility} settings - Settings atom
+ * @property {AtomsUseUtility} preview - Preview atom
+ * @property {AtomsUseUtility} projectsList - Projects list selector
+ * @property {AtomsUseUtility} illustrationsList - Illustrations
  *  list selector
- * @property {Atoms~Use~Utility} illustrationsInProject - Illustrations in
+ * @property {AtomsUseUtility} illustrationsInProject - Illustrations in
  *  project selector
- * @property {Atoms~Use~Utility} isPreviewActive - Is preview active selector
- * @property {Atoms~Use~Utility} projectPath - Project path selector
- * @property {Atoms~Use~Utility} illustrationPath - Illustration path selector
- * @property {Atoms~Use~Utility} projectSlugs - Project slugs selector
+ * @property {AtomsUseUtility} isPreviewActive - Is preview active selector
+ * @property {AtomsUseUtility} projectPath - Project path selector
+ * @property {AtomsUseUtility} illustrationPath - Illustration path selector
+ * @property {AtomsUseUtility} projectSlugs - Project slugs selector
  */
 
 export default {
   /**
    * Interface to easily select atom and selector functions
-   * @type {Atoms~Use}
+   * @type {AtomsUse}
    */
   use: Object.keys(atoms).reduce((atomsAcc, atomKey) => {
     const atom = atoms[atomKey];
