@@ -1,5 +1,4 @@
 import store from '../../store';
-import entriesToObject from '../../utils/entriesToObject';
 
 /**
  * Gets the user's active settings
@@ -8,5 +7,5 @@ import entriesToObject from '../../utils/entriesToObject';
  */
 export default async function onReadSettings() {
   const settingsEntries = await store.settings.get();
-  return entriesToObject(settingsEntries);
+  return Object.entries(settingsEntries);
 }
