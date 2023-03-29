@@ -114,7 +114,7 @@ const Project = ({ id }) => {
       <br />
       <div>
         {illustrations.map(({ id: illoId }) => (
-          <Illustration key={illoId} illoId={id} />
+          <Illustration key={illoId} id={illoId} />
         ))}
       </div>
     </div>
