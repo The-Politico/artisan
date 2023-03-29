@@ -1,15 +1,10 @@
 import { watch } from 'tauri-plugin-fs-watch-api';
+import { exists } from '@tauri-apps/api/fs';
 import store from '../../store';
 import onWriteAI from './onWriteAI';
-import onCreateAI from './onCreateAI';
 import onCreateProject from './onCreateProject';
 import onRemoveProject from './onRemoveProject';
-
-const SINGLE_FILE_OPERATIONS = [
-  'Write',
-  'Create',
-  'Remove',
-];
+import createQueue from '../../utils/queue';
 
 /**
  * Sets up a file system watcher on the working directory.
@@ -19,52 +14,53 @@ const SINGLE_FILE_OPERATIONS = [
 export default async function fsSync() {
   const workingDir = await store.settings.get('working-directory');
 
-  await watch(workingDir, { recursive: true }, async (event) => {
-    const { type, payload } = event;
-    console.log('watch', type, payload);
-
-    if (SINGLE_FILE_OPERATIONS.indexOf(type) > -1) {
-      const [, projectSlug, illustrationSlug, filename] = payload
-        .split(workingDir)[1]
-        .split('/');
-
-      if (!illustrationSlug) {
-        if (type === 'Create') {
-          await onCreateProject({
-            projectSlug,
-          });
-
-          return;
-        }
-
-        if (type === 'Remove') {
-          await onRemoveProject({
-            projectSlug,
-          });
-
-          return;
-        }
+  const fsChangeCallback = async ({ path }) => {
+    let pathExists;
+    try {
+      pathExists = await exists(path);
+    } catch (error) {
+      if (error.startsWith('path not allowed on the configured scope')) {
+        return;
       }
 
-      if (filename && filename.endsWith('.ai')) {
-        if (type === 'Write') {
-          await onWriteAI({
-            projectSlug,
-            illustrationSlug,
-            filename,
-          });
+      throw error;
+    }
 
-          return;
-        }
+    const [, projectSlug, illustrationSlug, filename] = path
+      .split(workingDir)[1]
+      .split('/');
 
-        if (type === 'Create') {
-          await onCreateAI({
-            projectSlug,
-            illustrationSlug,
-            filename,
-          });
-        }
+    if (!illustrationSlug) {
+      if (pathExists) {
+        await onCreateProject({
+          projectSlug,
+        });
+
+        return;
+      }
+
+      await onRemoveProject({
+        projectSlug,
+      });
+
+      return;
+    }
+
+    if (filename && filename.endsWith('.ai')) {
+      if (pathExists) {
+        await onWriteAI({
+          projectSlug,
+          illustrationSlug,
+          filename,
+        });
       }
     }
+  };
+
+  const queue = createQueue(fsChangeCallback);
+  watch(workingDir, { recursive: true }, async (events) => {
+    events.forEach(({ path }) => {
+      queue.add({ path });
+    });
   });
 }

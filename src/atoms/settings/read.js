@@ -7,5 +7,5 @@ import store from '../../store';
  */
 export default async function onReadSettings() {
   const settingsEntries = await store.settings.get();
-  return Object.entries(settingsEntries);
+  return Object.fromEntries(settingsEntries);
 }

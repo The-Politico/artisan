@@ -23,6 +23,7 @@ export default async function downloadS3Object({
   });
 
   const { Body } = await client.send(command);
+
   const response = new window.Response(Body);
 
   if (responseContentType === 'text/plain') {

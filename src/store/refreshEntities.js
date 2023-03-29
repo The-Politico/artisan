@@ -1,5 +1,6 @@
 import differenceBy from 'lodash/differenceBy';
 import flatten from 'lodash/flatten';
+import omit from 'lodash/omit';
 import { assertion } from '@recoiljs/refine';
 import fetchProjectsArchive from '../utils/archive/fetchProjectsArchive';
 import { ENTITIES } from './constants';
@@ -44,8 +45,9 @@ export default async function refresh() {
     const localData = localProjects.find(({ id }) => id === project.id);
 
     const mergedLocalData = {
-      ...project,
+      ...omit(project, ['healthy', 'version']),
       healthy: localData?.healthy,
+      version: localData?.version,
     };
 
     assertion(TYPE_ENTITY_STORE_ITEM)(mergedLocalData);
