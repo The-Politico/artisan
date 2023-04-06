@@ -89,6 +89,16 @@ const Project = ({ id }) => {
 }
     >
       <h2>{data.name}</h2>
+      <span
+        style={{
+          color: '#666',
+          fontSize: '8px',
+        }}
+      >
+        Version:
+        {' '}
+        {data.version}
+      </span>
       <div>
         {projectActions.map(([key, func]) => (
           <Button
@@ -103,8 +113,8 @@ const Project = ({ id }) => {
       <hr />
       <br />
       <div>
-        {illustrations.map(({ id }) => (
-          <Illustration key={id} id={id} />
+        {illustrations.map(({ id: illoId }) => (
+          <Illustration key={illoId} id={illoId} />
         ))}
       </div>
     </div>
@@ -114,9 +124,11 @@ const Project = ({ id }) => {
 export default function StoreTestingView() {
   const projects = atoms.use.projectsList();
   const preview = atoms.use.preview();
-  const settings = atoms.use.settings();
 
   const createProject = useCreateProject();
+
+  // console.log({ Test: 'Settings', ...settings });
+  console.log({ Test: 'Preview', ...preview });
 
   return (
     <div style={{ display: 'flex}' }}>

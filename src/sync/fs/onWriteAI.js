@@ -16,8 +16,8 @@ import titleify from '../../utils/text/titleify';
 import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
 
 /**
- * Writes an AI file to S3 refreshes the store to collect information about
- * it
+ * Writes an AI file to S3 and updates the project's version, then
+ *  refreshes the store
  *
  * @async
  * @function
@@ -28,8 +28,6 @@ import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
  * written and the store is updated.
  */
 export default async function onWriteAI({ projectSlug, illustrationSlug }) {
-  console.log('Write Illo:', projectSlug, illustrationSlug);
-
   const projectInfo = await getProjectInfoFromSlug(projectSlug);
   const illoInfo = await getIlloInfoFromSlug(illustrationSlug, projectInfo.id);
 

@@ -1,4 +1,7 @@
 import store from '../../store';
+import createListenerSet from '../../utils/listenerSet';
+
+const listeners = createListenerSet();
 
 /**
  * Listens to changes in the store entities and updates the recoil atoms with
@@ -8,38 +11,42 @@ import store from '../../store';
  * @param {Function} options.updateItem - The function that updates
  * the item with the new values.
  *
- * @returns {Function} - A function to unsubscribe from the store listeners.
  */
 export default function onListen({ updateItem }) {
-  console.log('Listening!');
+  listeners.add(
+    'settings__onChange', () => store.settings.onChange(async () => {
+      const settings = await store.settings.get();
+      const settingsAsObject = Object.fromEntries(settings);
+      updateItem('settings', settingsAsObject);
+    }),
+  );
 
-  let unSubscribeFromStoreOnChange;
-  store.entities.onChange((key, value) => {
-    if (key[0] === 'I') {
-      updateItem(`illustrations__${key}`, value);
-    }
+  listeners.add(
+    'preview__onChange', () => store.preview.onChange(async () => {
+      const preview = await store.preview.get();
+      const previewAsObject = Object.fromEntries(preview);
+      updateItem('preview', previewAsObject);
+    }),
+  );
 
-    if (key[0] === 'P') {
-      updateItem(`projects__${key}`, value);
-    }
-  }).then((cb) => {
-    unSubscribeFromStoreOnChange = cb;
-  });
+  listeners.add(
+    'entities__onChange', () => store.entities.onChange(
+      async (key, value) => {
+        // Update the master entities list
+        const entities = await store.entities.get();
+        const entitiesAsList = entities.map(([entitiyKey]) => entitiyKey);
+        updateItem('entities', entitiesAsList);
 
-  let unSubscribeFromStoreOnKeyChange;
-  store.entities.onKeyChange(async () => {
-    const resetEntities = await store.sync.read.entities();
-    updateItem('entities', resetEntities);
-  }).then((cb) => {
-    unSubscribeFromStoreOnKeyChange = cb;
-  });
+        // Update illustration data for illustration entities
+        if (key[0] === 'I') {
+          updateItem(`illustrations__${key}`, value);
+        }
 
-  return () => {
-    console.log('Unlistening!');
-
-    if (typeof unSubscribeFromStore === 'function') {
-      unSubscribeFromStoreOnChange();
-      unSubscribeFromStoreOnKeyChange();
-    }
-  };
+        // Update project data for project entities
+        if (key[0] === 'P') {
+          updateItem(`projects__${key}`, value);
+        }
+      },
+    ),
+  );
 }

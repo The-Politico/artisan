@@ -41,10 +41,6 @@ export default async function set(storeName, values) {
 
   if (storeName === 'entities') {
     Object.entries(values).forEach(([key, value]) => {
-      console.log({
-        key, value, values,
-      });
-
       assertion(TYPE_ENTITY_STORE_ITEM)(value);
 
       ENTITIES.set(key, value);
