@@ -1,3 +1,6 @@
+import { useState, useEffect, useRef } from 'react';
+import { join } from '@tauri-apps/api/path';
+import { readBinaryFile, exists } from '@tauri-apps/api/fs';
 import atoms from '../../atoms';
 // import download from '../../actions/download';
 import usePreview from '../../actions/usePreview';
@@ -7,9 +10,13 @@ import useArchiveProject from '../../actions/useArchive';
 import useGenerateIllustration from '../../actions/useGenerateIllustration';
 import usePublish from '../../actions/usePublish';
 import useCreateIllustration from '../../actions/useCreateIllustration';
+import useRenameIllustration from '../../actions/useRenameIllustration';
+import useRenameProject from '../../actions/useRenameProject';
 
 import store from '../../store';
 import testing from '../../actions/test';
+import useIllustrationFallback from '../../actions/useIllustrationFallback';
+import useRefreshStatus from '../../actions/useRefreshStatus';
 
 const Button = ({ onClick, children }) => (
   <button
@@ -29,9 +36,16 @@ const Button = ({ onClick, children }) => (
 const Illustration = ({ id }) => {
   const data = atoms.use.illustration(id);
   const generate = useGenerateIllustration(id);
+  const fallback = useIllustrationFallback(id);
+  const rename = useRenameIllustration(id);
+  const status = atoms.use.status(id);
+
+  const refreshStatus = useRefreshStatus(id);
 
   const illoActions = [
     ['Generate', generate],
+    ['Rename', () => rename('My Illo')],
+    ['Status', () => refreshStatus()],
   ];
 
   return (
@@ -43,6 +57,29 @@ const Illustration = ({ id }) => {
 }
     >
       <h2>{data.name}</h2>
+      <span
+        style={{
+          color: '#666',
+          fontSize: '8px',
+        }}
+      >
+        Version:
+        {' '}
+        {data.version}
+      </span>
+      <br />
+      <span
+        style={{
+          color: '#666',
+          fontSize: '8px',
+        }}
+      >
+        Status:
+        {' '}
+        {status}
+      </span>
+      <img src={fallback} alt="test" />
+
       <div>
         {illoActions.map(([key, func]) => (
           <Button
@@ -69,6 +106,9 @@ const Project = ({ id }) => {
   const archive = useArchiveProject(id);
   const publish = usePublish(id);
   const createIllo = useCreateIllustration(id);
+  const rename = useRenameProject(id);
+  const status = atoms.use.status(id);
+  const refreshStatus = useRefreshStatus(id);
 
   const projectActions = [
     ['Download', download],
@@ -76,7 +116,9 @@ const Project = ({ id }) => {
     ['Launch', launchPreview],
     ['Shutdown', shutdownPreview],
     ['Publish', publish],
+    ['Rename', () => rename('Project Six')],
     ['New Illo', () => createIllo('First Illustration')],
+    ['Status', () => refreshStatus()],
   ];
 
   return (
@@ -84,7 +126,7 @@ const Project = ({ id }) => {
       {
         backgroundColor: '#eee',
         padding: '10px',
-        maxWidth: '200px',
+        maxWidth: '400px',
       }
 }
     >
@@ -95,9 +137,9 @@ const Project = ({ id }) => {
           fontSize: '8px',
         }}
       >
-        Version:
+        Status:
         {' '}
-        {data.version}
+        {status}
       </span>
       <div>
         {projectActions.map(([key, func]) => (
@@ -114,7 +156,7 @@ const Project = ({ id }) => {
       <br />
       <div>
         {illustrations.map(({ id: illoId }) => (
-          <Illustration key={illoId} illoId={id} />
+          <Illustration key={illoId} id={illoId} projectSlug={data.slug} />
         ))}
       </div>
     </div>
@@ -128,7 +170,6 @@ export default function StoreTestingView() {
   const createProject = useCreateProject();
 
   // console.log({ Test: 'Settings', ...settings });
-  console.log({ Test: 'Preview', ...preview });
 
   return (
     <div style={{ display: 'flex}' }}>

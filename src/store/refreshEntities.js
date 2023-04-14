@@ -1,6 +1,5 @@
 import differenceBy from 'lodash/differenceBy';
 import flatten from 'lodash/flatten';
-import omit from 'lodash/omit';
 import { assertion } from '@recoiljs/refine';
 import fetchProjectsArchive from '../utils/archive/fetchProjectsArchive';
 import { ENTITIES } from './constants';
@@ -42,22 +41,24 @@ export default async function refresh() {
 
   // Add missing projects to local entities store
   await Promise.all(archiveProjects.map((project) => {
-    const localData = localProjects.find(({ id }) => id === project.id);
-
-    const mergedLocalData = {
-      ...omit(project, ['healthy', 'version']),
-      healthy: localData?.healthy,
-      version: localData?.version,
-    };
-
-    assertion(TYPE_ENTITY_STORE_ITEM)(mergedLocalData);
-    return ENTITIES.set(project.id, mergedLocalData);
+    assertion(TYPE_ENTITY_STORE_ITEM)(project);
+    return ENTITIES.set(project.id, project);
   }));
 
   // Add missing illustrations to local entities store
   await Promise.all(archiveIllustrations.map((illustration) => {
-    assertion(TYPE_ENTITY_STORE_ITEM)(illustration);
-    return ENTITIES.set(illustration.id, illustration);
+    const localData = localIllustrations.find(
+      ({ id }) => id === illustration.id,
+    );
+
+    const mergedLocalData = {
+      ...illustration,
+      version: localData?.version || null,
+      lastUploadedVersion: localData?.lastUploadedVersion || null,
+    };
+
+    assertion(TYPE_ENTITY_STORE_ITEM)(mergedLocalData);
+    return ENTITIES.set(illustration.id, mergedLocalData);
   }));
 
   // Remove projects and illustrations not in archive from local entities store

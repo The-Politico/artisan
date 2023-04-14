@@ -1,12 +1,18 @@
 import { Command } from '@tauri-apps/api/shell';
 
-import { join, resolveResource } from '@tauri-apps/api/path';
-import getWorkingProjectPath from '../paths/getWorkingProjectPath';
+import { resolveResource } from '@tauri-apps/api/path';
+import store from '../../store';
+import getEtag from '../fs/getEtag';
+import getIllustrationData from './getIllustrationData';
+import {
+  STATUS_ILLUSTRATION_NOT_GENERATED,
+  STATUS_ILLUSTRATION_ARCHIVED,
+} from '../../constants/statuses';
 
 /**
  * Generates an HTML files and fallback images from an Adobe Illustrator
  * document (.ai) file.
-
+ *
  * @param {string} projectSlug - The project slug.
  * @param {string} illustrationSlug - The illustration slug.
  *
@@ -14,34 +20,71 @@ import getWorkingProjectPath from '../paths/getWorkingProjectPath';
  *  the generation is completed
  */
 export default async function generateIllustration(
-  projectSlug, illustrationSlug,
+  id,
+  { force = false } = {},
 ) {
-  const illoFile = `${illustrationSlug}.ai`;
-  const projectPath = await getWorkingProjectPath(projectSlug);
-
-  const illustrationFilePath = await join(
-    projectPath,
-    illustrationSlug,
-    illoFile,
-  );
-
   const aiScript = await resolveResource('ai2html.js');
   const exportScript = await resolveResource('exportArtboards.js');
 
-  if (aiScript) {
-    const scriptCommand = await new Command(
+  if (!aiScript || !exportScript) {
+    // TODO: Should probabaly throw an error
+    return false;
+  }
+
+  const {
+    meta,
+    status,
+    paths,
+  } = await getIllustrationData(id);
+
+  // If the file doesn't exist, you can't generate anything
+  if (status === STATUS_ILLUSTRATION_ARCHIVED) {
+    return false;
+  }
+
+  // Don't generate if the status isn't ready for one
+  // (unless the force flag is on)
+  if (status !== STATUS_ILLUSTRATION_NOT_GENERATED && !force) {
+    return false;
+  }
+  await new Promise((resolve, reject) => {
+    const scriptCommand = new Command(
       'run-osascript',
       [
         '-e', 'tell application id "com.adobe.illustrator"',
         '-e', 'activate',
-        '-e', `open POSIX file "${illustrationFilePath}" without dialogs`,
+        '-e', `open POSIX file "${paths.filePath}" without dialogs`,
         '-e', `do javascript file "${aiScript}"`,
-        '-e', 'delay 5',
+        '-e', 'delay 2',
         '-e', `do javascript file "${exportScript}"`,
         '-e', 'end tell',
       ],
     );
 
+    const errors = [];
+
+    scriptCommand.stderr.on('data', (line) => {
+      errors.push(line);
+    });
+
+    scriptCommand.on('close', ({ code }) => {
+      if (code === 1) {
+        reject(new Error(errors.join('|')));
+      }
+
+      resolve();
+    });
+
     scriptCommand.execute();
-  }
+  });
+
+  const fileVersion = await getEtag(paths.filePath);
+  await store.entities.set({
+    [id]: {
+      ...meta,
+      version: fileVersion,
+    },
+  });
+
+  return true;
 }

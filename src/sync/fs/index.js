@@ -2,9 +2,10 @@ import { watch } from 'tauri-plugin-fs-watch-api';
 import { exists } from '@tauri-apps/api/fs';
 import store from '../../store';
 import onWriteAI from './onWriteAI';
-import onCreateProject from './onCreateProject';
+import onWriteProject from './onWriteProject';
 import onRemoveProject from './onRemoveProject';
 import createQueue from '../../utils/queue';
+import healthCheck from '../../utils/illustrations/healthCheck';
 
 /**
  * Sets up a file system watcher on the working directory.
@@ -32,7 +33,7 @@ export default async function fsSync() {
 
     if (!illustrationSlug) {
       if (pathExists) {
-        await onCreateProject({
+        await onWriteProject({
           projectSlug,
         });
 
@@ -63,4 +64,7 @@ export default async function fsSync() {
       queue.add({ path });
     });
   });
+
+  healthCheck();
+  setInterval(healthCheck, 60 * 1000);
 }

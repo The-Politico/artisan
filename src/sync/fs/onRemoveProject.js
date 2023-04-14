@@ -1,6 +1,6 @@
-import omit from 'lodash/omit';
 import store from '../../store';
 import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
+import getIllosInProject from '../../utils/store/getIllosInProject';
 
 /**
  * Updates the project data in the entity in the store to reflect
@@ -13,8 +13,6 @@ import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
  *  is removed.
  */
 export default async function onRemoveProject({ projectSlug }) {
-  console.log('Remove Project:', projectSlug);
-
   const projectInfo = await getProjectInfoFromSlug(projectSlug);
 
   if (!projectInfo) {
@@ -22,9 +20,17 @@ export default async function onRemoveProject({ projectSlug }) {
     return;
   }
 
-  await store.entities.set({
-    [projectInfo.id]: {
-      ...omit(projectInfo, ['version', 'healthy', 'illustrations']),
-    },
-  });
+  // Remove the version from illustrations in the project
+  const illustrations = await getIllosInProject(projectInfo.id);
+  const illoChanges = illustrations.reduce((acc, [illoId, illoInfo]) => {
+    acc[illoId] = {
+      ...illoInfo,
+      version: null,
+      lastUploadedVersion: null,
+    };
+
+    return acc;
+  }, {});
+
+  await store.entities.set(illoChanges);
 }

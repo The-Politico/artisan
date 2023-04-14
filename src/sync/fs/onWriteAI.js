@@ -1,19 +1,8 @@
-import urlJoin from 'url-join';
-import { join } from '@tauri-apps/api/path';
-import { readBinaryFile } from '@tauri-apps/api/fs';
-import { v4 as uuidv4 } from 'uuid';
-import versionize from '../../utils/text/versionize';
-import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import {
-  ARCHIVE_PROJECTS_DIRECTORY,
-} from '../../constants/paths';
-import s3 from '../../utils/s3';
 import generateIllustration
   from '../../utils/illustrations/generateIllustration';
 import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
-import store from '../../store';
-import titleify from '../../utils/text/titleify';
 import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
+import backupIllustration from '../../utils/illustrations/backupIllustration';
 
 /**
  * Writes an AI file to S3 and updates the project's version, then
@@ -32,43 +21,8 @@ export default async function onWriteAI({ projectSlug, illustrationSlug }) {
   const illoInfo = await getIlloInfoFromSlug(illustrationSlug, projectInfo.id);
 
   // Generate illustrations
-  await generateIllustration(projectSlug, illustrationSlug);
-
-  // Update version number
-  const version = versionize();
-  await s3.upload({
-    bucket: AWS_ARTISAN_BUCKET,
-    body: projectInfo.name,
-    key: `${urlJoin(ARCHIVE_PROJECTS_DIRECTORY, projectSlug)}/`,
-    contentType: 'application/x-directory',
-    metadata: {
-      id: projectInfo.id,
-      name: projectInfo.name,
-      version,
-    },
-  });
+  await generateIllustration(illoInfo.id);
 
   // Upload illustration
-  const workingDirectory = await store.settings.get('working-directory');
-  const filePath = await join(workingDirectory, projectSlug, illustrationSlug, `${illustrationSlug}.ai`);
-  const content = await readBinaryFile(filePath);
-
-  const keyPath = await join(
-    ARCHIVE_PROJECTS_DIRECTORY,
-    projectSlug,
-    `${illustrationSlug}.ai`,
-  );
-
-  await s3.upload({
-    bucket: AWS_ARTISAN_BUCKET,
-    body: content,
-    key: keyPath,
-    storageClass: 'STANDARD',
-    metadata: {
-      id: illoInfo?.id || `I-${uuidv4()}`,
-      name: titleify(illustrationSlug),
-    },
-  });
-
-  await store.entities.refresh();
+  await backupIllustration(illoInfo.id, { force: false });
 }

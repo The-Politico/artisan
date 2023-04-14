@@ -22,7 +22,7 @@ import {
  *  or if the values do not match the schema defined in the corresponding
  *  store type.
  */
-export default async function set(storeName, values) {
+export default async function set(storeName, values, { save = true } = {}) {
   assertion(TYPE_STORE_NAME)(storeName);
 
   if (storeName === 'settings') {
@@ -36,7 +36,11 @@ export default async function set(storeName, values) {
       SETTINGS.set(key, value);
     });
 
-    return SETTINGS.save();
+    if (save) {
+      await SETTINGS.save();
+    }
+
+    return;
   }
 
   if (storeName === 'entities') {
@@ -46,7 +50,11 @@ export default async function set(storeName, values) {
       ENTITIES.set(key, value);
     });
 
-    return ENTITIES.save();
+    if (save) {
+      await SETTINGS.save();
+    }
+
+    return;
   }
 
   if (storeName === 'preview') {
@@ -60,6 +68,8 @@ export default async function set(storeName, values) {
       PREVIEW.set(key, value);
     });
 
-    return PREVIEW.save();
+    if (save) {
+      await SETTINGS.save();
+    }
   }
 }
