@@ -66,7 +66,7 @@ export const TYPE_PREVIEW_STORE_KEYS = {
 // Valid object containing all the values for a complete preview
 export const TYPE_PREVIEW_STORE = object(TYPE_PREVIEW_STORE_KEYS);
 
-// Vlid status type for projects and illustrations
+// Valid status type for projects and illustrations
 export const TYPE_ENTITY_STATUS = stringLiterals(
   Array.from(ALL_STATUSES).reduce((acc, status) => {
     acc[status] = status;
