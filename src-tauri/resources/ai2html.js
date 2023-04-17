@@ -516,11 +516,12 @@ function main() {
     // because of unlocking / relocking of objects
     doc.saved = true;
   } else if (errors.length === 0) {
-    var saveOptions = new IllustratorSaveOptions();
-    saveOptions.pdfCompatible = false;
-    doc.saveAs(new File(docPath + doc.name), saveOptions);
-    // doc.save(); // why not do this? (why set pdfCompatible = false?)
-    message('Your Illustrator file was saved.');
+    // var saveOptions = new IllustratorSaveOptions();
+    // saveOptions.pdfCompatible = false;
+    // doc.saveAs(new File(docPath + doc.name), saveOptions);
+    // // doc.save(); // why not do this? (why set pdfCompatible = false?)
+    // message('Your Illustrator file was saved.');
+    doc.saved = true;
   }
   
   // =========================================================
@@ -4359,6 +4360,9 @@ function main() {
       var previewFileDestination = htmlFileDestinationFolder + pageName + '.preview.html';
       outputLocalPreviewPage(textForFile, previewFileDestination, settings);
     }
+
+    // Only runs on save so the file should still be saved
+    doc.saved = true;
   }
   } // end main() function definition
   main();

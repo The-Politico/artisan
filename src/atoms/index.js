@@ -6,6 +6,8 @@ import projectAtomFamily from './projects/atom';
 import illustrationsAtomFamily from './illustrations/atom';
 import settingsAtom from './settings/atom';
 import previewAtom from './preview/atom';
+import statusAtomFamily from './status/atom';
+import activeProjectAtom from './state/activeProject';
 
 import onReadEntities from './entities/read';
 import onWriteEntities from './entities/write';
@@ -25,6 +27,8 @@ import isPreviewActive from './selectors/isPreviewActive';
 import projectPath from './selectors/projectPath';
 import illustrationPath from './selectors/illustrationPath';
 import projectSlugs from './selectors/projectSlugs';
+import onReadStatus from './status/read';
+import onWriteStatus from './status/write';
 
 const atoms = {
   entities: entitityAtom,
@@ -32,6 +36,8 @@ const atoms = {
   illustration: illustrationsAtomFamily,
   settings: settingsAtom,
   preview: previewAtom,
+  status: statusAtomFamily,
+  activeProject: activeProjectAtom,
   projectsList,
   illustrationsList,
   illustrationsInProject,
@@ -106,6 +112,7 @@ export default {
       illustrations: onReadIllustration,
       settings: onReadSettings,
       preview: onReadPreview,
+      status: onReadStatus,
     },
     write: {
       entities: onWriteEntities,
@@ -113,6 +120,7 @@ export default {
       illustrations: onWriteIllustration,
       settings: onWriteSettings,
       preview: onWritePreview,
+      status: onWriteStatus,
     },
   },
 };

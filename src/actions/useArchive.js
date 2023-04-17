@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
 import { removeDir } from '@tauri-apps/api/fs';
+import { STATUS_PROJECT_OK } from '../constants/statuses';
 
 import atoms from '../atoms';
 
@@ -10,17 +11,17 @@ import atoms from '../atoms';
  * @returns {function(): Promise}
  */
 export default function useArchive(projectId) {
-  const project = atoms.use.project(projectId);
-  const { healthy } = project;
+  const status = atoms.use.status(projectId);
   const projectPath = atoms.use.projectPath(projectId);
 
   return useCallback(async () => {
-    if (!healthy) {
+    if (status !== STATUS_PROJECT_OK) {
+      // TODO: Replace this with custom error
       throw new Error(
         'The project is not healthy and data could be lost if you archive it.',
       );
     }
 
     await removeDir(projectPath, { recursive: true });
-  }, [healthy]);
+  }, [status, projectPath]);
 }

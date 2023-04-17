@@ -7,6 +7,9 @@ export const ARCHIVE_PROJECTS_DIRECTORY = 'projects-briz';
 // Directory on S3 where templates are stored
 export const ARCHIVE_TEMPLATES_DIRECTORY = 'templates';
 
+// Directory on S3 where previews are stored
+export const ARCHIVE_PREVIEWS_DIRECTORY = 'previews';
+
 // Directory on S3 where project's generated share pages are stored
 export const PUBLISH_SHARE_PATH = 'interactives/artisan/share';
 
@@ -20,4 +23,4 @@ export const SHARE_PAGE_SCRIPTS = 'interactives/artisan/common/bundle.js';
 export const SHARE_PAGE_STYLES = 'interactives/artisan/common/styles.css';
 
 // Fallback image name
-export const FALLBACK_IMG_NAME = 'fallback_mobile.png';
+export const FALLBACK_IMG_NAME = 'fallback.png';

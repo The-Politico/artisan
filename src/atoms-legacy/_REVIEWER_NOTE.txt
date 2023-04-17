@@ -1,1 +1,0 @@
-This folder is here to keep track of legacy code more easily. Once it's ready to be merged, this whole directory will be deleted. You do not need to review files in this legacy directory.

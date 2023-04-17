@@ -3,7 +3,7 @@ import {
   ARCHIVE_PROJECTS_DIRECTORY,
 } from '../../constants/paths';
 
-import { fetchIlloMeta } from './fetchIlloMeta';
+import { fetchIlloListMeta } from './fetchIlloMeta';
 
 import s3 from '../s3';
 
@@ -29,19 +29,19 @@ export default async function fetchProjectMeta(
     key: `${ARCHIVE_PROJECTS_DIRECTORY}/${projectSlug}/`,
   });
 
-  let illustrations;
+  const optionalMeta = {};
   if (!skipIllustrations) {
     const illosList = await s3.list({
       bucket: AWS_ARTISAN_BUCKET,
       prefix: `${ARCHIVE_PROJECTS_DIRECTORY}/${projectSlug}/`,
     });
-    illustrations = await fetchIlloMeta(illosList);
+    optionalMeta.illustrations = await fetchIlloListMeta(illosList);
   }
 
   return {
     slug: projectSlug,
-    illustrations,
     lastUpdated: LastModified.toISOString(),
     ...Metadata,
+    ...optionalMeta,
   };
 }

@@ -5,20 +5,13 @@
 
 use serde_json::json;
 use std::collections::HashMap;
-use md5::{Context}; 
 use tauri::{
   api::path::{resolve_path, BaseDirectory},
   Env,
 };
 use tauri_plugin_store::StoreBuilder;
+mod commands;
 
-#[tauri::command]
-fn hash_file(contents: Vec<u8>) -> String {
-  let mut hasher = Context::new();
-  hasher.consume(&contents);
-  let hash = hasher.compute();
-  format!("{:x}", hash)
-}
 
 fn main() {
   let context = tauri::generate_context!();
@@ -75,7 +68,7 @@ fn main() {
         Ok(())
       })
       .plugin(tauri_plugin_fs_watch::init())
-      .invoke_handler(tauri::generate_handler![hash_file])
+      .invoke_handler(tauri::generate_handler![commands::get_etag])
       .run(context)
       .expect("error while running tauri application");
 }

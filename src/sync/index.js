@@ -1,5 +1,5 @@
 import fsSync from './fs';
-import s3Sync from './s3';
+import s3SyncInterval from './s3';
 import RecoilSyncRoot from './recoil';
 
 /**
@@ -12,7 +12,7 @@ import RecoilSyncRoot from './recoil';
  */
 async function startSync() {
   await fsSync();
-  // await s3Sync();
+  // await s3SyncInterval();
 }
 
 export default {

@@ -10,6 +10,7 @@ const illustrationsInProject = selectorFamily({
   key: 'illustrationsInProject',
   get: (projectId) => ({ get }) => {
     const illustrations = get(illustrationEntities);
+
     const illustrationInfo = illustrations
       .map((id) => get(illustrationAtoms(id)))
       .filter(({ project }) => project === projectId);

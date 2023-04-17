@@ -1,6 +1,6 @@
 import { atomFamily } from 'recoil';
 import { syncEffect } from 'recoil-sync';
-import { TYPE_ENTITY_STORE_ITEM } from '../../constants/types';
+import { TYPE_PROJECT_STORE_ITEM } from '../../constants/types';
 
 /**
  * Represents the data for a project entity
@@ -13,7 +13,7 @@ const projectsAtomFamily = atomFamily({
     syncEffect({
       itemKey: `projects__${id}`,
       storeKey: 'store',
-      refine: TYPE_ENTITY_STORE_ITEM,
+      refine: TYPE_PROJECT_STORE_ITEM,
     }),
   ]),
 });
