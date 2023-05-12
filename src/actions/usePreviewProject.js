@@ -60,7 +60,14 @@ export default function usePreviewProject(projectId) {
     setTimeout(() => {
       const webview = new WebviewWindow(
         'embed-preview',
-        { url: 'src/preview/index.html' },
+        {
+          url: 'src/preview/index.html',
+          resizable: true,
+          width: 1350,
+          maxWidth: 1350,
+          minWidth: 940,
+          maxHeight: 900,
+        },
       );
 
       webview.once('tauri://error', (error) => {
