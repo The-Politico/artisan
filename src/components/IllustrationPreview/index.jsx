@@ -50,23 +50,24 @@ export default function IllustrationPreview(props) {
     }
 
     getSize();
-  }, [embedType, children, showArticle]);
-
+  }, [embedType, children, showArticle, breakpoint]);
   return (
-    <div className={styles['live-preview']}>
+    <div className={styles.livePreview}>
       <div
-        className={styles['component-container']}
+        className={styles.componentContainer}
       >
         <DevicePreview breakpoint={breakpoint}>
           <iframe
             scrolling="yes"
             title="live-preview-frame"
-            className={styles['live-preview-frame']}
+            className={styles.livePreviewFrame}
             ref={frame}
             frameBorder="0"
             width="100%"
             height={windowHeight}
-          />
+          >
+            {children}
+          </iframe>
         </DevicePreview>
       </div>
     </div>

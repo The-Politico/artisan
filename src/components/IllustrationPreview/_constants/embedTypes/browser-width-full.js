@@ -1,5 +1,6 @@
 import Container from './_container';
 import Main from './_main';
+import AsideBrowserWidthFull from './_asideBrowserWidthFull';
 
 export const NAME = 'browser-width-full';
 
@@ -8,9 +9,9 @@ export default function BrowserWidthFull({ children, showArticle }) {
     showArticle,
     children:
       Main({
-        children,
+        children: AsideBrowserWidthFull({ children, className: NAME }),
         showArticle,
-        className: 'browser-width-full',
+        className: NAME,
       }),
   });
 }

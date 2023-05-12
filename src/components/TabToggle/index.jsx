@@ -20,12 +20,6 @@ export default function TabToggle({
           [styles.transparentBg]: transparent,
         })}
       >
-        <span
-          style={{
-            '--translate': selectedIndex,
-          }}
-          className={cls(styles.glider)}
-        />
         {items.map((item) => (
           <TabToggleItem
             iconName={item}
@@ -33,6 +27,12 @@ export default function TabToggle({
             size={size}
           />
         ))}
+        <span
+          style={{
+            '--translate': selectedIndex,
+          }}
+          className={cls(styles.glider)}
+        />
       </Tab.List>
     </Tab.Group>
   );

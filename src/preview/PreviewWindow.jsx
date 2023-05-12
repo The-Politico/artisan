@@ -1,14 +1,47 @@
 import { useState, useRef, useEffect } from 'react';
-import cls from './styles.module.css';
 import idToSlugs from '../utils/ids/idToSlugs';
 import getLocalPreviewUrl from '../utils/paths/getLocalPreviewUrl';
 
 import store from '../store';
+import styles from './styles.module.css';
+import IllustrationPreview from '../components/IllustrationPreview';
+import PreviewToolbar from '../components/PreviewToolbar';
+
+import {
+  NO_BREAKPOINT,
+  MOBILE_PORTRAIT,
+  TABLET_PORTRAIT,
+} from '../components/IllustrationPreview/_constants/breakpoints';
+
+const embedList = [
+  'standard',
+  'bump-in',
+  'bump-out',
+  'browser-width',
+  'browser-width-full',
+  'page-width',
+];
+
+const screenSizes = [
+  'ComputerDesktopIcon',
+  'DevicePhoneMobileIcon',
+  'DeviceTabletIcon',
+];
+
+const breakpointsSubset = [
+  NO_BREAKPOINT.value,
+  MOBILE_PORTRAIT.value,
+  TABLET_PORTRAIT.value,
+];
 
 function PreviewWindow() {
+  const iframeRef = useRef(null);
+  const [showArticle, setShowArticle] = useState(true);
+  const [breakpoint, setBreakpoint] = useState(0);
+  const [embedType, setEmbedType] = useState(embedList[0]);
   const [url, setURL] = useState();
   const [illos, setIllos] = useState(null);
-  const iframeRef = useRef(null);
+  const [selectedIllo, setSelectedIllo] = useState(null);
 
   useEffect(() => {
     async function getSlugs() {
@@ -22,6 +55,7 @@ function PreviewWindow() {
           return slugs.project === project;
         });
 
+      // TODO: Use selectedIllo now that it's there
       const firstIllo = illoIds[0];
 
       const localPreviewUrl = await getLocalPreviewUrl(firstIllo);
@@ -48,17 +82,42 @@ function PreviewWindow() {
   }
 
   return (
-    <>
-      <h1>cms embed preview</h1>
-      {/* <p>Child process {child?.pid}</p> */}
-      <iframe
-        ref={iframeRef}
-        className={cls.iframe}
-        src={url}
-        frameBorder="0"
-        title="embed-preview"
+    <div className={styles.view}>
+      <PreviewToolbar
+        selectedIllo={selectedIllo}
+        setSelectedIllo={setSelectedIllo}
+        illoList={illos}
+        embedList={embedList}
+        embedType={embedType}
+        setEmbedType={setEmbedType}
+        showArticle={showArticle}
+        setShowArticle={setShowArticle}
+        selectedIndex={breakpoint}
+        setSelectedIndex={setBreakpoint}
+        items={screenSizes}
       />
-    </>
+      <IllustrationPreview
+        breakpoint={breakpointsSubset[breakpoint]}
+        embedType={embedType}
+        showArticle={showArticle}
+        url={url}
+      >
+        {`
+        <div id="embed-preview" data-frame-src="${url}" data-frame-sandbox="allow-scripts allow-same-origin allow-top-navigation">
+
+        </div>
+        <script src="https://www.politico.com/interactives/cdn/js/frames.js"></script>
+        <script>
+        setTimeout(() => {
+          window.newswireFrames.autoInitFrames();
+        }, 1000);
+  
+
+        </script>
+      `}
+      </IllustrationPreview>
+
+    </div>
   );
 }
 

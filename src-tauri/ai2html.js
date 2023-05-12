@@ -4348,8 +4348,6 @@ function main() {
     var htmlOpen = "<!DOCTYPE html>\r<html lang=\"en\" dir=\"ltr\">" ;
     var htmlClose = "</html>" ;
 
-
-
     var head = "<head>\r<title></title>\r<meta charset=\"utf-8\" />\r";
     head += "<meta http-equiv=\"Content-Type\" content=\"text/head; charset=UTF-8\" />\r";
     head += "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\r"
