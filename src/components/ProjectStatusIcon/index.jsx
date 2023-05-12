@@ -6,7 +6,8 @@ import styles from './styles.module.css';
  *
  * @param {Object} props
  * @param {('md' | 'lg')} [props.size=md] Icon size. Medium or large
- * @param {('published' | 'archive')} [props.status] Published or archive.
+ * @param {('published' | 'archive' | 'error')} [props.status] -
+ * Icon state either 'published', 'archive' or 'error'
  * Otherwise dispalys `"MinuseCircleIcon"`
  * @returns {JSX.Element}
  */

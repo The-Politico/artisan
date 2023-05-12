@@ -13,6 +13,7 @@ import {
   colors,
   typography as type,
 } from '../../theme';
+import Skeleton from '../Skeleton';
 
 export default function ProjectListItem({
   last,
@@ -25,7 +26,7 @@ export default function ProjectListItem({
 }) {
   const [projectDetail, setProjectDetail] = useState();
   const [status, setStatus] = useState(undefined);
-  const [projectName, setProjectName] = useState('...');
+  const [projectName, setProjectName] = useState(null);
 
   useEffect(() => {
     (async () => {
@@ -37,7 +38,7 @@ export default function ProjectListItem({
         setProjectName(archiveProject.name);
       }
     })();
-  });
+  }, [projectSlug, archiveProject]);
 
   useEffect(() => {
     if (projectDetail) {
@@ -72,19 +73,41 @@ export default function ProjectListItem({
     <>
       {(index > 0 || last) && <div className={styles.divider} />}
       <li>
-        <button
-          type="button"
-          className={itemClass}
-          onClick={() => setSelectedProject(archiveProject || projectSlug)}
-        >
-          <ProjectStatusIcon
-            className={styles.icon}
-            status={status}
-          />
-          <p className={cls(styles.itemName, type.textLg, margin.ml1)}>
-            {projectName}
-          </p>
-        </button>
+        {!projectName ? (
+          <div
+            className={cls(
+              flex.flex,
+              layout.itemsCenter,
+              padding.py1,
+              padding.px2,
+            )}
+          >
+            <Skeleton
+              height="24px"
+              width="24px"
+              variant="circle"
+            />
+            <Skeleton
+              height="20px"
+              width="75%"
+              className={cls(margin.ml2, margin.my1, borders.roundedLg)}
+            />
+          </div>
+        ) : (
+          <button
+            type="button"
+            className={itemClass}
+            onClick={() => setSelectedProject(archiveProject || projectSlug)}
+          >
+            <ProjectStatusIcon
+              className={styles.icon}
+              status={status}
+            />
+            <p className={cls(styles.itemName, type.textLg, margin.ml1)}>
+              {projectName}
+            </p>
+          </button>
+        )}
       </li>
     </>
   );

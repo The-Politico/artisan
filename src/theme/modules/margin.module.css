@@ -72,6 +72,11 @@
   margin-left: calc(0.25rem * var(--ml));
 }
 
+.ml-2 {
+  --ml: 2;
+  margin-left: calc(0.25rem * var(--ml));
+}
+
 /* RIGHT */
 .mr-1 {
   --mr: 1;
