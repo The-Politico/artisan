@@ -1,8 +1,11 @@
+import store from '../../store';
 import generateIllustration
   from '../../utils/illustrations/generateIllustration';
 import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
 import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
 import backupIllustration from '../../utils/illustrations/backupIllustration';
+import slugsToId from '../../utils/ids/slugsToId';
+import getEtag from '../../utils/fs/getEtag';
 
 /**
  * Writes an AI file to S3 and updates the project's version, then
@@ -16,13 +19,31 @@ import backupIllustration from '../../utils/illustrations/backupIllustration';
  * @returns {Promise<void>} - A Promise that resolves when the AI file is
  * written and the store is updated.
  */
-export default async function onWriteAI({ projectSlug, illustrationSlug }) {
-  const projectInfo = await getProjectInfoFromSlug(projectSlug);
-  const illoInfo = await getIlloInfoFromSlug(illustrationSlug, projectInfo.id);
+export default async function onWriteAI({
+  projectSlug,
+  illustrationSlug,
+  filepath,
+}) {
+  const id = slugsToId({
+    project: projectSlug,
+    illustration: illustrationSlug,
+  });
+  const illoInfo = store.entities.get(id);
+  const etag = await getEtag(filepath);
+
+  await store.entities.set({
+    [id]: {
+      slug: illustrationSlug,
+      project: projectSlug,
+      lastUpdated: (new Date()).toISOString(),
+      version: etag,
+      ...(illoInfo || {}),
+    },
+  });
 
   // Generate illustrations
-  await generateIllustration(illoInfo.id);
+  // await generateIllustration(illoInfo.id);
 
   // Upload illustration
-  await backupIllustration(illoInfo.id, { force: false });
+  // await backupIllustration(illoInfo.id, { force: false });
 }

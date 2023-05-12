@@ -3,11 +3,12 @@ import { Command } from '@tauri-apps/api/shell';
 import { resolveResource } from '@tauri-apps/api/path';
 import store from '../../store';
 import getEtag from '../fs/getEtag';
-import getIllustrationData from './getIllustrationData';
 import {
   STATUS_ILLUSTRATION_NOT_GENERATED,
   STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
+import getIllustrationStatus from './getIllustrationStatus';
+import getIllustrationFilePath from '../paths/getIllustrationFilePath';
 
 /**
  * Generates an HTML files and fallback images from an Adobe Illustrator
@@ -31,11 +32,8 @@ export default async function generateIllustration(
     return false;
   }
 
-  const {
-    meta,
-    status,
-    paths,
-  } = await getIllustrationData(id);
+  const status = await getIllustrationStatus(id);
+  const aiPath = await getIllustrationFilePath(id);
 
   // If the file doesn't exist, you can't generate anything
   if (status === STATUS_ILLUSTRATION_ARCHIVED) {
@@ -47,13 +45,14 @@ export default async function generateIllustration(
   if (status !== STATUS_ILLUSTRATION_NOT_GENERATED && !force) {
     return false;
   }
+
   await new Promise((resolve, reject) => {
     const scriptCommand = new Command(
       'run-osascript',
       [
         '-e', 'tell application id "com.adobe.illustrator"',
         '-e', 'activate',
-        '-e', `open POSIX file "${paths.filePath}" without dialogs`,
+        '-e', `open POSIX file "${aiPath}" without dialogs`,
         '-e', `do javascript file "${aiScript}"`,
         '-e', 'delay 2',
         '-e', `do javascript file "${exportScript}"`,
@@ -78,11 +77,12 @@ export default async function generateIllustration(
     scriptCommand.execute();
   });
 
-  const fileVersion = await getEtag(paths.filePath);
-  await store.entities.set({
+  const fileVersion = await getEtag(aiPath);
+  await store.entities.updateDict({
     [id]: {
-      ...meta,
-      version: fileVersion,
+      version: {
+        $set: fileVersion,
+      },
     },
   });
 

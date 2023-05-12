@@ -1,6 +1,6 @@
-import { ENTITIES } from './constants';
-import fetchProjectMeta from '../utils/archive/fetchProjectMeta';
-import { fetchIlloMetaFromSlug } from '../utils/archive/fetchIlloMeta';
+import fetchArchive from '../utils/archive/fetchArchive';
+import deleteValue from './delete';
+import updateDict from './updateDict';
 
 /**
  * Refreshes just a single IDd entity, to update it's data
@@ -10,29 +10,31 @@ import { fetchIlloMetaFromSlug } from '../utils/archive/fetchIlloMeta';
 
  */
 export default async function refreshEntity(id) {
-  const entityInfo = await ENTITIES.get(id);
+  const archive = await fetchArchive();
+  const archiveInfo = archive.find((record) => record.id === id);
 
-  if (id.startsWith('P-')) {
-    const projectInfo = await fetchProjectMeta(
-      entityInfo.slug, { skipIllustrations: true },
-    );
-
-    await ENTITIES.set(id, {
-      ...entityInfo,
-      ...projectInfo,
-    });
+  if (!archiveInfo) {
+    await deleteValue('entities', id);
+    return false;
   }
 
-  if (id.startsWith('I-')) {
-    const projectInfo = await ENTITIES.get(entityInfo.project);
-    const illoInfo = await fetchIlloMetaFromSlug(
-      projectInfo.slug,
-      entityInfo.slug,
-    );
+  const update = {
+    [id]: {
+      slug: {
+        $set: archiveInfo.slug,
+      },
+      project: {
+        $set: archiveInfo.project,
+      },
+      lastUpdated: {
+        $set: archiveInfo.lastUpdated,
+      },
+      cloudVersion: {
+        $set: archiveInfo.version,
+      },
+    },
+  };
 
-    await ENTITIES.set(id, {
-      ...entityInfo,
-      name: illoInfo.name,
-    });
-  }
+  await updateDict('entities', update);
+  return true;
 }

@@ -2,6 +2,7 @@ import { useCallback, useRef } from 'react';
 import { WebviewWindow } from '@tauri-apps/api/window';
 import { Command } from '@tauri-apps/api/shell';
 import atoms from '../atoms';
+import getProjectPath from '../utils/paths/getProjectPath';
 
 /**
  * Hook to set up a function for launching a preview (WIP)
@@ -9,13 +10,12 @@ import atoms from '../atoms';
  * @param {string} projectId - The ID of the project
  * @returns {function(): Promise}
  */
-export default function usePreview(projectId) {
+export default function usePreviewProject(projectId) {
   const previewActive = atoms.use.isPreviewActive();
   const settings = atoms.use.settings();
   const port = settings['preferred-port'];
   const [previewState, setPreviewState] = atoms.use.preview.useRecoilState();
   const { process } = previewState;
-  const projectPath = atoms.use.projectPath(projectId);
 
   const shutdownPreview = useCallback(async () => {
     if (!previewActive) {
@@ -42,6 +42,8 @@ export default function usePreview(projectId) {
     if (previewActive) {
       await shutdownPreview();
     }
+
+    const projectPath = await getProjectPath(projectId);
 
     const command = new Command(
       'start-local-server',
@@ -72,7 +74,7 @@ export default function usePreview(projectId) {
         }
       });
     }, 1000);
-  }, [previewActive, projectPath, shutdownPreview]);
+  }, [previewActive, projectId, shutdownPreview]);
 
   return [launchPreview, shutdownPreview];
 }

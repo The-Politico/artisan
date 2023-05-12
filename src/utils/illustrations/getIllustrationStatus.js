@@ -1,7 +1,6 @@
 import { exists } from '@tauri-apps/api/fs';
 import store from '../../store';
-import { fetchIlloMetaFromSlug } from '../archive/fetchIlloMeta';
-import getIllustrationPath from '../paths/getIllustrationPath';
+import getIllustrationFilePath from '../paths/getIllustrationFilePath';
 import getEtag from '../fs/getEtag';
 import {
   STATUS_ILLUSTRATION_OK,
@@ -22,34 +21,26 @@ export default async function getIllustrationStatus(id) {
   // Get entity information from store
   const info = await store.entities.get(id);
   const {
-    slug: illustrationSlug,
-    project,
-    version,
+    version: lastGeneratedVersion,
+    cloudVersion,
     lastUploadedVersion,
   } = info;
-  const projectInfo = await store.entities.get(project);
-  const { slug: projectSlug } = projectInfo;
 
-  const illoPath = await getIllustrationPath(projectSlug, illustrationSlug);
+  const illoFilePath = await getIllustrationFilePath(id);
 
   // Check if the file is still on disk
-  const illoFileExists = await exists(illoPath);
+  const illoFileExists = await exists(illoFilePath);
   if (!illoFileExists) {
     return STATUS_ILLUSTRATION_ARCHIVED;
   }
 
-  // Get versions
-  const fileVersion = await getEtag(illoPath);
-  const {
-    version: cloudVersion,
-  } = await fetchIlloMetaFromSlug(projectSlug, illustrationSlug);
-
   // Check if the file's version matches the one recorded in the store
-  if (version !== fileVersion) {
+  const fileVersion = await getEtag(illoFilePath);
+  if (lastGeneratedVersion !== fileVersion) {
     return STATUS_ILLUSTRATION_NOT_GENERATED;
   }
 
-  if (version !== cloudVersion) {
+  if (lastGeneratedVersion !== cloudVersion) {
     // Check if the last known upload from this machine was the last upload
     if (lastUploadedVersion === cloudVersion) {
       return STATUS_ILLUSTRATION_VALID_UPLOAD;

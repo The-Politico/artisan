@@ -1,11 +1,13 @@
 import { watch } from 'tauri-plugin-fs-watch-api';
 import { exists } from '@tauri-apps/api/fs';
+import { resolve } from '@tauri-apps/api/path';
 import store from '../../store';
 import onWriteAI from './onWriteAI';
 import onWriteProject from './onWriteProject';
 import onRemoveProject from './onRemoveProject';
 import createQueue from '../../utils/queue';
 import healthCheck from '../../utils/illustrations/healthCheck';
+import { LOCAL_PROJECTS_DIRECTORY } from '../../constants/paths';
 
 /**
  * Sets up a file system watcher on the working directory.
@@ -13,7 +15,9 @@ import healthCheck from '../../utils/illustrations/healthCheck';
  * corresponding functions based on the type of change.
  */
 export default async function fsSync() {
+  return;
   const workingDir = await store.settings.get('working-directory');
+  const projectsDir = await resolve(workingDir, LOCAL_PROJECTS_DIRECTORY);
 
   const fsChangeCallback = async ({ path }) => {
     let pathExists;
@@ -35,6 +39,7 @@ export default async function fsSync() {
       if (pathExists) {
         await onWriteProject({
           projectSlug,
+          filepath: path,
         });
 
         return;
@@ -53,18 +58,19 @@ export default async function fsSync() {
           projectSlug,
           illustrationSlug,
           filename,
+          filepath: path,
         });
       }
     }
   };
 
   const queue = createQueue(fsChangeCallback);
-  watch(workingDir, { recursive: true }, async (events) => {
+  watch(projectsDir, { recursive: true }, async (events) => {
     events.forEach(({ path }) => {
       queue.add({ path });
     });
   });
 
-  healthCheck();
-  setInterval(healthCheck, 60 * 1000);
+  // healthCheck();
+  // setInterval(healthCheck, 60 * 1000);
 }

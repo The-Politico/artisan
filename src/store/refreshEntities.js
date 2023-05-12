@@ -1,9 +1,7 @@
-import differenceBy from 'lodash/differenceBy';
-import flatten from 'lodash/flatten';
-import { assertion } from '@recoiljs/refine';
-import fetchProjectsArchive from '../utils/archive/fetchProjectsArchive';
+import difference from 'lodash/difference';
+import fetchArchive from '../utils/archive/fetchArchive';
 import { ENTITIES } from './constants';
-import { TYPE_ENTITY_STORE_ITEM } from '../constants/types';
+import updateDict from './updateDict';
 
 /**
  * Refreshes local entity store with latest data from the archive.
@@ -14,60 +12,47 @@ import { TYPE_ENTITY_STORE_ITEM } from '../constants/types';
  * the schema defined in TYPE_ENTITY_STORE_ITEM.
  */
 export default async function refresh() {
-  const archiveProjects = await fetchProjectsArchive();
-  const archiveIllustrations = flatten(
-    archiveProjects
-      .map(
-        ({ id, illustrations }) => illustrations
-          .map((illustration) => ({ project: id, ...illustration })),
-      ),
-  );
+  const archive = await fetchArchive();
 
-  const localEntitiesEntries = await ENTITIES.entries();
-  const localEntities = localEntitiesEntries.map(([, value]) => value);
-
-  const localProjects = localEntities
-    .filter(({ id }) => id.startsWith('P-'));
-
-  const localIllustrations = localEntities
-    .filter(({ id }) => id.startsWith('I-'));
-
-  const missingProjectsFromArchive = differenceBy(
-    localProjects, archiveProjects, (({ id }) => id),
-  );
-  const missingIllustrationsFromArchive = differenceBy(
-    localIllustrations, archiveIllustrations, (({ id }) => id),
-  );
-
-  // Add missing projects to local entities store
-  await Promise.all(archiveProjects.map((project) => {
-    assertion(TYPE_ENTITY_STORE_ITEM)(project);
-    return ENTITIES.set(project.id, project);
-  }));
-
-  // Add missing illustrations to local entities store
-  await Promise.all(archiveIllustrations.map((illustration) => {
-    const localData = localIllustrations.find(
-      ({ id }) => id === illustration.id,
-    );
-
-    const mergedLocalData = {
-      ...illustration,
-      version: localData?.version || null,
-      lastUploadedVersion: localData?.lastUploadedVersion || null,
+  // Update missing data from archive
+  const updates = archive.reduce((acc, current) => {
+    acc[current.id] = {
+      slug: {
+        $set: current.slug,
+      },
+      project: {
+        $set: current.project,
+      },
+      lastUpdated: {
+        $set: current.lastUpdated,
+      },
+      cloudVersion: {
+        $set: current.version,
+      },
     };
 
-    assertion(TYPE_ENTITY_STORE_ITEM)(mergedLocalData);
-    return ENTITIES.set(illustration.id, mergedLocalData);
-  }));
+    return acc;
+  }, {});
+  await updateDict('entities', updates);
 
-  // Remove projects and illustrations not in archive from local entities store
-  await Promise.all(
-    [
-      ...missingProjectsFromArchive,
-      ...missingIllustrationsFromArchive,
-    ].map((project) => ENTITIES.delete(project.id)),
+  // Mark missing illustrations as such
+  const archiveIllustrationIds = archive.map(({ id }) => id);
+  const localEntityEntries = await ENTITIES.entries();
+  const localEntitiyIds = localEntityEntries.map(([id]) => id);
+
+  const missingIllustrationsFromArchive = difference(
+    localEntitiyIds, archiveIllustrationIds,
   );
+  const missingUpdates = missingIllustrationsFromArchive.reduce(
+    (acc, current) => {
+      acc[current.id] = {
+        cloudVersion: {
+          $set: null,
+        },
+      };
 
-  await ENTITIES.save();
+      return acc;
+    }, {},
+  );
+  await updateDict('entities', missingUpdates);
 }

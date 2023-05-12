@@ -1,20 +1,16 @@
 import { useState, useEffect } from 'react';
-import { resolve } from '@tauri-apps/api/path';
-import { exists, readBinaryFile } from '@tauri-apps/api/fs';
-import { watch } from 'tauri-plugin-fs-watch-api';
-import { ARCHIVE_PREVIEWS_DIRECTORY } from '../constants/paths';
-import atoms from '../atoms';
+import { readBinaryFile } from '@tauri-apps/api/fs';
+import { AWS_ARTISAN_BUCKET } from '../constants/aws';
 import bytesToBase64 from '../utils/fs/bytesToBase64';
-import createListenerSet from '../utils/listenerSet';
-
-const listeners = createListenerSet();
+import s3 from '../utils/s3';
+import getPreviewKey from '../utils/paths/getPreviewKey';
+import getLocalFallbackPath from '../utils/paths/getLocalFallbackPath';
 
 /**
  * Proves a fallback image for the given illustration ID.
  * It will first check if a fallback image exists for the
  * given ID, and if it does, it will load the image source
- * as base64 data. It also sets up a listener to react to any changes
- * made to the fallback images.
+ * as base64 data.
  *
  * @param {string} id - The illustration ID for which the fallback i
  *  mage should be used
@@ -23,52 +19,34 @@ const listeners = createListenerSet();
  */
 export default function useIllustrationFallback(id) {
   const [src, setSrc] = useState();
-  const settings = atoms.use.settings();
-  const workingDirectory = settings['working-directory'];
-  const fallbackImgName = `${id}.png`;
+
+  // TODO: Add some way to refresh this when there's a new generation?
 
   useEffect(() => {
     const effect = async () => {
-      const fallbackPath = await resolve(
-        workingDirectory,
-        `_${ARCHIVE_PREVIEWS_DIRECTORY}`,
-        fallbackImgName,
-      );
-
-      const fallbackExists = await exists(fallbackPath);
-
-      if (fallbackExists) {
+      try {
+        const fallbackPath = await getLocalFallbackPath(id);
         const content = await readBinaryFile(fallbackPath);
         setSrc(
           `data:image/png;base64,${bytesToBase64(content)}`,
         );
-      }
-    };
+        return;
+      } catch (error) { /* Ignore Error */ }
 
-    const addListener = async () => {
-      const previewsDirectory = await resolve(
-        workingDirectory,
-        `_${ARCHIVE_PREVIEWS_DIRECTORY}`,
-      );
-
-      listeners.add(
-        id, () => watch(
-          previewsDirectory,
-          { recursive: false },
-          async (events) => {
-            events.forEach(({ path }) => {
-              if (path.endsWith(fallbackImgName)) {
-                effect();
-              }
-            });
-          },
-        ),
-      );
+      try {
+        const previewKey = await getPreviewKey(id);
+        const content = await s3.download({
+          bucket: AWS_ARTISAN_BUCKET,
+          key: previewKey,
+        });
+        setSrc(
+          `data:image/png;base64,${bytesToBase64(content)}`,
+        );
+      } catch (error) { /* Ignore Error */ }
     };
 
     effect();
-    addListener();
-  }, [id, workingDirectory]);
+  }, [id]);
 
   return src;
 }

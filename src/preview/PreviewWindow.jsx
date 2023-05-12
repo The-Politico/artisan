@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import cls from './styles.module.css';
+import idToSlugs from '../utils/ids/idToSlugs';
+import getLocalPreviewUrl from '../utils/paths/getLocalPreviewUrl';
 
 import store from '../store';
-import getIllosFromProject from '../utils/fs/getIllosFromProject';
 
 function PreviewWindow() {
   const [url, setURL] = useState();
@@ -11,14 +12,22 @@ function PreviewWindow() {
 
   useEffect(() => {
     async function getSlugs() {
-      const { project, port } = await store.getPreview();
-      const illoSlugs = await getIllosFromProject(project);
+      const project = await store.preview.get('project');
 
-      const illoURL = `http://localhost:${port}/${illoSlugs[0]}/`
-        + 'ai2html-output/index.html';
+      const illoEntries = await store.entities.get();
+      const illoIds = illoEntries
+        .map(([id]) => id)
+        .filter((id) => {
+          const slugs = idToSlugs(id);
+          return slugs.project === project;
+        });
 
-      setIllos(illoSlugs);
-      setURL(illoURL);
+      const firstIllo = illoIds[0];
+
+      const localPreviewUrl = await getLocalPreviewUrl(firstIllo);
+
+      setIllos(illoIds);
+      setURL(localPreviewUrl);
     }
 
     getSlugs();
@@ -27,6 +36,7 @@ function PreviewWindow() {
   // placeholder for when we want to create a dropdown of illos later
   // eslint-disable-next-line no-console
   console.log(illos);
+  console.log(url);
 
   if (!url) {
     return (

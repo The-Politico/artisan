@@ -6,5 +6,15 @@ import store from '../../store';
  * @returns {Object}
  */
 export default async function onReadProject(projectId) {
-  return store.entities.get(projectId);
+  const entities = await store.entities.get();
+  const entitiesInProject = entities
+    .filter(([, meta]) => meta.project === projectId);
+
+  if (entitiesInProject.length > 0) {
+    return {
+      slug: projectId,
+    };
+  }
+
+  return undefined;
 }

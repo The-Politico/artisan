@@ -1,5 +1,5 @@
 import { type } from '@tauri-apps/api/os';
-import { readBinaryFile } from '@tauri-apps/api/fs';
+import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
 import { join } from '@tauri-apps/api/path';
 import crypto from 'crypto';
 import { invoke } from '@tauri-apps/api/tauri';
@@ -12,11 +12,13 @@ import fetchProjectMeta from '../utils/archive/fetchProjectMeta';
 import fetchPreviews from '../utils/archive/fetchPreviews';
 
 import healthCheck from '../utils/illustrations/healthCheck';
+import getIllustrationOutputPath from '../utils/paths/getIllustrationOutputPath';
 
 // Just a function to test things, will delete before merge
 export default async function testing() {
-  await store.entities.reset();
-  await store.entities.refresh();
+  // await store.entities.reset();
+  // await store.entities.refresh();
+  console.log(await readDir(await getIllustrationOutputPath('project-one:map')));
   // await healthCheck();
 
   // const workingDirectory = await store.settings.get('working-directory');

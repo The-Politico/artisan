@@ -4,6 +4,8 @@ import list from './list';
 import head from './head';
 import exists from './exists';
 import etag from './etag';
+import copy from './copy';
+import deleteObject from './delete';
 
 export default {
   download,
@@ -12,4 +14,6 @@ export default {
   head,
   exists,
   etag,
+  copy,
+  delete: deleteObject,
 };

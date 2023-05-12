@@ -1,15 +1,23 @@
 import { selector } from 'recoil';
 import entitiesAtom from '../entities/atom';
+import getProjectId from '../../utils/ids/getProjectId';
 
 /**
- * All entity IDs that are projects
+ * All entity slugs that are projects
  * @type {selector}
  */
 const projectsList = selector({
   key: 'projectsList',
   get: ({ get }) => {
     const entites = get(entitiesAtom);
-    return entites.filter((id) => id[0] === 'P');
+
+    const projectSet = entites.reduce((acc, id) => {
+      const project = getProjectId(id);
+      acc.add(project);
+      return acc;
+    }, new Set());
+
+    return Array.from(projectSet);
   },
 });
 

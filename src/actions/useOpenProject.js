@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import { open } from '@tauri-apps/api/shell';
-import atoms from '../atoms';
+import getProjectPath from '../utils/paths/getProjectPath';
 
 /**
  * Hook to set up a function for opening a project in file explorer
@@ -8,10 +8,9 @@ import atoms from '../atoms';
  * @param {string} projectId - The ID of the project
  * @returns {function(): Promise}
  */
-export default function useOpenInFinder(projectId) {
-  const projectPath = atoms.use.projectPath(projectId);
-
-  return useCallback(() => {
-    open(projectPath);
-  }, [projectPath]);
+export default function useOpenProject(projectId) {
+  return useCallback(async () => {
+    const projectPath = await getProjectPath(projectId);
+    await open(projectPath);
+  }, [projectId]);
 }

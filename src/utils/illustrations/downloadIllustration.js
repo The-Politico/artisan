@@ -1,7 +1,6 @@
 import { writeBinaryFile } from '@tauri-apps/api/fs';
 import store from '../../store';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import getIllustrationData from './getIllustrationData';
 import {
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
   STATUS_ILLUSTRATION_ARCHIVED,
@@ -9,6 +8,10 @@ import {
 import ensureDir from '../fs/ensureDir';
 import s3 from '../s3';
 import getEtag from '../fs/getEtag';
+import getIllustrationStatus from './getIllustrationStatus';
+import getIllustrationPath from '../paths/getIllustrationPath';
+import getIllustrationKey from '../paths/getIllustrationKey';
+import getIllustrationFilePath from '../paths/getIllustrationFilePath';
 
 const DOWNLOADABLE_STATUSES = [
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
@@ -30,11 +33,10 @@ export default async function downloadIllustration(
   id,
   { force = false } = {},
 ) {
-  const {
-    meta,
-    status,
-    paths,
-  } = await getIllustrationData(id);
+  const aiPath = await getIllustrationFilePath(id);
+  const illoPath = await getIllustrationPath(id);
+  const status = await getIllustrationStatus(id);
+  const illoKey = getIllustrationKey(id);
 
   // Don't download if a download isn't available
   // (unless the force flag is on)
@@ -42,23 +44,24 @@ export default async function downloadIllustration(
     return false;
   }
 
-  await ensureDir(paths.dir);
+  await ensureDir(illoPath);
 
   const byteArray = await s3.download({
-    key: paths.key,
+    key: illoKey,
     bucket: AWS_ARTISAN_BUCKET,
   });
 
   await writeBinaryFile(
-    paths.filePath,
+    aiPath,
     byteArray,
   );
 
-  const fileVersion = await getEtag(paths.filePath);
-  await store.entities.set({
+  const fileVersion = await getEtag(aiPath);
+  await store.entities.updateDict({
     [id]: {
-      ...meta,
-      lastUploadedVersion: fileVersion,
+      lastUploadedVersion: {
+        $set: fileVersion,
+      },
     },
   });
 

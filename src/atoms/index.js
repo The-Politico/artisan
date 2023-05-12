@@ -26,7 +26,6 @@ import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
 import projectPath from './selectors/projectPath';
 import illustrationPath from './selectors/illustrationPath';
-import projectSlugs from './selectors/projectSlugs';
 import onReadStatus from './status/read';
 import onWriteStatus from './status/write';
 
@@ -44,7 +43,6 @@ const atoms = {
   isPreviewActive,
   projectPath,
   illustrationPath,
-  projectSlugs,
 };
 
 /**

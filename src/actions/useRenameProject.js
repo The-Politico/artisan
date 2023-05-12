@@ -3,6 +3,7 @@ import store from '../store';
 import postProjectMeta from '../utils/archive/postProjectMeta';
 
 /**
+ * @deprecated until further notice
  * Set up a function to rename an project
 
  * @param {string} projectId - The ID of the project

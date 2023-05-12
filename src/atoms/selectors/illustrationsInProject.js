@@ -1,6 +1,6 @@
 import { selectorFamily } from 'recoil';
 import illustrationEntities from './illustrationsList';
-import illustrationAtoms from '../illustrations/atom';
+import idToSlugs from '../../utils/ids/idToSlugs';
 
 /**
  * All the illustrations in a given project
@@ -11,11 +11,11 @@ const illustrationsInProject = selectorFamily({
   get: (projectId) => ({ get }) => {
     const illustrations = get(illustrationEntities);
 
-    const illustrationInfo = illustrations
-      .map((id) => get(illustrationAtoms(id)))
-      .filter(({ project }) => project === projectId);
-
-    return illustrationInfo;
+    return illustrations
+      .filter((id) => {
+        const slugs = idToSlugs(id);
+        return slugs.project === projectId;
+      });
   },
 });
 illustrationsInProject.key = 'illustrationsInProject';

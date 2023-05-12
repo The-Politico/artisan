@@ -9,6 +9,7 @@ import {
   nullable,
   number,
   or,
+  dict,
 } from '@recoiljs/refine';
 import { ALL_STATUSES } from './statuses';
 
@@ -24,26 +25,24 @@ export const TYPE_ENTITY_ID_COLLECTION = array(string());
 
 // A collection of data stored about an entity
 export const TYPE_PROJECT_STORE_ITEM = object({
-  id: string(),
-  name: string(),
   slug: string(),
 });
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
-  id: string(),
-  name: string(),
   slug: string(),
   lastUpdated: jsonDate(),
   project: string(),
   version: nullable(string()),
+  cloudVersion: nullable(string()),
   lastUploadedVersion: nullable(string()),
-  publicUrl: voidable(string()),
 });
 
 export const TYPE_ENTITY_STORE_ITEM = or(
   TYPE_PROJECT_STORE_ITEM,
   TYPE_ILLUSTRATION_STORE_ITEM,
 );
+
+export const TYPE_ENTITY_STORE = dict(TYPE_ENTITY_STORE_ITEM);
 
 // Valid options for the settings store
 export const TYPE_SETTINGS_STORE_KEYS = {

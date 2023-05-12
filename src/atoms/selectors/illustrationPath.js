@@ -1,8 +1,7 @@
 import { selectorFamily } from 'recoil';
-import projectsAtomFamily from '../projects/atom';
 import settingsAtom from '../settings/atom';
-import illustrationsAtomFamily from '../illustrations/atom';
 import joinSync from '../../utils/fs/joinSync';
+import idToSlugs from '../../utils/ids/idToSlugs';
 
 /**
  * The local directory path to a given illustration
@@ -11,15 +10,15 @@ import joinSync from '../../utils/fs/joinSync';
 const illustrationPath = selectorFamily({
   key: 'illustrationPath',
   get: (illustrationId) => ({ get }) => {
-    const illustration = get(illustrationsAtomFamily(illustrationId));
-    const project = get(projectsAtomFamily(illustration.project));
     const settings = get(settingsAtom);
     const workingDirectory = settings['working-directory'];
 
+    const slugs = idToSlugs(illustrationId);
+
     return joinSync(
       workingDirectory,
-      project.slug,
-      illustration.slug,
+      slugs.project,
+      slugs.illustration,
     );
   },
 });
