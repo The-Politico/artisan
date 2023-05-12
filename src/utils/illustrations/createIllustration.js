@@ -3,7 +3,8 @@ import slugsToId from '../ids/slugsToId';
 import getIllustrationKey from '../paths/getIllustrationKey';
 import slugify from '../text/slugify';
 import store from '../../store';
-import shareIllustration from './shareIllustration';
+import shareProject from '../project/shareProject';
+import idToSlugs from '../ids/idToSlugs';
 
 import {
   AWS_ARTISAN_BUCKET,
@@ -33,7 +34,9 @@ export default async function createIllustration(projectId, illoName) {
   await store.entities.refreshId(illoId);
 
   // Update share page
-  await shareIllustration(illoId);
+  // Update share page
+  const slugs = idToSlugs(illoId);
+  await shareProject(slugs.project);
 
   return illoId;
 }

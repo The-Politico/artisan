@@ -1,0 +1,59 @@
+.dropdown-container {
+  width: 14rem;
+  position: relative;
+}
+
+.label {
+  color: white;
+  opacity: .9;
+  text-align: center;
+  margin-bottom: .25rem;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  position: relative;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: .5rem .75rem;
+  border-radius: 6px;
+}
+
+.options {
+  position: absolute;
+  margin-top: .25rem;
+  width: 100%;
+  overflow: auto;
+  border-radius: 6px;
+  background-color: white;
+  padding: .25rem 0;
+  color: var(--politico-black);
+  border: 1px solid var(--politico-line);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.option-item {
+  cursor: default;
+  padding: .25rem .75rem;
+}
+
+.active {
+  background-color: var(--politico-black);
+  color: var(--politico-light-background);
+}
+
+.selected-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+.icon {
+  height: 1.25rem;
+  width: 1.25rem;
+}

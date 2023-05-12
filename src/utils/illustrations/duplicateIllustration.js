@@ -4,7 +4,8 @@ import getIllustrationKey from '../paths/getIllustrationKey';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import store from '../../store';
 import slugsToId from '../ids/slugsToId';
-import shareIllustration from './shareIllustration';
+import shareProject from '../project/shareProject';
+import idToSlugs from '../ids/idToSlugs';
 
 export default async function duplicateIllustration(
   sourceId,
@@ -32,7 +33,8 @@ export default async function duplicateIllustration(
   await store.entities.refreshId(destinationId);
 
   // Update share page
-  await shareIllustration(destinationId);
+  const slugs = idToSlugs(destinationId);
+  await shareProject(slugs.project);
 
   return destinationId;
 }

@@ -45,6 +45,12 @@ export default function MeatballButton({ projectSlug }) {
       label: 'Duplicate',
       action: () => act.duplicateProject(projectSlug, `${projectSlug}-copy`),
     },
+    /* DELETE AFTER SHARE OUTPUT IS DONE */
+    {
+      iconName: 'ExclamationTriangleIcon',
+      label: 'Output Share',
+      action: () => act.outputShare(projectSlug),
+    },
     {
       iconName: 'TrashIcon',
       label: 'Delete Project',

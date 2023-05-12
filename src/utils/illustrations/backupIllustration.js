@@ -12,7 +12,8 @@ import getEtag from '../fs/getEtag';
 import getIllustrationFilePath from '../paths/getIllustrationFilePath';
 import getLocalFallbackPath from '../paths/getLocalFallbackPath';
 import getPreviewKey from '../paths/getPreviewKey';
-import shareIllustration from './shareIllustration';
+import shareProject from '../project/shareProject';
+import idToSlugs from '../ids/idToSlugs';
 
 /**
  * Backup an illustration to an Amazon S3 bucket
@@ -84,7 +85,8 @@ export default async function backupIllustration(
   await store.entities.refreshId(id);
 
   // Update share page
-  await shareIllustration(id);
+  const slugs = idToSlugs(id);
+  await shareProject(slugs.project);
 
   return true;
 }
