@@ -1,5 +1,5 @@
 import cls from 'classnames';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import styles from './styles.module.css';
 import {
@@ -13,17 +13,11 @@ import {
   margin,
 } from '../../theme';
 import SettingsForm from '../SettingsForm';
-import store from '../../store';
+import atoms from '../../atoms';
 
 export default function WelcomeModal() {
-  const [isOpen, setIsOpen] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const { firstRun } = await store.getSettings();
-      setIsOpen(firstRun);
-    })();
-  }, []);
+  const settings = atoms.use.settings();
+  const [isOpen, setIsOpen] = useState(settings['first-run']);
 
   const panelClass = cls(
     styles.panel,

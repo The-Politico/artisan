@@ -80,6 +80,9 @@ export default async function backupIllustration(
       lastUploadedVersion: {
         $set: version,
       },
+      lastUploadedDate: {
+        $set: (new Date()).toISOString(),
+      },
     },
   });
   await store.entities.refreshId(id);

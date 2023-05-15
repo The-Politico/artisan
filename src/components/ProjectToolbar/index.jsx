@@ -1,5 +1,4 @@
 import cls from 'classnames';
-import { useEffect, useState } from 'react';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import ProjectStatusDek from '../ProjectStatusDek';
 import {
@@ -12,73 +11,16 @@ import {
   borders,
 } from '../../theme';
 import ButtonsGroup from './ButtonsGroup';
-import store from '../../store';
 import Skeleton from '../Skeleton';
+import atoms from '../../atoms';
+import titleify from '../../utils/text/titleify';
 
-export default function ProjectToolbar({ selectedProject, isArchive }) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [projectDetail, setProjectDetail] = useState({});
-  const [status, setStatus] = useState(undefined);
-  const [timestamp, setTimestamp] = useState(undefined);
+export default function ProjectToolbar() {
+  const activeProject = atoms.use.activeProject();
+  const projectName = titleify(activeProject);
 
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  }, [selectedProject]);
-
-  // Gets project details when selected project changes
-  useEffect(() => {
-    (async () => {
-      if (!isArchive) {
-        const project = await store.getProject(selectedProject);
-        setProjectDetail(project);
-      } else {
-        setProjectDetail(selectedProject);
-      }
-    })();
-  }, [selectedProject]);
-
-  // Listener for changes to a project in the store (like backup time)
-  useEffect(() => {
-    if (!isArchive) {
-      const {
-        stores: { PROJECTS },
-      } = store;
-      const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-        setProjectDetail(e);
-      });
-      return () => {
-        unlisten.then((f) => f());
-      };
-    }
-    return () => {};
-  }, [selectedProject]);
-
-  // Sets status and timestamp from project details
-  useEffect(() => {
-    if (projectDetail) {
-      const { isUploaded, isPublished, lastUploaded } = projectDetail;
-      if (isArchive) {
-        setStatus('archive');
-      } else if (isPublished) {
-        setStatus('published');
-        setTimestamp(lastUploaded);
-      } else if (isUploaded) {
-        setStatus('uploaded');
-        setTimestamp(lastUploaded);
-      }
-    }
-
-    // Cleanup incase changing projects causes some odd dispaly status
-    return () => {
-      setStatus(undefined);
-      setTimestamp(undefined);
-    };
-  }, [projectDetail]);
-
-  if (isLoading) {
+  // TODO: Skeleton rework?
+  if (false) {
     return (
       <div
         className={cls(
@@ -117,26 +59,21 @@ export default function ProjectToolbar({ selectedProject, isArchive }) {
       className={cls(flex.flex, flex.flexRow, layout.itemsCenter, margin.my2)}
     >
       <ProjectStatusIcon
+        id={activeProject}
         size="lg"
         className={margin.mr2}
-        status={status}
       />
       <div>
         <h2
           className={cls(colors.textSlate900, type.text2Xl, type.fontSemibold)}
         >
-          {projectDetail?.name}
+          {projectName}
         </h2>
         <ProjectStatusDek
-          projectSlug={selectedProject}
-          status={status}
-          timestamp={timestamp}
+          id={activeProject}
         />
       </div>
-      <ButtonsGroup
-        projectSlug={projectDetail?.slug}
-        status={status}
-      />
+      <ButtonsGroup id={activeProject} />
     </div>
   );
 }

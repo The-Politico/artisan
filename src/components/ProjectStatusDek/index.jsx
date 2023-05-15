@@ -3,19 +3,23 @@ import styles from './styles.module.css';
 import { typography as type } from '../../theme';
 import Timestamp from './Timestamp';
 import BackupPrompt from './BackupPrompt';
+import atoms from '../../atoms';
+import {
+  STATUS_PROJECT_OK,
+  STATUS_PROJECT_VALID_UPLOAD,
+} from '../../constants/statuses';
 
 /**
  * Timestamp information dek for active Project.
  * Also provides option to backup
  * @param {Object} props
- * @param {'archive' | 'published' | 'uploaded'} [props.status] Set status
- * to determine language. Defaults to "Not backedup: Backup Now"
- * @param {String} [props.timestamp] Timestamp formatted as an ISO datestring
- * @param {String} [props.projectSlug] Use to provide backup action
- * for unuploaded project
+ * @param {String} [props.id] The project whose status to retrieve
  * @returns {JSX.Element}
  */
-export default function ProjectStatusDek({ status, timestamp, projectSlug }) {
+export default function ProjectStatusDek({ id }) {
+  const status = atoms.use.status(id);
+  const lastUploaded = atoms.use.projectLastUploaded(id);
+
   const dekClass = cls(styles.dek, type.textSm);
 
   if (status === 'archive') {
@@ -23,24 +27,26 @@ export default function ProjectStatusDek({ status, timestamp, projectSlug }) {
   }
 
   const renderText = () => {
+    // TODO: Status rework
     switch (status) {
-      case 'published':
-        return 'Last published: ';
-      case 'uploaded':
+      case STATUS_PROJECT_OK:
         return 'Last backed up: ';
-      default:
+      case STATUS_PROJECT_VALID_UPLOAD:
         return 'Not backed up: ';
+      default:
+        return 'Unknown Status Text: ';
     }
   };
 
   const renderTime = () => {
-    if (!timestamp) {
-      return <BackupPrompt project={projectSlug} />;
+    if (status === STATUS_PROJECT_VALID_UPLOAD) {
+      return <BackupPrompt id={id} />;
     }
+
     return (
       <Timestamp
         status={status}
-        timestamp={timestamp}
+        timestamp={lastUploaded}
       />
     );
   };

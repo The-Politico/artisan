@@ -3,7 +3,6 @@ import {
   string,
   object,
   bool,
-  voidable,
   stringLiterals,
   jsonDate,
   nullable,
@@ -30,11 +29,25 @@ export const TYPE_PROJECT_STORE_ITEM = object({
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
   slug: string(),
-  lastUpdated: jsonDate(),
   project: string(),
+
+  // The last known version to be generated
   version: nullable(string()),
+
+  // The version available in the archive
   cloudVersion: nullable(string()),
+
+  // The last known version to be backed up
   lastUploadedVersion: nullable(string()),
+
+  // The last time the file was changed
+  lastUpdated: jsonDate(),
+
+  // The last time the file was backed up
+  lastUploadedDate: nullable(jsonDate()),
+
+  // The last time the file was published live
+  lastPublishedDate: nullable(jsonDate()),
 });
 
 export const TYPE_ENTITY_STORE_ITEM = or(

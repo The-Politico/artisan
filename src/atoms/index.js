@@ -21,6 +21,8 @@ import onReadPreview from './preview/read';
 import onWritePreview from './preview/write';
 
 import projectsList from './selectors/projectsList';
+import projectsListStatuses from './selectors/projectListStatuses';
+import projectLastUploaded from './selectors/projectLastUploaded';
 import illustrationsList from './selectors/illustrationsList';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
@@ -38,6 +40,8 @@ const atoms = {
   status: statusAtomFamily,
   activeProject: activeProjectAtom,
   projectsList,
+  projectLastUploaded,
+  projectsListStatuses,
   illustrationsList,
   illustrationsInProject,
   isPreviewActive,
@@ -63,7 +67,12 @@ const atoms = {
  * @property {AtomsUseUtility} illustration - Illustrations atom family
  * @property {AtomsUseUtility} settings - Settings atom
  * @property {AtomsUseUtility} preview - Preview atom
+ * @property {AtomsUseUtility} status - The status of a particular entity
+ * @property {AtomsUseUtility} activeProject - The active project being viewed
  * @property {AtomsUseUtility} projectsList - Projects list selector
+ * @property {AtomsUseUtility} projectLastUploaded - The last time a
+ *  project's illustration was uploaed to archive
+ * @property {AtomsUseUtility} projectsListStatuses - Projects list with status
  * @property {AtomsUseUtility} illustrationsList - Illustrations
  *  list selector
  * @property {AtomsUseUtility} illustrationsInProject - Illustrations in

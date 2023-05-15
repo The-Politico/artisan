@@ -3,8 +3,7 @@ import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
 import sync from './sync';
 
-// import AppView from './components/AppView';
-import BetaTestingView from './components/BetaTestingView';
+import App from './components/App';
 import './main.css';
 
 sync.start();
@@ -16,7 +15,7 @@ ReactDOM.createRoot(window.document.getElementById('root')).render(
     <RecoilRoot>
       <React.Suspense fallback={<div>Loading...</div>}>
         <RecoilSyncRoot>
-          <BetaTestingView />
+          <App />
         </RecoilSyncRoot>
       </React.Suspense>
     </RecoilRoot>

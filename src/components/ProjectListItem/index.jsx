@@ -1,8 +1,7 @@
 import cls from 'classnames';
-import { useState, useEffect } from 'react';
 import ProjectStatusIcon from '../ProjectStatusIcon';
 import styles from './styles.module.css';
-import store from '../../store';
+import atoms from '../../atoms';
 import {
   borders,
   effects,
@@ -14,48 +13,21 @@ import {
   typography as type,
 } from '../../theme';
 import Skeleton from '../Skeleton';
+import titleify from '../../utils/text/titleify';
+import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
 
 export default function ProjectListItem({
-  last,
-  index,
-  projectSlug,
-  archiveProject,
-  isArchive,
-  selectedProject,
-  setSelectedProject,
+  id,
+  archiveMode,
 }) {
-  const [projectDetail, setProjectDetail] = useState();
-  const [status, setStatus] = useState(undefined);
-  const [projectName, setProjectName] = useState(null);
+  const projectName = titleify(id);
+  const status = atoms.use.status(id);
 
-  useEffect(() => {
-    (async () => {
-      if (!isArchive && projectSlug) {
-        const project = await store.getProject(projectSlug);
-        setProjectDetail(project);
-      } else if (isArchive && archiveProject) {
-        // when archive, project slug comes over as an object
-        setProjectName(archiveProject.name);
-      }
-    })();
-  }, [projectSlug, archiveProject]);
-
-  useEffect(() => {
-    if (projectDetail) {
-      const { isUploaded, isPublished, name } = projectDetail;
-      setProjectName(name);
-      if (isPublished) {
-        setStatus('published');
-      } else if (isUploaded) {
-        setStatus('uploaded');
-      }
-    } else if (isArchive) {
-      setStatus('archive');
-    }
-    return () => {
-      setStatus(undefined);
-    };
-  }, [isArchive, projectDetail]);
+  const [
+    activeProject,
+    setActiveProject,
+  ] = atoms.use.activeProject.useRecoilState();
+  const isActive = activeProject === id;
 
   const itemClass = cls(
     styles.item,
@@ -66,12 +38,19 @@ export default function ProjectListItem({
     layout.itemsCenter,
     borders.roundedLg,
     effects.transition,
-    { [styles.selected]: selectedProject === (projectSlug || archiveProject) },
+    { [styles.selected]: isActive },
   );
+
+  if (
+    (archiveMode && status !== STATUS_PROJECT_ARCHIVED)
+    || (!archiveMode && status === STATUS_PROJECT_ARCHIVED)
+  ) {
+    return null;
+  }
 
   return (
     <>
-      {(index > 0 || last) && <div className={styles.divider} />}
+      <div className={styles.divider} />
       <li>
         {!projectName ? (
           <div
@@ -97,11 +76,11 @@ export default function ProjectListItem({
           <button
             type="button"
             className={itemClass}
-            onClick={() => setSelectedProject(archiveProject || projectSlug)}
+            onClick={() => setActiveProject(id)}
           >
             <ProjectStatusIcon
               className={styles.icon}
-              status={status}
+              id={id}
             />
             <p className={cls(styles.itemName, type.textLg, margin.ml1)}>
               {projectName}
@@ -109,6 +88,7 @@ export default function ProjectListItem({
           </button>
         )}
       </li>
+      <div className={styles.divider} />
     </>
   );
 }

@@ -14,7 +14,7 @@ export default function useBackupProject(projectId) {
   const illustrations = atoms.use.illustrationsInProject(projectId);
   const status = atoms.use.status(projectId);
 
-  return useCallback(async ({ force = false } = {}) => {
+  return useCallback(async ({ force = true } = {}) => {
     if (!force && status !== STATUS_PROJECT_VALID_UPLOAD) {
       // TODO: Replace this with custom error
       throw new Error('TK TK TK');

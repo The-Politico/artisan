@@ -4,9 +4,11 @@ import { PlusIcon } from '@heroicons/react/24/solid';
 import InputBox from './InputBox';
 import styles from './styles.module.css';
 
-import { colors, margin, borders, flex, layout, effects } from '../../theme';
+import {
+  colors, margin, borders, flex, layout, effects,
+} from '../../theme';
 
-export default function NewIllustration({ projectSlug }) {
+export default function NewIllustration({ projectId }) {
   const [showInput, setShowInput] = useState(false);
 
   const containerClass = cls(
@@ -40,7 +42,7 @@ export default function NewIllustration({ projectSlug }) {
     <InputBox
       showInput={showInput}
       setShowInput={setShowInput}
-      projectSlug={projectSlug}
+      projectId={projectId}
     />
   );
 }

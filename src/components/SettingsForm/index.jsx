@@ -1,51 +1,38 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import cls from 'classnames';
-import { createDir, exists } from '@tauri-apps/api/fs';
 import styles from './styles.module.css';
 import { margin, padding, typography as type } from '../../theme';
-import store from '../../store';
 import Input from '../Input';
 import Advanced from './Advanced';
 import Button from '../Button';
 import WorkingDir from './WorkingDir';
+import atoms from '../../atoms';
+import ensureDir from '../../utils/fs/ensureDir';
 
 export default function SettingsForm({ setIsOpen, isFirstRun = false }) {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [projectsDir, setProjectsDir] = useState('');
-  const [port, setPort] = useState('');
+  const [settings, setSettings] = atoms.use.settings.useRecoilState();
+
+  const [name, setName] = useState(settings['author-name']);
+  const [email, setEmail] = useState(settings['author-email']);
+  const [projectsDir, setProjectsDir] = useState(
+    settings['working-directory'],
+  );
+  const [port, setPort] = useState(settings['preferred-port']);
 
   const handleClick = async () => {
-    await store.updateSettings({
-      firstRun: false,
-      authorName: name,
-      authorEmail: email,
-      preferredPort: port,
-      workingDir: projectsDir,
+    setSettings({
+      'first-run': false,
+      'author-name': name,
+      'author-email': email,
+      'preferred-port': port,
+      'working-directory': projectsDir,
     });
 
     if (isFirstRun) {
-      const dirExists = await exists(projectsDir);
-      if (!dirExists) {
-        await createDir(projectsDir);
-      }
+      await ensureDir(projectsDir);
       setIsOpen(false);
     }
   };
-
-  useEffect(() => {
-    (async () => {
-      const settings = await store.getSettings();
-      const {
-        authorName, authorEmail, workingDir, preferredPort,
-      } = settings;
-
-      setName(authorName);
-      setEmail(authorEmail);
-      setProjectsDir(workingDir);
-      setPort(preferredPort);
-    })();
-  }, []);
 
   return (
     <>

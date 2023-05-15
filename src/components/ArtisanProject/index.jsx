@@ -6,18 +6,18 @@ import {
 import EmptyProject from '../EmptyProject';
 import ProjectToolbar from '../ProjectToolbar';
 import Illustrationlist from '../IllustrationList';
+import atoms from '../../atoms';
 
-export default function ArtisanProject({ selectedProject, isArchive, illos }) {
-  if (!selectedProject) {
+export default function ArtisanProject() {
+  const activeProject = atoms.use.activeProject();
+
+  if (!activeProject) {
     return <EmptyProject />;
   }
 
   return (
     <div className={styles.container}>
-      <ProjectToolbar
-        isArchive={isArchive}
-        selectedProject={selectedProject}
-      />
+      <ProjectToolbar />
       <div
         className={cls(
           styles.illoContainer,
@@ -28,11 +28,8 @@ export default function ArtisanProject({ selectedProject, isArchive, illos }) {
           effects.shadowMd,
         )}
       >
-        <Illustrationlist
-          illos={illos}
-          selectedProject={selectedProject}
-          isArchive={isArchive}
-        />
+        <div />
+        <Illustrationlist />
       </div>
     </div>
   );

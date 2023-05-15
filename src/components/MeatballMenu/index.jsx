@@ -8,7 +8,7 @@ import {
   colors, effects, padding, borders,
 } from '../../theme';
 
-export default function MeatballMenu({ items, children }) {
+export default function MeatballMenu({ items, children, active = true }) {
   const itemsClass = cls(
     styles.items,
     padding.p1,
@@ -16,6 +16,10 @@ export default function MeatballMenu({ items, children }) {
     effects.shadowLg,
     colors.bgSlate50,
   );
+
+  if (!active) {
+    return null;
+  }
 
   return (
     <Menu

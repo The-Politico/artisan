@@ -1,10 +1,12 @@
-import backupFiles from '../../actions/backupFiles';
+import useBackupProject from '../../actions/useBackupProject';
 import styles from './styles.module.css';
 
-export default function BackupPrompt({ project }) {
+export default function BackupPrompt({ id }) {
+  const backup = useBackupProject(id);
+
   return (
     <button
-      onClick={() => backupFiles(project)}
+      onClick={backup}
       type="button"
       className={styles.timestampBtn}
     >

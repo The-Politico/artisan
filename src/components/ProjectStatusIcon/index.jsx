@@ -1,6 +1,7 @@
 import cls from 'classnames';
 import { ICONS } from './icons';
 import styles from './styles.module.css';
+import atoms from '../../atoms';
 
 /**
  *
@@ -11,7 +12,9 @@ import styles from './styles.module.css';
  * Otherwise dispalys `"MinuseCircleIcon"`
  * @returns {JSX.Element}
  */
-export default function ProjectStatusIcon({ status, size = 'md', className }) {
+export default function ProjectStatusIcon({ id, size = 'md', className }) {
+  const status = atoms.use.status(id);
+
   const iconClass = cls(styles.icon, styles[size], styles[status], className);
 
   const IconComponent = ICONS[status] || ICONS.default;

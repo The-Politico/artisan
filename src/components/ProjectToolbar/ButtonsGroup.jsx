@@ -1,32 +1,35 @@
 import cls from 'classnames';
-import { useState } from 'react';
 import { open } from '@tauri-apps/api/shell';
 import IconButton from '../IconButton';
 import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
-import act from '../../actions';
-import getSharePath from '../../utils/paths/getSharePath';
 import PublishButton from './PublishButton';
 import MeatballButton from './MeatballButton';
+import atoms from '../../atoms';
+import useDownloadProject from '../../actions/useDownloadProject';
+import usePreviewProject from '../../actions/usePreviewProject';
+import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
 
-export default function ButtonsGroup({ projectSlug, status }) {
-  const [showPubilshAlert, setShowPublishAlert] = useState(false);
+export default function ButtonsGroup({ id }) {
+  const status = atoms.use.status(id);
+  const download = useDownloadProject(id);
+  const [launchPreview] = usePreviewProject(id);
 
   // Opens generated share link in default browser
   const handleShareClick = async (e) => {
     e.preventDefault();
-    const url = getSharePath(projectSlug, { asUrl: true });
-    await open(url);
+    // TODO: Get the right URL
+    await open('https://www.example.com');
   };
 
   // Only show download button when viewing archive project
-  if (status === 'archive') {
+  if (status === STATUS_PROJECT_ARCHIVED) {
     return (
       <div className={cls(styles.btnGroup)}>
         <IconButton
           iconName="ArrowDownTrayIcon"
           label="Download"
-          onClick={() => act.downloadProject(projectSlug)}
+          onClick={download}
         />
       </div>
     );
@@ -34,15 +37,11 @@ export default function ButtonsGroup({ projectSlug, status }) {
 
   return (
     <div className={cls(styles.btnGroup, flex.flex, flex.flexRow, gap.x3)}>
-      <PublishButton
-        projectSlug={projectSlug}
-        showPubilshAlert={showPubilshAlert}
-        setShowPublishAlert={setShowPublishAlert}
-      />
+      <PublishButton id={id} />
       <IconButton
         iconName="EyeIcon"
         label="Preview"
-        onClick={() => act.launchPreview(projectSlug)}
+        onClick={launchPreview}
       />
       <IconButton
         iconName="ShareIcon"
@@ -50,7 +49,7 @@ export default function ButtonsGroup({ projectSlug, status }) {
         disabled={status !== 'published'}
         onClick={handleShareClick}
       />
-      <MeatballButton projectSlug={projectSlug} />
+      <MeatballButton id={id} />
     </div>
   );
 }

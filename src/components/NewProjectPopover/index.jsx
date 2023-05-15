@@ -1,7 +1,6 @@
 import { Fragment, useState } from 'react';
 import cls from 'classnames';
 import { Popover, Transition } from '@headlessui/react';
-import { message } from '@tauri-apps/api/dialog';
 import Input from '../Input';
 import Button from '../Button';
 import styles from './styles.module.css';
@@ -14,11 +13,13 @@ import {
   padding,
   transitions,
 } from '../../theme';
-import act from '../../actions';
+import useCreate from '../../actions/useCreate';
 
 export default function NewProjectPopover() {
   const [newProjectName, setNewProjectName] = useState('');
   const [newIlloName, setNewIlloName] = useState('');
+
+  const create = useCreate();
 
   const panelClass = cls(
     styles.panel,
@@ -28,17 +29,8 @@ export default function NewProjectPopover() {
     effects.shadowLg,
   );
 
-  // TODO: Come up with a wholistic error messaging strategy
   const handleCreate = async (close) => {
-    if (newProjectName === '' || newIlloName === '') {
-      await message('Project Name and Illustration Name cannot be blank', {
-        title: 'Oops!',
-        type: 'error',
-      });
-      return;
-    }
-    const { slug } = await act.createProject(newProjectName);
-    await act.createIllustration(slug, newIlloName);
+    await create(newIlloName, { newProject: newProjectName });
     close();
   };
 

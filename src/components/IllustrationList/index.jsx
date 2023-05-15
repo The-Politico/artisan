@@ -1,27 +1,20 @@
 import cls from 'classnames';
-import { useState, useEffect } from 'react';
 import { borders } from '../../theme';
 import IllustrationItem from '../IllustrationItem';
 import NewIllustration from '../NewIllustration';
 import Skeleton from '../Skeleton';
 import styles from './styles.module.css';
+import atoms from '../../atoms';
 
-export default function Illustrationlist({
-  illos,
-  selectedProject,
-  isArchive,
-}) {
-  const [isLoading, setIsLoading] = useState(true);
+export default function Illustrationlist() {
   const containerClass = cls(styles.container);
+  const activeProject = atoms.use.activeProject();
+  const illustrationsInProject = atoms.use.illustrationsInProject(
+    activeProject,
+  );
 
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1500);
-  }, [selectedProject]);
-
-  if (isLoading) {
+  // TODO: Skeleton rework?
+  if (false) {
     return (
       <div className={containerClass}>
         <Skeleton
@@ -40,17 +33,13 @@ export default function Illustrationlist({
 
   return (
     <div className={containerClass}>
-      {illos.map(({ name, slug, publicUrl }) => (
+      {illustrationsInProject.map((illoId) => (
         <IllustrationItem
-          projectSlug={selectedProject}
-          key={name}
-          name={name}
-          slug={slug}
-          publicURL={publicUrl}
-          isArchive={isArchive}
+          key={illoId}
+          id={illoId}
         />
       ))}
-      {!isArchive && <NewIllustration projectSlug={selectedProject} />}
+      <NewIllustration projectId={activeProject} />
     </div>
   );
 }

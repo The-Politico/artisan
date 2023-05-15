@@ -1,65 +1,17 @@
-import { useState, useEffect } from 'react';
-import styles from './styles.module.css';
-import store from '../../store';
 import ProjectList from '../ProjectList';
 import ArtisanProject from '../ArtisanProject';
 import Sidebar from '../Sidebar';
 import WelcomeModal from '../WelcomeModal';
 
+import styles from './styles.module.css';
+
 export default function AppView() {
-  const [selectedProject, setSelectedProject] = useState(null);
-
-  const [illos, setIllos] = useState([]);
-
-  const [isArchive, setIsArchive] = useState(false);
-
-  /**
-   * Swaps between showing illustrations
-   * from the store or fetched from the archive
-   */
-  useEffect(() => {
-    (async () => {
-      if (!isArchive && selectedProject) {
-        const { illustrations } = await store.getProject(selectedProject);
-        setIllos(illustrations);
-      } else if (selectedProject) {
-        setIllos(selectedProject.illos);
-      }
-    })();
-  }, [selectedProject, isArchive]);
-
-  /**
-   * Updates illustration list on project or illustration change
-   */
-  useEffect(() => {
-    if (!isArchive && selectedProject) {
-      const { PROJECTS } = store.stores;
-      const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-        const { illustrations } = e;
-        setIllos(illustrations);
-      });
-      return () => {
-        unlisten.then((f) => f());
-      };
-    }
-    return () => {};
-  }, [selectedProject, isArchive]);
-
   return (
     <div className={styles.grid}>
       <Sidebar>
-        <ProjectList
-          setIsArchive={setIsArchive}
-          selectedProject={selectedProject}
-          setSelectedProject={setSelectedProject}
-          isArchive={isArchive}
-        />
+        <ProjectList />
       </Sidebar>
-      <ArtisanProject
-        isArchive={isArchive}
-        selectedProject={selectedProject}
-        illos={illos}
-      />
+      <ArtisanProject />
       <WelcomeModal />
     </div>
   );
