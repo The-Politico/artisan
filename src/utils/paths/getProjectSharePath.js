@@ -2,18 +2,14 @@ import { AWS_STAGING_BASE_URL } from '../../constants/aws';
 import {
   PUBLISH_SHARE_PATH,
 } from '../../constants/paths';
-import idToSlugs from '../ids/idToSlugs';
 
-export default function getIllustrationSharePath(
+export default function getProjectSharePath(
   id,
   { asUrl = false } = {},
 ) {
-  const slugs = idToSlugs(id);
-
   const key = [
     PUBLISH_SHARE_PATH,
-    slugs.project,
-    slugs.illustration,
+    id,
     'index.html',
   ].join('/');
 

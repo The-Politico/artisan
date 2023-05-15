@@ -4,6 +4,7 @@ import { AWS_PRODUCTION_BUCKET } from '../../constants/aws';
 import s3 from '../s3';
 import getIllustrationOutputKey from '../paths/getIllustrationOutputKey';
 import getIllustrationOutputPath from '../paths/getIllustrationOutputPath';
+import store from '../../store';
 
 export default async function publishIllustration(id) {
   const illoOutputPath = await getIllustrationOutputPath(id);
@@ -31,4 +32,12 @@ export default async function publishIllustration(id) {
       body,
     });
   }));
+
+  await store.entities.updateDict({
+    [id]: {
+      lastPublishedDate: {
+        $set: (new Date()).toISOString(),
+      },
+    },
+  });
 }

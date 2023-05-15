@@ -10,6 +10,11 @@ const illustrationsList = selector({
   key: 'illustrationsList',
   get: ({ get }) => {
     const entites = get(entitiesAtom);
+
+    if (!entites) {
+      return [];
+    }
+
     return entites.filter((id) => !isProjectSlug(id));
   },
 });

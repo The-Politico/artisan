@@ -28,6 +28,9 @@ export default async function archiveIllustration(
       lastUploadedVersion: {
         $set: null,
       },
+      lastUploadedDate: {
+        $set: null,
+      },
       version: {
         $set: null,
       },

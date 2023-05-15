@@ -62,6 +62,9 @@ export default async function downloadIllustration(
       lastUploadedVersion: {
         $set: fileVersion,
       },
+      lastUploadedDate: {
+        $set: (new Date()).toISOString(),
+      },
     },
   });
 

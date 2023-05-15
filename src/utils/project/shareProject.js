@@ -1,4 +1,4 @@
-import getIllustrationSharePath from '../paths/getIllustrationSharePath';
+import getProjectSharePath from '../paths/getProjectSharePath';
 import idToSlugs from '../ids/idToSlugs';
 import titleify from '../text/titleify';
 import {
@@ -15,13 +15,12 @@ export default async function shareProject(id) {
     project: projectSlug,
   } = idToSlugs(id);
 
-  const shareKey = getIllustrationSharePath(id);
+  const shareKey = getProjectSharePath(id);
   const projectName = titleify(projectSlug);
 
   // TODO: I think we have to do something with this
-  // const shareUrl = getIllustrationSharePath(id, { asUrl: true });
-
-  const entities = store.entities.get();
+  // const shareUrl = getProjectSharePath(id, { asUrl: true });
+  const entities = await store.entities.get();
   const illustrations = entities
     .filter(([, data]) => data.project === projectSlug)
     .map(([entryId, data]) => ({

@@ -2,7 +2,7 @@
 export const AI2HTML_OUTPUT_DIR = 'ai2html-output';
 
 // Directory on S3 where projects are stored
-export const ARCHIVE_PROJECTS_DIRECTORY = 'projects-briz-two';
+export const ARCHIVE_PROJECTS_DIRECTORY = 'projects';
 
 // Directory on S3 where templates are stored
 export const ARCHIVE_TEMPLATES_DIRECTORY = 'templates';
