@@ -23,7 +23,6 @@ import projectLastUploaded from './selectors/projectLastUploaded';
 import illustrationsList from './selectors/illustrationsList';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
-import illustrationPath from './selectors/illustrationPath';
 import onReadStatus from './status/read';
 import onWriteStatus from './status/write';
 
@@ -40,7 +39,6 @@ export default {
   illustrationsList,
   illustrationsInProject,
   isPreviewActive,
-  illustrationPath,
 
   useRecoilValue,
   useRecoilState,
