@@ -21,12 +21,16 @@ export default function ProjectListItem({
   archiveMode,
 }) {
   const projectName = titleify(id);
-  const status = atoms.use.status(id);
+  const status = atoms.useRecoilValue(
+    atoms.status(id),
+  );
 
   const [
     activeProject,
     setActiveProject,
-  ] = atoms.use.activeProject.useRecoilState();
+  ] = atoms.useRecoilState(
+    atoms.activeProject,
+  );
   const isActive = activeProject === id;
 
   const itemClass = cls(

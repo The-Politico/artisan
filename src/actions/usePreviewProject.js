@@ -11,10 +11,19 @@ import getProjectPath from '../utils/paths/getProjectPath';
  * @returns {function(): Promise}
  */
 export default function usePreviewProject(projectId) {
-  const previewActive = atoms.use.isPreviewActive();
-  const settings = atoms.use.settings();
+  // TODO: We probably don't need this if we have previewState
+  const previewActive = atoms.useRecoilValue(
+    atoms.isPreviewActive,
+  );
+  const [previewState, setPreviewState] = atoms.useRecoilState(
+    atoms.preview,
+  );
+
+  const settings = atoms.useRecoilValue(
+    atoms.settings,
+  );
   const port = settings['preferred-port'];
-  const [previewState, setPreviewState] = atoms.use.preview.useRecoilState();
+
   const { process } = previewState;
 
   const shutdownPreview = useCallback(async () => {

@@ -11,7 +11,9 @@ import ensureDir from '../../utils/fs/ensureDir';
 import AdminReset from '../AdminReset';
 
 export default function SettingsForm({ setIsOpen, isFirstRun = false }) {
-  const [settings, setSettings] = atoms.use.settings.useRecoilState();
+  const [settings, setSettings] = atoms.useRecoilState(
+    atoms.settings,
+  );
 
   const [name, setName] = useState(settings['author-name']);
   const [email, setEmail] = useState(settings['author-email']);

@@ -6,5 +6,6 @@ import store from '../../store';
  * @returns {Object}
  */
 export default async function onReadIllustration(illoId) {
-  return store.entities.get(illoId);
+  const details = await store.entities.get(illoId);
+  return details;
 }

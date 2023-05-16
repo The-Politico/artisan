@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import cls from 'classnames';
 import styles from './styles.module.css';
 import {
@@ -6,10 +8,14 @@ import {
 import EmptyProject from '../EmptyProject';
 import ProjectToolbar from '../ProjectToolbar';
 import Illustrationlist from '../IllustrationList';
+import IllustrationListSkeleton from '../IllustrationListSkeleton';
+import ProjectToolbarSkeleton from '../ProjectToolbarSkeleton';
 import atoms from '../../atoms';
 
 export default function ArtisanProject() {
-  const activeProject = atoms.use.activeProject();
+  const activeProject = atoms.useRecoilValue(
+    atoms.activeProject,
+  );
 
   if (!activeProject) {
     return <EmptyProject />;
@@ -17,7 +23,9 @@ export default function ArtisanProject() {
 
   return (
     <div className={styles.container}>
-      <ProjectToolbar />
+      <Suspense fallback={(<ProjectToolbarSkeleton />)}>
+        <ProjectToolbar />
+      </Suspense>
       <div
         className={cls(
           styles.illoContainer,
@@ -29,7 +37,9 @@ export default function ArtisanProject() {
         )}
       >
         <div />
-        <Illustrationlist />
+        <Suspense fallback={(<IllustrationListSkeleton />)}>
+          <Illustrationlist />
+        </Suspense>
       </div>
     </div>
   );

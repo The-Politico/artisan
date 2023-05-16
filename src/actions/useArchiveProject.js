@@ -13,7 +13,9 @@ import getProjectStatus from '../utils/project/getProjectStatus';
  * @returns {function(): Promise}
  */
 export default function useArchiveProject(projectId) {
-  const illustrations = atoms.use.illustrationsInProject(projectId);
+  const illustrations = atoms.useRecoilValue(
+    atoms.illustrationsInProject(projectId),
+  );
 
   return useCallback(async () => {
     const status = await getProjectStatus(projectId);

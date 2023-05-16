@@ -7,7 +7,9 @@ import atoms from '../atoms';
 import slugify from '../utils/text/slugify';
 
 export default function useDuplicateProject(projectId) {
-  const illustrations = atoms.use.illustrationsInProject(projectId);
+  const illustrations = atoms.useRecoilValue(
+    atoms.illustrationsInProject(projectId),
+  );
 
   return useCallback(async (duplicateProjectName) => {
     // TODO: Make sure new project name is unique

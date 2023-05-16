@@ -9,7 +9,9 @@ import downloadIllustration from '../utils/illustrations/downloadIllustration';
  * @returns {function(): Promise}
  */
 export default function useDownloadProject(projectId) {
-  const illustrations = atoms.use.illustrationsInProject(projectId);
+  const illustrations = atoms.useRecoilValue(
+    atoms.illustrationsInProject(projectId),
+  );
 
   return useCallback(async () => {
     await Promise.all(

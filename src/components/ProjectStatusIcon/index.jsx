@@ -13,7 +13,9 @@ import atoms from '../../atoms';
  * @returns {JSX.Element}
  */
 export default function ProjectStatusIcon({ id, size = 'md', className }) {
-  const status = atoms.use.status(id);
+  const status = atoms.useRecoilValue(
+    atoms.status(id),
+  );
 
   const iconClass = cls(styles.icon, styles[size], styles[status], className);
 

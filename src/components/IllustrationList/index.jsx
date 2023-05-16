@@ -1,35 +1,19 @@
 import cls from 'classnames';
-import { borders } from '../../theme';
 import IllustrationItem from '../IllustrationItem';
 import NewIllustration from '../NewIllustration';
-import Skeleton from '../Skeleton';
 import styles from './styles.module.css';
 import atoms from '../../atoms';
 
 export default function Illustrationlist() {
   const containerClass = cls(styles.container);
-  const activeProject = atoms.use.activeProject();
-  const illustrationsInProject = atoms.use.illustrationsInProject(
-    activeProject,
+
+  const activeProject = atoms.useRecoilValue(
+    atoms.activeProject,
   );
 
-  // TODO: Skeleton rework?
-  if (false) {
-    return (
-      <div className={containerClass}>
-        <Skeleton
-          className={cls(styles.skeleton, borders.roundedMd)}
-          width="230px"
-          height="180px"
-        />
-        <Skeleton
-          className={cls(styles.skeleton, borders.roundedMd)}
-          width="230px"
-          height="180px"
-        />
-      </div>
-    );
-  }
+  const illustrationsInProject = atoms.useRecoilValue(
+    atoms.illustrationsInProject(activeProject),
+  );
 
   return (
     <div className={containerClass}>

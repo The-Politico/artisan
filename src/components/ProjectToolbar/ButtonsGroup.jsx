@@ -11,7 +11,10 @@ import usePreviewProject from '../../actions/usePreviewProject';
 import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
 
 export default function ButtonsGroup({ id }) {
-  const status = atoms.use.status(id);
+  const status = atoms.useRecoilValue(
+    atoms.status(id),
+  );
+
   const download = useDownloadProject(id);
   const [launchPreview] = usePreviewProject(id);
 

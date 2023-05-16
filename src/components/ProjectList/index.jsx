@@ -13,7 +13,9 @@ export default function ProjectList() {
 
   const isArchive = useMemo(() => tab === 'ArchiveBoxIcon', [tab]);
 
-  const projectsList = atoms.use.projectsList();
+  const projectsList = atoms.useRecoilValue(
+    atoms.projectsList,
+  );
 
   return (
     <div>

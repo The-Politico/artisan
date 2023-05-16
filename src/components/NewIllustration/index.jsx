@@ -12,8 +12,13 @@ import {
 
 export default function NewIllustration({ projectId }) {
   const [showInput, setShowInput] = useState(false);
-  const activeProject = atoms.use.activeProject();
-  const activeProjectStatus = atoms.use.status(activeProject);
+  const activeProject = atoms.useRecoilValue(
+    atoms.activeProject,
+  );
+
+  const activeProjectStatus = atoms.useRecoilValue(
+    atoms.status(activeProject),
+  );
 
   const active = activeProjectStatus !== STATUS_PROJECT_ARCHIVED;
   if (!active) {

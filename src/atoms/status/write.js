@@ -4,5 +4,5 @@
  * to this atom
  */
 export default async function onWriteStatus() {
-  return undefined;
+  throw new Error('The status atom is read-only.');
 }

@@ -3,7 +3,9 @@ import atoms from '../atoms';
 import deleteIllustration from '../utils/illustrations/deleteIllustration';
 
 export default function useDeleteProject(projectId) {
-  const illustrations = atoms.use.illustrationsInProject(projectId);
+  const illustrations = atoms.useRecoilValue(
+    atoms.illustrationsInProject(projectId),
+  );
 
   return useCallback(async () => {
     await Promise.all(

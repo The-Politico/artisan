@@ -11,8 +11,13 @@ import { STATUS_PROJECT_VALID_UPLOAD } from '../constants/statuses';
  *  if the project is valid or the 'force' flag is set.
  */
 export default function useBackupProject(projectId) {
-  const illustrations = atoms.use.illustrationsInProject(projectId);
-  const status = atoms.use.status(projectId);
+  const illustrations = atoms.useRecoilValue(
+    atoms.illustrationsInProject(projectId),
+  );
+
+  const status = atoms.useRecoilValue(
+    atoms.status(projectId),
+  );
 
   return useCallback(async ({ force = true } = {}) => {
     if (!force && status !== STATUS_PROJECT_VALID_UPLOAD) {

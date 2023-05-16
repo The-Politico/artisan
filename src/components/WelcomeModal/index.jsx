@@ -16,7 +16,9 @@ import SettingsForm from '../SettingsForm';
 import atoms from '../../atoms';
 
 export default function WelcomeModal() {
-  const settings = atoms.use.settings();
+  const settings = atoms.useRecoilValue(
+    atoms.settings,
+  );
   const [isOpen, setIsOpen] = useState(settings['first-run']);
 
   const panelClass = cls(

@@ -31,7 +31,7 @@ import illustrationPath from './selectors/illustrationPath';
 import onReadStatus from './status/read';
 import onWriteStatus from './status/write';
 
-const atoms = {
+export default {
   entities: entitityAtom,
   project: projectAtomFamily,
   illustration: illustrationsAtomFamily,
@@ -47,66 +47,10 @@ const atoms = {
   isPreviewActive,
   projectPath,
   illustrationPath,
-};
 
-/**
- * Utility interface for each atom and selector
- * @typedef  {Object} AtomsUseUtility
- * @property {atom} atom - The atom (or selector) instance it represents
- * @property {string} key - A unique key for this data
- * @property {function} useRecoilValue - Gets just the value of the atom
- * @property {function} useRecoilState - Get the value with a setter
- * @property {function} useSetRecoilState - Get just the setter for the atom
- */
-
-/**
- * Interface to easily select atom and selector functions
- * @typedef  {Object} AtomsUse
- * @property {AtomsUseUtility} entites - Entities atom
- * @property {AtomsUseUtility} project - Projects atom familiy
- * @property {AtomsUseUtility} illustration - Illustrations atom family
- * @property {AtomsUseUtility} settings - Settings atom
- * @property {AtomsUseUtility} preview - Preview atom
- * @property {AtomsUseUtility} status - The status of a particular entity
- * @property {AtomsUseUtility} activeProject - The active project being viewed
- * @property {AtomsUseUtility} projectsList - Projects list selector
- * @property {AtomsUseUtility} projectLastUploaded - The last time a
- *  project's illustration was uploaed to archive
- * @property {AtomsUseUtility} projectsListStatuses - Projects list with status
- * @property {AtomsUseUtility} illustrationsList - Illustrations
- *  list selector
- * @property {AtomsUseUtility} illustrationsInProject - Illustrations in
- *  project selector
- * @property {AtomsUseUtility} isPreviewActive - Is preview active selector
- * @property {AtomsUseUtility} projectPath - Project path selector
- * @property {AtomsUseUtility} illustrationPath - Illustration path selector
- * @property {AtomsUseUtility} projectSlugs - Project slugs selector
- */
-
-export default {
-  /**
-   * Interface to easily select atom and selector functions
-   * @type {AtomsUse}
-   */
-  use: Object.keys(atoms).reduce((atomsAcc, atomKey) => {
-    const atom = atoms[atomKey];
-    const isFamily = typeof atom === 'function';
-
-    // eslint-disable-next-line no-param-reassign
-    const func = (arg) => useRecoilValue(isFamily ? atom(arg) : atom);
-    func.atom = atom;
-    func.key = atomKey;
-    func.useRecoilValue = func;
-    func.useRecoilState = (arg) => useRecoilState(isFamily ? atom(arg) : atom);
-    func.useSetRecoilState = (arg) => useSetRecoilState(
-      isFamily ? atom(arg) : atom,
-    );
-
-    // eslint-disable-next-line no-param-reassign
-    atomsAcc[atomKey] = func;
-
-    return atomsAcc;
-  }, {}),
+  useRecoilValue,
+  useRecoilState,
+  useSetRecoilState,
 
   /**
    * Interface to integrate to the syncing functions

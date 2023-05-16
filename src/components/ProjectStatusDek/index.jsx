@@ -17,8 +17,13 @@ import {
  * @returns {JSX.Element}
  */
 export default function ProjectStatusDek({ id }) {
-  const status = atoms.use.status(id);
-  const lastUploaded = atoms.use.projectLastUploaded(id);
+  const status = atoms.useRecoilValue(
+    atoms.status(id),
+  );
+
+  const lastUploaded = atoms.useRecoilValue(
+    atoms.projectLastUploaded(id),
+  );
 
   const dekClass = cls(styles.dek, type.textSm);
 
