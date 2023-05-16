@@ -36,12 +36,9 @@ export default async function updateDict(
   await Promise.all(
     Object.entries(updates)
       .map(async ([key, value]) => {
-        console.log({ key, value });
         const data = await ENTITIES.get(key);
 
         const update = updateImmutibly(data || {}, value);
-
-        console.log({ data, value, update });
 
         assertion(TYPE_ENTITY_STORE_ITEM)(update);
 

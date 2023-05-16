@@ -19,11 +19,6 @@ export default function Main({ children, showArticle, className }) {
     // eslint-disable-next-line indent
     : '';
 
-  console.log(fullBleed);
-  console.log(className);
-  console.log(className === 'browser-width-full');
-  console.log('january');
-
   if (!showArticle) {
     return `\
         <section class="page-content__row page-content__row--story main-section ${fullBleed}">

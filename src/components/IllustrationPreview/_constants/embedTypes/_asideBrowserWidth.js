@@ -1,5 +1,4 @@
 export default function AsideBrowserWidth({ children, className }) {
-  console.log('ran aside browser width');
   return `\
   <section class="page-content__row page-content__row--story is-full-width">
   <div class="container container--story">

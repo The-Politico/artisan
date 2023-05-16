@@ -67,11 +67,6 @@ function PreviewWindow() {
     getSlugs();
   }, []);
 
-  // placeholder for when we want to create a dropdown of illos later
-  // eslint-disable-next-line no-console
-  console.log(illos);
-  console.log(url);
-
   if (!url) {
     return (
       <div>

@@ -7,7 +7,6 @@ export default function TestComponent(props) {
     colors.bgSlate800,
     padding.p2,
   );
-  console.log(testClass);
 
   return (
     <div className={testClass}><p>{content}</p></div>
