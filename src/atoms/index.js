@@ -2,7 +2,6 @@
 import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
 
 import entitityAtom from './entities/atom';
-import projectAtomFamily from './projects/atom';
 import illustrationsAtomFamily from './illustrations/atom';
 import settingsAtom from './settings/atom';
 import previewAtom from './preview/atom';
@@ -11,8 +10,6 @@ import activeProjectAtom from './state/activeProject';
 
 import onReadEntities from './entities/read';
 import onWriteEntities from './entities/write';
-import onReadProject from './projects/read';
-import onWriteProject from './projects/write';
 import onReadIllustration from './illustrations/read';
 import onWriteIllustration from './illustrations/write';
 import onReadSettings from './settings/read';
@@ -26,14 +23,12 @@ import projectLastUploaded from './selectors/projectLastUploaded';
 import illustrationsList from './selectors/illustrationsList';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
-import projectPath from './selectors/projectPath';
 import illustrationPath from './selectors/illustrationPath';
 import onReadStatus from './status/read';
 import onWriteStatus from './status/write';
 
 export default {
   entities: entitityAtom,
-  project: projectAtomFamily,
   illustration: illustrationsAtomFamily,
   settings: settingsAtom,
   preview: previewAtom,
@@ -45,7 +40,6 @@ export default {
   illustrationsList,
   illustrationsInProject,
   isPreviewActive,
-  projectPath,
   illustrationPath,
 
   useRecoilValue,
@@ -59,7 +53,6 @@ export default {
   sync: {
     read: {
       entities: onReadEntities,
-      projects: onReadProject,
       illustrations: onReadIllustration,
       settings: onReadSettings,
       preview: onReadPreview,
@@ -67,7 +60,6 @@ export default {
     },
     write: {
       entities: onWriteEntities,
-      projects: onWriteProject,
       illustrations: onWriteIllustration,
       settings: onWriteSettings,
       preview: onWritePreview,
