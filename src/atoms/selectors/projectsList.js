@@ -3,7 +3,7 @@ import entitiesAtom from '../entities/atom';
 import getProjectId from '../../utils/ids/getProjectId';
 
 /**
- * All entity slugs that are projects
+ * All unique project slugs found in illustrations
  * @type {selector}
  */
 const projectsList = selector({

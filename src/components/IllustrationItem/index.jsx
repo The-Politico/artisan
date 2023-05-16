@@ -20,16 +20,13 @@ import titleify from '../../utils/text/titleify';
 import atoms from '../../atoms';
 
 export default function IllustrationItem({ id }) {
-  // const status = atoms.useRecoilValue(
-  //   atoms.status(id),
-  // );
-  const status = 'STATUS_ILLUSTRATION_OK';
+  const status = atoms.useRecoilValue(
+    atoms.status(id),
+  );
 
   const illoDetails = atoms.useRecoilValue(
     atoms.illustration(id),
   );
-
-  // return null;
 
   const open = useOpenIllustration(id);
   const deleteIllustration = useDeleteIllustration(id);

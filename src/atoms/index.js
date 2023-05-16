@@ -18,7 +18,6 @@ import onReadPreview from './preview/read';
 import onWritePreview from './preview/write';
 
 import projectsList from './selectors/projectsList';
-import projectsListStatuses from './selectors/projectListStatuses';
 import projectLastUploaded from './selectors/projectLastUploaded';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
@@ -34,7 +33,6 @@ export default {
   activeProject: activeProjectAtom,
   projectsList,
   projectLastUploaded,
-  projectsListStatuses,
   illustrationsInProject,
   isPreviewActive,
 
