@@ -1,5 +1,5 @@
 import { selectorFamily } from 'recoil';
-import illustrationEntities from './illustrationsList';
+import entities from '../entities/atom';
 import idToSlugs from '../../utils/ids/idToSlugs';
 
 /**
@@ -9,7 +9,7 @@ import idToSlugs from '../../utils/ids/idToSlugs';
 const illustrationsInProject = selectorFamily({
   key: 'illustrationsInProject',
   get: (projectId) => ({ get }) => {
-    const illustrations = get(illustrationEntities);
+    const illustrations = get(entities);
 
     return illustrations
       .filter((id) => {

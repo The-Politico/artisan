@@ -20,7 +20,6 @@ import onWritePreview from './preview/write';
 import projectsList from './selectors/projectsList';
 import projectsListStatuses from './selectors/projectListStatuses';
 import projectLastUploaded from './selectors/projectLastUploaded';
-import illustrationsList from './selectors/illustrationsList';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
 import onReadStatus from './status/read';
@@ -36,7 +35,6 @@ export default {
   projectsList,
   projectLastUploaded,
   projectsListStatuses,
-  illustrationsList,
   illustrationsInProject,
   isPreviewActive,
 
