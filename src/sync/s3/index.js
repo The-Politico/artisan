@@ -1,3 +1,5 @@
+/* TODO: Cloud Sync: Ignore this file for now */
+
 import store from '../../store';
 import fetchPreviews from '../../utils/archive/fetchPreviews';
 

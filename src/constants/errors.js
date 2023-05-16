@@ -1,3 +1,5 @@
+/* This file is a WIP, and not actually in use anywhere yet */
+
 import {
   string,
   object,

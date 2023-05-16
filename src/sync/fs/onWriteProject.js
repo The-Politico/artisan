@@ -1,3 +1,5 @@
+/* TODO: FS Sync: Ignore this file for now */
+
 import store from '../../store';
 
 /**
@@ -12,16 +14,13 @@ import store from '../../store';
  * created or updated.
  */
 export default async function onWriteProject({ projectSlug }) {
-  // Don't think we need this anymore
-  return;
+  // if (projectSlug.startsWith('_') || projectSlug === 'untitled folder') {
+  //   return;
+  // }
 
-  if (projectSlug.startsWith('_') || projectSlug === 'untitled folder') {
-    return;
-  }
-
-  await store.entities.set({
-    [projectSlug]: {
-      slug: projectSlug,
-    },
-  });
+  // await store.entities.set({
+  //   [projectSlug]: {
+  //     slug: projectSlug,
+  //   },
+  // });
 }

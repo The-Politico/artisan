@@ -1,3 +1,5 @@
+/* TODO: FS Sync: Ignore this file for now */
+
 import store from '../../store';
 import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
 import getIllosInProject from '../../utils/store/getIllosInProject';
@@ -13,24 +15,24 @@ import getIllosInProject from '../../utils/store/getIllosInProject';
  *  is removed.
  */
 export default async function onRemoveProject({ projectSlug }) {
-  const projectInfo = await getProjectInfoFromSlug(projectSlug);
+  // const projectInfo = await getProjectInfoFromSlug(projectSlug);
 
-  if (!projectInfo) {
-    // The folder was never properly added to the entity
-    return;
-  }
+  // if (!projectInfo) {
+  //   // The folder was never properly added to the entity
+  //   return;
+  // }
 
-  // Remove the version from illustrations in the project
-  const illustrations = await getIllosInProject(projectInfo.id);
-  const illoChanges = illustrations.reduce((acc, [illoId, illoInfo]) => {
-    acc[illoId] = {
-      ...illoInfo,
-      version: null,
-      lastUploadedVersion: null,
-    };
+  // // Remove the version from illustrations in the project
+  // const illustrations = await getIllosInProject(projectInfo.id);
+  // const illoChanges = illustrations.reduce((acc, [illoId, illoInfo]) => {
+  //   acc[illoId] = {
+  //     ...illoInfo,
+  //     version: null,
+  //     lastUploadedVersion: null,
+  //   };
 
-    return acc;
-  }, {});
+  //   return acc;
+  // }, {});
 
-  await store.entities.set(illoChanges);
+  // await store.entities.set(illoChanges);
 }

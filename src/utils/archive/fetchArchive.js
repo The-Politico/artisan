@@ -5,7 +5,7 @@ import s3 from '../s3';
 import slugsToId from '../ids/slugsToId';
 
 /**
- * Fetches project metadata for all illustrations in the archive.
+ * Fetches all illustrations in the archive.
  *
  * @returns {Promise<Array<Object>>} - A Promise that resolves with the
  *  metadata of all illustrations in the archive.
