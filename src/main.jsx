@@ -5,8 +5,11 @@ import sync from './sync';
 
 import App from './components/App';
 import './main.css';
+import store from './store';
 
 const { RecoilSyncRoot } = sync;
+
+store.entities.refresh();
 
 const SuspenseTest = function SuspenseTest() {
   return (
