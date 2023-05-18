@@ -9,7 +9,7 @@ import updateDict from './updateDict';
  * present in the archive, and removes entities not in the archive.
  *
  * @throws {Error} - An error if data does not match
- * the schema defined in TYPE_ENTITY_STORE_ITEM.
+ * the schema defined in TYPE_ILLUSTRATION_STORE_ITEM.
  */
 export default async function refresh() {
   const archive = await fetchArchive();

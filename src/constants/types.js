@@ -7,7 +7,6 @@ import {
   jsonDate,
   nullable,
   number,
-  or,
   dict,
 } from '@recoiljs/refine';
 import { ALL_STATUSES } from './statuses';
@@ -21,7 +20,6 @@ export const TYPE_STORE_NAME = stringLiterals({
 
 // A collection of entity IDs
 export const TYPE_ENTITY_ID_COLLECTION = array(string());
-
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
   slug: string(),
@@ -46,8 +44,7 @@ export const TYPE_ILLUSTRATION_STORE_ITEM = object({
   lastPublishedDate: nullable(jsonDate()),
 });
 
-
-export const TYPE_ENTITY_STORE = dict(TYPE_ENTITY_STORE_ITEM);
+export const TYPE_ENTITY_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);
 
 // Valid options for the settings store
 export const TYPE_SETTINGS_STORE_KEYS = {

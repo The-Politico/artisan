@@ -4,7 +4,7 @@ import { SETTINGS, ENTITIES, PREVIEW } from './constants';
 import {
   TYPE_STORE_NAME,
   TYPE_SETTINGS_STORE_KEYS,
-  TYPE_ENTITY_STORE_ITEM,
+  TYPE_ILLUSTRATION_STORE_ITEM,
   TYPE_PREVIEW_STORE_KEYS,
 } from '../constants/types';
 
@@ -45,7 +45,7 @@ export default async function set(storeName, values, { save = true } = {}) {
 
   if (storeName === 'entities') {
     Object.entries(values).forEach(([key, value]) => {
-      assertion(TYPE_ENTITY_STORE_ITEM)(value);
+      assertion(TYPE_ILLUSTRATION_STORE_ITEM)(value);
 
       ENTITIES.set(key, value);
     });

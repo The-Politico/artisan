@@ -3,7 +3,7 @@ import { assertion } from '@recoiljs/refine';
 import updateImmutibly from 'immutability-helper';
 import { ENTITIES } from './constants';
 import {
-  TYPE_ENTITY_STORE_ITEM,
+  TYPE_ILLUSTRATION_STORE_ITEM,
 } from '../constants/types';
 
 /**
@@ -40,7 +40,7 @@ export default async function updateDict(
 
         const update = updateImmutibly(data || {}, value);
 
-        assertion(TYPE_ENTITY_STORE_ITEM)(update);
+        assertion(TYPE_ILLUSTRATION_STORE_ITEM)(update);
 
         ENTITIES.set(key, update);
       }),
