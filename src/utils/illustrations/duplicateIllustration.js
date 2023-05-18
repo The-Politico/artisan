@@ -22,7 +22,6 @@ export default async function duplicateIllustration(
 
   const destinationKey = await getIllustrationKey(destinationId);
 
-  // Move AI file to trash
   await s3.copy({
     bucket: AWS_ARTISAN_BUCKET,
     key: destinationKey,
