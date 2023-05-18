@@ -1,3 +1,4 @@
+/* TODO: This is part of the cloud syncing feature */
 import { exists, removeDir } from '@tauri-apps/api/fs';
 import store from '../../store';
 import backupIllustration from './backupIllustration';
