@@ -3,7 +3,7 @@ import { open } from '@tauri-apps/api/shell';
 import getIllustrationFilePath from '../utils/paths/getIllustrationFilePath';
 
 /**
- * Hook to set up a function for opening a project in file explorer
+ * Hook to set up a function for opening an illustration in Adobe
  * @function
  * @param {string} illoId - The ID of the illustration
  * @returns {function(): Promise}
