@@ -46,10 +46,6 @@ export const TYPE_ILLUSTRATION_STORE_ITEM = object({
   lastPublishedDate: nullable(jsonDate()),
 });
 
-export const TYPE_ENTITY_STORE_ITEM = or(
-  TYPE_PROJECT_STORE_ITEM,
-  TYPE_ILLUSTRATION_STORE_ITEM,
-);
 
 export const TYPE_ENTITY_STORE = dict(TYPE_ENTITY_STORE_ITEM);
 
