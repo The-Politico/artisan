@@ -12,6 +12,7 @@ const { RecoilSyncRoot } = sync;
 store.entities.refresh();
 
 const SuspenseTest = function SuspenseTest() {
+  // TODO: Replace with full app skeleton?
   return (
     <div>Loading...</div>
   );
