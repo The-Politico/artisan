@@ -22,10 +22,6 @@ export const TYPE_STORE_NAME = stringLiterals({
 // A collection of entity IDs
 export const TYPE_ENTITY_ID_COLLECTION = array(string());
 
-// A collection of data stored about an entity
-export const TYPE_PROJECT_STORE_ITEM = object({
-  slug: string(),
-});
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
   slug: string(),
