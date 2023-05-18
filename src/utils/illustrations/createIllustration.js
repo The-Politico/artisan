@@ -34,7 +34,6 @@ export default async function createIllustration(projectId, illoName) {
   await store.entities.refreshId(illoId);
 
   // Update share page
-  // Update share page
   const slugs = idToSlugs(illoId);
   await shareProject(slugs.project);
 
