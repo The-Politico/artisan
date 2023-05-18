@@ -45,7 +45,7 @@ export default async function refresh() {
   );
   const missingUpdates = missingIllustrationsFromArchive.reduce(
     (acc, current) => {
-      acc[current.id] = {
+      acc[current] = {
         cloudVersion: {
           $set: null,
         },
