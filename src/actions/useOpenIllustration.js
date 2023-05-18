@@ -5,7 +5,7 @@ import getIllustrationFilePath from '../utils/paths/getIllustrationFilePath';
 /**
  * Hook to set up a function for opening a project in file explorer
  * @function
- * @param {string} projectId - The ID of the project
+ * @param {string} illoId - The ID of the illustration
  * @returns {function(): Promise}
  */
 export default function useOpenIllustration(illoId) {
