@@ -5,6 +5,7 @@ import { STATUS_ILLUSTRATION_OK } from '../../constants/statuses';
 import getIllustrationData from './getIllustrationData';
 
 /**
+ * @deprecated
  * Rename an illustration by updating its metadata in S3 storage
  *
  * @param {string} id - The unique identifier of the illustration
