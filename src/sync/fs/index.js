@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* TODO: FS Sync: Ignore this file for now */
 
 import { watch } from 'tauri-plugin-fs-watch-api';

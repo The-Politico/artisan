@@ -1,3 +1,4 @@
+/* eslint-disable */
 import store from '../../store';
 import generateIllustration
   from '../../actions/illustrations/generateIllustration';

@@ -26,7 +26,9 @@ export default function Dropdown({
             <Listbox.Option
               key={illo.name}
               value={illo}
-              className={({ active }) => cls(styles.optionItem, { [styles.active]: active })}
+              className={({ active }) => cls(
+                styles.optionItem, { [styles.active]: active },
+              )}
             >
               {illo.name}
             </Listbox.Option>

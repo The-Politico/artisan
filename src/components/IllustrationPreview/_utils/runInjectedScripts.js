@@ -23,6 +23,7 @@ const runInjectedScripts = async function runInjectedScripts(frame) {
         })),
     );
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.error(err);
   }
 
@@ -30,6 +31,7 @@ const runInjectedScripts = async function runInjectedScripts(frame) {
     try {
       cw.eval(script.textContent);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Script failed to run.', script.textContent);
     }
   });

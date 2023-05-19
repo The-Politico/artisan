@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import idToSlugs from '../utils/ids/idToSlugs';
 import getLocalPreviewUrl from '../utils/paths/getLocalPreviewUrl';
 
@@ -35,7 +35,6 @@ const breakpointsSubset = [
 ];
 
 function PreviewWindow() {
-  const iframeRef = useRef(null);
   const [showArticle, setShowArticle] = useState(true);
   const [breakpoint, setBreakpoint] = useState(0);
   const [embedType, setEmbedType] = useState(embedList[0]);

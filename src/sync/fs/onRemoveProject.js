@@ -1,3 +1,4 @@
+/* eslint-disable */
 /* TODO: FS Sync: Ignore this file for now */
 
 import store from '../../store';

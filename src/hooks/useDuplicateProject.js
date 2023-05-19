@@ -2,7 +2,8 @@ import { useCallback } from 'react';
 import duplicateIllustration
   from '../actions/illustrations/duplicateIllustration';
 import idToSlugs from '../utils/ids/idToSlugs';
-import downloadIllustration from '../actions/illustrations/downloadIllustration';
+import downloadIllustration
+  from '../actions/illustrations/downloadIllustration';
 import atoms from '../atoms';
 import slugify from '../utils/text/slugify';
 

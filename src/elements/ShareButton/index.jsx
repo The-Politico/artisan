@@ -15,6 +15,7 @@ export default function ShareButton() {
         setCopied(false);
       }, 2000);
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error(error);
     }
   };
