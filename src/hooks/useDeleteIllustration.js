@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import deleteIllustration from '../utils/illustrations/deleteIllustration';
+import deleteIllustration from '../actions/illustrations/deleteIllustration';
 
 export default function useDeleteIllustration(illoId) {
   return useCallback(async () => {

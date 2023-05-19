@@ -1,7 +1,8 @@
 import { exists } from '@tauri-apps/api/fs';
 import store from '../../store';
-import getIllustrationFilePath from '../paths/getIllustrationFilePath';
-import getEtag from '../fs/getEtag';
+import getIllustrationFilePath
+  from '../../utils/paths/getIllustrationFilePath';
+import getEtag from '../../utils/fs/getEtag';
 import {
   STATUS_ILLUSTRATION_OK,
   STATUS_ILLUSTRATION_NOT_GENERATED,

@@ -1,9 +1,9 @@
 import store from '../../store';
 import generateIllustration
-  from '../../utils/illustrations/generateIllustration';
+  from '../../actions/illustrations/generateIllustration';
 import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
 import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
-import backupIllustration from '../../utils/illustrations/backupIllustration';
+import backupIllustration from '../../actions/illustrations/backupIllustration';
 import slugsToId from '../../utils/ids/slugsToId';
 import getEtag from '../../utils/fs/getEtag';
 

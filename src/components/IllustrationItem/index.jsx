@@ -11,9 +11,9 @@ import {
   padding,
   typography as type,
 } from '../../theme';
-import useOpenIllustration from '../../actions/useOpenIllustration';
-import useDeleteIllustration from '../../actions/useDeleteIllustration';
-import useGenerateIllustration from '../../actions/useGenerateIllustration';
+import useOpenIllustration from '../../hooks/useOpenIllustration';
+import useDeleteIllustration from '../../hooks/useDeleteIllustration';
+import useGenerateIllustration from '../../hooks/useGenerateIllustration';
 import { STATUS_ILLUSTRATION_ARCHIVED } from '../../constants/statuses';
 import titleify from '../../utils/text/titleify';
 

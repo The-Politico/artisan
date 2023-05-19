@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import store from '../store';
-import renameIllustration from '../utils/illustrations/renameIllustration';
+import renameIllustration from '../actions/illustrations/renameIllustration';
 
 /**
  * @deprecated until further notice

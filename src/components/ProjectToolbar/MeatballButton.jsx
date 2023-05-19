@@ -1,8 +1,8 @@
-import useBackupProject from '../../actions/useBackupProject';
-import useArchiveProject from '../../actions/useArchiveProject';
-import useOpenProject from '../../actions/useOpenProject';
-import useDuplicateProject from '../../actions/useDuplicateProject';
-import useDeleteProject from '../../actions/useDeleteProject';
+import useBackupProject from '../../hooks/useBackupProject';
+import useArchiveProject from '../../hooks/useArchiveProject';
+import useOpenProject from '../../hooks/useOpenProject';
+import useDuplicateProject from '../../hooks/useDuplicateProject';
+import useDeleteProject from '../../hooks/useDeleteProject';
 
 import MeatballMenu from '../MeatballMenu';
 

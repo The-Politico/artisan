@@ -1,11 +1,11 @@
-import s3 from '../s3';
-import slugify from '../text/slugify';
-import getIllustrationKey from '../paths/getIllustrationKey';
+import s3 from '../../utils/s3';
+import slugify from '../../utils/text/slugify';
+import getIllustrationKey from '../../utils/paths/getIllustrationKey';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import store from '../../store';
-import slugsToId from '../ids/slugsToId';
-import shareProject from '../project/shareProject';
-import idToSlugs from '../ids/idToSlugs';
+import slugsToId from '../../utils/ids/slugsToId';
+import shareProject from '../projects/shareProject';
+import idToSlugs from '../../utils/ids/idToSlugs';
 
 export default async function duplicateIllustration(
   sourceId,

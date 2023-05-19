@@ -1,19 +1,20 @@
 import { exists, readBinaryFile } from '@tauri-apps/api/fs';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import s3 from '../s3';
+import s3 from '../../utils/s3';
 import store from '../../store';
 import {
   STATUS_ILLUSTRATION_VALID_UPLOAD,
   STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 import getIllustrationStatus from './getIllustrationStatus';
-import getIllustrationKey from '../paths/getIllustrationKey';
-import getEtag from '../fs/getEtag';
-import getIllustrationFilePath from '../paths/getIllustrationFilePath';
-import getLocalFallbackPath from '../paths/getLocalFallbackPath';
-import getPreviewKey from '../paths/getPreviewKey';
-import shareProject from '../project/shareProject';
-import idToSlugs from '../ids/idToSlugs';
+import getIllustrationKey from '../../utils/paths/getIllustrationKey';
+import getEtag from '../../utils/fs/getEtag';
+import getIllustrationFilePath
+  from '../../utils/paths/getIllustrationFilePath';
+import getLocalFallbackPath from '../../utils/paths/getLocalFallbackPath';
+import getPreviewKey from '../../utils/paths/getPreviewKey';
+import shareProject from '../projects/shareProject';
+import idToSlugs from '../../utils/ids/idToSlugs';
 
 /**
  * Backup an illustration to an Amazon S3 bucket

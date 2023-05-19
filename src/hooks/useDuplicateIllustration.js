@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import duplicateIllustration
-  from '../utils/illustrations/duplicateIllustration';
+  from '../actions/illustrations/duplicateIllustration';
 import idToSlugs from '../utils/ids/idToSlugs';
-import downloadIllustration from '../utils/illustrations/downloadIllustration';
+import downloadIllustration from '../actions/illustrations/downloadIllustration';
 
 export default function useDuplicateIllustration(illoId) {
   return useCallback(async (duplicateIlloName) => {

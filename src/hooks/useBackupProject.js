@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 import atoms from '../atoms';
-import backupIllustration from '../utils/illustrations/backupIllustration';
+import backupIllustration from '../actions/illustrations/backupIllustration';
 import { STATUS_PROJECT_VALID_UPLOAD } from '../constants/statuses';
 
 /**

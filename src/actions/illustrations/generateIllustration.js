@@ -2,13 +2,14 @@ import { Command } from '@tauri-apps/api/shell';
 
 import { resolveResource } from '@tauri-apps/api/path';
 import store from '../../store';
-import getEtag from '../fs/getEtag';
+import getEtag from '../../utils/fs/getEtag';
 import {
   STATUS_ILLUSTRATION_NOT_GENERATED,
   STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 import getIllustrationStatus from './getIllustrationStatus';
-import getIllustrationFilePath from '../paths/getIllustrationFilePath';
+import getIllustrationFilePath
+  from '../../utils/paths/getIllustrationFilePath';
 
 /**
  * Generates an HTML files and fallback images from an Adobe Illustrator

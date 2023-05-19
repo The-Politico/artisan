@@ -8,7 +8,7 @@ import onWriteAI from './onWriteAI';
 import onWriteProject from './onWriteProject';
 import onRemoveProject from './onRemoveProject';
 import createQueue from '../../utils/queue';
-import healthCheck from '../../utils/illustrations/healthCheck';
+import healthCheck from '../../actions/illustrations/healthCheck';
 import { LOCAL_PROJECTS_DIRECTORY } from '../../constants/paths';
 
 /**

@@ -1,9 +1,11 @@
 import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
 import mime from 'mime/lite';
 import { AWS_PRODUCTION_BUCKET } from '../../constants/aws';
-import s3 from '../s3';
-import getIllustrationOutputKey from '../paths/getIllustrationOutputKey';
-import getIllustrationOutputPath from '../paths/getIllustrationOutputPath';
+import s3 from '../../utils/s3';
+import getIllustrationOutputKey
+  from '../../utils/paths/getIllustrationOutputKey';
+import getIllustrationOutputPath
+  from '../../utils/paths/getIllustrationOutputPath';
 import store from '../../store';
 
 export default async function publishIllustration(id) {

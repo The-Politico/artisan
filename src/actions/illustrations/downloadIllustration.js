@@ -5,13 +5,14 @@ import {
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
   STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
-import ensureDir from '../fs/ensureDir';
-import s3 from '../s3';
-import getEtag from '../fs/getEtag';
+import ensureDir from '../../utils/fs/ensureDir';
+import s3 from '../../utils/s3';
+import getEtag from '../../utils/fs/getEtag';
 import getIllustrationStatus from './getIllustrationStatus';
-import getIllustrationPath from '../paths/getIllustrationPath';
-import getIllustrationKey from '../paths/getIllustrationKey';
-import getIllustrationFilePath from '../paths/getIllustrationFilePath';
+import getIllustrationPath from '../../utils/paths/getIllustrationPath';
+import getIllustrationKey from '../../utils/paths/getIllustrationKey';
+import getIllustrationFilePath
+  from '../../utils/paths/getIllustrationFilePath';
 
 const DOWNLOADABLE_STATUSES = [
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,

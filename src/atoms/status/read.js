@@ -1,6 +1,6 @@
 import getIllustrationStatus
-  from '../../utils/illustrations/getIllustrationStatus';
-import getProjectStatus from '../../utils/project/getProjectStatus';
+  from '../../actions/illustrations/getIllustrationStatus';
+import getProjectStatus from '../../actions/projects/getProjectStatus';
 import isProjectSlug from '../../utils/ids/isProjectSlug';
 
 /**

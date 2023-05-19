@@ -1,6 +1,7 @@
 import { useCallback } from 'react';
 import atoms from '../atoms';
-import downloadIllustration from '../utils/illustrations/downloadIllustration';
+import downloadIllustration
+  from '../actions/illustrations/downloadIllustration';
 
 /**
  * Hook to set up a function for downloading a project

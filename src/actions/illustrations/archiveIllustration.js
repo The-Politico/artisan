@@ -4,7 +4,7 @@ import {
   STATUS_ILLUSTRATION_OK,
 } from '../../constants/statuses';
 import getIllustrationStatus from './getIllustrationStatus';
-import getIllustrationPath from '../paths/getIllustrationPath';
+import getIllustrationPath from '../../utils/paths/getIllustrationPath';
 
 export default async function archiveIllustration(
   id,

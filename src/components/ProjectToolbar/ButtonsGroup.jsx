@@ -6,8 +6,8 @@ import { flex, gap } from '../../theme';
 import PublishButton from './PublishButton';
 import MeatballButton from './MeatballButton';
 import atoms from '../../atoms';
-import useDownloadProject from '../../actions/useDownloadProject';
-import usePreviewProject from '../../actions/usePreviewProject';
+import useDownloadProject from '../../hooks/useDownloadProject';
+import usePreviewProject from '../../hooks/usePreviewProject';
 import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
 
 export default function ButtonsGroup({ id }) {

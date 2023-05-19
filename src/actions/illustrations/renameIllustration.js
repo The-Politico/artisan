@@ -1,6 +1,6 @@
 import { readBinaryFile } from '@tauri-apps/api/fs';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import s3 from '../s3';
+import s3 from '../../utils/s3';
 import { STATUS_ILLUSTRATION_OK } from '../../constants/statuses';
 import getIllustrationData from './getIllustrationData';
 

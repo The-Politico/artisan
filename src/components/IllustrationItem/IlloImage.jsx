@@ -3,7 +3,7 @@ import { DocumentIcon } from '@heroicons/react/24/solid';
 import { colors, flex } from '../../theme';
 import styles from './styles.module.css';
 import IlloHover from './IlloHover';
-import useIllustrationFallback from '../../actions/useIllustrationFallback';
+import useIllustrationFallback from '../../hooks/useIllustrationFallback';
 
 export default function IlloImage({
   id,

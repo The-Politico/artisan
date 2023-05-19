@@ -1,14 +1,14 @@
 import { v4 as uuid } from 'uuid';
 import { readDir, removeDir } from '@tauri-apps/api/fs';
-import s3 from '../s3';
-import getIllustrationPath from '../paths/getIllustrationPath';
-import getIllustrationKey from '../paths/getIllustrationKey';
-import getProjectPath from '../paths/getProjectPath';
+import s3 from '../../utils/s3';
+import getIllustrationPath from '../../utils/paths/getIllustrationPath';
+import getIllustrationKey from '../../utils/paths/getIllustrationKey';
+import getProjectPath from '../../utils/paths/getProjectPath';
 import { ARCHIVE_TRASH_DIRECTORY } from '../../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import idToSlugs from '../ids/idToSlugs';
+import idToSlugs from '../../utils/ids/idToSlugs';
 import store from '../../store';
-import getPreviewKey from '../paths/getPreviewKey';
+import getPreviewKey from '../../utils/paths/getPreviewKey';
 
 export default async function deleteIllustration(id) {
   const randomId = uuid().substring(0, 8);

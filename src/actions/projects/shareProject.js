@@ -1,13 +1,13 @@
-import getProjectSharePath from '../paths/getProjectSharePath';
-import idToSlugs from '../ids/idToSlugs';
-import titleify from '../text/titleify';
+import getProjectSharePath from '../../utils/paths/getProjectSharePath';
+import idToSlugs from '../../utils/ids/idToSlugs';
+import titleify from '../../utils/text/titleify';
 import {
   SHARE_PAGE_STYLES,
   SHARE_PAGE_SCRIPTS,
   PUBLISH_EMBED_PATH,
 } from '../../constants/paths';
 import { AWS_STAGING_BUCKET } from '../../constants/aws';
-import s3 from '../s3';
+import s3 from '../../utils/s3';
 import store from '../../store';
 
 export default async function shareProject(id) {

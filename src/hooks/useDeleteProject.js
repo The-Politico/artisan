@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
 import atoms from '../atoms';
-import publishIllustration from '../utils/illustrations/publishIllustration';
+import deleteIllustration from '../actions/illustrations/deleteIllustration';
 
-export default function usePublishProject(projectId) {
+export default function useDeleteProject(projectId) {
   const illustrations = atoms.useRecoilValue(
     atoms.illustrationsInProject(projectId),
   );
@@ -10,7 +10,7 @@ export default function usePublishProject(projectId) {
   return useCallback(async () => {
     await Promise.all(
       illustrations.map((async (illoId) => {
-        await publishIllustration(illoId);
+        await deleteIllustration(illoId);
       })),
     );
   }, [illustrations]);

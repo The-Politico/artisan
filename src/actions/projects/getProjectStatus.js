@@ -1,6 +1,6 @@
 import uniq from 'lodash/uniq';
-import getIllustrationStatus from '../../actions/illustrations/getIllustrationStatus';
-import getIllosInProject from '../store/getIllosInProject';
+import getIllustrationStatus from '../illustrations/getIllustrationStatus';
+import getIllosInProject from '../../utils/store/getIllosInProject';
 
 import {
   STATUS_PROJECT_OK,

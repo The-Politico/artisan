@@ -10,7 +10,7 @@ import Input from '../Input';
 import {
   flex, layout, margin, borders,
 } from '../../theme';
-import useCreate from '../../actions/useCreate';
+import useCreate from '../../hooks/useCreate';
 
 export default function InputBox({ showInput, setShowInput, projectId }) {
   const [illoName, setIlloName] = useState('');

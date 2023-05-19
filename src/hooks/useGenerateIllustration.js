@@ -1,5 +1,6 @@
 import { useCallback } from 'react';
-import generateIllustration from '../utils/illustrations/generateIllustration';
+import generateIllustration
+  from '../actions/illustrations/generateIllustration';
 
 /**
  * Hook to set up a function for generating an illustration

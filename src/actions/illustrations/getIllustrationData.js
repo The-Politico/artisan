@@ -1,13 +1,13 @@
 import { resolve } from '@tauri-apps/api/path';
 import store from '../../store';
 import getIllustrationStatus from './getIllustrationStatus';
-import getIllustrationPath from '../paths/getIllustrationPath';
-import getLocalFallbackPath from '../paths/getLocalFallbackPath';
+import getIllustrationPath from '../../utils/paths/getIllustrationPath';
+import getLocalFallbackPath from '../../utils/paths/getLocalFallbackPath';
 import {
   ARCHIVE_PROJECTS_DIRECTORY,
   ARCHIVE_PREVIEWS_DIRECTORY,
 } from '../../constants/paths';
-import getWorkingProjectPath from '../paths/getProjectPath';
+import getWorkingProjectPath from '../../utils/paths/getProjectPath';
 
 /**
  * Get illustration data and its related project information, paths, and keys

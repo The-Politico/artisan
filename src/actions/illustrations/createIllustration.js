@@ -1,10 +1,10 @@
-import s3 from '../s3';
-import slugsToId from '../ids/slugsToId';
-import getIllustrationKey from '../paths/getIllustrationKey';
-import slugify from '../text/slugify';
+import s3 from '../../utils/s3';
+import slugsToId from '../../utils/ids/slugsToId';
+import getIllustrationKey from '../../utils/paths/getIllustrationKey';
+import slugify from '../../utils/text/slugify';
 import store from '../../store';
-import shareProject from '../project/shareProject';
-import idToSlugs from '../ids/idToSlugs';
+import shareProject from '../projects/shareProject';
+import idToSlugs from '../../utils/ids/idToSlugs';
 
 import {
   AWS_ARTISAN_BUCKET,

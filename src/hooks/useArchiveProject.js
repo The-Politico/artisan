@@ -2,9 +2,9 @@ import { useCallback } from 'react';
 import { STATUS_PROJECT_OK } from '../constants/statuses';
 
 import atoms from '../atoms';
-import archiveIllustration from '../utils/illustrations/archiveIllustration';
-import archiveProject from '../utils/project/archiveProject';
-import getProjectStatus from '../utils/project/getProjectStatus';
+import archiveIllustration from '../actions/illustrations/archiveIllustration';
+import archiveProject from '../actions/projects/archiveProject';
+import getProjectStatus from '../actions/projects/getProjectStatus';
 
 /**
  * Hook to set up an archiving function for a project

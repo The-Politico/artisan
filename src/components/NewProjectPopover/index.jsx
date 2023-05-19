@@ -13,7 +13,7 @@ import {
   padding,
   transitions,
 } from '../../theme';
-import useCreate from '../../actions/useCreate';
+import useCreate from '../../hooks/useCreate';
 
 export default function NewProjectPopover() {
   const [newProjectName, setNewProjectName] = useState('');

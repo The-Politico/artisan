@@ -1,6 +1,6 @@
 import cls from 'classnames';
 import { Transition } from '@headlessui/react';
-import usePublishProject from '../../actions/usePublishProject';
+import usePublishProject from '../../hooks/usePublishProject';
 import Button from '../Button';
 import styles from './styles.module.css';
 import {

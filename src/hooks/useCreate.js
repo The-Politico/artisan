@@ -1,8 +1,8 @@
 import { useCallback } from 'react';
-import createIllustration from '../utils/illustrations/createIllustration';
-import getProjectStatus from '../utils/project/getProjectStatus';
+import createIllustration from '../actions/illustrations/createIllustration';
+import getProjectStatus from '../actions/projects/getProjectStatus';
 import { STATUS_PROJECT_ARCHIVED } from '../constants/statuses';
-import downloadIllustration from '../utils/illustrations/downloadIllustration';
+import downloadIllustration from '../actions/illustrations/downloadIllustration';
 import slugify from '../utils/text/slugify';
 
 /**
