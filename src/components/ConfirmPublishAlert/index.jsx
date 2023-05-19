@@ -1,5 +1,6 @@
 import cls from 'classnames';
 import { Transition } from '@headlessui/react';
+import usePublishProject from '../../hooks/usePublishProject';
 import Button from '../Button';
 import styles from './styles.module.css';
 import {
@@ -11,13 +12,14 @@ import {
   typography as type,
   transitions,
 } from '../../theme';
-import publishProject from '../../actions/publishProject';
 
 export default function ConfirmPublishAlert({
-  projectSlug,
+  id,
   showPubilshAlert,
   setShowPublishAlert,
 }) {
+  const publish = usePublishProject(id);
+
   const alertClass = cls(
     styles.alert,
     flex.flex,
@@ -51,7 +53,7 @@ export default function ConfirmPublishAlert({
           <Button
             value="Publish"
             variant="solid"
-            onClick={() => publishProject(projectSlug)}
+            onClick={publish}
           />
         </div>
       </div>

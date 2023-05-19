@@ -1,0 +1,36 @@
+.button-container {
+  justify-self: end;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-width: 154px;
+}
+
+.button-label {
+  color: white;
+  opacity: 0.9;
+  margin-bottom: .25rem;
+}
+
+.link-button {
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 999px;
+  padding: .5rem;
+  transition: background-color 100ms linear;
+}
+
+.copied {
+  background: var(--emerald-500);
+  color: white;
+}
+
+.link-button:hover:not(.copied) {
+  background: var(--politico-black);
+  color: white;
+}
+
+.icon {
+  width: 1.75rem;
+  height: 1.75rem;
+}

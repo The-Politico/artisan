@@ -3,10 +3,11 @@ import { DocumentIcon } from '@heroicons/react/24/solid';
 import { colors, flex } from '../../theme';
 import styles from './styles.module.css';
 import IlloHover from './IlloHover';
+import useIllustrationFallback from '../../hooks/useIllustrationFallback';
 
 export default function IlloImage({
-  url,
-  slug,
+  id,
+  illoName,
   onClick,
   hoverState,
   setHoverState,
@@ -16,6 +17,8 @@ export default function IlloImage({
     [colors.bgSlate700]: !isArchive,
   });
 
+  const fallback = useIllustrationFallback(id);
+
   return (
     <button
       type="button"
@@ -24,11 +27,11 @@ export default function IlloImage({
       onMouseLeave={() => setHoverState(false)}
       onClick={onClick}
     >
-      {url ? (
+      {fallback ? (
         <img
           className={styles.img}
-          src={url}
-          alt={`artisan illustration preview for ${slug}`}
+          src={fallback}
+          alt={`artisan illustration preview for ${illoName}`}
         />
       ) : (
         <DocumentIcon

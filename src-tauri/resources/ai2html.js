@@ -516,11 +516,12 @@ function main() {
     // because of unlocking / relocking of objects
     doc.saved = true;
   } else if (errors.length === 0) {
-    var saveOptions = new IllustratorSaveOptions();
-    saveOptions.pdfCompatible = false;
-    doc.saveAs(new File(docPath + doc.name), saveOptions);
-    // doc.save(); // why not do this? (why set pdfCompatible = false?)
-    message('Your Illustrator file was saved.');
+    // var saveOptions = new IllustratorSaveOptions();
+    // saveOptions.pdfCompatible = false;
+    // doc.saveAs(new File(docPath + doc.name), saveOptions);
+    // // doc.save(); // why not do this? (why set pdfCompatible = false?)
+    // message('Your Illustrator file was saved.');
+    doc.saved = true;
   }
   
   // =========================================================
@@ -4012,6 +4013,9 @@ function main() {
     var t3 = '\r\t\t';
     var blockStart = t2 + '#' + containerId + ' ';
     var blockEnd = '\r' + t2 + '}\r';
+
+    // Added 5/5/23 by AB
+    css += '	body {\r		margin: 0;\r	}\r'
   
     if (settings.max_width) {
       css += blockStart + '{';
@@ -4312,17 +4316,18 @@ function main() {
       commentBlock += '<!-- scoop: ' + settings.scoop_slug_from_config_yml + ' -->\r';
     }
   
-    // HTML
-    html = '<div id="' + containerId + '" class="' + containerClasses + '">\r';
+    // HTML Embed
+    embedHtml = '<div id="' + containerId + '" class="' + containerClasses + '">\r';
     if (linkSrc) {
       // optional link around content
-      html += '\t<a class="' + nameSpace + 'ai2htmlLink" href="' + linkSrc + '">\r';
+      embedHtml += '\t<a class="' + nameSpace + 'ai2htmlLink" href="' + linkSrc + '">\r';
     }
-    html += content.html;
+    embedHtml += content.html;
     if (linkSrc) {
-      html += '\t</a>\r';
+      embedHtml += '\t</a>\r';
     }
-    html += '\r</div>\r';
+    embedHtml += '\r</div>\r';
+
   
     // CSS
     css = '<style media="screen,print">\r' +
@@ -4337,9 +4342,26 @@ function main() {
                       "<script>window.newswireFrames.initFrameAndPoll();</script>\r";
   
     js = content.js + responsiveJs + politicoJS;
+
+    // HTML Container
+    // NEW: 5/24/23 (AB)
+    var htmlOpen = "<!DOCTYPE html>\r<html lang=\"en\" dir=\"ltr\">" ;
+    var htmlClose = "</html>" ;
+
+
+
+    var head = "<head>\r<title></title>\r<meta charset=\"utf-8\" />\r";
+    head += "<meta http-equiv=\"Content-Type\" content=\"text/head; charset=UTF-8\" />\r";
+    head += "<meta http-equiv=\"X-UA-Compatible\" content=\"IE=edge,chrome=1\" />\r"
+    head += "<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\" />\r"
+    head += "<link rel=\"stylesheet\" href=\"https://use.typekit.net/qld1irc.css\" />\r";
+    head += "<link rel=\"stylesheet\" href=\"https://use.typekit.net/zgn2zjh.css\" />\r";
+    head += "<link rel=\"stylesheet\" href=\"https://use.typekit.net/bvr3gvp.css\" />\r";
+    head += css
+    head += "</head>"
   
-    textForFile =  '\r' + commentBlock + css + '\r' + html + '\r' + js +
-       '<!-- End ai2html' + ' - ' + getDateTimeStamp() + ' -->\r';
+    textForFile =  htmlOpen + '\r' + commentBlock + '\r' + head + '\r' + embedHtml + '\r' + js +
+       '<!-- End ai2html' + ' - ' + getDateTimeStamp() + ' -->\r' + htmlClose;
   
     textForFile = applyTemplate(textForFile, settings);
     htmlFileDestinationFolder = docPath + settings.html_output_path;
@@ -4359,6 +4381,9 @@ function main() {
       var previewFileDestination = htmlFileDestinationFolder + pageName + '.preview.html';
       outputLocalPreviewPage(textForFile, previewFileDestination, settings);
     }
+
+    // Only runs on save so the file should still be saved
+    doc.saved = true;
   }
   } // end main() function definition
   main();

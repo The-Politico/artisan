@@ -7,11 +7,14 @@ import {
 import { useState } from 'react';
 import styles from './styles.module.css';
 import Input from '../Input';
-import act from '../../actions';
-import { flex, layout, margin, borders } from '../../theme';
+import {
+  flex, layout, margin, borders,
+} from '../../theme';
+import useCreate from '../../hooks/useCreate';
 
-export default function InputBox({ showInput, setShowInput, projectSlug }) {
+export default function InputBox({ showInput, setShowInput, projectId }) {
   const [illoName, setIlloName] = useState('');
+  const create = useCreate(projectId);
 
   const containerClass = cls(
     styles.container,
@@ -37,7 +40,7 @@ export default function InputBox({ showInput, setShowInput, projectSlug }) {
       setShowInput(false);
       return;
     }
-    await act.createIllustration(projectSlug, illoName);
+    await create(illoName);
     setShowInput(false);
   };
 

@@ -1,0 +1,6 @@
+@import '../theme';
+
+body {
+  background-color: var(--politico-light-background);
+  font-family: 'din-2014', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}

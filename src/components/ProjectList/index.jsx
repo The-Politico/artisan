@@ -1,83 +1,21 @@
-import { useState, useEffect } from 'react';
+import { useState, useMemo } from 'react';
 import cls from 'classnames';
 import TabToggle from '../TabToggle';
 import {
   colors, flex, layout, margin, typography as type,
 } from '../../theme';
-import store from '../../store';
-import getProjectsArchive from '../../actions/getProjectsArchive';
 import ProjectListItem from '../ProjectListItem';
+import atoms from '../../atoms';
 
-export default function ProjectList({
-  selectedProject,
-  setSelectedProject,
-  isArchive = false,
-  setIsArchive,
-}) {
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const [projectsList, setProjectsList] = useState([]);
-  const [archiveList, setArchivesList] = useState([]);
-  const [selectedList, setSelectedList] = useState([]);
-
-  // Determs whehter to show local projects or archive projcts
-  useEffect(() => {
-    (async () => {
-      if (selectedIndex === 0) {
-        const projects = await store.getProjectsList();
-        setProjectsList([]);
-        setSelectedProject(projects[0] || null);
-      } else {
-        const archive = await getProjectsArchive();
-        setArchivesList(archive);
-        setSelectedProject(archive[0]);
-      }
-      setIsArchive(selectedIndex === 1);
-    })();
-  }, [selectedIndex]);
-
-  // Used to dertmined selected list to show
-  // This is the two-lane highway
-  // This doesn't rely on `isArchive` state
-  // for performance and re-render reasons
-  useEffect(() => {
-    setSelectedList(selectedIndex === 0 ? projectsList : archiveList);
-  }, [projectsList, selectedIndex, archiveList]);
-
-  // Listens for changes in selected project.
-  // Switches to first in list if one is deleted or doesn't exist
-  useEffect(() => {
-    const {
-      stores: { PROJECTS },
-    } = store;
-    if (!isArchive) {
-      const unlisten = PROJECTS.onKeyChange(selectedProject, (e) => {
-        if (e === null) {
-          setSelectedProject(projectsList[0]);
-        }
-      });
-      return () => {
-        unlisten.then((f) => f());
-      };
-    }
-    return () => {};
-  }, [selectedProject]);
-
-  // Updates project list when new one is added
-  useEffect(() => {
-    const {
-      stores: { STORE },
-    } = store;
-
-    const unlisten = STORE.onKeyChange('projects', (e) => {
-      setProjectsList(e);
-    });
-
-    return () => {
-      unlisten.then((f) => f());
-    };
-  }, []);
-
+export default function ProjectList() {
   const tabItems = ['DocumentIcon', 'ArchiveBoxIcon'];
+  const [tab, setTab] = useState(tabItems[0]);
+
+  const isArchive = useMemo(() => tab === 'ArchiveBoxIcon', [tab]);
+
+  const projectsList = atoms.useRecoilValue(
+    atoms.projectsList,
+  );
 
   return (
     <div>
@@ -97,21 +35,16 @@ export default function ProjectList({
         </h4>
         <TabToggle
           items={tabItems}
-          setSelectedIndex={setSelectedIndex}
-          selectedIndex={selectedIndex}
+          setSelectedIndex={(idx) => setTab(tabItems[idx])}
+          selectedIndex={tabItems.findIndex((i) => i === tab)}
         />
       </div>
       <ul>
-        {selectedList.length > 0 && selectedList.map((item, idx) => (
+        {projectsList.length > 0 && projectsList.map((id) => (
           <ProjectListItem
-            key={item.slug || item}
-            projectSlug={typeof item === 'string' ? item : undefined}
-            archiveProject={typeof item === 'object' ? item : undefined}
-            index={idx}
-            last={idx === selectedList[selectedList.length - 1]}
-            isArchive={isArchive}
-            selectedProject={selectedProject}
-            setSelectedProject={setSelectedProject}
+            archiveMode={isArchive}
+            key={id}
+            id={id}
           />
         ))}
       </ul>

@@ -1,0 +1,5 @@
+<aside class="story-enhancement  page-width">
+  <div id="BigPineKey-Map-embed" data-frame-src="https://www.politico.com/interactives/2020/embed/big-pine-key-y7C9dH5v/map.html" data-frame-sandbox="allow-scripts allow-same-origin allow-top-navigation" data-frame-auto-initialized=""></div>
+  <script src="https://www.politico.com/interactives/cdn/js/frames.js"></script>
+  <script>window.newswireFrames.autoInitFrames()</script>
+</aside>

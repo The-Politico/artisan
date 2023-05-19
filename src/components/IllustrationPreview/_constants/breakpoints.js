@@ -47,7 +47,7 @@ export const TABLET_LANDSCAPE = {
   label: 'Tablet Landscape (1024px)',
   styles: {
     wrapper: {
-      width: '1366px',
+      width: '1100px',
     },
     mockup: {
       width: '1087px',
@@ -72,21 +72,22 @@ export const TABLET_PORTRAIT = {
   label: 'Tablet Portrait (768px)',
   styles: {
     wrapper: {
-      width: '1024px',
+      minWidth: '954px',
     },
     mockup: {
-      width: '1084px',
-      top: '150px',
-      left: '-30px',
-      transform: 'rotate(90deg)',
-      boxShadow: '2px 2px 13px 11px rgba(100,100,100,0.5)',
+      left: '50%',
+      top: '147px',
+      transform: 'rotate(90deg) translate(-50%, 0)',
+      boxShadow: 'rgba(100, 100, 100, 0.5) 2px 2px 13px 11px',
       borderRadius: '43px',
+      transformOrigin: '0% 50%',
     },
     inner: {
-      left: '12.5%',
-      right: '12.5%',
+      left: '50%',
       top: '52px',
-      height: '1024px',
+      height: '930px',
+      transform: 'translate(-50%, 0%)',
+      width: '725px',
     },
   },
 };
@@ -121,24 +122,29 @@ export const MOBILE_LANDSCAPE = {
 export const MOBILE_PORTRAIT = {
   value: 'MOBILE_PORTRAIT',
   background: 'https://www.politico.com/interactives/uploads/image-service/2021/4/16/mockup-phone-two.webp?aasd',
-  size: 320,
+  size: 400,
   label: 'Mobile Portrait (320px)',
   styles: {
     wrapper: {
-      width: '427px',
+      minWidth: '400px',
+      maxWidth: '400px',
+      maxHeight: '700px',
     },
     mockup: {
-      width: '374px',
+      // width: '374px',
       top: '10px',
-      left: '26px',
+      left: '50%',
       boxShadow: '2px 2px 13px 11px rgba(100,100,100,0.5)',
       borderRadius: '61px',
+      transformOrigin: '50% 50%',
+      transform: 'translate(-50%, 0)',
     },
     inner: {
-      left: '12.5%',
-      right: '12.5%',
+      left: '50%',
+      minWidth: '375px',
       top: '82px',
-      height: '644px',
+      height: '695px',
+      transform: 'translate(-50%, 0)',
     },
   },
 };

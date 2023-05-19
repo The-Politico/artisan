@@ -2,27 +2,28 @@ import cls from 'classnames';
 import IllustrationItem from '../IllustrationItem';
 import NewIllustration from '../NewIllustration';
 import styles from './styles.module.css';
+import atoms from '../../atoms';
 
-export default function Illustrationlist({
-  illos,
-  selectedProject,
-  isArchive,
-}) {
+export default function Illustrationlist() {
   const containerClass = cls(styles.container);
+
+  const activeProject = atoms.useRecoilValue(
+    atoms.activeProject,
+  );
+
+  const illustrationsInProject = atoms.useRecoilValue(
+    atoms.illustrationsInProject(activeProject),
+  );
 
   return (
     <div className={containerClass}>
-      {illos.map(({ name, slug, publicUrl }) => (
+      {illustrationsInProject.map((illoId) => (
         <IllustrationItem
-          projectSlug={selectedProject}
-          key={name}
-          name={name}
-          slug={slug}
-          publicURL={publicUrl}
-          isArchive={isArchive}
+          key={illoId}
+          id={illoId}
         />
       ))}
-      {!isArchive && <NewIllustration projectSlug={selectedProject} />}
+      <NewIllustration projectId={activeProject} />
     </div>
   );
 }

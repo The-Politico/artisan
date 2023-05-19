@@ -47,7 +47,8 @@
         "createDir": true,
         "removeDir": true,
         "removeFile": true,
-        "scope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*"]
+        "readFile": true,
+        "scope": ["$RESOURCE/**", "$DOCUMENT/**", "$HOME", "$HOME/*", "$HOME/**", "$HOME/**/**" ]
       }
     },
     "bundle": {

@@ -13,4 +13,5 @@
 
 .inner-content {
   position: absolute;
+  z-index: 0;
 }

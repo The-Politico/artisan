@@ -14,6 +14,10 @@
   color: var(--slate-600);
 }
 
+.error {
+  color: var(--red-500);
+}
+
 .published {
   color: var(--emerald-500);
 }

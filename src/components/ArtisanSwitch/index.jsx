@@ -4,7 +4,6 @@ import styles from './styles.module.css';
 
 import {
   flex,
-  padding,
   borders,
   colors,
   layout,
@@ -17,7 +16,7 @@ export default function ArtisanSwitch({ switchLabel, enabled, setToggle }) {
 
   const switchClass = cls(
     styles.switch,
-    colors.bgSlate900,
+    colors.bgSlate800,
     {
       [styles.enabled]: enabled,
       [styles.disabled]: !enabled,
@@ -31,7 +30,7 @@ export default function ArtisanSwitch({ switchLabel, enabled, setToggle }) {
     { [styles.knobDisabled]: !enabled },
   );
 
-  const labelClass = cls(styles.label, padding.py4);
+  const labelClass = cls(styles.label);
   const containerClass = cls(
     flex.flex,
     flex.flexCol,

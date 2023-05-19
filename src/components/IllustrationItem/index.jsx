@@ -1,6 +1,5 @@
 import cls from 'classnames';
 import { useState } from 'react';
-import act from '../../actions';
 import styles from './styles.module.css';
 import MeatballMenu from '../MeatballMenu';
 import IlloImage from './IlloImage';
@@ -12,31 +11,43 @@ import {
   padding,
   typography as type,
 } from '../../theme';
-import RenamePopup from '../RenamePopup';
+import useOpenIllustration from '../../hooks/useOpenIllustration';
+import useDeleteIllustration from '../../hooks/useDeleteIllustration';
+import useGenerateIllustration from '../../hooks/useGenerateIllustration';
+import { STATUS_ILLUSTRATION_ARCHIVED } from '../../constants/statuses';
+import titleify from '../../utils/text/titleify';
 
-export default function IllustrationItem({
-  name,
-  publicURL,
-  slug,
-  projectSlug,
-  isArchive,
-}) {
-  const [showRename, setShowRename] = useState(false);
+import atoms from '../../atoms';
+
+export default function IllustrationItem({ id }) {
+  const status = atoms.useRecoilValue(
+    atoms.status(id),
+  );
+
+  const illoDetails = atoms.useRecoilValue(
+    atoms.illustration(id),
+  );
+
+  const open = useOpenIllustration(id);
+  const deleteIllustration = useDeleteIllustration(id);
+  const generate = useGenerateIllustration(id);
+
+  const illoName = titleify(illoDetails.slug);
+  const isArchive = status === STATUS_ILLUSTRATION_ARCHIVED;
+
   const [hoverState, setHoverState] = useState(false);
-  const handleClick = async () => {
-    await act.openIllustration(projectSlug, slug);
-  };
 
   const meatballItems = [
     {
-      iconName: 'PencilIcon',
-      label: 'Rename',
-      action: () => setShowRename(true),
+      iconName: 'WrenchIcon',
+      label: 'Generate',
+      action: generate,
+      danger: false,
     },
     {
       iconName: 'TrashIcon',
       label: 'Delete',
-      action: () => act.deleteIllustration(projectSlug, slug),
+      action: deleteIllustration,
       danger: true,
     },
   ];
@@ -66,32 +77,25 @@ export default function IllustrationItem({
   return (
     <div className={containerClass}>
       <IlloImage
+        id={id}
+        illoName={illoName}
         hoverState={hoverState}
         setHoverState={setHoverState}
-        onClick={handleClick}
-        url={publicURL}
-        slug={slug}
+        onClick={open}
         isArchive={isArchive}
       />
       <div className={nameClass}>
         <button
           type="button"
-          onClick={handleClick}
+          onClick={open}
           className={cls(type.fontMedium, type.textSm)}
           onMouseEnter={() => setHoverState(true)}
           onMouseLeave={() => setHoverState(false)}
         >
-          {name}
+          {illoName}
         </button>
-        {!isArchive && <MeatballMenu items={meatballItems} />}
+        <MeatballMenu active={!isArchive} items={meatballItems} />
       </div>
-      <RenamePopup
-        oldName={name}
-        showRename={showRename}
-        setShowRename={setShowRename}
-        projectSlug={projectSlug}
-        illoSlug={slug}
-      />
     </div>
   );
 }

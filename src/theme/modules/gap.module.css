@@ -29,3 +29,13 @@
   --gap-y: 1;
   row-gap: calc(.25rem * var(--gap-y));
 }
+
+.y-2  {
+  --gap-y: 2;
+  row-gap: calc(.25rem * var(--gap-y));
+}
+
+.y-3  {
+  --gap-y: 3;
+  row-gap: calc(.25rem * var(--gap-y));
+}

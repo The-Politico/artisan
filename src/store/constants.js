@@ -1,15 +1,29 @@
-/* Store Names */
-export const BASE_STORE_NAME = '.artisan-settings';
-export const PROJECTS_STORE_NAME = '.artisan-projects';
+import { Store } from 'tauri-plugin-store-api';
 
-/* Base Store Keys */
-export const PROJECTS_LIST_NAME = 'projects';
-export const ACTIVE_PREVIEW_PROCESS = 'active-preview-process';
-export const ACTIVE_PREVIEW_PROJECT = 'active-preview-project';
+/**
+ * Use to access the settings store instance and its methods
+ * @type {Store}
+ */
+export const SETTINGS = new Store('.artisan-settings-new');
 
-/* Settings Keys */
-export const AUTHOR_NAME = 'author-name';
-export const AUTHOR_EMAIL = 'author-email';
-export const WORKING_DIRECTORY = 'working-directory';
-export const PREFERRED_PORT = 'preferred-port';
-export const FIRST_RUN = 'first-run';
+/**
+ * Use to access the entities store instance and its methods
+ * @type {Store}
+ */
+export const ENTITIES = new Store('.artisan-entities-new');
+
+/**
+ * Use to access the preview store instance and its methods
+ * @type {Store}
+ */
+export const PREVIEW = new Store('.artisan-preview-new');
+
+/**
+ * Interface to access store via unique key
+ * @type {Object}
+ */
+export const MAP = {
+  settings: SETTINGS,
+  entities: ENTITIES,
+  preview: PREVIEW,
+};

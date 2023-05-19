@@ -1,39 +1,30 @@
-import { STORE, PROJECTS } from './init';
+import get from './get';
+import reset from './reset';
+import set from './set';
+import deleteValue from './delete';
+import refreshEntities from './refreshEntities';
+import refreshEntity from './refreshEntity';
+import updateDict from './updateDict';
+import { MAP } from './constants';
+import batchSet from './batchSet';
 
-import addIllustration from './operations/addIllustration';
-import addProject from './operations/addProject';
-import getPreview from './operations/getPreview';
-import getProject from './operations/getProject';
-import getProjectsList from './operations/getProjectsList';
-import getSettings from './operations/getSettings';
-import getWorkingDir from './operations/getWorkingDir';
-import removeIllustration from './operations/removeIllustration';
-import removeProject from './operations/removeProject';
-import renameProject from './operations/renameProject';
-import renameIllustration from './operations/renameIllustration';
-import updateIllustration from './operations/updateIllustration';
-import updatePreview from './operations/updatePreview';
-import updateProject from './operations/updateProject';
-import updateSettings from './operations/updateSettings';
+const makeBasicOperations = (storeName) => ({
+  get: (...args) => get(storeName, ...args),
+  reset: (...args) => reset(storeName, ...args),
+  set: (...args) => set(storeName, ...args),
+  batchSet: (...args) => batchSet(storeName, ...args),
+  delete: (...args) => deleteValue(storeName, ...args),
+  updateDict: (...args) => updateDict(storeName, ...args),
+  onChange: (...args) => MAP[storeName].onChange(...args),
+  onKeyChange: (...args) => MAP[storeName].onKeyChange(...args),
+});
 
 export default {
-  addIllustration,
-  addProject,
-  getPreview,
-  getProject,
-  getProjectsList,
-  getSettings,
-  getWorkingDir,
-  removeIllustration,
-  removeProject,
-  renameProject,
-  renameIllustration,
-  updateIllustration,
-  updatePreview,
-  updateProject,
-  updateSettings,
-  stores: {
-    STORE,
-    PROJECTS,
+  settings: makeBasicOperations('settings'),
+  preview: makeBasicOperations('preview'),
+  entities: {
+    refresh: refreshEntities,
+    refreshId: refreshEntity,
+    ...makeBasicOperations('entities'),
   },
 };

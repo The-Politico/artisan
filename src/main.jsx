@@ -1,27 +1,31 @@
 import React from 'react';
+import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
+import sync from './sync';
 
 import App from './components/App';
-// import ActionTestingView from './components/ActionTestingView';
 import './main.css';
 import store from './store';
 
-// Adds first run prop if none is found in development
-if (import.meta.env.DEV) {
-  (async () => {
-    const { firstRun } = await store.getSettings();
-    if (firstRun === null) {
-      await store.updateSettings({ firstRun: true });
-    }
-    window.enableFirstRun = async () => {
-      await store.updateSettings({ firstRun: true });
-    };
-  })();
-}
+const { RecoilSyncRoot } = sync;
+
+store.entities.refresh();
+
+const SuspenseTest = function SuspenseTest() {
+  // TODO: Replace with full app skeleton?
+  return (
+    <div>Loading...</div>
+  );
+};
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
-    {/* <ActionTestingView /> */}
+    <RecoilRoot>
+      <React.Suspense fallback={(<SuspenseTest />)}>
+        <RecoilSyncRoot>
+          <App />
+        </RecoilSyncRoot>
+      </React.Suspense>
+    </RecoilRoot>
   </React.StrictMode>,
 );
