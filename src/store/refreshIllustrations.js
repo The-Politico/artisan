@@ -5,8 +5,9 @@ import updateDict from './updateDict';
 
 /**
  * Refreshes local entity store with latest data from the archive.
- * Adds missing entities to the store, updates the local version of entities
- * present in the archive, and removes entities not in the archive.
+ * Adds missing illustrations to the store, updates the local version of
+ * illustrations present in the archive, and removes illustrations
+ * not in the archive.
  *
  * @throws {Error} - An error if data does not match
  * the schema defined in TYPE_ILLUSTRATION_STORE_ITEM.

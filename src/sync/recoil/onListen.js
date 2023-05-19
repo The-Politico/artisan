@@ -4,7 +4,8 @@ import createListenerSet from '../../utils/listenerSet';
 const listeners = createListenerSet();
 
 /**
- * Listens to changes in the store entities and updates the recoil atoms with
+ * Listens to changes in the store illustrations
+ * and updates the recoil atoms with
  * the new values.
  *
  * @param {Object} options - The options for the listen function.

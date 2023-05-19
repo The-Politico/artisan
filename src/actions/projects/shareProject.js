@@ -18,8 +18,8 @@ export default async function shareProject(id) {
 
   // TODO: I think we have to do something with this
   // const shareUrl = getProjectSharePath(id, { asUrl: true });
-  const entities = await store.illustrations.get();
-  const illustrations = entities
+  const illustrationIds = await store.illustrations.get();
+  const illustrations = illustrationIds
     .filter(([, data]) => data.project === projectName)
     .map(([entryId, data]) => ({
       id: entryId,
