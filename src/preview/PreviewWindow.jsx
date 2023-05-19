@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import idToSlugs from '../utils/ids/idToSlugs';
+import ids from '../utils/ids';
 import getLocalPreviewUrl from '../utils/paths/getLocalPreviewUrl';
 
 import store from '../store';
@@ -46,12 +46,12 @@ function PreviewWindow() {
     async function getSlugs() {
       const project = await store.preview.get('project');
 
-      const illoEntries = await store.entities.get();
+      const illoEntries = await store.illustrations.get();
       const illoIds = illoEntries
         .map(([id]) => id)
         .filter((id) => {
-          const slugs = idToSlugs(id);
-          return slugs.project === project;
+          const { project: compareId } = ids.parse(id);
+          return compareId === project;
         });
 
       // TODO: Use selectedIllo now that it's there

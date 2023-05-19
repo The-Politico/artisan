@@ -19,7 +19,7 @@ export default async function onWriteProject({ projectSlug }) {
   //   return;
   // }
 
-  // await store.entities.set({
+  // await store.illustrations.set({
   //   [projectSlug]: {
   //     slug: projectSlug,
   //   },

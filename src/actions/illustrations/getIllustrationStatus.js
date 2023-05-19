@@ -20,7 +20,7 @@ import {
  */
 export default async function getIllustrationStatus(id) {
   // Get entity information from store
-  const info = await store.entities.get(id);
+  const info = await store.illustrations.get(id);
   const {
     version: lastGeneratedVersion,
     cloudVersion,

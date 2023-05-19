@@ -13,7 +13,7 @@ export default async function getIllosInProject(projectId) {
     return undefined;
   }
 
-  const entities = await store.entities.get();
+  const entities = await store.illustrations.get();
   return entities
     .filter(
       ([, entity]) => entity.project === projectId,

@@ -9,7 +9,8 @@ import store from './store';
 
 const { RecoilSyncRoot } = sync;
 
-store.entities.refresh();
+store.illustrations.refresh();
+store.illustrations.get().then(console.log);
 
 const SuspenseTest = function SuspenseTest() {
   // TODO: Replace with full app skeleton?

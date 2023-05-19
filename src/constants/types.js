@@ -14,37 +14,22 @@ import { ALL_STATUSES } from './statuses';
 // The name of a valid store
 export const TYPE_STORE_NAME = stringLiterals({
   settings: 'settings',
-  entities: 'entities',
+  illustrations: 'illustrations',
   preview: 'preview',
 });
 
-// A collection of entity IDs
-export const TYPE_ENTITY_ID_COLLECTION = array(string());
+// A collection of illustration IDs
+export const TYPE_ILLUSTRATION_ID_COLLECTION = array(string());
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
-  slug: string(),
-  project: string(),
+  // The last time the illustration was generated
+  lastGenerated: nullable(jsonDate()),
 
-  // The last known version to be generated
-  version: nullable(string()),
-
-  // The version available in the archive
-  cloudVersion: nullable(string()),
-
-  // The last known version to be backed up
-  lastUploadedVersion: nullable(string()),
-
-  // The last time the file was changed
-  lastUpdated: jsonDate(),
-
-  // The last time the file was backed up
-  lastUploadedDate: nullable(jsonDate()),
-
-  // The last time the file was published live
-  lastPublishedDate: nullable(jsonDate()),
+  // The last time the illustration was published
+  lastPublished: nullable(jsonDate()),
 });
 
-export const TYPE_ENTITY_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);
+export const TYPE_ILLUSTRATION_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);
 
 // Valid options for the settings store
 export const TYPE_SETTINGS_STORE_KEYS = {

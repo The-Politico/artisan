@@ -35,7 +35,7 @@ export default async function publishIllustration(id) {
     });
   }));
 
-  await store.entities.updateDict({
+  await store.illustrations.updateDict({
     [id]: {
       lastPublishedDate: {
         $set: (new Date()).toISOString(),

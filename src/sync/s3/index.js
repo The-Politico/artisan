@@ -6,7 +6,7 @@ import store from '../../store';
 export default async function s3SyncInterval() {
   // const syncs = () => {
   //   fetchPreviews();
-  //   store.entities.refresh();
+  //   store.illustrations.refresh();
   // };
 
   // syncs();

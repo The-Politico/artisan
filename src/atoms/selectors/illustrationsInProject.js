@@ -1,6 +1,6 @@
 import { selectorFamily } from 'recoil';
 import entities from '../entities/atom';
-import idToSlugs from '../../utils/ids/idToSlugs';
+import ids from '../../utils/ids';
 
 /**
  * All the illustrations in a given project
@@ -13,8 +13,8 @@ const illustrationsInProject = selectorFamily({
 
     return illustrations
       .filter((id) => {
-        const slugs = idToSlugs(id);
-        return slugs.project === projectId;
+        const { project: compareId } = ids.parse(id);
+        return compareId === projectId;
       });
   },
 });

@@ -1,25 +1,27 @@
 import store from '../../store';
-import idToSlugs from '../ids/idToSlugs';
+import ids from '../ids';
 
 export default async function getLocalPreviewUrl() {
   const project = await store.preview.get('project');
   const port = await store.settings.get('preferred-port');
 
-  const illoEntries = await store.entities.get();
+  const illoEntries = await store.illustrations.get();
   const illoIds = illoEntries
     .map(([id]) => id)
     .filter((id) => {
-      const slugs = idToSlugs(id);
-      return slugs.project === project;
+      const { project: compareId } = ids.parse(id);
+      return compareId === project;
     });
 
   const firstIllo = illoIds[0];
-  const { illustration } = idToSlugs(firstIllo);
+  const { illustration } = ids.parse(firstIllo);
+  const illoURI = encodeURIComponent(illustration);
+  const illoOutputDocument = illustration.replace(' ', '-');
 
   return [
     `http://localhost:${port}`,
-    illustration,
+    illoURI,
     'ai2html-output',
-    `${illustration}.html`,
+    `${illoOutputDocument}.html`,
   ].join('/');
 }

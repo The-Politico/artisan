@@ -13,6 +13,6 @@ import store from '../store';
 export default function useRenameProject(projectId) {
   // return useCallback(async (name) => {
   //   await postProjectMeta(projectId, { name });
-  //   await store.entities.refreshId(projectId);
+  //   await store.illustrations.refreshId(projectId);
   // }, [projectId]);
 }

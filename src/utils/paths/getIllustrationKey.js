@@ -1,12 +1,12 @@
-import idToSlugs from '../ids/idToSlugs';
+import ids from '../ids';
 import { ARCHIVE_PROJECTS_DIRECTORY } from '../../constants/paths';
 
 export default function getIllustrationKey(id) {
-  const slugs = idToSlugs(id);
+  const names = ids.parse(id);
 
   return [
     ARCHIVE_PROJECTS_DIRECTORY,
-    slugs.project,
-    `${slugs.illustration}.ai`,
+    names.project,
+    `${names.illustration}.ai`,
   ].join('/');
 }

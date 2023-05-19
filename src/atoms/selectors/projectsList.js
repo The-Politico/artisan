@@ -1,6 +1,6 @@
 import { selector } from 'recoil';
 import entitiesAtom from '../entities/atom';
-import getProjectId from '../../utils/ids/getProjectId';
+import ids from '../../utils/ids';
 
 /**
  * All unique project slugs found in illustrations
@@ -12,8 +12,8 @@ const projectsList = selector({
     const entites = get(entitiesAtom);
 
     const projectSet = entites.reduce((acc, id) => {
-      const project = getProjectId(id);
-      acc.add(project);
+      const { project: projectId } = ids.parse(id);
+      acc.add(projectId);
       return acc;
     }, new Set());
 

@@ -2,7 +2,7 @@
 import { ARCHIVE_PROJECTS_DIRECTORY } from '../../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import s3 from '../s3';
-import slugsToId from '../ids/slugsToId';
+import ids from '../ids';
 
 /**
  * Fetches all illustrations in the archive.
@@ -23,7 +23,7 @@ export default async function fetchArchive() {
     .map((record) => {
       const [, projectSlug, illoFile] = record.Key.split('/');
       const illoSlug = illoFile.split('.ai')[0];
-      const id = slugsToId({ project: projectSlug, illustration: illoSlug });
+      const id = ids.gen({ project: projectSlug, illustration: illoSlug });
 
       return {
         id,

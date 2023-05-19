@@ -1,10 +1,8 @@
 import s3 from '../../utils/s3';
-import slugsToId from '../../utils/ids/slugsToId';
 import getIllustrationKey from '../../utils/paths/getIllustrationKey';
-import slugify from '../../utils/text/slugify';
 import store from '../../store';
 import shareProject from '../projects/shareProject';
-import idToSlugs from '../../utils/ids/idToSlugs';
+import ids from '../../utils/ids';
 
 import {
   AWS_ARTISAN_BUCKET,
@@ -15,13 +13,19 @@ import {
 } from '../../constants/paths';
 
 export default async function createIllustration(projectId, illoName) {
-  const illoSlug = slugify(illoName);
-
-  // TODO: Make sure slug is unique
-
-  const illoId = slugsToId({
+  const valid = ids.validate({
     project: projectId,
-    illustration: illoSlug,
+    illustration: illoName,
+  });
+
+  // TODO: Error System
+  if (!valid) {
+    throw new Error('Invalid project or illustration name provided.');
+  }
+
+  const illoId = ids.gen({
+    project: projectId,
+    illustration: illoName,
   });
   const illoKey = await getIllustrationKey(illoId);
 
@@ -31,11 +35,10 @@ export default async function createIllustration(projectId, illoName) {
     key: illoKey,
   });
 
-  await store.entities.refreshId(illoId);
+  await store.illustrations.refreshId(illoId);
 
   // Update share page
-  const slugs = idToSlugs(illoId);
-  await shareProject(slugs.project);
+  await shareProject(projectId);
 
   return illoId;
 }

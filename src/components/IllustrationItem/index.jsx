@@ -15,24 +15,21 @@ import useOpenIllustration from '../../hooks/useOpenIllustration';
 import useDeleteIllustration from '../../hooks/useDeleteIllustration';
 import useGenerateIllustration from '../../hooks/useGenerateIllustration';
 import { STATUS_ILLUSTRATION_ARCHIVED } from '../../constants/statuses';
-import titleify from '../../utils/text/titleify';
 
 import atoms from '../../atoms';
+import ids from '../../utils/ids';
 
 export default function IllustrationItem({ id }) {
   const status = atoms.useRecoilValue(
     atoms.status(id),
   );
 
-  const illoDetails = atoms.useRecoilValue(
-    atoms.illustration(id),
-  );
+  const { illustration: illoName } = ids.parse(id);
 
   const open = useOpenIllustration(id);
   const deleteIllustration = useDeleteIllustration(id);
   const generate = useGenerateIllustration(id);
 
-  const illoName = titleify(illoDetails.slug);
   const isArchive = status === STATUS_ILLUSTRATION_ARCHIVED;
 
   const [hoverState, setHoverState] = useState(false);

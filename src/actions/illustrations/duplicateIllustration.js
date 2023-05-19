@@ -3,19 +3,27 @@ import slugify from '../../utils/text/slugify';
 import getIllustrationKey from '../../utils/paths/getIllustrationKey';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import store from '../../store';
-import slugsToId from '../../utils/ids/slugsToId';
+import ids from '../../utils/ids';
 import shareProject from '../projects/shareProject';
-import idToSlugs from '../../utils/ids/idToSlugs';
 
 export default async function duplicateIllustration(
   sourceId,
   projectId,
   illoName,
 ) {
+  const valid = ids.validate({
+    illustration: illoName,
+  });
+
+  // TODO: Error System
+  if (!valid) {
+    throw new Error('Invalid illustration name provided.');
+  }
+
   const sourceKey = await getIllustrationKey(sourceId);
 
   const destinationIlloSlug = slugify(illoName);
-  const destinationId = slugsToId({
+  const destinationId = ids.gen({
     project: projectId,
     illustration: destinationIlloSlug,
   });
@@ -29,11 +37,10 @@ export default async function duplicateIllustration(
   });
 
   // Update store
-  await store.entities.refreshId(destinationId);
+  await store.illustrations.refreshId(destinationId);
 
   // Update share page
-  const slugs = idToSlugs(destinationId);
-  await shareProject(slugs.project);
+  await shareProject(projectId);
 
   return destinationId;
 }

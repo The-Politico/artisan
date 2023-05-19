@@ -35,5 +35,5 @@ export default async function onRemoveProject({ projectSlug }) {
   //   return acc;
   // }, {});
 
-  // await store.entities.set(illoChanges);
+  // await store.illustrations.set(illoChanges);
 }

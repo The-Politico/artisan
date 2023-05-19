@@ -7,10 +7,10 @@ import { Store } from 'tauri-plugin-store-api';
 export const SETTINGS = new Store('.artisan-settings-new');
 
 /**
- * Use to access the entities store instance and its methods
+ * Use to access the illustrations store instance and its methods
  * @type {Store}
  */
-export const ENTITIES = new Store('.artisan-entities-new');
+export const ILLUSTRATIONS = new Store('.artisan-illustrations-new');
 
 /**
  * Use to access the preview store instance and its methods
@@ -24,6 +24,6 @@ export const PREVIEW = new Store('.artisan-preview-new');
  */
 export const MAP = {
   settings: SETTINGS,
-  entities: ENTITIES,
+  illustrations: ILLUSTRATIONS,
   preview: PREVIEW,
 };

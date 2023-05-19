@@ -1,6 +1,6 @@
 import { assertion } from '@recoiljs/refine';
 import {
-  MAP, SETTINGS, ENTITIES, PREVIEW,
+  MAP, SETTINGS, ILLUSTRATIONS, PREVIEW,
 } from './constants';
 
 import { TYPE_STORE_NAME } from '../constants/types';
@@ -26,7 +26,7 @@ export default async function reset(storeName) {
 
   await Promise.all([
     SETTINGS.reset(),
-    ENTITIES.reset(),
+    ILLUSTRATIONS.reset(),
     PREVIEW.reset(),
   ]);
 }

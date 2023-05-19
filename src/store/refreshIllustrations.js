@@ -1,6 +1,6 @@
 import difference from 'lodash/difference';
 import fetchArchive from '../utils/archive/fetchArchive';
-import { ENTITIES } from './constants';
+import { ILLUSTRATIONS } from './constants';
 import updateDict from './updateDict';
 
 /**
@@ -11,7 +11,7 @@ import updateDict from './updateDict';
  * @throws {Error} - An error if data does not match
  * the schema defined in TYPE_ILLUSTRATION_STORE_ITEM.
  */
-export default async function refresh() {
+export default async function refreshIllustrations() {
   const archive = await fetchArchive();
 
   // Update missing data from archive
@@ -33,11 +33,11 @@ export default async function refresh() {
 
     return acc;
   }, {});
-  await updateDict('entities', updates);
+  await updateDict('illustrations', updates);
 
   // Mark missing illustrations as such
   const archiveIllustrationIds = archive.map(({ id }) => id);
-  const localEntityEntries = await ENTITIES.entries();
+  const localEntityEntries = await ILLUSTRATIONS.entries();
   const localEntitiyIds = localEntityEntries.map(([id]) => id);
 
   const missingIllustrationsFromArchive = difference(
@@ -54,5 +54,5 @@ export default async function refresh() {
       return acc;
     }, {},
   );
-  await updateDict('entities', missingUpdates);
+  await updateDict('illustrations', missingUpdates);
 }

@@ -30,10 +30,10 @@ export default function onListen({ updateItem }) {
   );
 
   listeners.add(
-    'entities__onChange', () => store.entities.onChange(
+    'entities__onChange', () => store.illustrations.onChange(
       async (key, value) => {
         // Update the master entities list
-        const entities = await store.entities.get();
+        const entities = await store.illustrations.get();
         const entitiesAsList = entities.map(([entitiyKey]) => entitiyKey);
         updateItem('entities', entitiesAsList);
 

@@ -11,7 +11,7 @@ import store from '../../store';
  * @returns {Promise}
  */
 export default async function onWriteIllustration(value, illoId) {
-  const baseEntityData = await store.entities.get(illoId);
+  const baseEntityData = await store.illustrations.get(illoId);
 
   const change = {
     name: value.name,
@@ -19,7 +19,7 @@ export default async function onWriteIllustration(value, illoId) {
     lastUpdated: new Date().toISOString(),
   };
 
-  await store.entities.set({
+  await store.illustrations.set({
     [illoId]: {
       ...baseEntityData,
       ...change,

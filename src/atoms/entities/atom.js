@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 import { syncEffect } from 'recoil-sync';
-import { TYPE_ENTITY_ID_COLLECTION } from '../../constants/types';
+import { TYPE_ILLUSTRATION_ID_COLLECTION } from '../../constants/types';
 
 /**
  * Represents the list of entities in existence
@@ -13,7 +13,7 @@ export default atom({
     syncEffect({
       itemKey: 'entities',
       storeKey: 'store',
-      refine: TYPE_ENTITY_ID_COLLECTION,
+      refine: TYPE_ILLUSTRATION_ID_COLLECTION,
     }),
   ],
 });
