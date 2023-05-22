@@ -17,7 +17,7 @@ export default async function isUniqueId({
   // Derive defaults and check types
   let uniqueLevel = unique;
   if (!uniqueLevel) {
-    if (!!projectName && !!illoName) {
+    if (projectName && illoName) {
       uniqueLevel = UNIQUE_LEVEL_ILLUSTRATION;
     } else if (projectName) {
       uniqueLevel = UNIQUE_LEVEL_PROJECT;
