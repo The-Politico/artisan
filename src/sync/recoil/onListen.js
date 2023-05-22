@@ -36,7 +36,7 @@ export default function onListen({ updateItem }) {
         // Update the master entities list
         const illustrations = await store.illustrations.get();
         const illustrationsAsList = illustrations.map(
-          ([entitiyKey]) => entitiyKey,
+          ([illustrationKey]) => illustrationKey,
         );
         updateItem('illustrations', illustrationsAsList);
 
