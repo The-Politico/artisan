@@ -12,7 +12,7 @@ import store from '../../store';
 export default async function shareProject(id) {
   const {
     project: projectName,
-  } = ids.gen(id);
+  } = ids.generate(id);
 
   const shareKey = getProjectSharePath(id);
 

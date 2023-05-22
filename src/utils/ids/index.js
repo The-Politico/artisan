@@ -1,11 +1,11 @@
 import parse from './parse';
-import gen from './gen';
+import generate from './generate';
 import isProject from './isProject';
 import validate from './validate';
 
 export default {
   parse,
-  gen,
+  generate,
   isProject,
   validate,
 };

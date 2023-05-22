@@ -34,9 +34,11 @@ export default function onListen({ updateItem }) {
     'entities__onChange', () => store.illustrations.onChange(
       async (key, value) => {
         // Update the master entities list
-        const entities = await store.illustrations.get();
-        const entitiesAsList = entities.map(([entitiyKey]) => entitiyKey);
-        updateItem('entities', entitiesAsList);
+        const illustrations = await store.illustrations.get();
+        const illustrationsAsList = illustrations.map(
+          ([entitiyKey]) => entitiyKey,
+        );
+        updateItem('illustrations', illustrationsAsList);
 
         // Update illustration data for illustration entities
         if (key[0] === 'I') {

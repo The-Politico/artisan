@@ -38,11 +38,11 @@ export default async function refreshIllustrations() {
 
   // Mark missing illustrations as such
   const archiveIllustrationIds = archive.map(({ id }) => id);
-  const localEntityEntries = await ILLUSTRATIONS.entries();
-  const localEntitiyIds = localEntityEntries.map(([id]) => id);
+  const localIllustrationEntries = await ILLUSTRATIONS.entries();
+  const localIllustrationIds = localIllustrationEntries.map(([id]) => id);
 
   const missingIllustrationsFromArchive = difference(
-    localEntitiyIds, archiveIllustrationIds,
+    localIllustrationIds, archiveIllustrationIds,
   );
   const missingUpdates = missingIllustrationsFromArchive.reduce(
     (acc, current) => {

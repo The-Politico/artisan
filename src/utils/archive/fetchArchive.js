@@ -23,7 +23,7 @@ export default async function fetchArchive() {
     .map((record) => {
       const [, projectSlug, illoFile] = record.Key.split('/');
       const illoSlug = illoFile.split('.ai')[0];
-      const id = ids.gen({ project: projectSlug, illustration: illoSlug });
+      const id = ids.generate({ project: projectSlug, illustration: illoSlug });
 
       return {
         id,

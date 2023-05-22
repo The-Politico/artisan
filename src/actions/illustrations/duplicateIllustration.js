@@ -11,19 +11,10 @@ export default async function duplicateIllustration(
   projectId,
   illoName,
 ) {
-  const valid = ids.validate({
-    illustration: illoName,
-  });
-
-  // TODO: Error System
-  if (!valid) {
-    throw new Error('Invalid illustration name provided.');
-  }
-
   const sourceKey = await getIllustrationKey(sourceId);
 
   const destinationIlloSlug = slugify(illoName);
-  const destinationId = ids.gen({
+  const destinationId = ids.generate({
     project: projectId,
     illustration: destinationIlloSlug,
   });

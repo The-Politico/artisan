@@ -13,20 +13,11 @@ import {
 } from '../../constants/paths';
 
 export default async function createIllustration(projectId, illoName) {
-  const valid = ids.validate({
+  const illoId = ids.generate({
     project: projectId,
     illustration: illoName,
   });
 
-  // TODO: Error System
-  if (!valid) {
-    throw new Error('Invalid project or illustration name provided.');
-  }
-
-  const illoId = ids.gen({
-    project: projectId,
-    illustration: illoName,
-  });
   const illoKey = await getIllustrationKey(illoId);
 
   await s3.copy({
