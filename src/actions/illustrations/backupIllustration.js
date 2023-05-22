@@ -14,7 +14,7 @@ import getIllustrationFilePath
 import getLocalFallbackPath from '../../utils/paths/getLocalFallbackPath';
 import getPreviewKey from '../../utils/paths/getPreviewKey';
 import shareProject from '../projects/shareProject';
-import idToSlugs from '../../utils/ids/idToSlugs';
+import ids from '../../utils/ids';
 
 /**
  * Backup an illustration to an Amazon S3 bucket
@@ -76,7 +76,7 @@ export default async function backupIllustration(
   }
 
   // Update latest version uploaded
-  await store.entities.updateDict({
+  await store.illustrations.updateDict({
     [id]: {
       lastUploadedVersion: {
         $set: version,
@@ -86,11 +86,11 @@ export default async function backupIllustration(
       },
     },
   });
-  await store.entities.refreshId(id);
+  await store.illustrations.refreshId(id);
 
   // Update share page
-  const slugs = idToSlugs(id);
-  await shareProject(slugs.project);
+  const { project: projectId } = ids.parse(id);
+  await shareProject(projectId);
 
   return true;
 }

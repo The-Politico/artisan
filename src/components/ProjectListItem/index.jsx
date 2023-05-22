@@ -13,14 +13,12 @@ import {
   typography as type,
 } from '../../theme';
 import Skeleton from '../Skeleton';
-import titleify from '../../utils/text/titleify';
 import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
 
 export default function ProjectListItem({
   id,
   archiveMode,
 }) {
-  const projectName = titleify(id);
   const status = atoms.useRecoilValue(
     atoms.status(id),
   );
@@ -56,7 +54,7 @@ export default function ProjectListItem({
     <>
       <div className={styles.divider} />
       <li>
-        {!projectName ? (
+        {!id ? (
           <div
             className={cls(
               flex.flex,
@@ -87,7 +85,7 @@ export default function ProjectListItem({
               id={id}
             />
             <p className={cls(styles.itemName, type.textLg, margin.ml1)}>
-              {projectName}
+              {id}
             </p>
           </button>
         )}

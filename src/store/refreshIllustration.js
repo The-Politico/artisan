@@ -9,12 +9,12 @@ import updateDict from './updateDict';
  * @param {string} id - The ID of the entity to update
 
  */
-export default async function refreshEntity(id) {
+export default async function refreshIllustration(id) {
   const archive = await fetchArchive();
   const archiveInfo = archive.find((record) => record.id === id);
 
   if (!archiveInfo) {
-    await deleteValue('entities', id);
+    await deleteValue('illustrations', id);
     return false;
   }
 
@@ -35,6 +35,6 @@ export default async function refreshEntity(id) {
     },
   };
 
-  await updateDict('entities', update);
+  await updateDict('illustrations', update);
   return true;
 }

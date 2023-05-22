@@ -1,6 +1,5 @@
 import getProjectSharePath from '../../utils/paths/getProjectSharePath';
-import idToSlugs from '../../utils/ids/idToSlugs';
-import titleify from '../../utils/text/titleify';
+import ids from '../../utils/ids';
 import {
   SHARE_PAGE_STYLES,
   SHARE_PAGE_SCRIPTS,
@@ -12,25 +11,23 @@ import store from '../../store';
 
 export default async function shareProject(id) {
   const {
-    project: projectSlug,
-  } = idToSlugs(id);
+    project: projectName,
+  } = ids.generate(id);
 
   const shareKey = getProjectSharePath(id);
-  const projectName = titleify(projectSlug);
 
   // TODO: I think we have to do something with this
   // const shareUrl = getProjectSharePath(id, { asUrl: true });
-  const entities = await store.entities.get();
-  const illustrations = entities
-    .filter(([, data]) => data.project === projectSlug)
+  const illustrationIds = await store.illustrations.get();
+  const illustrations = illustrationIds
+    .filter(([, data]) => data.project === projectName)
     .map(([entryId, data]) => ({
       id: entryId,
-      name: titleify(data.slug),
+      name: projectName,
       slug: data.slug,
     }));
 
   const config = {
-    projectSlug,
     projectName,
     embedUrl: `/${PUBLISH_EMBED_PATH}`,
     illos: illustrations.map(({ name, slug }) => ({

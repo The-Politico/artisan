@@ -14,7 +14,7 @@ export default function useRenameIllustration(illoId) {
     const success = await renameIllustration(illoId, name);
 
     if (success) {
-      await store.entities.refreshId(illoId);
+      await store.illustrations.refreshId(illoId);
       return true;
     }
 

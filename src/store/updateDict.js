@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { assertion } from '@recoiljs/refine';
 import updateImmutibly from 'immutability-helper';
-import { ENTITIES } from './constants';
+import { ILLUSTRATIONS } from './constants';
 import {
   TYPE_ILLUSTRATION_STORE_ITEM,
 } from '../constants/types';
@@ -26,7 +26,7 @@ export default async function updateDict(
   updates,
   { save = true } = {},
 ) {
-  if (storeName !== 'entities') {
+  if (storeName !== 'illustrations') {
     throw new Error(
       'updateKey can only be used with dictionary stores. Please update '
       + 'non-dictionary stores with the set function.',
@@ -36,17 +36,17 @@ export default async function updateDict(
   await Promise.all(
     Object.entries(updates)
       .map(async ([key, value]) => {
-        const data = await ENTITIES.get(key);
+        const data = await ILLUSTRATIONS.get(key);
 
         const update = updateImmutibly(data || {}, value);
 
         assertion(TYPE_ILLUSTRATION_STORE_ITEM)(update);
 
-        ENTITIES.set(key, update);
+        ILLUSTRATIONS.set(key, update);
       }),
   );
 
   if (save) {
-    await ENTITIES.save();
+    await ILLUSTRATIONS.save();
   }
 }

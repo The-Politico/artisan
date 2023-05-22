@@ -53,13 +53,13 @@ fn main() {
           .defaults(default_preview)
           .build();
         
-        let entities =
-            StoreBuilder::new(app.handle(), ".artisan-entities-new".parse()?).build();
+        let illustrations =
+            StoreBuilder::new(app.handle(), ".artisan-illustrations-new".parse()?).build();
         
         std::thread::spawn(move || {
             handle.plugin(
                 tauri_plugin_store::Builder::default()
-                    .stores([settings, entities, preview])
+                    .stores([settings, illustrations, preview])
                     .freeze()
                     .build(),
             )

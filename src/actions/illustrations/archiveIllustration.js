@@ -23,7 +23,7 @@ export default async function archiveIllustration(
   await removeDir(illoPath, { recursive: true });
 
   // Update latest version uploaded
-  await store.entities.updateDict({
+  await store.illustrations.updateDict({
     [id]: {
       lastUploadedVersion: {
         $set: null,

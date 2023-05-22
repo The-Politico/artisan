@@ -1,8 +1,15 @@
-import idToSlugs from '../ids/idToSlugs';
+import ids from '../ids';
 import { ARCHIVE_PROJECTS_DIRECTORY } from '../../constants/paths';
 
 export default function getPreviewKey(id) {
-  const slugs = idToSlugs(id);
+  const {
+    project,
+    illustration,
+  } = ids.parse(id);
 
-  return `${ARCHIVE_PROJECTS_DIRECTORY}/${slugs.project}/${slugs.illustration}.png`;
+  return [
+    ARCHIVE_PROJECTS_DIRECTORY,
+    project,
+    `${illustration}.png`,
+  ].join('/');
 }

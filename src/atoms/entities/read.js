@@ -6,6 +6,6 @@ import store from '../../store';
  * @returns {string[]}
  */
 export default async function onReadEntities() {
-  const entities = await store.entities.get();
+  const entities = await store.illustrations.get();
   return entities.map(([id]) => id);
 }

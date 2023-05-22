@@ -5,7 +5,6 @@ import generateIllustration
 import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
 import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
 import backupIllustration from '../../actions/illustrations/backupIllustration';
-import slugsToId from '../../utils/ids/slugsToId';
 import getEtag from '../../utils/fs/getEtag';
 
 /**
@@ -25,22 +24,22 @@ export default async function onWriteAI({
   illustrationSlug,
   filepath,
 }) {
-  const id = slugsToId({
-    project: projectSlug,
-    illustration: illustrationSlug,
-  });
-  const illoInfo = store.entities.get(id);
-  const etag = await getEtag(filepath);
+  // const id = slugsToId({
+  //   project: projectSlug,
+  //   illustration: illustrationSlug,
+  // });
+  // const illoInfo = store.illustrations.get(id);
+  // const etag = await getEtag(filepath);
 
-  await store.entities.set({
-    [id]: {
-      slug: illustrationSlug,
-      project: projectSlug,
-      lastUpdated: (new Date()).toISOString(),
-      version: etag,
-      ...(illoInfo || {}),
-    },
-  });
+  // await store.illustrations.set({
+  //   [id]: {
+  //     slug: illustrationSlug,
+  //     project: projectSlug,
+  //     lastUpdated: (new Date()).toISOString(),
+  //     version: etag,
+  //     ...(illoInfo || {}),
+  //   },
+  // });
 
   // Generate illustrations
   // await generateIllustration(illoInfo.id);

@@ -1,5 +1,5 @@
 import delimeter from './delimeter';
 
-export default function slugsToId({ project, illustration }) {
+export default function generate({ project, illustration }) {
   return `${project}${delimeter}${illustration}`;
 }

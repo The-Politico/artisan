@@ -1,4 +1,5 @@
 import store from '../../store';
+import ids from '../ids';
 
 /**
  * Get illustrations in a project
@@ -13,9 +14,12 @@ export default async function getIllosInProject(projectId) {
     return undefined;
   }
 
-  const entities = await store.entities.get();
-  return entities
+  const illustrations = await store.illustrations.get();
+  return illustrations
     .filter(
-      ([, entity]) => entity.project === projectId,
+      ([id]) => {
+        const { project: compareId } = ids.parse(id);
+        return projectId === compareId;
+      },
     );
 }

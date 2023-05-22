@@ -2,8 +2,8 @@ import get from './get';
 import reset from './reset';
 import set from './set';
 import deleteValue from './delete';
-import refreshEntities from './refreshEntities';
-import refreshEntity from './refreshEntity';
+import refreshIllustrations from './refreshIllustrations';
+import refreshIllustration from './refreshIllustration';
 import updateDict from './updateDict';
 import { MAP } from './constants';
 import batchSet from './batchSet';
@@ -22,9 +22,9 @@ const makeBasicOperations = (storeName) => ({
 export default {
   settings: makeBasicOperations('settings'),
   preview: makeBasicOperations('preview'),
-  entities: {
-    refresh: refreshEntities,
-    refreshId: refreshEntity,
-    ...makeBasicOperations('entities'),
+  illustrations: {
+    refresh: refreshIllustrations,
+    refreshId: refreshIllustration,
+    ...makeBasicOperations('illustrations'),
   },
 };

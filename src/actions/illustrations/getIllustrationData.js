@@ -17,9 +17,9 @@ import getWorkingProjectPath from '../../utils/paths/getProjectPath';
  * information, status, project information, and paths.
  */
 export default async function getIllustrationData(id) {
-  const info = await store.entities.get(id);
+  const info = await store.illustrations.get(id);
   const { slug: illustrationSlug, project } = info;
-  const projectInfo = await store.entities.get(project);
+  const projectInfo = await store.illustrations.get(project);
   const { slug: projectSlug } = projectInfo;
 
   const status = await getIllustrationStatus(id);

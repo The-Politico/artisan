@@ -4,7 +4,8 @@ import createListenerSet from '../../utils/listenerSet';
 const listeners = createListenerSet();
 
 /**
- * Listens to changes in the store entities and updates the recoil atoms with
+ * Listens to changes in the store illustrations
+ * and updates the recoil atoms with
  * the new values.
  *
  * @param {Object} options - The options for the listen function.
@@ -30,12 +31,14 @@ export default function onListen({ updateItem }) {
   );
 
   listeners.add(
-    'entities__onChange', () => store.entities.onChange(
+    'entities__onChange', () => store.illustrations.onChange(
       async (key, value) => {
         // Update the master entities list
-        const entities = await store.entities.get();
-        const entitiesAsList = entities.map(([entitiyKey]) => entitiyKey);
-        updateItem('entities', entitiesAsList);
+        const illustrations = await store.illustrations.get();
+        const illustrationsAsList = illustrations.map(
+          ([illustrationKey]) => illustrationKey,
+        );
+        updateItem('illustrations', illustrationsAsList);
 
         // Update illustration data for illustration entities
         if (key[0] === 'I') {

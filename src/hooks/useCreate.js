@@ -4,7 +4,8 @@ import getProjectStatus from '../actions/projects/getProjectStatus';
 import { STATUS_PROJECT_ARCHIVED } from '../constants/statuses';
 import downloadIllustration
   from '../actions/illustrations/downloadIllustration';
-import slugify from '../utils/text/slugify';
+import ids from '../utils/ids';
+import isUniqueId from '../utils/store/isUniqueId';
 
 /**
  * Hook to set up a function for creating a new illustration within a project
@@ -19,25 +20,40 @@ export default function useCreate(projectId) {
       const status = await getProjectStatus(projectId);
 
       if (status === STATUS_PROJECT_ARCHIVED) {
-        // TODO: Replace this with custom error
+        // TODO: Error system
         throw new Error(
           'Project must be downloaded in order to create a new illo',
         );
       }
     }
 
-    const realProjectId = newProject ? slugify(newProject) : projectId;
+    const realProjectId = newProject || projectId;
 
     if (!realProjectId) {
-      // TODO: Replace this with custom error
-      throw new Error(
-        'No project provided',
-      );
+      // TODO: TODO: Error system
+      throw new Error('No project provided');
     }
 
-    // TODO: Make sure new project is unique
+    const validIdCharacters = ids.validate({
+      project: realProjectId,
+      illustration: illoName,
+    });
 
-    // TODO: Make sure Illo Name is unique
+    if (!validIdCharacters) {
+      // TODO: Error System
+      throw new Error('Invalid project or illustration name provided.');
+    }
+
+    const unique = await isUniqueId({
+      project: realProjectId,
+      illustration: illoName,
+      unique: newProject ? 'project' : 'illustration',
+    });
+
+    if (!unique) {
+      // TODO: Error System
+      throw new Error('Project/Illustration name is not unique');
+    }
 
     const illoId = await createIllustration(realProjectId, illoName);
     await downloadIllustration(illoId);

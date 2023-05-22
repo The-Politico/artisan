@@ -58,7 +58,7 @@ export default async function downloadIllustration(
   );
 
   const fileVersion = await getEtag(aiPath);
-  await store.entities.updateDict({
+  await store.illustrations.updateDict({
     [id]: {
       lastUploadedVersion: {
         $set: fileVersion,

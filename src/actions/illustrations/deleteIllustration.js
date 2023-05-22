@@ -6,18 +6,18 @@ import getIllustrationKey from '../../utils/paths/getIllustrationKey';
 import getProjectPath from '../../utils/paths/getProjectPath';
 import { ARCHIVE_TRASH_DIRECTORY } from '../../constants/paths';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import idToSlugs from '../../utils/ids/idToSlugs';
+import ids from '../../utils/ids';
 import store from '../../store';
 import getPreviewKey from '../../utils/paths/getPreviewKey';
 
 export default async function deleteIllustration(id) {
   const randomId = uuid().substring(0, 8);
-  const slugs = await idToSlugs(id);
+  const names = ids.parse(id);
 
   const illoPath = await getIllustrationPath(id);
   const illoKey = await getIllustrationKey(id);
   const previewKey = await getPreviewKey(id);
-  const projectPath = await getProjectPath(slugs.project);
+  const projectPath = await getProjectPath(names.project);
 
   const now = new Date();
   const nowYear = now.getFullYear();
@@ -30,8 +30,8 @@ export default async function deleteIllustration(id) {
     key: [
       ARCHIVE_TRASH_DIRECTORY,
       `${nowYear}-${nowMonth}-${nowDate}`,
-      slugs.project,
-      slugs.illustration,
+      names.project,
+      names.illustration,
       `${randomId}.ai`,
     ].join('/'),
     source: illoKey,
@@ -57,7 +57,7 @@ export default async function deleteIllustration(id) {
   }
 
   // Remove from store
-  await store.entities.refreshId(id);
+  await store.illustrations.refreshId(id);
 
   return true;
 }

@@ -1,7 +1,7 @@
 import getIllustrationStatus
   from '../../actions/illustrations/getIllustrationStatus';
 import getProjectStatus from '../../actions/projects/getProjectStatus';
-import isProjectSlug from '../../utils/ids/isProjectSlug';
+import ids from '../../utils/ids';
 
 /**
  * Gets the status of a given entity
@@ -9,7 +9,7 @@ import isProjectSlug from '../../utils/ids/isProjectSlug';
  * @returns {string} - The status
  */
 export default async function onReadStatus(id) {
-  if (isProjectSlug(id)) {
+  if (ids.isProject(id)) {
     return getProjectStatus(id);
   }
 

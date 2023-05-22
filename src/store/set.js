@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { assertion } from '@recoiljs/refine';
-import { SETTINGS, ENTITIES, PREVIEW } from './constants';
+import { SETTINGS, ILLUSTRATIONS, PREVIEW } from './constants';
 import {
   TYPE_STORE_NAME,
   TYPE_SETTINGS_STORE_KEYS,
@@ -43,11 +43,11 @@ export default async function set(storeName, values, { save = true } = {}) {
     return;
   }
 
-  if (storeName === 'entities') {
+  if (storeName === 'illustrations') {
     Object.entries(values).forEach(([key, value]) => {
       assertion(TYPE_ILLUSTRATION_STORE_ITEM)(value);
 
-      ENTITIES.set(key, value);
+      ILLUSTRATIONS.set(key, value);
     });
 
     if (save) {

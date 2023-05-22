@@ -10,13 +10,11 @@ import {
 } from '../../theme';
 import ButtonsGroup from './ButtonsGroup';
 import atoms from '../../atoms';
-import titleify from '../../utils/text/titleify';
 
 export default function ProjectToolbar() {
   const activeProject = atoms.useRecoilValue(
     atoms.activeProject,
   );
-  const projectName = titleify(activeProject);
 
   return (
     <div
@@ -31,7 +29,7 @@ export default function ProjectToolbar() {
         <h2
           className={cls(colors.textSlate900, type.text2Xl, type.fontSemibold)}
         >
-          {projectName}
+          {activeProject}
         </h2>
         <ProjectStatusDek
           id={activeProject}

@@ -1,12 +1,15 @@
 import { PUBLISH_EMBED_PATH } from '../../constants/paths';
-import idToSlugs from '../ids/idToSlugs';
+import ids from '../ids';
+import slugify from '../text/slugify';
 
 export default function getIllustrationOutputKey(id) {
-  const slugs = idToSlugs(id);
+  const names = ids.parse(id);
+  const projectSlug = slugify(names.project);
+  const illoSlug = slugify(names.illustration);
 
   return [
     PUBLISH_EMBED_PATH,
-    slugs.project,
-    slugs.illustration,
+    projectSlug,
+    illoSlug,
   ].join('/');
 }

@@ -1,6 +1,6 @@
 import { resolve } from '@tauri-apps/api/path';
 import getProjectPath from './getProjectPath';
-import idToSlugs from '../ids/idToSlugs';
+import ids from '../ids';
 
 /**
  * Returns the resolved path of an illustration's directory inside
@@ -11,12 +11,12 @@ import idToSlugs from '../ids/idToSlugs';
  *  illustration's directory
  */
 export default async function getIllustrationPath(id) {
-  const slugs = idToSlugs(id);
+  const names = ids.parse(id);
 
-  const projectPath = await getProjectPath(slugs.project);
+  const projectPath = await getProjectPath(names.project);
 
   return resolve(
     projectPath,
-    slugs.illustration,
+    names.illustration,
   );
 }
