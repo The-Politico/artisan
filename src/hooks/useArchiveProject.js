@@ -8,6 +8,7 @@ import getProjectStatus from '../actions/projects/getProjectStatus';
 
 /**
  * Hook to set up an archiving function for a project
+ * @deprecated
  * @function
  * @param {string} projectId - The ID of the project
  * @returns {function(): Promise}

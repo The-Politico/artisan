@@ -4,6 +4,7 @@ import { ILLUSTRATIONS } from './constants';
 import updateDict from './updateDict';
 
 /**
+ * @deprecated
  * Refreshes local entity store with latest data from the archive.
  * Adds missing illustrations to the store, updates the local version of
  * illustrations present in the archive, and removes illustrations
