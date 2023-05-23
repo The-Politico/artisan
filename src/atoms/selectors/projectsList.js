@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import entitiesAtom from '../entities/atom';
+import illustrationsAtom from '../illustrations/atom';
 import ids from '../../utils/ids';
 
 /**
@@ -9,7 +9,7 @@ import ids from '../../utils/ids';
 const projectsList = selector({
   key: 'projectsList',
   get: ({ get }) => {
-    const entites = get(entitiesAtom);
+    const entites = get(illustrationsAtom);
 
     const projectSet = entites.reduce((acc, id) => {
       const { project: projectId } = ids.parse(id);
