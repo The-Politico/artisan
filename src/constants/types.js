@@ -2,7 +2,6 @@ import {
   array,
   string,
   object,
-  bool,
   stringLiterals,
   jsonDate,
   nullable,
@@ -33,11 +32,10 @@ export const TYPE_ILLUSTRATION_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);
 
 // Valid options for the settings store
 export const TYPE_SETTINGS_STORE_KEYS = {
-  'author-email': string(),
-  'author-name': string(),
   'working-directory': string(),
   'preferred-port': string(),
-  'first-run': bool(),
+  'aws-id': string(),
+  'aws-secret': string(),
 };
 
 // Valid object containing all the settings for a complete store

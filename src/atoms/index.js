@@ -11,6 +11,7 @@ import projectsList from './selectors/projectsList';
 import projectLastUploaded from './selectors/projectLastUploaded';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
+import isConfigured from './selectors/isConfigured';
 
 export default {
   illustrations,
@@ -23,6 +24,7 @@ export default {
   projectLastUploaded,
   illustrationsInProject,
   isPreviewActive,
+  isConfigured,
 
   useRecoilValue,
   useRecoilState,

@@ -14,7 +14,11 @@ export default async function downloadS3Object({
   key,
   responseContentType,
 } = {}) {
-  const client = getClient();
+  const client = await getClient();
+
+  if (!client) {
+    return undefined;
+  }
 
   const command = new GetObjectCommand({
     Bucket: bucket,

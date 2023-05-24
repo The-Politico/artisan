@@ -15,6 +15,10 @@ import updateDict from './updateDict';
 export default async function refreshIllustrations() {
   const archive = await fetchArchive();
 
+  if (!archive) {
+    return false;
+  }
+
   // Update missing data from archive
   const updates = archive.reduce((acc, current) => {
     acc[current.id] = {
@@ -58,4 +62,6 @@ export default async function refreshIllustrations() {
     }, {},
   );
   await updateDict('illustrations', missingUpdates);
+
+  return true;
 }
