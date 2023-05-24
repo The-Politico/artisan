@@ -25,9 +25,15 @@ export default function atomSyncStoreEffect({
     setSelf,
     onSet,
   }) => {
-    const unsub = store[storeName].onChange(async () => {
+    const updateSelf = async () => {
       const data = await read();
       setSelf(data);
+    };
+
+    updateSelf();
+
+    const unsub = store[storeName].onChange(async () => {
+      updateSelf();
     });
 
     if (write) {

@@ -1,11 +1,8 @@
-/* eslint-disable */
 import store from '../../store';
 import generateIllustration
   from '../../actions/illustrations/generateIllustration';
-import getProjectInfoFromSlug from '../../utils/store/getProjectInfoFromSlug';
-import getIlloInfoFromSlug from '../../utils/store/getIlloInfoFromSlug';
-import backupIllustration from '../../actions/illustrations/backupIllustration';
 import getEtag from '../../utils/fs/getEtag';
+import ids from '../../utils/ids';
 
 /**
  * Writes an AI file to S3 and updates the project's version, then
@@ -20,30 +17,20 @@ import getEtag from '../../utils/fs/getEtag';
  * written and the store is updated.
  */
 export default async function onWriteAI({
-  projectSlug,
-  illustrationSlug,
+  projectName,
+  illustrationName,
   filepath,
 }) {
-  // const id = slugsToId({
-  //   project: projectSlug,
-  //   illustration: illustrationSlug,
-  // });
-  // const illoInfo = store.illustrations.get(id);
-  // const etag = await getEtag(filepath);
+  const id = ids.generate({
+    project: projectName,
+    illustration: illustrationName,
+  });
 
-  // await store.illustrations.set({
-  //   [id]: {
-  //     slug: illustrationSlug,
-  //     project: projectSlug,
-  //     lastUpdated: (new Date()).toISOString(),
-  //     version: etag,
-  //     ...(illoInfo || {}),
-  //   },
-  // });
+  const illoDetails = await store.illustrations.get(id);
+  const { lastGeneratedVersion } = illoDetails;
+  const latestVersion = await getEtag(filepath);
 
-  // Generate illustrations
-  // await generateIllustration(illoInfo.id);
-
-  // Upload illustration
-  // await backupIllustration(illoInfo.id, { force: false });
+  if (lastGeneratedVersion !== latestVersion) {
+    await generateIllustration(id);
+  }
 }

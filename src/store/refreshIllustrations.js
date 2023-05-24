@@ -22,17 +22,14 @@ export default async function refreshIllustrations() {
   // Update missing data from archive
   const updates = archive.reduce((acc, current) => {
     acc[current.id] = {
-      slug: {
-        $set: current.slug,
+      lastGeneratedVersion: {
+        $set: null,
       },
-      project: {
-        $set: current.project,
+      lastGeneratedDate: {
+        $set: null,
       },
-      lastUpdated: {
-        $set: current.lastUpdated,
-      },
-      cloudVersion: {
-        $set: current.version,
+      lastPublished: {
+        $set: null,
       },
     };
 

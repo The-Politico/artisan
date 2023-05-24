@@ -3,6 +3,12 @@ import { WebviewWindow } from '@tauri-apps/api/window';
 import { Command } from '@tauri-apps/api/shell';
 import atoms from '../atoms';
 import getProjectPath from '../utils/paths/getProjectPath';
+import runPromisesSequentially from '../utils/runPromisesSequentially';
+import generateIllustration
+  from '../actions/illustrations/generateIllustration';
+import { STATUS_ILLUSTRATION_NOT_GENERATED } from '../constants/statuses';
+import getIllustrationStatus
+  from '../actions/illustrations/getIllustrationStatus';
 
 /**
  * Hook to set up a function for launching a preview (WIP)
@@ -11,13 +17,14 @@ import getProjectPath from '../utils/paths/getProjectPath';
  * @returns {function(): Promise}
  */
 export default function usePreviewProject(projectId) {
-  // TODO: We probably don't need this if we have previewState
-  const previewActive = atoms.useRecoilValue(
-    atoms.isPreviewActive,
+  const illustrations = atoms.useRecoilValue(
+    atoms.illustrationsInProject(projectId),
   );
   const [previewState, setPreviewState] = atoms.useRecoilState(
     atoms.preview,
   );
+
+  const previewActive = !!previewState.process;
 
   const settings = atoms.useRecoilValue(
     atoms.settings,
@@ -51,6 +58,19 @@ export default function usePreviewProject(projectId) {
     if (previewActive) {
       await shutdownPreview();
     }
+
+    // Generate each of the illustrations
+    await runPromisesSequentially(
+      illustrations.map(
+        (illoId) => async () => {
+          const illoStatus = await getIllustrationStatus(illoId);
+
+          if (illoStatus === STATUS_ILLUSTRATION_NOT_GENERATED) {
+            await generateIllustration(illoId);
+          }
+        },
+      ),
+    );
 
     const projectPath = await getProjectPath(projectId);
 
@@ -90,7 +110,7 @@ export default function usePreviewProject(projectId) {
         }
       });
     }, 1000);
-  }, [previewActive, projectId, shutdownPreview]);
+  }, [illustrations, previewActive, projectId, shutdownPreview]);
 
   return [launchPreview, shutdownPreview];
 }

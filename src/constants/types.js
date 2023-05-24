@@ -21,8 +21,11 @@ export const TYPE_STORE_NAME = stringLiterals({
 export const TYPE_ILLUSTRATION_ID_COLLECTION = array(string());
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
+  // The last version known to have been generated
+  lastGeneratedVersion: nullable(string()),
+
   // The last time the illustration was generated
-  lastGenerated: nullable(jsonDate()),
+  lastGeneratedDate: nullable(jsonDate()),
 
   // The last time the illustration was published
   lastPublished: nullable(jsonDate()),

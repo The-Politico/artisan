@@ -76,10 +76,9 @@
         "signingIdentity": null
       },
       "resources": [
-        "ai2html.js",
-        "ai2html-config.json",
-        "exportArtboards.js",
-        "template-standard.ai"
+        "resources/ai2html.js",
+        "resources/ai2html-config.json",
+        "resources/exportArtboards.js"
       ],
       "shortDescription": "",
       "targets": "all",

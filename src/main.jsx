@@ -6,8 +6,20 @@ import App from './components/App';
 import './main.css';
 import store from './store';
 
-store.illustrations.reset();
-store.illustrations.refresh();
+import fsSync from './sync/fs';
+
+// Start FS Syncing
+fsSync();
+
+// store.illustrations.reset();
+// store.illustrations.refresh();
+//   .then(() => store.illustrations.get()).then(console.log);
+
+document.addEventListener('keydown', (event) => {
+  if (event.isComposing || event.key === ' ') {
+    store.illustrations.get().then(console.log);
+  }
+});
 
 const SuspenseTest = function SuspenseTest() {
   // TODO: Replace with full app skeleton?
