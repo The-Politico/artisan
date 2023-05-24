@@ -84,6 +84,9 @@ export default async function generateIllustration(
       version: {
         $set: fileVersion,
       },
+      lastGenerated: {
+        $set: (new Date()).toISOString(),
+      },
     },
   });
 

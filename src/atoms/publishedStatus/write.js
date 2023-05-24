@@ -3,6 +3,6 @@
  * set up, but we don't want to do anything special on writing
  * to this atom
  */
-export default async function onWriteStatus() {
+export default async function onWritePublishedStatus() {
   return undefined;
 }

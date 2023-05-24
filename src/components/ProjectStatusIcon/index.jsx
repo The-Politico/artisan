@@ -1,9 +1,7 @@
 import cls from 'classnames';
-import { useEffect } from 'react';
 import { ICONS } from './icons';
 import styles from './styles.module.css';
 import atoms from '../../atoms';
-import getIllosInProject from '../../utils/store/getIllosInProject';
 
 /**
  *
@@ -12,18 +10,22 @@ import getIllosInProject from '../../utils/store/getIllosInProject';
  * @returns {JSX.Element}
  */
 export default function ProjectStatusIcon({ id, size = 'md', className }) {
-  const status = atoms.useRecoilValue(atoms.status(id));
+  const pubStatus = atoms.useRecoilValue(atoms.publishedStatus(id));
 
-  useEffect(() => {
-    (async () => {
-      const i = await getIllosInProject(id);
-      console.log(i);
-    })();
-  }, []);
+  const statusStyles = {
+    STATUS_PROJECT_DRAFT: null,
+    STATUS_PROJECT_PUBLISHED: 'published',
+    STATUS_PROJECT_CHANGES: 'error',
+  };
 
-  const iconClass = cls(styles.icon, styles[size], styles[status], className);
+  const iconClass = cls(
+    styles.icon,
+    styles[size],
+    styles[statusStyles[pubStatus]],
+    className,
+  );
 
-  const IconComponent = ICONS[status] || ICONS.default;
+  const IconComponent = ICONS[pubStatus] || ICONS.default;
 
   return (
     <div className={cls(iconClass)}>

@@ -6,17 +6,17 @@ import { TYPE_ENTITY_STATUS } from '../../constants/types';
  * The current status of a given entity
  * @type {atomFamily}
  */
-const statusAtomFamily = atomFamily({
-  key: 'published-status',
+const publishedStatusAtomFamily = atomFamily({
+  key: 'published_status',
   default: 'STATUS_PROJECT_DRAFT',
   effects: (id) => ([
     syncEffect({
-      itemKey: `published-status__${id}`,
+      itemKey: `published_status__${id}`,
       storeKey: 'store',
       refine: TYPE_ENTITY_STATUS,
     }),
   ]),
 });
-statusAtomFamily.key = 'published-status';
+publishedStatusAtomFamily.key = 'published_status';
 
-export default statusAtomFamily;
+export default publishedStatusAtomFamily;

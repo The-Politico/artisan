@@ -6,6 +6,7 @@ import downloadIllustration
   from '../actions/illustrations/downloadIllustration';
 import ids from '../utils/ids';
 import isUniqueId from '../utils/store/isUniqueId';
+import store from '../store';
 
 /**
  * Hook to set up a function for creating a new illustration within a project
@@ -57,5 +58,18 @@ export default function useCreate(projectId) {
 
     const illoId = await createIllustration(realProjectId, illoName);
     await downloadIllustration(illoId);
+
+    // Not sure if this should go into `downloadIllustration`
+    // until after we decide on an archive strategy
+    await store.illustrations.updateDict({
+      [illoId]: {
+        lastPublished: {
+          $set: null,
+        },
+        lastGenerated: {
+          $set: null,
+        },
+      },
+    });
   }, [projectId]);
 }
