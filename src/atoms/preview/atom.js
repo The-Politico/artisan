@@ -5,7 +5,7 @@ import read from './read';
 const KEY = 'preview';
 
 /**
- * Represents the data for an active (or inactive) preview
+ * The data for an active (or inactive) preview
  * @type {atom}
  */
 const previewAtom = atom({

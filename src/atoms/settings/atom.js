@@ -5,7 +5,7 @@ import read from './read';
 const KEY = 'settings';
 
 /**
- * Represents the data for the user's settings
+ * The data for the user's settings
  * @type {atom}
  */
 const settingsAtom = atom({

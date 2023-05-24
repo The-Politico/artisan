@@ -4,6 +4,10 @@ import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
 
 const KEY = 'illustrationDetail';
 
+/**
+ * Details about an illustration
+ * @type {atomFamily}
+ */
 const illustrationsAtomFamily = atomFamily({
   key: KEY,
   default: (id) => read(id),

@@ -5,6 +5,19 @@ import { LOCAL_PROJECTS_DIRECTORY } from '../../constants/paths';
 import ids from '../ids';
 import nearestExistingDir from './nearestExistingDir';
 
+/**
+ * This function is responsible for setting up a
+ * syncing system between the file system and the atom state.
+ * The function listens for any changes in the nearest existing
+ * directory relative to the project or illustrations and
+ * updates the atom state accordingly.
+ *
+ * @param {Object} options - The input configuration object.
+ * @param {string} options.id - The identifier of the project/illustration.
+ * @param {function} options.read - The read function to get
+ * data from the file system.
+ * @returns {function} - A recoil effect callback
+ */
 export default function atomSyncFsEffect({
   id,
   read,
@@ -52,7 +65,6 @@ export default function atomSyncFsEffect({
             return;
           }
 
-          // console.log('Change!', id);
           const data = await read();
           setSelf(data);
         });
