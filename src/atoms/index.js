@@ -6,7 +6,7 @@ import illustrationDetail from './illustrationDetail/atom';
 import settingsAtom from './settings/atom';
 import previewAtom from './preview/atom';
 import statusAtomFamily from './status/atom';
-import activeProjectAtom from './state/activeProject';
+import activeProjectAtom from './project/atom';
 import projectsList from './selectors/projectsList';
 import projectLastUploaded from './selectors/projectLastUploaded';
 import illustrationsInProject from './selectors/illustrationsInProject';

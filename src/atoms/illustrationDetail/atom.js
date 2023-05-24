@@ -1,23 +1,20 @@
 import { atomFamily } from 'recoil';
-import { syncEffect } from 'recoil-sync';
-import { TYPE_ILLUSTRATION_STORE_ITEM } from '../../constants/types';
+import read from './read';
+import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
 
-/**
- * Represents the data for an illustration entity
- * @type {atomFamily}
- */
+const KEY = 'illustrationDetail';
+
 const illustrationsAtomFamily = atomFamily({
-  key: 'illustrationDetail',
-  default: {},
+  key: KEY,
+  default: (id) => read(id),
   effects: (id) => ([
-    syncEffect({
-      itemKey: `illustrations__${id}`,
-      storeKey: 'store',
-      refine: TYPE_ILLUSTRATION_STORE_ITEM,
+    atomSyncStoreEffect({
+      store: 'illustrations',
+      read: () => read(id),
     }),
   ]),
 });
 
-illustrationsAtomFamily.key = 'illustrations';
+illustrationsAtomFamily.key = KEY;
 
 export default illustrationsAtomFamily;

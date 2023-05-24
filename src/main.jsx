@@ -6,7 +6,8 @@ import App from './components/App';
 import './main.css';
 import store from './store';
 
-// store.illustrations.refresh();
+store.illustrations.reset();
+store.illustrations.refresh();
 
 const SuspenseTest = function SuspenseTest() {
   // TODO: Replace with full app skeleton?

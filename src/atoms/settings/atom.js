@@ -1,19 +1,21 @@
 import { atom } from 'recoil';
-import { syncEffect } from 'recoil-sync';
-import { TYPE_SETTINGS_STORE } from '../../constants/types';
+import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
+import read from './read';
+
+const KEY = 'settings';
 
 /**
  * Represents the data for the user's settings
  * @type {atom}
  */
 const settingsAtom = atom({
-  key: 'settings',
-  default: {},
+  key: KEY,
+  default: read(),
   effects: [
-    syncEffect({
-      itemKey: 'settings',
-      storeKey: 'store',
-      refine: TYPE_SETTINGS_STORE,
+    atomSyncStoreEffect({
+      store: 'settings',
+      read,
+      write: true,
     }),
   ],
 });

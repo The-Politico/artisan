@@ -1,21 +1,22 @@
 import { atom } from 'recoil';
 import read from './read';
-import atomSyncEffect from '../../utils/store/atomSyncEffect';
+import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
 
 const KEY = 'illustrations';
 
 /**
- * Represents the list of entities in existence
+ * The list of illustrations
  * @type {atom}
  */
-export default atom({
+const illustrationsAtom = atom({
   key: KEY,
-  default: read.selector,
+  default: read(),
   effects: [
-    atomSyncEffect({
-      name: KEY,
+    atomSyncStoreEffect({
       store: 'illustrations',
-      fetch: read.fetch,
+      read,
     }),
   ],
 });
+
+export default illustrationsAtom;

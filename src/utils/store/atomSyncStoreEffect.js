@@ -2,28 +2,27 @@ import { assertion } from '@recoiljs/refine';
 import store from '../../store';
 import { TYPE_STORE_NAME } from '../../constants/types';
 
-export default function atomSyncEffect({
-  name: atomName = 'unknown',
+export default function atomSyncStoreEffect({
   store: storeName,
-  fetch: fetchFromStore,
+  read,
+  write = false,
 }) {
   assertion(TYPE_STORE_NAME)(storeName);
 
   return ({
-    onSet,
     setSelf,
+    onSet,
   }) => {
     const unsub = store[storeName].onChange(async () => {
-      const data = await fetchFromStore();
+      const data = await read();
       setSelf(data);
     });
 
-    onSet(() => {
-      throw new Error(
-        `Atoms Sync Error: "${atomName}" atom is being set,`
-        + ' but it is is read-only.',
-      );
-    });
+    if (write) {
+      onSet((newValue) => {
+        store[storeName].set(newValue);
+      });
+    }
 
     return () => {
       unsub.then((cb) => cb());

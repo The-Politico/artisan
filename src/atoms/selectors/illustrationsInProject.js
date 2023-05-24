@@ -2,12 +2,14 @@ import { selectorFamily } from 'recoil';
 import illustrationsAtom from '../illustrations/atom';
 import ids from '../../utils/ids';
 
+const KEY = 'illustrationsInProject';
+
 /**
  * All the illustrations in a given project
  * @type {selectorFamily}
  */
 const illustrationsInProject = selectorFamily({
-  key: 'illustrationsInProject',
+  key: KEY,
   get: (projectId) => ({ get }) => {
     const illustrations = get(illustrationsAtom);
 
@@ -18,6 +20,6 @@ const illustrationsInProject = selectorFamily({
       });
   },
 });
-illustrationsInProject.key = 'illustrationsInProject';
+illustrationsInProject.key = KEY;
 
 export default illustrationsInProject;

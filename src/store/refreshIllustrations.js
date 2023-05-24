@@ -1,6 +1,6 @@
 import difference from 'lodash/difference';
 import fetchArchive from '../utils/archive/fetchArchive';
-import { ILLUSTRATIONS } from './constants';
+import { ILLUSTRATIONS } from './init';
 import updateDict from './updateDict';
 
 /**
@@ -34,6 +34,7 @@ export default async function refreshIllustrations() {
 
     return acc;
   }, {});
+
   await updateDict('illustrations', updates);
 
   // Mark missing illustrations as such
@@ -44,6 +45,7 @@ export default async function refreshIllustrations() {
   const missingIllustrationsFromArchive = difference(
     localIllustrationIds, archiveIllustrationIds,
   );
+
   const missingUpdates = missingIllustrationsFromArchive.reduce(
     (acc, current) => {
       acc[current] = {

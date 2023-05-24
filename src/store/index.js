@@ -5,7 +5,7 @@ import deleteValue from './delete';
 import refreshIllustrations from './refreshIllustrations';
 import refreshIllustration from './refreshIllustration';
 import updateDict from './updateDict';
-import { MAP } from './constants';
+import { MAP } from './init';
 import batchSet from './batchSet';
 
 const makeBasicOperations = (storeName) => ({

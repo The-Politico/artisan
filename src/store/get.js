@@ -1,6 +1,6 @@
 import { assertion } from '@recoiljs/refine';
 
-import { MAP } from './constants';
+import { MAP } from './init';
 import { TYPE_STORE_NAME } from '../constants/types';
 
 /**
