@@ -1,7 +1,7 @@
 import { selectorFamily } from 'recoil';
 import illustrationsInProjectSelector from './illustrationsInProject';
 import illustrationAtom from '../illustrations/atom';
-import pubStatusAtomFamily from '../publishedStatus/atom';
+import publishedStatusSelector from './publishedStatus';
 
 // Gets time to display in status dek based
 // on the published status
@@ -13,7 +13,7 @@ const projectLastPublishedChanged = selectorFamily({
         illustrationsInProjectSelector(projectId),
       );
 
-      const publishedStatus = get(pubStatusAtomFamily(projectId));
+      const publishedStatus = get(publishedStatusSelector(projectId));
 
       const dateValues = {
         PROJECT_STATUS_PUBLISHED: 'lastPublished',

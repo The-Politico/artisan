@@ -6,7 +6,6 @@ import illustrationsAtomFamily from './illustrations/atom';
 import settingsAtom from './settings/atom';
 import previewAtom from './preview/atom';
 import statusAtomFamily from './status/atom';
-import publishedStatusAtomFamily from './publishedStatus/atom';
 import activeProjectAtom from './state/activeProject';
 
 import onReadEntities from './entities/read';
@@ -21,12 +20,11 @@ import onWritePreview from './preview/write';
 import projectsList from './selectors/projectsList';
 import projectLastUploaded from './selectors/projectLastUploaded';
 import projectLastPublishedChanged from './selectors/projectLastChanged';
+import publishedStatusSelector from './selectors/publishedStatus';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
 import onReadStatus from './status/read';
 import onWriteStatus from './status/write';
-import onReadPublishedStatus from './publishedStatus/read';
-import onWritePublishedStatus from './publishedStatus/write';
 
 export default {
   entities: entitityAtom,
@@ -34,7 +32,7 @@ export default {
   settings: settingsAtom,
   preview: previewAtom,
   status: statusAtomFamily,
-  publishedStatus: publishedStatusAtomFamily,
+  publishedStatus: publishedStatusSelector,
   activeProject: activeProjectAtom,
   projectsList,
   projectLastUploaded,
@@ -57,7 +55,6 @@ export default {
       settings: onReadSettings,
       preview: onReadPreview,
       status: onReadStatus,
-      published_status: onReadPublishedStatus,
     },
     write: {
       entities: onWriteEntities,
@@ -65,7 +62,6 @@ export default {
       settings: onWriteSettings,
       preview: onWritePreview,
       status: onWriteStatus,
-      publishedStatus: onWritePublishedStatus,
     },
   },
 };
