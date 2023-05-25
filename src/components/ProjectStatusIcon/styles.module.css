@@ -18,6 +18,10 @@
   color: var(--red-500);
 }
 
+.changes {
+  color: var(--amber-500);
+}
+
 .published {
   color: var(--emerald-500);
 }

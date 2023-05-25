@@ -17,7 +17,7 @@ export default async function getPublishedStatus(id) {
   }
 
   // None of it’s illustrations have lastPublished time
-  if (illustrations.every(([, value]) => value.lastPublished !== null)) {
+  if (illustrations.every(([, value]) => value.lastPublished == null)) {
     return STATUS_PROJECT_DRAFT;
   }
 
@@ -33,9 +33,9 @@ export default async function getPublishedStatus(id) {
   // lastPublished time before the lastGenerated time in
   // at least one of its illustrations OR some illustrations
   // have lastPublished while others don’t
-  const testForSome = ([, { lastGenerated, lastPublished }]) => {
-    const generatedAfterPub = lastGenerated > lastPublished;
-    const notPublished = lastPublished === null;
+  const testForSome = ([, d]) => {
+    const generatedAfterPub = d.lastGenerated > d.lastPublished;
+    const notPublished = d.lastPublished == null;
     return generatedAfterPub || notPublished;
   };
   if (illustrations.some(testForSome)) {

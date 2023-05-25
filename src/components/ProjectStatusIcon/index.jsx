@@ -15,7 +15,7 @@ export default function ProjectStatusIcon({ id, size = 'md', className }) {
   const statusStyles = {
     STATUS_PROJECT_DRAFT: null,
     STATUS_PROJECT_PUBLISHED: 'published',
-    STATUS_PROJECT_CHANGES: 'error',
+    STATUS_PROJECT_CHANGES: 'changes',
   };
 
   const iconClass = cls(

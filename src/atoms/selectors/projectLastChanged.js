@@ -22,7 +22,7 @@ const projectLastPublishedChanged = selectorFamily({
 
       const dateToUse = dateValues[publishedStatus] || publishedStatus;
 
-      // If stat isn't darft, return time
+      // If status isn't darft, return time
       if (dateToUse) {
         const illustrationsLastPubOrGen = illustrationsInProject
           .map((illoId) => {
