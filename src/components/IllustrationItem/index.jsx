@@ -14,23 +14,15 @@ import {
 import useOpenIllustration from '../../hooks/useOpenIllustration';
 import useDeleteIllustration from '../../hooks/useDeleteIllustration';
 import useGenerateIllustration from '../../hooks/useGenerateIllustration';
-import { STATUS_ILLUSTRATION_ARCHIVED } from '../../constants/statuses';
 
-import atoms from '../../atoms';
 import ids from '../../utils/ids';
 
 export default function IllustrationItem({ id }) {
-  const status = atoms.useRecoilValue(
-    atoms.status(id),
-  );
-
   const { illustration: illoName } = ids.parse(id);
 
   const open = useOpenIllustration(id);
   const deleteIllustration = useDeleteIllustration(id);
   const generate = useGenerateIllustration(id);
-
-  const isArchive = status === STATUS_ILLUSTRATION_ARCHIVED;
 
   const [hoverState, setHoverState] = useState(false);
 
@@ -54,10 +46,7 @@ export default function IllustrationItem({ id }) {
     flex.flex,
     flex.flexCol,
     borders.roundedMd,
-    {
-      [styles.isArchive]: isArchive,
-      [effects.shadow]: !isArchive,
-    },
+    effects.shadow,
   );
 
   const nameClass = cls(
@@ -66,9 +55,6 @@ export default function IllustrationItem({ id }) {
     layout.itemsCenter,
     layout.justifyCenter,
     padding.p2,
-    {
-      [styles.isArchive]: isArchive,
-    },
   );
 
   return (
@@ -79,7 +65,6 @@ export default function IllustrationItem({ id }) {
         hoverState={hoverState}
         setHoverState={setHoverState}
         onClick={open}
-        isArchive={isArchive}
       />
       <div className={nameClass}>
         <button
@@ -91,7 +76,7 @@ export default function IllustrationItem({ id }) {
         >
           {illoName}
         </button>
-        <MeatballMenu active={!isArchive} items={meatballItems} />
+        <MeatballMenu active items={meatballItems} />
       </div>
     </div>
   );
