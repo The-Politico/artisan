@@ -3,7 +3,7 @@ import { syncEffect } from 'recoil-sync';
 import { TYPE_ENTITY_STATUS } from '../../constants/types';
 
 /**
- * The current status of a given entity
+ * The current published status of a given project
  * @type {atomFamily}
  */
 const publishedStatusAtomFamily = atomFamily({
