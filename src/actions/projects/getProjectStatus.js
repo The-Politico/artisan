@@ -7,19 +7,16 @@ import {
   STATUS_PROJECT_NOT_GENERATED,
   STATUS_PROJECT_VALID_UPLOAD,
   STATUS_PROJECT_DOWNLOAD_AVAILABLE,
-  STATUS_PROJECT_ARCHIVED,
   STATUS_PROJECT_MISMATCH,
   STATUS_ILLUSTRATION_OK,
   STATUS_ILLUSTRATION_NOT_GENERATED,
   STATUS_ILLUSTRATION_VALID_UPLOAD,
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 
 const MISMATCH_ILLUSTRATION_STATUSES = [
   STATUS_ILLUSTRATION_VALID_UPLOAD,
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 ];
 
 /**
@@ -52,11 +49,11 @@ export default async function getProjectStatus(id) {
   }
 
   // If every illustration is archive, then the whole project is archived
-  if (
-    illoStatuses.every((status) => status === STATUS_ILLUSTRATION_ARCHIVED)
-  ) {
-    return STATUS_PROJECT_ARCHIVED;
-  }
+  // if (
+  //   illoStatuses.every((status) => status === STATUS_ILLUSTRATION_ARCHIVED)
+  // ) {
+  //   return STATUS_PROJECT_ARCHIVED;
+  // }
 
   // If every illustration is ok, then the whole project is ok
   if (

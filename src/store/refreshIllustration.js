@@ -3,6 +3,7 @@ import deleteValue from './delete';
 import updateDict from './updateDict';
 
 /**
+ * @deprecated
  * Refreshes just a single IDd entity, to update it's data
  * from the cloud
  *

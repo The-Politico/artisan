@@ -8,7 +8,6 @@ import {
   STATUS_ILLUSTRATION_NOT_GENERATED,
   STATUS_ILLUSTRATION_VALID_UPLOAD,
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 
 /**
@@ -30,10 +29,10 @@ export default async function getIllustrationStatus(id) {
   const illoFilePath = await getIllustrationFilePath(id);
 
   // Check if the file is still on disk
-  const illoFileExists = await exists(illoFilePath);
-  if (!illoFileExists) {
-    return STATUS_ILLUSTRATION_ARCHIVED;
-  }
+  // const illoFileExists = await exists(illoFilePath);
+  // if (!illoFileExists) {
+  //   return STATUS_ILLUSTRATION_ARCHIVED;
+  // }
 
   // Check if the file's version matches the one recorded in the store
   const fileVersion = await getEtag(illoFilePath);

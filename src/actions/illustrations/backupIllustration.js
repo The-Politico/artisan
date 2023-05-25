@@ -4,7 +4,6 @@ import s3 from '../../utils/s3';
 import store from '../../store';
 import {
   STATUS_ILLUSTRATION_VALID_UPLOAD,
-  STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 import getIllustrationStatus from './getIllustrationStatus';
 import getIllustrationKey from '../../utils/paths/getIllustrationKey';
@@ -42,9 +41,9 @@ export default async function backupIllustration(
   const version = await getEtag(illoPath);
 
   // If the file doesn't exist, you can't upload anything
-  if (status === STATUS_ILLUSTRATION_ARCHIVED) {
-    return false;
-  }
+  // if (status === STATUS_ILLUSTRATION_ARCHIVED) {
+  //   return false;
+  // }
 
   // Don't upload if the status isn't valid update
   // (unless the force flag is on)

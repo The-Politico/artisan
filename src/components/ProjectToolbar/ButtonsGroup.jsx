@@ -8,7 +8,6 @@ import MeatballButton from './MeatballButton';
 import atoms from '../../atoms';
 import useDownloadProject from '../../hooks/useDownloadProject';
 import usePreviewProject from '../../hooks/usePreviewProject';
-import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
 
 export default function ButtonsGroup({ id }) {
   const status = atoms.useRecoilValue(
@@ -24,19 +23,6 @@ export default function ButtonsGroup({ id }) {
     // TODO: Get the right URL
     await open('https://www.example.com');
   };
-
-  // Only show download button when viewing archive project
-  if (status === STATUS_PROJECT_ARCHIVED) {
-    return (
-      <div className={cls(styles.btnGroup)}>
-        <IconButton
-          iconName="ArrowDownTrayIcon"
-          label="Download"
-          onClick={download}
-        />
-      </div>
-    );
-  }
 
   return (
     <div className={cls(styles.btnGroup, flex.flex, flex.flexRow, gap.x3)}>

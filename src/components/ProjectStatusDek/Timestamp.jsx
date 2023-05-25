@@ -1,13 +1,10 @@
 import { formatDistanceToNow, isToday, format } from 'date-fns';
-import {
-  STATUS_PROJECT_ARCHIVED,
-} from '../../constants/statuses';
 
 export default function Timestamp({ status, timestamp }) {
   const capitalize = ([first, ...rest]) => first.toUpperCase() + rest.join('');
 
   const formatTime = () => {
-    if (!status || status === STATUS_PROJECT_ARCHIVED || !timestamp) {
+    if (!status || !timestamp) {
       return null;
     }
 
