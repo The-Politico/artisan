@@ -1,5 +1,7 @@
 /* eslint-disable max-len */
 
+export const STATUS_UNKNOWN = 'STATUS_UNKNOWN';
+
 // Project Statuses
 export const STATUS_PROJECT_OK = 'STATUS_PROJECT_OK';
 export const STATUS_PROJECT_NOT_GENERATED = 'STATUS_PROJECT_NOT_GENERATED';

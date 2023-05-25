@@ -1,9 +1,16 @@
 import { selectorFamily } from 'recoil';
 import illustrationsInProjectSelector from './illustrationsInProject';
-import illustrationAtom from '../illustrations/atom';
+import illustrationDetailAtom from '../illustrationDetail/atom';
 
+const KEY = 'projectLastUploaded';
+
+/**
+ * The last time any of a project's illustration's
+ * were last uploaded
+ * @type {selectorFamily}
+ */
 const projectLastUploaded = selectorFamily({
-  key: 'projectLastUploaded',
+  key: KEY,
   get: (projectId) => ({ get }) => {
     const illustrationsInProject = get(
       illustrationsInProjectSelector(projectId),
@@ -11,7 +18,7 @@ const projectLastUploaded = selectorFamily({
 
     const illustrationsLastUploaded = illustrationsInProject
       .map((illoId) => {
-        const illoDetails = get(illustrationAtom(illoId));
+        const illoDetails = get(illustrationDetailAtom(illoId));
         return illoDetails.lastUploadedDate;
       })
       .filter((i) => i)
@@ -20,6 +27,6 @@ const projectLastUploaded = selectorFamily({
     return illustrationsLastUploaded[0];
   },
 });
-projectLastUploaded.key = 'projectLastUploaded';
+projectLastUploaded.key = KEY;
 
 export default projectLastUploaded;

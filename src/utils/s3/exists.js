@@ -15,7 +15,12 @@ import head from './head';
  */
 export default async function exists(obj) {
   try {
-    await head(obj);
+    const headData = await head(obj);
+
+    if (!headData) {
+      return undefined;
+    }
+
     return true;
   } catch (err) {
     if (err.toString() === 'NotFound: UnknownError') {

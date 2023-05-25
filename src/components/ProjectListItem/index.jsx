@@ -13,7 +13,7 @@ import {
   typography as type,
 } from '../../theme';
 import Skeleton from '../Skeleton';
-import { STATUS_PROJECT_ARCHIVED } from '../../constants/statuses';
+import { STATUS_PROJECT_ARCHIVED, STATUS_UNKNOWN } from '../../constants/statuses';
 
 export default function ProjectListItem({
   id,
@@ -42,6 +42,10 @@ export default function ProjectListItem({
     effects.transition,
     { [styles.selected]: isActive },
   );
+
+  if (status === STATUS_UNKNOWN) {
+    return null;
+  }
 
   if (
     (archiveMode && status !== STATUS_PROJECT_ARCHIVED)

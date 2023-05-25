@@ -10,8 +10,12 @@ import getClient from './getClient';
  * @returns {Promise<object>} A promise that resolves to the
  *  metadata of the file if successful.
  */
-export default function list({ bucket, key } = {}) {
-  const client = getClient();
+export default async function list({ bucket, key } = {}) {
+  const client = await getClient();
+
+  if (!client) {
+    return undefined;
+  }
 
   const listCommand = new HeadObjectCommand({
     Bucket: bucket,
