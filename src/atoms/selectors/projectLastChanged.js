@@ -20,7 +20,7 @@ const projectLastPublishedChanged = selectorFamily({
         PROJECT_STATUS_CHANGES: 'lastGenerated',
       };
 
-      const dateToUse = dateValues[publishedStatus] || publishedStatus;
+      const dateToUse = dateValues[publishedStatus];
 
       // If status isn't darft, return time
       if (dateToUse) {
