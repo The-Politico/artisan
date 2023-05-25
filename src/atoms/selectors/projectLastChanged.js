@@ -22,7 +22,7 @@ const projectLastPublishedChanged = selectorFamily({
 
       const dateToUse = dateValues[publishedStatus];
 
-      // If status isn't darft, return time
+      // If status isn't draft, return time
       if (dateToUse) {
         const illustrationsLastPubOrGen = illustrationsInProject
           .map((illoId) => {
