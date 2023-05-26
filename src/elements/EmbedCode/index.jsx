@@ -1,8 +1,9 @@
+import { AWS_PRODUCTION_BASE_URL } from '../../constants/aws';
 import CopyToClipboard from './CopyToClipboard';
 import styles from './styles.module.css';
 
-export default function EmbedCode({ embedUrl, selectedIllo, projectSlug }) {
-  const embedRoot = `https://wwww.politico.com${embedUrl}/${projectSlug}/${selectedIllo.slug}/index.html`;
+export default function EmbedCode({ embedUrl, selectedIllo, projectId }) {
+  const embedRoot = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectId}/${selectedIllo}/index.html`;
   return (
     <div className={styles.embedsContainer}>
       <h3 className={styles.h3}>CMS Embed Code</h3>

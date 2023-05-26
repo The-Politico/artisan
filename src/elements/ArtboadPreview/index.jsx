@@ -4,18 +4,18 @@ import {
 } from '@heroicons/react/24/solid';
 import { useState } from 'react';
 import styles from './styles.module.css';
+import { AWS_STAGING_BASE_URL } from '../../constants/aws';
 
 export default function ArtboardPreview({
-  projectName,
-  projectSlug,
+  projectId,
   embedUrl,
   selectedIllo,
 }) {
   const [size, setSize] = useState(1);
-  const sizes = ['mobile', 'medium', 'large'];
+  const sizes = ['small', 'medium', 'large'];
   const len = sizes.length - 1;
 
-  const imgSrc = `${embedUrl}/${projectSlug}/${selectedIllo.slug}/fallback_${sizes[size]}.png`;
+  const imgSrc = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectId}/${selectedIllo}/${selectedIllo}-${sizes[size]}.png`;
 
   const back = () => {
     setSize((i) => (i === 0 ? len : i - 1));
@@ -44,7 +44,7 @@ export default function ArtboardPreview({
       <div className={styles.imgWrapper}>
         <img
           src={imgSrc}
-          alt={`Artboard preview of ${selectedIllo.name} from project ${projectName}`}
+          alt={`Artboard preview of ${selectedIllo} from project ${projectId}`}
         />
       </div>
 

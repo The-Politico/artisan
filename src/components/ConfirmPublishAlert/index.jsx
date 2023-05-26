@@ -53,7 +53,10 @@ export default function ConfirmPublishAlert({
           <Button
             value="Publish"
             variant="solid"
-            onClick={publish}
+            onClick={async () => {
+              await publish();
+              setShowPublishAlert(false);
+            }}
           />
         </div>
       </div>
