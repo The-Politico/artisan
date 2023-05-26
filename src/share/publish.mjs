@@ -42,14 +42,14 @@ import {
   );
 
   const uploadBundleCommand = new PutObjectCommand({
-    Key: SHARE_PAGE_SCRIPTS,
+    Key: SHARE_PAGE_SCRIPTS.split('?')[0],
     Body: bundle,
     ContentType: 'text/javascript',
     ...sharedCommand,
   });
 
   const uploadStylesCommand = new PutObjectCommand({
-    Key: SHARE_PAGE_STYLES,
+    Key: SHARE_PAGE_STYLES.split('?')[0],
     Body: styles,
     ContentType: 'text/css',
     ...sharedCommand,

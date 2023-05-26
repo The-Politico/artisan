@@ -1,5 +1,6 @@
 import cls from 'classnames';
 import { open } from '@tauri-apps/api/shell';
+import { v4 as uuidv4 } from 'uuid';
 import IconButton from '../IconButton';
 import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
@@ -15,7 +16,8 @@ export default function ButtonsGroup({ id }) {
   const handleShareClick = async (e) => {
     e.preventDefault();
     const url = await getProjectSharePath(id, { asUrl: true });
-    await open(url);
+    const hash = uuidv4().split('-')[0];
+    await open(`${url}?v=${hash}`);
   };
 
   return (

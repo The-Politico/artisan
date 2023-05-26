@@ -1,3 +1,5 @@
+import shareVersion from '../share/version.mjs';
+
 // Default output folder when an illustration is generated
 export const AI2HTML_OUTPUT_DIR = 'ai2html-output';
 
@@ -23,10 +25,10 @@ export const PUBLISH_EMBED_PATH = 'interactives/artisan/embeds';
 export const LOCAL_PROJECTS_DIRECTORY = 'projects';
 
 // Path to common share page's JS file
-export const SHARE_PAGE_SCRIPTS = 'interactives/artisan/common/bundle.js';
+export const SHARE_PAGE_SCRIPTS = `interactives/artisan/common/bundle.js?v=${shareVersion}`;
 
 // Path to common share page's CSS (styles) file
-export const SHARE_PAGE_STYLES = 'interactives/artisan/common/styles.css';
+export const SHARE_PAGE_STYLES = `interactives/artisan/common/styles.css?v=${shareVersion}`;
 
 // Fallback image name
 export const FALLBACK_IMG_NAME = 'fallback.png';
