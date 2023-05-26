@@ -5,21 +5,17 @@ import styles from './styles.module.css';
 import { flex, gap } from '../../theme';
 import PublishButton from './PublishButton';
 import MeatballButton from './MeatballButton';
-import atoms from '../../atoms';
 import usePreviewProject from '../../hooks/usePreviewProject';
+import getProjectSharePath from '../../utils/paths/getProjectSharePath';
 
 export default function ButtonsGroup({ id }) {
-  const status = atoms.useRecoilValue(
-    atoms.status(id),
-  );
-
   const [launchPreview] = usePreviewProject(id);
 
   // Opens generated share link in default browser
   const handleShareClick = async (e) => {
     e.preventDefault();
-    // TODO: Get the right URL
-    await open('https://www.example.com');
+    const url = await getProjectSharePath(id, { asUrl: true });
+    await open(url);
   };
 
   return (
@@ -33,7 +29,6 @@ export default function ButtonsGroup({ id }) {
       <IconButton
         iconName="ShareIcon"
         label="Share"
-        disabled={status !== 'published'}
         onClick={handleShareClick}
       />
       <MeatballButton id={id} />

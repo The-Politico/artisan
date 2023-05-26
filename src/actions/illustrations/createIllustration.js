@@ -1,12 +1,16 @@
-import s3 from '../../utils/s3';
-import getIllustrationKey from '../../utils/paths/getIllustrationKey';
+import { writeBinaryFile } from '@tauri-apps/api/fs';
 import store from '../../store';
-import shareProject from '../projects/shareProject';
+import ensureDir from '../../utils/fs/ensureDir';
 import ids from '../../utils/ids';
+import getIllustrationFilePath
+  from '../../utils/paths/getIllustrationFilePath';
+import getIllustrationPath from '../../utils/paths/getIllustrationPath';
+import s3 from '../../utils/s3';
+import shareProject from '../projects/shareProject';
 
 import {
-  AWS_ARTISAN_BUCKET,
   ARTISAN_BASE_TEMPLATE_NAME,
+  AWS_ARTISAN_BUCKET,
 } from '../../constants/aws';
 import {
   ARCHIVE_TEMPLATES_DIRECTORY,
@@ -18,17 +22,31 @@ export default async function createIllustration(projectId, illoName) {
     illustration: illoName,
   });
 
-  const illoKey = await getIllustrationKey(illoId);
-
-  await s3.copy({
+  const template = await s3.download({
     bucket: AWS_ARTISAN_BUCKET,
-    source: `${ARCHIVE_TEMPLATES_DIRECTORY}/${ARTISAN_BASE_TEMPLATE_NAME}`,
-    key: illoKey,
+    key: `${ARCHIVE_TEMPLATES_DIRECTORY}/${ARTISAN_BASE_TEMPLATE_NAME}`,
   });
 
-  await store.illustrations.refreshId(illoId);
+  const illoPath = await getIllustrationPath(illoId);
+  await ensureDir(illoPath);
 
-  // Update share page
+  const illoFilePath = await getIllustrationFilePath(illoId);
+  await writeBinaryFile(illoFilePath, template);
+
+  await store.illustrations.updateDict({
+    [illoId]: {
+      lastGeneratedVersion: {
+        $set: null,
+      },
+      lastGeneratedDate: {
+        $set: null,
+      },
+      lastPublishedDate: {
+        $set: null,
+      },
+    },
+  });
+
   await shareProject(projectId);
 
   return illoId;

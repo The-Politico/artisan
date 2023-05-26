@@ -25,27 +25,27 @@ const projectPublishedStatus = selectorFamily({
         throw new Error(`No illustrations found for project ${projectId}`);
       }
 
-      // None of its illustrations have lastPublished time
-      if (illos.every((value) => value.lastPublished == null)) {
+      // None of its illustrations have lastPublishedDate time
+      if (illos.every((value) => value.lastPublishedDate == null)) {
         return STATUS_PROJECT_DRAFT;
       }
 
-      // lastPublished time after
+      // lastPublishedDate time after
       // the lastGenerated time for all it’s illustrations
       if (
         illos.every(
-          (value) => value.lastPublished > value.lastGenerated,
+          (value) => value.lastPublishedDate > value.lastGenerated,
         )
       ) {
         return STATUS_PROJECT_PUBLISHED;
       }
 
-      // lastPublished time before the lastGenerated time in
+      // lastPublishedDate time before the lastGenerated time in
       // at least one of its illustrations OR some illustrations
-      // have lastPublished while others don’t
+      // have lastPublishedDate while others don’t
       const testForSome = (d) => {
-        const generatedAfterPub = d.lastGenerated > d.lastPublished;
-        const notPublished = d.lastPublished == null;
+        const generatedAfterPub = d.lastGenerated > d.lastPublishedDate;
+        const notPublished = d.lastPublishedDate == null;
         return generatedAfterPub || notPublished;
       };
       if (illos.some(testForSome)) {

@@ -28,7 +28,7 @@ export default async function refreshIllustrations() {
       lastGeneratedDate: {
         $set: null,
       },
-      lastPublished: {
+      lastPublishedDate: {
         $set: null,
       },
     };

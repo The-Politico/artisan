@@ -21,7 +21,7 @@ export default function usePublishProject(projectId) {
           await generateIllustration(illoId);
         }
 
-        await publishIllustration(illoId);
+        await publishIllustration(illoId, { production: true });
       })),
     );
   }, [illustrations]);

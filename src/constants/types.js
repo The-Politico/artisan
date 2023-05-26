@@ -28,7 +28,7 @@ export const TYPE_ILLUSTRATION_STORE_ITEM = object({
   lastGeneratedDate: nullable(jsonDate()),
 
   // The last time the illustration was published
-  lastPublished: nullable(jsonDate()),
+  lastPublishedDate: nullable(jsonDate()),
 });
 
 export const TYPE_ILLUSTRATION_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);

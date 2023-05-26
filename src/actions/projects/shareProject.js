@@ -8,6 +8,7 @@ import { AWS_STAGING_BUCKET } from '../../constants/aws';
 import s3 from '../../utils/s3';
 import getIllosInProject from '../../utils/store/getIllosInProject';
 import ids from '../../utils/ids';
+import publishIllustration from '../illustrations/publishIllustration';
 
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
@@ -45,6 +46,12 @@ export default async function shareProject(projectId) {
         </script>
       </body>
       </html>`;
+
+  await Promise.all(illustrations.map(
+    async ([illoId]) => {
+      await publishIllustration(illoId, { staging: true });
+    },
+  ));
 
   await s3.upload({
     bucket: AWS_STAGING_BUCKET,

@@ -6,8 +6,6 @@ import store from '../../store';
 export default function AdminReset() {
   const onClick = async () => {
     await store.illustrations.reset();
-    // await store.illustrations.refresh();
-    // await store.settings.reset();
   };
 
   return (
@@ -16,7 +14,7 @@ export default function AdminReset() {
       variant="solid"
       onClick={onClick}
     >
-      Admin (Danger)!
+      Admin Reset (Danger)!
     </Button>
   );
 }

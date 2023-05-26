@@ -58,6 +58,7 @@ export default function IllustrationPreview(props) {
       >
         <DevicePreview breakpoint={breakpoint}>
           <iframe
+            id="embed-preview-container"
             scrolling="yes"
             title="live-preview-frame"
             className={styles.livePreviewFrame}

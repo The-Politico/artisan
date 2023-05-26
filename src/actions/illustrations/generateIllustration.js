@@ -7,6 +7,8 @@ import getIllustrationFilePath
   from '../../utils/paths/getIllustrationFilePath';
 import getIllustrationStatus from './getIllustrationStatus';
 import { STATUS_ILLUSTRATION_NONEXISTENT } from '../../constants/statuses';
+import shareProject from '../projects/shareProject';
+import ids from '../../utils/ids';
 
 /**
  * Generates an HTML files and fallback images from an Adobe Illustrator
@@ -75,6 +77,9 @@ export default async function generateIllustration(id) {
       },
     },
   });
+
+  const { project: projectId } = ids.parse(id);
+  await shareProject(projectId);
 
   return true;
 }

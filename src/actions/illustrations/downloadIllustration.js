@@ -18,6 +18,7 @@ const DOWNLOADABLE_STATUSES = [
 ];
 
 /**
+ * @deprecated
  * Downloads an illustration.
  *
  * @param {string} id - The illustration ID.

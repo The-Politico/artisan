@@ -22,8 +22,8 @@ const projectLastUpdated = selectorFamily({
       const publishedStatus = get(publishedStatusSelector(projectId));
 
       const dateValues = {
-        [STATUS_PROJECT_PUBLISHED]: 'lastPublished',
-        [STATUS_PROJECT_CHANGES]: 'lastGenerated',
+        [STATUS_PROJECT_PUBLISHED]: 'lastPublishedDate',
+        [STATUS_PROJECT_CHANGES]: 'lastGeneratedDate',
       };
 
       const dateToUse = dateValues[publishedStatus];
