@@ -23,6 +23,8 @@ export default function ProjectStatusDek({ id }) {
 
   const dekClass = cls(styles.dek, type.textSm);
 
+  console.log({ pubStatus });
+
   const statusText = useMemo(() => {
     switch (pubStatus) {
       case STATUS_PROJECT_DRAFT:

@@ -7,6 +7,7 @@ import {
   STATUS_UNKNOWN,
 } from '../../constants/statuses';
 import illustrationDetail from '../illustrationDetail/atom';
+import isoToTime from '../../utils/date/isoToTime';
 
 /**
  * Gets published status of a project
@@ -34,7 +35,8 @@ const projectPublishedStatus = selectorFamily({
       // the lastGenerated time for all it’s illustrations
       if (
         illos.every(
-          (value) => value.lastPublishedDate > value.lastGenerated,
+          (value) => isoToTime(value.lastPublishedDate)
+            > isoToTime(value.lastGeneratedDate),
         )
       ) {
         return STATUS_PROJECT_PUBLISHED;
@@ -44,7 +46,8 @@ const projectPublishedStatus = selectorFamily({
       // at least one of its illustrations OR some illustrations
       // have lastPublishedDate while others don’t
       const testForSome = (d) => {
-        const generatedAfterPub = d.lastGenerated > d.lastPublishedDate;
+        const generatedAfterPub = isoToTime(d.lastGeneratedDate)
+          > isoToTime(d.lastPublishedDate);
         const notPublished = d.lastPublishedDate == null;
         return generatedAfterPub || notPublished;
       };
