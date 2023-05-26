@@ -1,7 +1,7 @@
 import { assertion } from '@recoiljs/refine';
 import {
   MAP, SETTINGS, ILLUSTRATIONS, PREVIEW,
-} from './constants';
+} from './init';
 
 import { TYPE_STORE_NAME } from '../constants/types';
 

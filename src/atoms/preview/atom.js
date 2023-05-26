@@ -1,19 +1,21 @@
 import { atom } from 'recoil';
-import { syncEffect } from 'recoil-sync';
-import { TYPE_PREVIEW_STORE } from '../../constants/types';
+import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
+import read from './read';
+
+const KEY = 'preview';
 
 /**
- * Represents the data for an active (or inactive) preview
+ * The data for an active (or inactive) preview
  * @type {atom}
  */
 const previewAtom = atom({
-  key: 'preview',
-  default: {},
+  key: KEY,
+  default: read(),
   effects: [
-    syncEffect({
-      itemKey: 'preview',
-      storeKey: 'store',
-      refine: TYPE_PREVIEW_STORE,
+    atomSyncStoreEffect({
+      store: 'preview',
+      read,
+      write: true,
     }),
   ],
 });

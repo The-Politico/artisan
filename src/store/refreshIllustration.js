@@ -11,6 +11,11 @@ import updateDict from './updateDict';
  */
 export default async function refreshIllustration(id) {
   const archive = await fetchArchive();
+
+  if (!archive) {
+    return false;
+  }
+
   const archiveInfo = archive.find((record) => record.id === id);
 
   if (!archiveInfo) {

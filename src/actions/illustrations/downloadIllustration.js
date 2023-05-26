@@ -64,6 +64,12 @@ export default async function downloadIllustration(
       lastUploadedDate: {
         $set: (new Date()).toISOString(),
       },
+      lastPublishedDate: {
+        $set: null,
+      },
+      lastGeneratedDate: {
+        $set: null,
+      },
     },
   });
 

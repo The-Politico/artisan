@@ -17,6 +17,10 @@ export default async function etag({
 } = {}) {
   const metadata = await head({ bucket, key });
 
+  if (!metadata) {
+    return undefined;
+  }
+
   const { Etag: etagStr } = metadata;
 
   if (!etagStr) {

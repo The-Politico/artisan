@@ -1,5 +1,4 @@
 import cls from 'classnames';
-import { useState } from 'react';
 import { Dialog } from '@headlessui/react';
 import styles from './styles.module.css';
 import {
@@ -16,10 +15,9 @@ import SettingsForm from '../SettingsForm';
 import atoms from '../../atoms';
 
 export default function WelcomeModal() {
-  const settings = atoms.useRecoilValue(
-    atoms.settings,
+  const isConfigured = atoms.useRecoilValue(
+    atoms.isConfigured,
   );
-  const [isOpen, setIsOpen] = useState(settings['first-run']);
 
   const panelClass = cls(
     styles.panel,
@@ -34,7 +32,7 @@ export default function WelcomeModal() {
 
   return (
     <Dialog
-      open={isOpen}
+      open={!isConfigured}
       onClose={() => null}
       className={styles.dialog}
     >
@@ -55,7 +53,7 @@ export default function WelcomeModal() {
               type.fontSemibold,
             )}
           >
-            First, fill in your information.
+            First, configure your app.
           </Dialog.Description>
           <div
             className={cls(
@@ -68,8 +66,7 @@ export default function WelcomeModal() {
             )}
           >
             <SettingsForm
-              setIsOpen={setIsOpen}
-              isFirstRun
+              isWelcome
             />
           </div>
         </Dialog.Panel>

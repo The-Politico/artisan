@@ -1,12 +1,9 @@
 import { Command } from '@tauri-apps/api/shell';
 
 import { resolveResource } from '@tauri-apps/api/path';
+import { exists } from '@tauri-apps/api/fs';
 import store from '../../store';
 import getEtag from '../../utils/fs/getEtag';
-import {
-  STATUS_ILLUSTRATION_NOT_GENERATED,
-} from '../../constants/statuses';
-import getIllustrationStatus from './getIllustrationStatus';
 import getIllustrationFilePath
   from '../../utils/paths/getIllustrationFilePath';
 
@@ -20,24 +17,19 @@ import getIllustrationFilePath
  * @returns {Promise<void>} - A Promise that resolves after
  *  the generation is completed
  */
-export default async function generateIllustration(
-  id,
-  { force = false } = {},
-) {
-  const aiScript = await resolveResource('ai2html.js');
-  const exportScript = await resolveResource('exportArtboards.js');
+export default async function generateIllustration(id) {
+  const aiScript = await resolveResource('resources/ai2html.js');
+  const exportScript = await resolveResource('resources/exportArtboards.js');
 
   if (!aiScript || !exportScript) {
     // TODO: Should probabaly throw an error
     return false;
   }
 
-  const status = await getIllustrationStatus(id);
   const aiPath = await getIllustrationFilePath(id);
+  const aiPathExists = await exists(aiPath);
 
-  // Don't generate if the status isn't ready for one
-  // (unless the force flag is on)
-  if (status !== STATUS_ILLUSTRATION_NOT_GENERATED && !force) {
+  if (!aiPathExists) {
     return false;
   }
 
@@ -75,8 +67,11 @@ export default async function generateIllustration(
   const fileVersion = await getEtag(aiPath);
   await store.illustrations.updateDict({
     [id]: {
-      version: {
+      lastGeneratedVersion: {
         $set: fileVersion,
+      },
+      lastGeneratedDate: {
+        $set: (new Date()).toISOString(),
       },
     },
   });

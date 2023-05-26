@@ -1,11 +1,6 @@
 import store from '../../store';
 
-/**
- * Gets the data for an illustration
- * @function
- * @returns {Object}
- */
-export default async function onReadIllustration(illoId) {
-  const details = await store.illustrations.get(illoId);
-  return details;
+export default async function readIllustrations() {
+  const entities = await store.illustrations.get();
+  return entities.map(([id]) => id);
 }

@@ -5,7 +5,11 @@ export default async function deleteObject({
   bucket,
   key,
 }) {
-  const client = getClient();
+  const client = await getClient();
+
+  if (!client) {
+    return false;
+  }
 
   const commandInput = {
     Bucket: bucket,
@@ -14,4 +18,6 @@ export default async function deleteObject({
 
   const command = new DeleteObjectCommand(commandInput);
   await client.send(command);
+
+  return true;
 }

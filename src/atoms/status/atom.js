@@ -1,22 +1,29 @@
 import { atomFamily } from 'recoil';
-import { syncEffect } from 'recoil-sync';
-import { TYPE_ENTITY_STATUS } from '../../constants/types';
+import { STATUS_UNKNOWN } from '../../constants/statuses';
+import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
+import atomSyncFsEffect from '../../utils/fs/atomSyncFsEffect';
+import read from './read';
+
+const KEY = 'status';
 
 /**
  * The current status of a given entity
  * @type {atomFamily}
  */
 const statusAtomFamily = atomFamily({
-  key: 'status',
-  default: 'STATUS_UNKNOWN',
+  key: KEY,
+  default: STATUS_UNKNOWN,
   effects: (id) => ([
-    syncEffect({
-      itemKey: `status__${id}`,
-      storeKey: 'store',
-      refine: TYPE_ENTITY_STATUS,
+    atomSyncStoreEffect({
+      store: 'illustrations',
+      read: () => read(id),
+    }),
+    atomSyncFsEffect({
+      id,
+      read: () => read(id),
     }),
   ]),
 });
-statusAtomFamily.key = 'status';
+statusAtomFamily.key = KEY;
 
 export default statusAtomFamily;
