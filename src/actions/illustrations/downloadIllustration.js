@@ -3,7 +3,6 @@ import store from '../../store';
 import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
 import {
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 import ensureDir from '../../utils/fs/ensureDir';
 import s3 from '../../utils/s3';
@@ -16,7 +15,6 @@ import getIllustrationFilePath
 
 const DOWNLOADABLE_STATUSES = [
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 ];
 
 /**
