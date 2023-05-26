@@ -13,7 +13,10 @@ import {
   typography as type,
 } from '../../theme';
 import Skeleton from '../Skeleton';
-import { STATUS_PROJECT_ARCHIVED, STATUS_UNKNOWN } from '../../constants/statuses';
+import {
+  STATUS_PROJECT_ARCHIVED,
+  STATUS_UNKNOWN,
+} from '../../constants/statuses';
 
 export default function ProjectListItem({
   id,

@@ -5,6 +5,7 @@ import illustrationDetailAtom from '../illustrationDetail/atom';
 const KEY = 'projectLastUploaded';
 
 /**
+ * @deprecated until archive is implemented
  * The last time any of a project's illustration's
  * were last uploaded
  * @type {selectorFamily}

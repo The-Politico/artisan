@@ -4,7 +4,7 @@ import {
   STATUS_PROJECT_DRAFT,
   STATUS_PROJECT_PUBLISHED,
   STATUS_PROJECT_CHANGES,
-  STATUS_PROJECT_UNKNOWN,
+  STATUS_UNKNOWN,
 } from '../../constants/statuses';
 import illustrationDetail from '../illustrationDetail/atom';
 
@@ -52,7 +52,7 @@ const projectPublishedStatus = selectorFamily({
         return STATUS_PROJECT_CHANGES;
       }
 
-      return STATUS_PROJECT_UNKNOWN;
+      return STATUS_UNKNOWN;
     },
 });
 

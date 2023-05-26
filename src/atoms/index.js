@@ -8,7 +8,6 @@ import previewAtom from './preview/atom';
 import statusAtomFamily from './status/atom';
 import activeProjectAtom from './project/atom';
 import projectsList from './selectors/projectsList';
-import projectLastUploaded from './selectors/projectLastUploaded';
 import projectLastUpdated from './selectors/projectLastUpdated';
 import projectPublishedStatus from './selectors/projectPublishedStatus';
 import illustrationsInProject from './selectors/illustrationsInProject';
@@ -23,7 +22,6 @@ export default {
   status: statusAtomFamily,
   activeProject: activeProjectAtom,
   projectsList,
-  projectLastUploaded,
   projectLastUpdated,
   projectPublishedStatus,
   illustrationsInProject,
