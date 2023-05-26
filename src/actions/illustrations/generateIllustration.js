@@ -5,7 +5,6 @@ import store from '../../store';
 import getEtag from '../../utils/fs/getEtag';
 import {
   STATUS_ILLUSTRATION_NOT_GENERATED,
-  STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 import getIllustrationStatus from './getIllustrationStatus';
 import getIllustrationFilePath
@@ -35,11 +34,6 @@ export default async function generateIllustration(
 
   const status = await getIllustrationStatus(id);
   const aiPath = await getIllustrationFilePath(id);
-
-  // If the file doesn't exist, you can't generate anything
-  if (status === STATUS_ILLUSTRATION_ARCHIVED) {
-    return false;
-  }
 
   // Don't generate if the status isn't ready for one
   // (unless the force flag is on)

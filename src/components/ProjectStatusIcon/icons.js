@@ -3,14 +3,13 @@ import {
   MinusCircleIcon,
   ExclamationCircleIcon,
 } from '@heroicons/react/20/solid';
-import ArchiveIcon from './ArchiveIcon';
 
 import {
   STATUS_PROJECT_OK,
   STATUS_PROJECT_NOT_GENERATED,
   STATUS_PROJECT_VALID_UPLOAD,
   STATUS_PROJECT_DOWNLOAD_AVAILABLE,
-  STATUS_PROJECT_ARCHIVED,
+
   STATUS_PROJECT_MISMATCH,
 } from '../../constants/statuses';
 
@@ -20,7 +19,7 @@ import {
 export const ICONS = {
   published: CheckCircleIcon,
   STATUS_UNKNOWN: CheckCircleIcon,
-  [STATUS_PROJECT_ARCHIVED]: ArchiveIcon,
+  default: CheckCircleIcon,
   [STATUS_PROJECT_OK]: MinusCircleIcon,
   [STATUS_PROJECT_NOT_GENERATED]: MinusCircleIcon,
   [STATUS_PROJECT_VALID_UPLOAD]: MinusCircleIcon,
