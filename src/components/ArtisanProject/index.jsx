@@ -17,6 +17,8 @@ export default function ArtisanProject() {
     atoms.activeProject,
   );
 
+  console.log({ activeProject });
+
   if (!activeProject) {
     return <EmptyProject />;
   }

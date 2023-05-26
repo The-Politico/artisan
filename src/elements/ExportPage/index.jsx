@@ -14,7 +14,7 @@ export default function ExportPage({ config }) {
         illosList={illosList}
         selectedIllo={selectedIllo}
         setSelectedIllo={setSelectedIllo}
-        projectName={config.projectName}
+        projectId={config.projectId}
       />
       <div className={styles.container}>
         <ArtboardPreview
@@ -23,7 +23,7 @@ export default function ExportPage({ config }) {
         />
         <EmbedCode
           selectedIllo={selectedIllo}
-          projectSlug={config.projectSlug}
+          projectId={config.projectId}
           embedUrl={config.embedUrl}
         />
       </div>
