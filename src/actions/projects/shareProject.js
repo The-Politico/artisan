@@ -6,20 +6,19 @@ import {
 } from '../../constants/paths';
 import { AWS_STAGING_BUCKET } from '../../constants/aws';
 import s3 from '../../utils/s3';
-import store from '../../store';
+import getIllosInProject from '../../utils/store/getIllosInProject';
+import ids from '../../utils/ids';
 
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
 
-  const illustrationIds = await store.illustrations.get();
-  const illustrations = illustrationIds
-    .filter(([, data]) => data.project === projectId)
-    .map(([, data]) => data.slug);
+  const illustrations = await getIllosInProject(projectId);
+  const illoIds = illustrations.map(([id]) => ids.parse(id).illustration);
 
   const config = {
     projectId,
     embedUrl: PUBLISH_EMBED_PATH,
-    illos: illustrations,
+    illos: illoIds,
   };
 
   const sharePageHTML = `<!DOCTYPE html>
