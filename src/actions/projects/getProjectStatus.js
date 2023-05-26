@@ -7,19 +7,16 @@ import {
   STATUS_PROJECT_NOT_GENERATED,
   STATUS_PROJECT_VALID_UPLOAD,
   STATUS_PROJECT_DOWNLOAD_AVAILABLE,
-  STATUS_PROJECT_ARCHIVED,
   STATUS_PROJECT_MISMATCH,
   STATUS_ILLUSTRATION_OK,
   STATUS_ILLUSTRATION_NOT_GENERATED,
   STATUS_ILLUSTRATION_VALID_UPLOAD,
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 } from '../../constants/statuses';
 
 const MISMATCH_ILLUSTRATION_STATUSES = [
   STATUS_ILLUSTRATION_VALID_UPLOAD,
   STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
 ];
 
 /**
@@ -49,13 +46,6 @@ export default async function getProjectStatus(id) {
   // precedence on the project status
   if (illoStatuses.indexOf(STATUS_ILLUSTRATION_NOT_GENERATED) > -1) {
     return STATUS_PROJECT_NOT_GENERATED;
-  }
-
-  // If every illustration is archive, then the whole project is archived
-  if (
-    illoStatuses.every((status) => status === STATUS_ILLUSTRATION_ARCHIVED)
-  ) {
-    return STATUS_PROJECT_ARCHIVED;
   }
 
   // If every illustration is ok, then the whole project is ok
@@ -95,6 +85,8 @@ export default async function getProjectStatus(id) {
     return STATUS_PROJECT_DOWNLOAD_AVAILABLE;
   }
 
+  return STATUS_PROJECT_OK;
+
   // I should be handling all possible conditions above this
-  throw new Error('Project status could not be derived.');
+  // throw new Error('Project status could not be derived.');
 }
