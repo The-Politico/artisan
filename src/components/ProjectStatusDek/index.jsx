@@ -1,13 +1,14 @@
 import cls from 'classnames';
-import styles from './styles.module.css';
-import { typography as type } from '../../theme';
-import Timestamp from './Timestamp';
+import { useMemo } from 'react';
 import atoms from '../../atoms';
 import {
   STATUS_PROJECT_CHANGES,
   STATUS_PROJECT_DRAFT,
   STATUS_PROJECT_PUBLISHED,
 } from '../../constants/statuses';
+import { typography as type } from '../../theme';
+import Timestamp from './Timestamp';
+import styles from './styles.module.css';
 
 /**
  * Timestamp information dek for active Project.
@@ -17,20 +18,12 @@ import {
  * @returns {JSX.Element}
  */
 export default function ProjectStatusDek({ id }) {
-  const pubStatus = atoms.useRecoilValue(atoms.publishedStatus(id));
-
-  const lastChangedTime = atoms.useRecoilValue(
-    atoms.projectLastPublishedChanged(id),
-  );
+  const pubStatus = atoms.useRecoilValue(atoms.projectPublishedStatus(id));
+  const lastUpdated = atoms.useRecoilValue(atoms.projectLastUpdated(id));
 
   const dekClass = cls(styles.dek, type.textSm);
 
-  // Old archive text
-  // if (status === 'archive') {
-  //   return <div className={dekClass}>Download to start editing</div>;
-  // }
-
-  const renderText = () => {
+  const statusText = useMemo(() => {
     switch (pubStatus) {
       case STATUS_PROJECT_DRAFT:
         return 'This project has not been published';
@@ -41,18 +34,15 @@ export default function ProjectStatusDek({ id }) {
       default:
         return 'Unknown Status Text: ';
     }
-  };
+  }, [pubStatus]);
 
-  const renderTime = () => (
-    <Timestamp
-      status={pubStatus}
-      timestamp={lastChangedTime}
-    />
-  );
   return (
     <div className={dekClass}>
-      <span>{renderText()}</span>
-      {renderTime()}
+      <span>{statusText}</span>
+      <Timestamp
+        status={pubStatus}
+        timestamp={lastUpdated}
+      />
     </div>
   );
 }

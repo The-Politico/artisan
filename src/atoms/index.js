@@ -9,8 +9,8 @@ import statusAtomFamily from './status/atom';
 import activeProjectAtom from './project/atom';
 import projectsList from './selectors/projectsList';
 import projectLastUploaded from './selectors/projectLastUploaded';
-import projectLastPublishedChanged from './selectors/projectLastChanged';
-import publishedStatusSelector from './selectors/publishedStatus';
+import projectLastUpdated from './selectors/projectLastUpdated';
+import projectPublishedStatus from './selectors/projectPublishedStatus';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
 import isConfigured from './selectors/isConfigured';
@@ -21,11 +21,11 @@ export default {
   settings: settingsAtom,
   preview: previewAtom,
   status: statusAtomFamily,
-  publishedStatus: publishedStatusSelector,
   activeProject: activeProjectAtom,
   projectsList,
   projectLastUploaded,
-  projectLastPublishedChanged,
+  projectLastUpdated,
+  projectPublishedStatus,
   illustrationsInProject,
   isPreviewActive,
   isConfigured,
