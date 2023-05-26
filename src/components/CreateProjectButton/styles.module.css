@@ -16,4 +16,5 @@
   position: fixed;
   background-color: black;
   opacity: .3;
+  z-index: 1;
 }
