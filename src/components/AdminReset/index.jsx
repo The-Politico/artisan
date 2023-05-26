@@ -5,9 +5,9 @@ import store from '../../store';
 
 export default function AdminReset() {
   const onClick = async () => {
-    // await store.illustrations.reset();
+    await store.illustrations.reset();
     // await store.illustrations.refresh();
-    await store.settings.reset();
+    // await store.settings.reset();
   };
 
   return (

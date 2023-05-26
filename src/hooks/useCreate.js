@@ -1,7 +1,5 @@
 import { useCallback } from 'react';
 import createIllustration from '../actions/illustrations/createIllustration';
-import downloadIllustration
-  from '../actions/illustrations/downloadIllustration';
 import ids from '../utils/ids';
 import isUniqueId from '../utils/store/isUniqueId';
 
@@ -42,7 +40,6 @@ export default function useCreate(projectId) {
       throw new Error('Project/Illustration name is not unique');
     }
 
-    const illoId = await createIllustration(realProjectId, illoName);
-    await downloadIllustration(illoId);
+    await createIllustration(realProjectId, illoName);
   }, [projectId]);
 }

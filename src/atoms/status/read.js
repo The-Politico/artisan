@@ -1,6 +1,5 @@
 import getIllustrationStatus
   from '../../actions/illustrations/getIllustrationStatus';
-import getProjectStatus from '../../actions/projects/getProjectStatus';
 import ids from '../../utils/ids';
 
 /**
@@ -10,7 +9,11 @@ import ids from '../../utils/ids';
  */
 export default async function onReadStatus(id) {
   if (ids.isProject(id)) {
-    return getProjectStatus(id);
+    // TODO: Error Handling
+    throw new Error(
+      'Cannot read project status through atom, '
+      + 'use selector instead',
+    );
   }
 
   return getIllustrationStatus(id);

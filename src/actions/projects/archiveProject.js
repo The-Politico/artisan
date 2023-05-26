@@ -3,8 +3,7 @@ import getProjectPath from '../../utils/paths/getProjectPath';
 
 /**
  * @deprecated
-*/
-
+ */
 export default async function archiveProject(id) {
   const projectPath = await getProjectPath(id);
 

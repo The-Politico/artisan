@@ -17,6 +17,7 @@ import shareProject from '../projects/shareProject';
 import ids from '../../utils/ids';
 
 /**
+ * @deprecated
  * Backup an illustration to an Amazon S3 bucket
  *
  * @param {string} id - The ID of the illustration

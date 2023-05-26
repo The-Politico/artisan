@@ -1,4 +1,3 @@
-import useBackupProject from '../../hooks/useBackupProject';
 import useOpenProject from '../../hooks/useOpenProject';
 import useDuplicateProject from '../../hooks/useDuplicateProject';
 import useDeleteProject from '../../hooks/useDeleteProject';
@@ -6,17 +5,11 @@ import useDeleteProject from '../../hooks/useDeleteProject';
 import MeatballMenu from '../MeatballMenu';
 
 export default function MeatballButton({ id }) {
-  const backup = useBackupProject(id);
   const open = useOpenProject(id);
   const duplicate = useDuplicateProject(id);
   const deleteProject = useDeleteProject(id);
 
   const meatballItems = [
-    {
-      iconName: 'ServerIcon',
-      label: 'Backup',
-      action: backup,
-    },
     {
       iconName: 'FolderIcon',
       label: 'Open in Finder',

@@ -1,11 +1,12 @@
 import { Command } from '@tauri-apps/api/shell';
 
 import { resolveResource } from '@tauri-apps/api/path';
-import { exists } from '@tauri-apps/api/fs';
 import store from '../../store';
 import getEtag from '../../utils/fs/getEtag';
 import getIllustrationFilePath
   from '../../utils/paths/getIllustrationFilePath';
+import getIllustrationStatus from './getIllustrationStatus';
+import { STATUS_ILLUSTRATION_NONEXISTENT } from '../../constants/statuses';
 
 /**
  * Generates an HTML files and fallback images from an Adobe Illustrator
@@ -26,13 +27,12 @@ export default async function generateIllustration(id) {
     return false;
   }
 
-  const aiPath = await getIllustrationFilePath(id);
-  const aiPathExists = await exists(aiPath);
-
-  if (!aiPathExists) {
+  const status = await getIllustrationStatus(id);
+  if (status === STATUS_ILLUSTRATION_NONEXISTENT) {
     return false;
   }
 
+  const aiPath = await getIllustrationFilePath(id);
   await new Promise((resolve, reject) => {
     const scriptCommand = new Command(
       'run-osascript',
