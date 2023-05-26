@@ -8,7 +8,7 @@ import getIllustrationPath from '../../utils/paths/getIllustrationPath';
 
 /**
  * @deprecated
-*/
+ */
 
 export default async function archiveIllustration(
   id,
