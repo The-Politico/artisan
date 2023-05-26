@@ -29,7 +29,6 @@ export default async function generateIllustration(id) {
   const aiPath = await getIllustrationFilePath(id);
   const aiPathExists = await exists(aiPath);
 
-  // Can't generate it if the file doesn't exist
   if (!aiPathExists) {
     return false;
   }

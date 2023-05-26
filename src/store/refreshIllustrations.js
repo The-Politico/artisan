@@ -8,7 +8,7 @@ import updateDict from './updateDict';
  * Adds missing illustrations to the store, updates the local version of
  * illustrations present in the archive, and removes illustrations
  * not in the archive.
- *
+ * @deprecated
  * @throws {Error} - An error if data does not match
  * the schema defined in TYPE_ILLUSTRATION_STORE_ITEM.
  */

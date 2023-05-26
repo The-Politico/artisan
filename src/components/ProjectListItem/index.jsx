@@ -13,19 +13,10 @@ import {
   typography as type,
 } from '../../theme';
 import Skeleton from '../Skeleton';
-import {
-  STATUS_PROJECT_ARCHIVED,
-  STATUS_UNKNOWN,
-} from '../../constants/statuses';
 
 export default function ProjectListItem({
   id,
-  archiveMode,
 }) {
-  const status = atoms.useRecoilValue(
-    atoms.status(id),
-  );
-
   const [
     activeProject,
     setActiveProject,
@@ -45,17 +36,6 @@ export default function ProjectListItem({
     effects.transition,
     { [styles.selected]: isActive },
   );
-
-  if (status === STATUS_UNKNOWN) {
-    return null;
-  }
-
-  if (
-    (archiveMode && status !== STATUS_PROJECT_ARCHIVED)
-    || (!archiveMode && status === STATUS_PROJECT_ARCHIVED)
-  ) {
-    return null;
-  }
 
   return (
     <>

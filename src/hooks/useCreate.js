@@ -1,7 +1,5 @@
 import { useCallback } from 'react';
 import createIllustration from '../actions/illustrations/createIllustration';
-import getProjectStatus from '../actions/projects/getProjectStatus';
-import { STATUS_PROJECT_ARCHIVED } from '../constants/statuses';
 import downloadIllustration
   from '../actions/illustrations/downloadIllustration';
 import ids from '../utils/ids';
@@ -16,17 +14,6 @@ import isUniqueId from '../utils/store/isUniqueId';
  */
 export default function useCreate(projectId) {
   return useCallback(async (illoName, { newProject } = {}) => {
-    if (!newProject) {
-      const status = await getProjectStatus(projectId);
-
-      if (status === STATUS_PROJECT_ARCHIVED) {
-        // TODO: Error system
-        throw new Error(
-          'Project must be downloaded in order to create a new illo',
-        );
-      }
-    }
-
     const realProjectId = newProject || projectId;
 
     if (!realProjectId) {
