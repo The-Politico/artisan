@@ -11,7 +11,7 @@ import getIllustrationStatus
   from '../actions/illustrations/getIllustrationStatus';
 
 /**
- * Hook to set up a function for launching a preview (WIP)
+ * Hook to set up a function for launching a preview
  * @function
  * @param {string} projectId - The ID of the project
  * @returns {function(): Promise}
