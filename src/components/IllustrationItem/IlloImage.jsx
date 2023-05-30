@@ -4,7 +4,6 @@ import { colors, flex } from '../../theme';
 import styles from './styles.module.css';
 import IlloHover from './IlloHover';
 import useIllustrationFallback from '../../hooks/useIllustrationFallback';
-import atoms from '../../atoms';
 
 export default function IlloImage({
   id,
@@ -20,11 +19,7 @@ export default function IlloImage({
     colors.bgSlate700,
   );
 
-  const { lastGeneratedDate } = atoms.useRecoilValue(
-    atoms.illustrationDetail(id),
-  );
-
-  const fallback = useIllustrationFallback(id, lastGeneratedDate);
+  const fallback = useIllustrationFallback(id);
 
   return (
     <button

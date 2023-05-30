@@ -5,6 +5,7 @@ import bytesToBase64 from '../utils/fs/bytesToBase64';
 import s3 from '../utils/s3';
 import getPreviewKey from '../utils/paths/getPreviewKey';
 import getLocalFallbackPath from '../utils/paths/getLocalFallbackPath';
+import atoms from '../atoms';
 
 /**
  * Proves a fallback image for the given illustration ID.
@@ -18,8 +19,11 @@ import getLocalFallbackPath from '../utils/paths/getLocalFallbackPath';
  * @return {string} src - The data URL of the fallback image,
  *  as a base64-encoded string
  */
-export default function useIllustrationFallback(id, generatedTime) {
+export default function useIllustrationFallback(id) {
   const [src, setSrc] = useState();
+  const { lastGeneratedDate } = atoms.useRecoilValue(
+    atoms.illustrationDetail(id),
+  );
 
   // TODO: Add some way to refresh this when there's a new generation?
 
@@ -28,11 +32,11 @@ export default function useIllustrationFallback(id, generatedTime) {
       try {
         const fallbackPath = await getLocalFallbackPath(id);
         const content = await readBinaryFile(fallbackPath);
-        setSrc(
-          `data:image/png;base64,${bytesToBase64(content)}`,
-        );
+        setSrc(`data:image/png;base64,${bytesToBase64(content)}`);
         return;
-      } catch (error) { /* Ignore Error */ }
+      } catch (error) {
+        /* Ignore Error */
+      }
 
       try {
         const previewKey = await getPreviewKey(id);
@@ -40,14 +44,14 @@ export default function useIllustrationFallback(id, generatedTime) {
           bucket: AWS_ARTISAN_BUCKET,
           key: previewKey,
         });
-        setSrc(
-          `data:image/png;base64,${bytesToBase64(content)}`,
-        );
-      } catch (error) { /* Ignore Error */ }
+        setSrc(`data:image/png;base64,${bytesToBase64(content)}`);
+      } catch (error) {
+        /* Ignore Error */
+      }
     };
 
     effect();
-  }, [id, generatedTime]);
+  }, [id, lastGeneratedDate]);
 
   return src;
 }
