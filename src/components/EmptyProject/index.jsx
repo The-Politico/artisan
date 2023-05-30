@@ -1,30 +1,37 @@
 import cls from 'classnames';
+import { useEffect } from 'react';
 import {
-  typography as type,
-  colors,
   borders,
   effects,
-  margin,
 } from '../../theme';
 import styles from './styles.module.css';
+
+import ProjectToolbarSkeleton from '../ProjectToolbarSkeleton';
+import IllustrationListSkeleton from '../IllustrationListSkeleton';
+import atoms from '../../atoms';
 
 /**
  * Render an empty frame to show no projects have been created yet
  * @returns {JSX.Element}
  */
 export default function EmptyProject() {
+  const setActiveProject = atoms.useSetRecoilState(
+    atoms.activeProject,
+  );
+
+  const projectsList = atoms.useRecoilValue(
+    atoms.projectsList,
+  );
+
+  useEffect(() => {
+    if (projectsList.length > 0) {
+      setActiveProject(projectsList[0]);
+    }
+  }, [projectsList]);
+
   return (
     <div className={styles.container}>
-      <h2
-        className={cls(
-          colors.textSlate900,
-          type.text2Xl,
-          type.fontSemibold,
-          margin.mb4,
-        )}
-      >
-        There&apos;s nothing here yet 🙁
-      </h2>
+      <ProjectToolbarSkeleton />
       <div
         className={cls(
           styles.emptyProject,
@@ -32,16 +39,7 @@ export default function EmptyProject() {
           effects.shadowMd,
         )}
       >
-        <p
-          className={cls(
-            styles.center,
-            colors.textSlate800,
-            type.textXl,
-            margin.mt4,
-          )}
-        >
-          Click &quot;New Project&quot; to get started
-        </p>
+        <IllustrationListSkeleton />
       </div>
     </div>
   );

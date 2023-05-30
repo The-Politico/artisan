@@ -10,13 +10,14 @@ import atoms from '../../atoms';
 import ensureDir from '../../utils/fs/ensureDir';
 import AdminReset from '../AdminReset';
 
-export default function SettingsForm({ setIsOpen, isFirstRun = false }) {
+export default function SettingsForm({ isWelcome = false }) {
   const [settings, setSettings] = atoms.useRecoilState(
     atoms.settings,
   );
 
-  const [name, setName] = useState(settings['author-name']);
-  const [email, setEmail] = useState(settings['author-email']);
+  const [awsId, setAwsId] = useState(settings['aws-id']);
+  const [awsSecret, setAwsSecret] = useState(settings['aws-secret']);
+
   const [projectsDir, setProjectsDir] = useState(
     settings['working-directory'],
   );
@@ -24,35 +25,33 @@ export default function SettingsForm({ setIsOpen, isFirstRun = false }) {
 
   const handleClick = async () => {
     setSettings({
-      'first-run': false,
-      'author-name': name,
-      'author-email': email,
+      'aws-id': awsId,
+      'aws-secret': awsSecret,
       'preferred-port': port,
       'working-directory': projectsDir,
     });
 
-    if (isFirstRun) {
-      await ensureDir(projectsDir);
-      setIsOpen(false);
-    }
+    await ensureDir(projectsDir);
   };
 
   return (
     <>
       <Input
-        label="Full Name"
-        setValue={setName}
-        value={name}
+        label="AWS Access Key Id"
+        setValue={setAwsId}
+        value={awsId}
+        type="password"
         className={styles.settingsInput}
       />
       <Input
-        label="Email"
-        setValue={setEmail}
-        value={email}
+        label="AWS Secret Access Key"
+        setValue={setAwsSecret}
+        value={awsSecret}
+        type="password"
         className={styles.settingsInput}
       />
       <div className={styles.divider} />
-      {!isFirstRun ? (
+      {!isWelcome ? (
         <Advanced
           projectsDir={projectsDir}
           port={port}
@@ -66,13 +65,13 @@ export default function SettingsForm({ setIsOpen, isFirstRun = false }) {
       )}
       <Button
         className={cls(margin.mt4, {
-          [type.textXl]: isFirstRun,
-          [padding.px8]: isFirstRun,
+          [type.textXl]: isWelcome,
+          [padding.px8]: isWelcome,
         })}
         variant="solid"
         onClick={handleClick}
       >
-        {isFirstRun ? 'Start' : 'Save'}
+        {isWelcome ? 'Start' : 'Save'}
       </Button>
       <AdminReset />
     </>

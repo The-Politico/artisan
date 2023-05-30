@@ -16,6 +16,7 @@ export default function Input({
   label,
   darkMode,
   className,
+  type = 'text',
 }) {
   const typingHandler = (event) => {
     setValue(event.target.value);
@@ -52,7 +53,7 @@ export default function Input({
       <label htmlFor="textInput">
         <input
           className={darkMode ? darkModeClass : lightModeClass}
-          type="text"
+          type={type}
           id="textInput"
           onChange={typingHandler}
           value={value}

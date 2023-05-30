@@ -35,7 +35,7 @@ const breakpointsSubset = [
 ];
 
 function PreviewWindow() {
-  const [showArticle, setShowArticle] = useState(true);
+  const [showArticle, setShowArticle] = useState(false);
   const [breakpoint, setBreakpoint] = useState(0);
   const [embedType, setEmbedType] = useState(embedList[0]);
   const [url, setURL] = useState();
@@ -43,28 +43,35 @@ function PreviewWindow() {
   const [selectedIllo, setSelectedIllo] = useState(null);
 
   useEffect(() => {
-    async function getSlugs() {
+    (async function effect() {
       const project = await store.preview.get('project');
 
       const illoEntries = await store.illustrations.get();
       const illoIds = illoEntries
-        .map(([id]) => id)
-        .filter((id) => {
+        .filter(([id]) => {
           const { project: compareId } = ids.parse(id);
           return compareId === project;
+        })
+        .map(([id]) => {
+          const { illustration } = ids.parse(id);
+          return illustration;
         });
 
-      // TODO: Use selectedIllo now that it's there
       const firstIllo = illoIds[0];
 
-      const localPreviewUrl = await getLocalPreviewUrl(firstIllo);
-
       setIllos(illoIds);
-      setURL(localPreviewUrl);
-    }
-
-    getSlugs();
+      setSelectedIllo(firstIllo);
+    }());
   }, []);
+
+  useEffect(() => {
+    (async function effect() {
+      if (selectedIllo) {
+        const localPreviewUrl = await getLocalPreviewUrl(selectedIllo);
+        setURL(localPreviewUrl);
+      }
+    }());
+  }, [selectedIllo]);
 
   if (!url) {
     return (

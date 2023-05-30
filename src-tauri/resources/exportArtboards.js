@@ -20,8 +20,6 @@ function main() {
   if (progressBar) {
     progressBar.close();
   }
-
-  alert('Finished generating fallbacks!')
 }
 
 function getArtboardWidth(artboard) {

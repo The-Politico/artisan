@@ -1,6 +1,6 @@
 /* eslint-disable consistent-return */
 import { assertion } from '@recoiljs/refine';
-import { SETTINGS, ILLUSTRATIONS, PREVIEW } from './constants';
+import { SETTINGS, ILLUSTRATIONS, PREVIEW } from './init';
 import {
   TYPE_STORE_NAME,
   TYPE_SETTINGS_STORE_KEYS,

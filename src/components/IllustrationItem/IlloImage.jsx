@@ -11,11 +11,13 @@ export default function IlloImage({
   onClick,
   hoverState,
   setHoverState,
-  isArchive,
 }) {
-  const imgContainer = cls(styles.imgContainer, flex.flex, flex.flexCenter, {
-    [colors.bgSlate700]: !isArchive,
-  });
+  const imgContainer = cls(
+    styles.imgContainer,
+    flex.flex,
+    flex.flexCenter,
+    colors.bgSlate700,
+  );
 
   const fallback = useIllustrationFallback(id);
 
@@ -34,11 +36,7 @@ export default function IlloImage({
           alt={`artisan illustration preview for ${illoName}`}
         />
       ) : (
-        <DocumentIcon
-          className={cls(styles.folderIcn, colors.textSlate400, {
-            [colors.textSlate600]: !isArchive,
-          })}
-        />
+        <DocumentIcon className={cls(styles.folderIcn, colors.textSlate600)} />
       )}
       <IlloHover hoverState={hoverState} />
     </button>

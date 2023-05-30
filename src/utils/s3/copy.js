@@ -6,7 +6,11 @@ export default async function copy({
   key,
   source,
 }) {
-  const client = getClient();
+  const client = await getClient();
+
+  if (!client) {
+    return false;
+  }
 
   const commandInput = {
     Bucket: bucket,
@@ -16,4 +20,5 @@ export default async function copy({
 
   const command = new CopyObjectCommand(commandInput);
   await client.send(command);
+  return true;
 }

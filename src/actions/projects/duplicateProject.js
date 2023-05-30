@@ -1,7 +1,6 @@
 import store from '../../store';
 import ids from '../../utils/ids';
 import duplicateIllustration from '../illustrations/duplicateIllustration';
-import downloadIllustration from '../illustrations/downloadIllustration';
 
 export default async function duplicateProject(
   sourceId,
@@ -24,13 +23,11 @@ export default async function duplicateProject(
     illustrationsInProject.map((async (illoId) => {
       const { illustration: illoName } = ids.parse(illoId);
 
-      const duplicateId = await duplicateIllustration(
+      await duplicateIllustration(
         illoId,
         projectName,
         illoName,
       );
-
-      await downloadIllustration(duplicateId);
     })),
   );
 }

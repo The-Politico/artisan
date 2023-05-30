@@ -1,5 +1,4 @@
 import getProjectSharePath from '../../utils/paths/getProjectSharePath';
-import ids from '../../utils/ids';
 import {
   SHARE_PAGE_STYLES,
   SHARE_PAGE_SCRIPTS,
@@ -7,33 +6,20 @@ import {
 } from '../../constants/paths';
 import { AWS_STAGING_BUCKET } from '../../constants/aws';
 import s3 from '../../utils/s3';
-import store from '../../store';
+import getIllosInProject from '../../utils/store/getIllosInProject';
+import ids from '../../utils/ids';
+import publishIllustration from '../illustrations/publishIllustration';
 
-export default async function shareProject(id) {
-  const {
-    project: projectName,
-  } = ids.generate(id);
+export default async function shareProject(projectId) {
+  const shareKey = getProjectSharePath(projectId);
 
-  const shareKey = getProjectSharePath(id);
-
-  // TODO: I think we have to do something with this
-  // const shareUrl = getProjectSharePath(id, { asUrl: true });
-  const illustrationIds = await store.illustrations.get();
-  const illustrations = illustrationIds
-    .filter(([, data]) => data.project === projectName)
-    .map(([entryId, data]) => ({
-      id: entryId,
-      name: projectName,
-      slug: data.slug,
-    }));
+  const illustrations = await getIllosInProject(projectId);
+  const illoIds = illustrations.map(([id]) => ids.parse(id).illustration);
 
   const config = {
-    projectName,
-    embedUrl: `/${PUBLISH_EMBED_PATH}`,
-    illos: illustrations.map(({ name, slug }) => ({
-      name,
-      slug,
-    })),
+    projectId,
+    embedUrl: PUBLISH_EMBED_PATH,
+    illos: illoIds,
   };
 
   const sharePageHTML = `<!DOCTYPE html>
@@ -49,7 +35,7 @@ export default async function shareProject(id) {
       content="ie=edge"
     />
     <link rel="stylesheet" href="https://use.typekit.net/dsx2uhv.css" />
-      <title>${projectName} | Artisan Share Page</title>
+      <title>${projectId} | Artisan Share Page</title>
       <link rel="stylesheet" href="/${SHARE_PAGE_STYLES}"></link>
       </head>
       <body>
@@ -60,6 +46,12 @@ export default async function shareProject(id) {
         </script>
       </body>
       </html>`;
+
+  await Promise.all(illustrations.map(
+    async ([illoId]) => {
+      await publishIllustration(illoId, { staging: true });
+    },
+  ));
 
   await s3.upload({
     bucket: AWS_STAGING_BUCKET,

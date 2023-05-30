@@ -3,13 +3,12 @@ import { Command } from '@tauri-apps/api/shell';
 import { resolveResource } from '@tauri-apps/api/path';
 import store from '../../store';
 import getEtag from '../../utils/fs/getEtag';
-import {
-  STATUS_ILLUSTRATION_NOT_GENERATED,
-  STATUS_ILLUSTRATION_ARCHIVED,
-} from '../../constants/statuses';
-import getIllustrationStatus from './getIllustrationStatus';
 import getIllustrationFilePath
   from '../../utils/paths/getIllustrationFilePath';
+import getIllustrationStatus from './getIllustrationStatus';
+import { STATUS_ILLUSTRATION_NONEXISTENT } from '../../constants/statuses';
+import shareProject from '../projects/shareProject';
+import ids from '../../utils/ids';
 
 /**
  * Generates an HTML files and fallback images from an Adobe Illustrator
@@ -21,12 +20,9 @@ import getIllustrationFilePath
  * @returns {Promise<void>} - A Promise that resolves after
  *  the generation is completed
  */
-export default async function generateIllustration(
-  id,
-  { force = false } = {},
-) {
-  const aiScript = await resolveResource('ai2html.js');
-  const exportScript = await resolveResource('exportArtboards.js');
+export default async function generateIllustration(id) {
+  const aiScript = await resolveResource('resources/ai2html.js');
+  const exportScript = await resolveResource('resources/exportArtboards.js');
 
   if (!aiScript || !exportScript) {
     // TODO: Should probabaly throw an error
@@ -34,19 +30,11 @@ export default async function generateIllustration(
   }
 
   const status = await getIllustrationStatus(id);
+  if (status === STATUS_ILLUSTRATION_NONEXISTENT) {
+    return false;
+  }
+
   const aiPath = await getIllustrationFilePath(id);
-
-  // If the file doesn't exist, you can't generate anything
-  if (status === STATUS_ILLUSTRATION_ARCHIVED) {
-    return false;
-  }
-
-  // Don't generate if the status isn't ready for one
-  // (unless the force flag is on)
-  if (status !== STATUS_ILLUSTRATION_NOT_GENERATED && !force) {
-    return false;
-  }
-
   await new Promise((resolve, reject) => {
     const scriptCommand = new Command(
       'run-osascript',
@@ -81,11 +69,17 @@ export default async function generateIllustration(
   const fileVersion = await getEtag(aiPath);
   await store.illustrations.updateDict({
     [id]: {
-      version: {
+      lastGeneratedVersion: {
         $set: fileVersion,
+      },
+      lastGeneratedDate: {
+        $set: (new Date()).toISOString(),
       },
     },
   });
+
+  const { project: projectId } = ids.parse(id);
+  await shareProject(projectId);
 
   return true;
 }

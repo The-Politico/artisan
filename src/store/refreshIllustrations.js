@@ -1,6 +1,6 @@
 import difference from 'lodash/difference';
 import fetchArchive from '../utils/archive/fetchArchive';
-import { ILLUSTRATIONS } from './constants';
+import { ILLUSTRATIONS } from './init';
 import updateDict from './updateDict';
 
 /**
@@ -8,32 +8,34 @@ import updateDict from './updateDict';
  * Adds missing illustrations to the store, updates the local version of
  * illustrations present in the archive, and removes illustrations
  * not in the archive.
- *
+ * @deprecated
  * @throws {Error} - An error if data does not match
  * the schema defined in TYPE_ILLUSTRATION_STORE_ITEM.
  */
 export default async function refreshIllustrations() {
   const archive = await fetchArchive();
 
+  if (!archive) {
+    return false;
+  }
+
   // Update missing data from archive
   const updates = archive.reduce((acc, current) => {
     acc[current.id] = {
-      slug: {
-        $set: current.slug,
+      lastGeneratedVersion: {
+        $set: null,
       },
-      project: {
-        $set: current.project,
+      lastGeneratedDate: {
+        $set: null,
       },
-      lastUpdated: {
-        $set: current.lastUpdated,
-      },
-      cloudVersion: {
-        $set: current.version,
+      lastPublishedDate: {
+        $set: null,
       },
     };
 
     return acc;
   }, {});
+
   await updateDict('illustrations', updates);
 
   // Mark missing illustrations as such
@@ -44,6 +46,7 @@ export default async function refreshIllustrations() {
   const missingIllustrationsFromArchive = difference(
     localIllustrationIds, archiveIllustrationIds,
   );
+
   const missingUpdates = missingIllustrationsFromArchive.reduce(
     (acc, current) => {
       acc[current] = {
@@ -56,4 +59,6 @@ export default async function refreshIllustrations() {
     }, {},
   );
   await updateDict('illustrations', missingUpdates);
+
+  return true;
 }

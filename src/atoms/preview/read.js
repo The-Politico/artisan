@@ -5,7 +5,7 @@ import store from '../../store';
  * @function
  * @returns {Object}
  */
-export default async function onReadPreview() {
+export default async function readPreview() {
   const previewEntries = await store.preview.get();
   return Object.fromEntries(previewEntries);
 }

@@ -27,8 +27,8 @@ fn main() {
 
   let default_settings = HashMap::from([
       ("first-run".to_string(), true.into()),
-      ("author-name".to_string(), "".into()),
-      ("author-email".to_string(), "".into()),
+      ("aws-id".to_string(), "".into()),
+      ("aws-secret".to_string(), "".into()),
       ("preferred-port".to_string(), "8765".into()),
       (
           "working-directory".to_string(),

@@ -5,11 +5,6 @@
   color: var(--slate-800);
 }
 
-.is-archive {
-  pointer-events: none;
-  color: var(--slate-400);
-}
-
 .name-bar {
   position: relative;
   margin-top: auto;

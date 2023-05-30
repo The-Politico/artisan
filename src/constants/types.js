@@ -2,7 +2,6 @@ import {
   array,
   string,
   object,
-  bool,
   stringLiterals,
   jsonDate,
   nullable,
@@ -22,22 +21,24 @@ export const TYPE_STORE_NAME = stringLiterals({
 export const TYPE_ILLUSTRATION_ID_COLLECTION = array(string());
 
 export const TYPE_ILLUSTRATION_STORE_ITEM = object({
+  // The last version known to have been generated
+  lastGeneratedVersion: nullable(string()),
+
   // The last time the illustration was generated
-  lastGenerated: nullable(jsonDate()),
+  lastGeneratedDate: nullable(jsonDate()),
 
   // The last time the illustration was published
-  lastPublished: nullable(jsonDate()),
+  lastPublishedDate: nullable(jsonDate()),
 });
 
 export const TYPE_ILLUSTRATION_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);
 
 // Valid options for the settings store
 export const TYPE_SETTINGS_STORE_KEYS = {
-  'author-email': string(),
-  'author-name': string(),
   'working-directory': string(),
   'preferred-port': string(),
-  'first-run': bool(),
+  'aws-id': string(),
+  'aws-secret': string(),
 };
 
 // Valid object containing all the settings for a complete store

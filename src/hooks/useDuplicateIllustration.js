@@ -2,8 +2,6 @@ import { useCallback } from 'react';
 import duplicateIllustration
   from '../actions/illustrations/duplicateIllustration';
 import ids from '../utils/ids';
-import downloadIllustration
-  from '../actions/illustrations/downloadIllustration';
 import isUniqueId from '../utils/store/isUniqueId';
 
 export default function useDuplicateIllustration(illoId) {
@@ -23,12 +21,10 @@ export default function useDuplicateIllustration(illoId) {
       throw new Error('Invalid illustration name provided.');
     }
 
-    const duplicateId = await duplicateIllustration(
+    await duplicateIllustration(
       illoId,
       projectId,
       duplicateIlloName,
     );
-
-    await downloadIllustration(duplicateId);
   }, [illoId]);
 }

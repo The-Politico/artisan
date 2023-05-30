@@ -6,9 +6,7 @@ import getEtag from '../../utils/fs/getEtag';
 import {
   STATUS_ILLUSTRATION_OK,
   STATUS_ILLUSTRATION_NOT_GENERATED,
-  STATUS_ILLUSTRATION_VALID_UPLOAD,
-  STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE,
-  STATUS_ILLUSTRATION_ARCHIVED,
+  STATUS_ILLUSTRATION_NONEXISTENT,
 } from '../../constants/statuses';
 
 /**
@@ -22,9 +20,7 @@ export default async function getIllustrationStatus(id) {
   // Get entity information from store
   const info = await store.illustrations.get(id);
   const {
-    version: lastGeneratedVersion,
-    cloudVersion,
-    lastUploadedVersion,
+    lastGeneratedVersion,
   } = info;
 
   const illoFilePath = await getIllustrationFilePath(id);
@@ -32,23 +28,13 @@ export default async function getIllustrationStatus(id) {
   // Check if the file is still on disk
   const illoFileExists = await exists(illoFilePath);
   if (!illoFileExists) {
-    return STATUS_ILLUSTRATION_ARCHIVED;
+    return STATUS_ILLUSTRATION_NONEXISTENT;
   }
 
   // Check if the file's version matches the one recorded in the store
   const fileVersion = await getEtag(illoFilePath);
   if (lastGeneratedVersion !== fileVersion) {
     return STATUS_ILLUSTRATION_NOT_GENERATED;
-  }
-
-  if (lastGeneratedVersion !== cloudVersion) {
-    // Check if the last known upload from this machine was the last upload
-    if (lastUploadedVersion === cloudVersion) {
-      return STATUS_ILLUSTRATION_VALID_UPLOAD;
-    }
-
-    // If not, then there's a new update available
-    return STATUS_ILLUSTRATION_DOWNLOAD_AVAILABLE;
   }
 
   // If nothing above has occured, then things are good!

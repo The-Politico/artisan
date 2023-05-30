@@ -1,34 +1,46 @@
-import s3 from '../../utils/s3';
-import slugify from '../../utils/text/slugify';
-import getIllustrationKey from '../../utils/paths/getIllustrationKey';
-import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
+import { copyFile } from '@tauri-apps/api/fs';
 import store from '../../store';
 import ids from '../../utils/ids';
 import shareProject from '../projects/shareProject';
+import getIllustrationFilePath
+  from '../../utils/paths/getIllustrationFilePath';
+import getIllustrationPath from '../../utils/paths/getIllustrationPath';
+import ensureDir from '../../utils/fs/ensureDir';
 
 export default async function duplicateIllustration(
   sourceId,
   projectId,
   illoName,
 ) {
-  const sourceKey = await getIllustrationKey(sourceId);
-
-  const destinationIlloSlug = slugify(illoName);
+  // Create new ID
   const destinationId = ids.generate({
     project: projectId,
-    illustration: destinationIlloSlug,
+    illustration: illoName,
   });
 
-  const destinationKey = await getIllustrationKey(destinationId);
+  // Derive paths
+  const sourcePath = await getIllustrationFilePath(sourceId);
+  const destinationDir = await getIllustrationPath(destinationId);
+  const destinationPath = await getIllustrationFilePath(destinationId);
 
-  await s3.copy({
-    bucket: AWS_ARTISAN_BUCKET,
-    key: destinationKey,
-    source: sourceKey,
-  });
+  // Copy on file system
+  await ensureDir(destinationDir);
+  await copyFile(sourcePath, destinationPath);
 
   // Update store
-  await store.illustrations.refreshId(destinationId);
+  await store.illustrations.updateDict({
+    [destinationId]: {
+      lastGeneratedVersion: {
+        $set: null,
+      },
+      lastGeneratedDate: {
+        $set: null,
+      },
+      lastPublishedDate: {
+        $set: null,
+      },
+    },
+  });
 
   // Update share page
   await shareProject(projectId);

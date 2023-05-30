@@ -18,12 +18,20 @@ export default async function fetchArchive() {
   };
 
   const resp = await s3.list(params);
+
+  if (!resp) {
+    return undefined;
+  }
+
   return resp.Contents
     .filter((record) => record.Key.endsWith('.ai'))
     .map((record) => {
       const [, projectSlug, illoFile] = record.Key.split('/');
       const illoSlug = illoFile.split('.ai')[0];
-      const id = ids.generate({ project: projectSlug, illustration: illoSlug });
+      const id = ids.generate({
+        project: projectSlug,
+        illustration: illoSlug,
+      });
 
       return {
         id,

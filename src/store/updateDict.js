@@ -1,7 +1,7 @@
 /* eslint-disable consistent-return */
 import { assertion } from '@recoiljs/refine';
 import updateImmutibly from 'immutability-helper';
-import { ILLUSTRATIONS } from './constants';
+import { ILLUSTRATIONS } from './init';
 import {
   TYPE_ILLUSTRATION_STORE_ITEM,
 } from '../constants/types';

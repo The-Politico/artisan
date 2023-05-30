@@ -5,12 +5,17 @@ import updateDict from './updateDict';
 /**
  * Refreshes just a single IDd entity, to update it's data
  * from the cloud
- *
+ * @deprecated
  * @param {string} id - The ID of the entity to update
 
  */
 export default async function refreshIllustration(id) {
   const archive = await fetchArchive();
+
+  if (!archive) {
+    return false;
+  }
+
   const archiveInfo = archive.find((record) => record.id === id);
 
   if (!archiveInfo) {

@@ -1,13 +1,14 @@
 import cls from 'classnames';
-import styles from './styles.module.css';
-import { typography as type } from '../../theme';
-import Timestamp from './Timestamp';
-import BackupPrompt from './BackupPrompt';
+import { useMemo } from 'react';
 import atoms from '../../atoms';
 import {
-  STATUS_PROJECT_OK,
-  STATUS_PROJECT_VALID_UPLOAD,
+  STATUS_PROJECT_CHANGES,
+  STATUS_PROJECT_DRAFT,
+  STATUS_PROJECT_PUBLISHED,
 } from '../../constants/statuses';
+import { typography as type } from '../../theme';
+import Timestamp from './Timestamp';
+import styles from './styles.module.css';
 
 /**
  * Timestamp information dek for active Project.
@@ -17,49 +18,31 @@ import {
  * @returns {JSX.Element}
  */
 export default function ProjectStatusDek({ id }) {
-  const status = atoms.useRecoilValue(
-    atoms.status(id),
-  );
-
-  const lastUploaded = atoms.useRecoilValue(
-    atoms.projectLastUploaded(id),
-  );
+  const pubStatus = atoms.useRecoilValue(atoms.projectPublishedStatus(id));
+  const lastUpdated = atoms.useRecoilValue(atoms.projectLastUpdated(id));
 
   const dekClass = cls(styles.dek, type.textSm);
 
-  if (status === 'archive') {
-    return <div className={dekClass}>Download to start editing</div>;
-  }
-
-  const renderText = () => {
-    // TODO: Status rework
-    switch (status) {
-      case STATUS_PROJECT_OK:
-        return 'Last backed up: ';
-      case STATUS_PROJECT_VALID_UPLOAD:
-        return 'Not backed up: ';
+  const statusText = useMemo(() => {
+    switch (pubStatus) {
+      case STATUS_PROJECT_DRAFT:
+        return 'This project has not been published';
+      case STATUS_PROJECT_PUBLISHED:
+        return 'Last published: ';
+      case STATUS_PROJECT_CHANGES:
+        return 'Changes since publish: ';
       default:
-        return 'Unknown Status Text: ';
+        return 'Project status unknown';
     }
-  };
-
-  const renderTime = () => {
-    if (status === STATUS_PROJECT_VALID_UPLOAD) {
-      return <BackupPrompt id={id} />;
-    }
-
-    return (
-      <Timestamp
-        status={status}
-        timestamp={lastUploaded}
-      />
-    );
-  };
+  }, [pubStatus]);
 
   return (
     <div className={dekClass}>
-      <span>{renderText()}</span>
-      {renderTime()}
+      <span>{statusText}</span>
+      <Timestamp
+        status={pubStatus}
+        timestamp={lastUpdated}
+      />
     </div>
   );
 }

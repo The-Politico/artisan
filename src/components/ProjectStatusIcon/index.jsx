@@ -2,6 +2,10 @@ import cls from 'classnames';
 import { ICONS } from './icons';
 import styles from './styles.module.css';
 import atoms from '../../atoms';
+import {
+  STATUS_PROJECT_PUBLISHED,
+  STATUS_PROJECT_CHANGES,
+} from '../../constants/statuses';
 
 /**
  *
@@ -10,13 +14,21 @@ import atoms from '../../atoms';
  * @returns {JSX.Element}
  */
 export default function ProjectStatusIcon({ id, size = 'md', className }) {
-  const status = atoms.useRecoilValue(
-    atoms.status(id),
+  const pubStatus = atoms.useRecoilValue(atoms.projectPublishedStatus(id));
+
+  const statusStyles = {
+    [STATUS_PROJECT_PUBLISHED]: 'published',
+    [STATUS_PROJECT_CHANGES]: 'changes',
+  };
+
+  const iconClass = cls(
+    styles.icon,
+    styles[size],
+    styles[statusStyles[pubStatus]],
+    className,
   );
 
-  const iconClass = cls(styles.icon, styles[size], styles[status], className);
-
-  const IconComponent = ICONS[status] || ICONS.default;
+  const IconComponent = ICONS[pubStatus] || ICONS.default;
 
   return (
     <div className={cls(iconClass)}>

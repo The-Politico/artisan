@@ -40,5 +40,5 @@ export default async function ensureDir(dirPath) {
     }
   }
 
-  createIdxDirectory(1);
+  return createIdxDirectory(1);
 }

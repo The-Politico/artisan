@@ -4,10 +4,6 @@
   color: var(--slate-500);
 }
 
-.archive {
-  color: var(--slate-400)
-}
-
 .lg {
   height: 2rem;
   width: 2rem;
@@ -16,6 +12,10 @@
 
 .error {
   color: var(--red-500);
+}
+
+.changes {
+  color: var(--amber-500);
 }
 
 .published {

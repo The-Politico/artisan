@@ -9,7 +9,11 @@ export default async function upload({
   storageClass = 'STANDARD',
   metadata,
 }) {
-  const client = getClient();
+  const client = await getClient();
+
+  if (!client) {
+    return false;
+  }
 
   const commandInput = {
     Bucket: bucket,
@@ -22,4 +26,6 @@ export default async function upload({
 
   const command = new PutObjectCommand(commandInput);
   await client.send(command);
+
+  return true;
 }

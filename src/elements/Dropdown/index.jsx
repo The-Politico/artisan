@@ -16,7 +16,7 @@ export default function Dropdown({
         onChange={setSelectedIllo}
       >
         <Listbox.Button className={styles.button}>
-          <span className={styles.selectedText}>{selectedIllo.name}</span>
+          <span className={styles.selectedText}>{selectedIllo}</span>
           <span className={styles.selectedIcon}>
             <ChevronUpDownIcon className={styles.icon} />
           </span>
@@ -24,13 +24,13 @@ export default function Dropdown({
         <Listbox.Options className={styles.options}>
           {illosList.map((illo) => (
             <Listbox.Option
-              key={illo.name}
+              key={illo}
               value={illo}
               className={({ active }) => cls(
                 styles.optionItem, { [styles.active]: active },
               )}
             >
-              {illo.name}
+              {illo}
             </Listbox.Option>
           ))}
         </Listbox.Options>

@@ -19,6 +19,7 @@ export default defineConfig({
   server: {
     open: '/',
     strictPort: true,
+    port: 3003,
   },
   define: {
     'process.env': {},

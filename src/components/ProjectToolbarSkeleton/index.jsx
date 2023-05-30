@@ -20,22 +20,47 @@ export default function ProjectToolbarSkeleton() {
     >
       <Skeleton
         variant="circle"
-        width="26px"
-        height="26px"
+        width="32px"
+        height="32px"
       />
       <div
         className={cls(flex.flex, flex.flexCol, gap.y3, margin.ml2)}
-        style={{ width: '60%' }}
+        style={{ width: '50%' }}
       >
         <Skeleton
           className={borders.roundedMd}
           width="100%"
-          height="28px"
+          height="24px"
         />
         <Skeleton
           className={borders.roundedMd}
           width="100%"
-          height="12px"
+          height="16px"
+        />
+      </div>
+      <div
+        className={cls(flex.flex, gap.x2)}
+        style={{ marginLeft: 'auto' }}
+      >
+        <Skeleton
+          variant="circle"
+          width="36px"
+          height="36px"
+        />
+        <Skeleton
+          variant="circle"
+          width="36px"
+          height="36px"
+        />
+        <Skeleton
+          variant="circle"
+          width="36px"
+          height="36px"
+        />
+        <Skeleton
+          variant="circle"
+          width="36px"
+          height="36px"
         />
       </div>
     </div>

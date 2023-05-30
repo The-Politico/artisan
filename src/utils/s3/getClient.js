@@ -1,25 +1,34 @@
 import { S3Client } from '@aws-sdk/client-s3';
+import { SETTINGS } from '../../store/init';
 
 /**
- * Place holder function when we figure out credentials
+ * Load the credentials from the settings in store
+ * @returns {Object}
  */
-function getAwsCredentials() {
+async function getAwsCredentials() {
+  // Using the raw store instead of the interface because of
+  // circular import logic
   return {
-    accessKeyId: import.meta.env.VITE_AWS_KEY_ID,
-    secretAccessKey: import.meta.env.VITE_AWS_SECRET_KEY,
+    accessKeyId: await SETTINGS.get('aws-id'),
+    secretAccessKey: await SETTINGS.get('aws-secret'),
   };
 }
 
 /**
  * Get the AWS S3 client instance for sending commands
- * @todo Figure out how to load AWS credentials for users without an .env
  * @returns {S3Client}
  */
-export default function getClient() {
-  const credentials = getAwsCredentials();
+export default async function getClient() {
+  const credentials = await getAwsCredentials();
+
+  if (!credentials.accessKeyId || !credentials.secretAccessKey) {
+    return undefined;
+  }
+
   const s3Client = new S3Client({
     region: 'us-east-1',
     credentials,
   });
+
   return s3Client;
 }

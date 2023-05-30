@@ -6,7 +6,7 @@ export default function ExportToolbar({
   illosList,
   selectedIllo,
   setSelectedIllo,
-  projectName,
+  projectId,
 }) {
   return (
     <div className={styles.toolbar}>
@@ -15,7 +15,7 @@ export default function ExportToolbar({
         selectedIllo={selectedIllo}
         setSelectedIllo={setSelectedIllo}
       />
-      <h2 className={styles.h2}>{projectName}</h2>
+      <h2 className={styles.h2}>{projectId}</h2>
       <ShareButton />
     </div>
 
