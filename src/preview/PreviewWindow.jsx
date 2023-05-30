@@ -57,7 +57,6 @@ function PreviewWindow() {
           return illustration;
         });
 
-      // TODO: Use selectedIllo now that it's there
       const firstIllo = illoIds[0];
 
       setIllos(illoIds);

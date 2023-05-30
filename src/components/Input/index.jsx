@@ -16,7 +16,7 @@ export default function Input({
   label,
   darkMode,
   className,
-  type = 'string',
+  type = 'text',
 }) {
   const typingHandler = (event) => {
     setValue(event.target.value);
