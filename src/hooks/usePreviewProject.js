@@ -93,7 +93,7 @@ export default function usePreviewProject(projectId) {
           url: 'src/preview/index.html',
           resizable: true,
           width: 1350,
-          maxWidth: 1350,
+          maxWidth: 1600,
           minWidth: 940,
           maxHeight: 900,
         },
