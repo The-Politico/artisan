@@ -21,7 +21,6 @@
         "assetScope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*"]
       },
       "shell": {
-        "all": true,
         "execute": true,
         "open": "(^https?://)|(^/)",
         "scope": [{
