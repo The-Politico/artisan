@@ -25,7 +25,6 @@ export default function useIllustrationFallback(id) {
     atoms.illustrationDetail(id),
   );
 
-  // TODO: Add some way to refresh this when there's a new generation?
 
   useEffect(() => {
     const effect = async () => {
