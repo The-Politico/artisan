@@ -14,10 +14,11 @@ import getLocalFallbackPath from '../utils/paths/getLocalFallbackPath';
  *
  * @param {string} id - The illustration ID for which the fallback i
  *  mage should be used
+ * @param {string} generatedTime - Last generated date time of the illustration
  * @return {string} src - The data URL of the fallback image,
  *  as a base64-encoded string
  */
-export default function useIllustrationFallback(id) {
+export default function useIllustrationFallback(id, generatedTime) {
   const [src, setSrc] = useState();
 
   // TODO: Add some way to refresh this when there's a new generation?
@@ -46,7 +47,7 @@ export default function useIllustrationFallback(id) {
     };
 
     effect();
-  }, [id]);
+  }, [id, generatedTime]);
 
   return src;
 }

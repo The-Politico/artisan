@@ -76,7 +76,10 @@ export default function IllustrationItem({ id }) {
         >
           {illoName}
         </button>
-        <MeatballMenu active items={meatballItems} />
+        <MeatballMenu
+          active
+          items={meatballItems}
+        />
       </div>
     </div>
   );
