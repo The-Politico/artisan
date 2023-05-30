@@ -20,14 +20,16 @@ const projectPublishedStatus = selectorFamily({
         illustrationsInProjectSelector(projectId),
       );
 
-      const illos = illosProjectIds.map((id) => get(illustrationDetail(id)));
+      const illos = illosProjectIds
+        .map((id) => get(illustrationDetail(id)))
+        .filter((details) => !!details);
 
       if (illos.length <= 0) {
-        throw new Error(`No illustrations found for project ${projectId}`);
+        return STATUS_UNKNOWN;
       }
 
       // None of its illustrations have lastPublishedDate time
-      if (illos.every((value) => value.lastPublishedDate == null)) {
+      if (illos.every((value) => value.lastPublishedDate === null)) {
         return STATUS_PROJECT_DRAFT;
       }
 
@@ -48,7 +50,7 @@ const projectPublishedStatus = selectorFamily({
       const testForSome = (d) => {
         const generatedAfterPub = isoToTime(d.lastGeneratedDate)
           > isoToTime(d.lastPublishedDate);
-        const notPublished = d.lastPublishedDate == null;
+        const notPublished = d.lastPublishedDate === null;
         return generatedAfterPub || notPublished;
       };
       if (illos.some(testForSome)) {

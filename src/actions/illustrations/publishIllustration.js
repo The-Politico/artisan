@@ -1,4 +1,4 @@
-import { readBinaryFile, readDir } from '@tauri-apps/api/fs';
+import { readBinaryFile, readDir, exists } from '@tauri-apps/api/fs';
 import mime from 'mime/lite';
 import {
   AWS_PRODUCTION_BUCKET,
@@ -43,6 +43,11 @@ export default async function publishIllustration(id, {
   const illoOutputPath = await getIllustrationOutputPath(id);
   const illoOutputKey = await getIllustrationOutputKey(id);
 
+  const outputExists = await exists(illoOutputPath);
+  if (!outputExists) {
+    return false;
+  }
+
   const contents = await readDir(illoOutputPath);
   const uploadableContents = contents
     .filter(
@@ -75,4 +80,6 @@ export default async function publishIllustration(id, {
       },
     });
   }
+
+  return true;
 }
