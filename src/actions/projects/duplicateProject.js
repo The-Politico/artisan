@@ -15,7 +15,7 @@ export default async function duplicateProject(
     throw new Error('Invalid illustration name provided.');
   }
 
-  const illustrationsInProject = getIllosInProject(sourceId);
+  const illustrationsInProject = await getIllosInProject(sourceId);
 
   await Promise.all(
     illustrationsInProject.map((async ([illoId]) => {
