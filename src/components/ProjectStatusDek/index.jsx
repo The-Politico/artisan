@@ -32,7 +32,7 @@ export default function ProjectStatusDek({ id }) {
       case STATUS_PROJECT_CHANGES:
         return 'Changes since publish: ';
       default:
-        return 'Unknown Status Text: ';
+        return 'Project status unknown';
     }
   }, [pubStatus]);
 
