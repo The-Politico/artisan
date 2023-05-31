@@ -11,14 +11,23 @@ export default async function deleteIllustration(id) {
   const projectPath = await getProjectPath(names.project);
 
   // Delete local files
-  await removeDir(illoPath, { recursive: true });
-  const dirContents = await readDir(projectPath);
-  if (dirContents.length === 0) {
-    await removeDir(projectPath);
+  try {
+    await removeDir(illoPath, { recursive: true });
+    const dirContents = await readDir(projectPath);
+    const onlyDsStore = dirContents.every(({ name }) => name === '.DS_Store');
+    if (onlyDsStore || dirContents.length === 0) {
+      await removeDir(projectPath, { recursive: true });
+    }
+  } catch (error) {
+    console.log(error);
   }
 
   // Remove from store
-  await store.illustrations.delete(id);
+  try {
+    await store.illustrations.delete(id);
+  } catch (error) {
+    console.log(error);
+  }
 
   return true;
 }
