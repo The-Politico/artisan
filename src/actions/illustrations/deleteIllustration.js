@@ -13,6 +13,8 @@ export default async function deleteIllustration(id) {
   // Delete local files
   try {
     await removeDir(illoPath, { recursive: true });
+
+    // Delete projcect folder if no illustrations remain
     const dirContents = await readDir(projectPath);
     const onlyDsStore = dirContents.every(({ name }) => name === '.DS_Store');
     if (onlyDsStore || dirContents.length === 0) {
