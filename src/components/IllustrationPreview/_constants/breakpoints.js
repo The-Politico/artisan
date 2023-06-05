@@ -87,7 +87,7 @@ export const TABLET_PORTRAIT = {
       top: '52px',
       height: '930px',
       transform: 'translate(-50%, 0%)',
-      width: '725px',
+      width: '690px',
     },
   },
 };
@@ -141,7 +141,7 @@ export const MOBILE_PORTRAIT = {
     },
     inner: {
       left: '50%',
-      minWidth: '375px',
+      width: '342px',
       top: '82px',
       height: '695px',
       transform: 'translate(-50%, 0)',
