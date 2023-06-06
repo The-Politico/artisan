@@ -20,14 +20,11 @@ export default async function deleteIllustration(id) {
     if (onlyDsStore || dirContents.length === 0) {
       await removeDir(projectPath, { recursive: true });
     }
-  } catch (error) {
-    console.log(error);
-  }
 
-  // Remove from store
-  try {
+    // Remove from store
     await store.illustrations.delete(id);
   } catch (error) {
+    // TO DO: Error boundry system
     console.log(error);
   }
 
