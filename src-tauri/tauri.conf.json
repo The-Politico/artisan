@@ -7,12 +7,12 @@
     "distDir": "../dist"
   },
   "package": {
-    "productName": "artisan",
+    "productName": "Artisan",
     "version": "2.0.0"
   },
   "tauri": {
     "allowlist": {
-      "all": true,
+      "all": false,
       "path": {
         "all": true
       },
@@ -40,14 +40,29 @@
         }
       ]
       },
+      "window": {
+        "all": true
+      },
+      "dialog": {
+        "all": false,
+        "ask": false,
+        "confirm": false,
+        "message": false,
+        "open": true,
+        "save": false
+      },
       "fs": {
-        "writeFile": true,
+        "all": false,
         "copyFile": true,
         "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
         "removeDir": true,
         "removeFile": true,
-        "readFile": true,
-        "scope": ["$RESOURCE/**", "$DOCUMENT/**", "$HOME", "$HOME/*", "$HOME/**", "$HOME/**/**" ]
+        "renameFile": true,
+        "scope": ["$RESOURCE/**", "$DOCUMENT/**", "$HOME", "$HOME/*", "$HOME/**", "$HOME/**/**" ],
+        "writeFile": true
       }
     },
     "bundle": {
@@ -90,7 +105,7 @@
     "security": {
       "dangerousDisableAssetCspModification": false,
       "freezePrototype": false,
-      "csp": "default-src 'self'; img-src 'self' asset: https://asset.localhost"
+      "csp": "default-src 'self' https://s3.us-east-1.amazonaws.com/artisan.politico.com/  https://s3.us-east-1.amazonaws.com/staging.interactives.politico.com/ https://s3.us-east-1.amazonaws.com/interactives.politico.com/; img-src 'self' asset: https://asset.localhost data:"
     },
     "updater": {
       "active": false

@@ -31,6 +31,7 @@ const projectLastUpdated = selectorFamily({
       // If status isn't draft, return time
       return illustrationsInProject.reduce((lastUpdated, illoId) => {
         const illoDetails = get(illustrationDetail(illoId));
+        if (!illoDetails) return undefined;
         const date = illoDetails[dateToUse];
 
         if (!lastUpdated) {

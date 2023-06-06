@@ -1,5 +1,5 @@
-import store from '../../store';
 import ids from '../../utils/ids';
+import getIllosInProject from '../../utils/store/getIllosInProject';
 import duplicateIllustration from '../illustrations/duplicateIllustration';
 
 export default async function duplicateProject(
@@ -15,12 +15,10 @@ export default async function duplicateProject(
     throw new Error('Invalid illustration name provided.');
   }
 
-  const illustrations = await store.illustrations.get();
-  const illustrationsInProject = illustrations
-    .filter(([id]) => ids.parse(id).project === sourceId);
+  const illustrationsInProject = await getIllosInProject(sourceId);
 
   await Promise.all(
-    illustrationsInProject.map((async (illoId) => {
+    illustrationsInProject.map((async ([illoId]) => {
       const { illustration: illoName } = ids.parse(illoId);
 
       await duplicateIllustration(

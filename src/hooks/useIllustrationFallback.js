@@ -21,10 +21,9 @@ import atoms from '../atoms';
  */
 export default function useIllustrationFallback(id) {
   const [src, setSrc] = useState();
-  const { lastGeneratedDate } = atoms.useRecoilValue(
+  const illoDetail = atoms.useRecoilValue(
     atoms.illustrationDetail(id),
   );
-
 
   useEffect(() => {
     const effect = async () => {
@@ -50,7 +49,7 @@ export default function useIllustrationFallback(id) {
     };
 
     effect();
-  }, [id, lastGeneratedDate]);
+  }, [id, illoDetail]);
 
   return src;
 }
