@@ -45,16 +45,16 @@ fn main() {
   tauri::Builder::default()
       .setup(|app| {
         let handle = app.handle();
-        let settings = StoreBuilder::new(app.handle(), ".artisan-settings-new".parse()?)
+        let settings = StoreBuilder::new(app.handle(), ".settings".parse()?)
           .defaults(default_settings)
           .build();
 
-        let preview = StoreBuilder::new(app.handle(), ".artisan-preview-new".parse()?)
+        let preview = StoreBuilder::new(app.handle(), ".preview".parse()?)
           .defaults(default_preview)
           .build();
         
         let illustrations =
-            StoreBuilder::new(app.handle(), ".artisan-illustrations-new".parse()?).build();
+            StoreBuilder::new(app.handle(), ".illustrations".parse()?).build();
         
         std::thread::spawn(move || {
             handle.plugin(
