@@ -17,13 +17,12 @@ export default function Logo() {
   const logoClass = cls(
     colors.textSlate800,
     typography.fontSemibold,
-    margin.mx2,
     typography.text3Xl,
   );
 
   return (
     <div className={containerClass}>
-      <img src="/logo_64x64.png" alt="logo" />
+      <img className={styles.logo} src="/logo.png" alt="logo" />
       <div>
         <span className={logoClass}>Artisan</span>
       </div>
