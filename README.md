@@ -31,7 +31,7 @@ Artisan uses a modified version of [ai2html](http://ai2html.org/) to turn Adobe 
 ## Installation
 1. Find the install link on our company Notion.
 2. Save the latest version to your downloads folder.
-3. Open the DMG, and copy the Loki icon into your Applications folder.
+3. Open the DMG, and copy the Artisan icon into your Applications folder.
 
 
 # Development
