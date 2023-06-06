@@ -91,11 +91,11 @@ export default function usePreviewProject(projectId) {
         'embed-preview',
         {
           url: 'src/preview/index.html',
+          hiddenTitle: true,
           resizable: true,
-          width: 1350,
-          maxWidth: 1600,
+          width: 1400,
           minWidth: 940,
-          maxHeight: 900,
+          minHeight: 700,
         },
       );
 

@@ -1,6 +1,6 @@
 import lorem, { LOREM_HEADLINE, LOREM_DEK } from '../lorem';
 
-export default function Main({ children, showArticle, className }) {
+export default function Main({ children, showArticle }) {
   const now = new Date();
 
   const { format } = new Intl.DateTimeFormat('en-US', {
@@ -13,23 +13,9 @@ export default function Main({ children, showArticle, className }) {
   });
 
   const nowFormatted = format(now);
-  // eslint-disable-next-line no-nested-ternary, max-len
-  const fullBleed = (className === 'browser-width-full') ? 'is-full-width-bleed'
-    : (className === 'bump-out') ? 'is-medium-width'
-    // eslint-disable-next-line indent
-    : '';
 
   if (!showArticle) {
-    return `\
-        <section class="page-content__row page-content__row--story main-section ${fullBleed}">
-        <div class="container container--story">
-            <div class="container__column container__column--story">
-            <aside class="story-enhancement ${className}">
-                ${children}
-            </aside>
-            </div>
-        </div>
-        </section>`;
+    return children;
   }
 
   return `\
