@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { readBinaryFile } from '@tauri-apps/api/fs';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
 import { AWS_ARTISAN_BUCKET } from '../constants/aws';
 import bytesToBase64 from '../utils/fs/bytesToBase64';
 import s3 from '../utils/s3';
@@ -29,8 +29,7 @@ export default function useIllustrationFallback(id) {
     const effect = async () => {
       try {
         const fallbackPath = await getLocalFallbackPath(id);
-        const content = await readBinaryFile(fallbackPath);
-        setSrc(`data:image/png;base64,${bytesToBase64(content)}`);
+        setSrc(convertFileSrc(fallbackPath));
         return;
       } catch (error) {
         /* Ignore Error */
