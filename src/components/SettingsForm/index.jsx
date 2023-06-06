@@ -8,7 +8,6 @@ import Button from '../Button';
 import WorkingDir from './WorkingDir';
 import atoms from '../../atoms';
 import ensureDir from '../../utils/fs/ensureDir';
-import AdminReset from '../AdminReset';
 
 export default function SettingsForm({ isWelcome = false }) {
   const [settings, setSettings] = atoms.useRecoilState(
@@ -73,7 +72,6 @@ export default function SettingsForm({ isWelcome = false }) {
       >
         {isWelcome ? 'Start' : 'Save'}
       </Button>
-      <AdminReset />
     </>
   );
 }

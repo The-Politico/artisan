@@ -2,7 +2,7 @@
 export const AWS_STAGING_BUCKET = 'staging.interactives.politico.com';
 
 // Bucket name for production output bucket
-export const AWS_PRODUCTION_BUCKET = AWS_STAGING_BUCKET;
+export const AWS_PRODUCTION_BUCKET = 'interactives.politico.com';
 
 // Bucket name for Artisan cloud-sync storage
 export const AWS_ARTISAN_BUCKET = 'artisan.politico.com';
