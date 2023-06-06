@@ -1,0 +1,5 @@
+.view {
+  height: 100vh;
+  margin: auto 0;
+  overflow-y: hidden;
+}

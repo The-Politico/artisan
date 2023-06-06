@@ -1,0 +1,9 @@
+.container {
+  justify-items: flex-start;
+  gap: 2px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+}

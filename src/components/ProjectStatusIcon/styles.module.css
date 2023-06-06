@@ -1,0 +1,23 @@
+.icon {
+  height: 1.5rem;
+  width: 1.5rem;
+  color: var(--slate-500);
+}
+
+.lg {
+  height: 2rem;
+  width: 2rem;
+  color: var(--slate-600);
+}
+
+.error {
+  color: var(--red-500);
+}
+
+.changes {
+  color: var(--amber-500);
+}
+
+.published {
+  color: var(--emerald-500);
+}

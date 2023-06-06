@@ -1,0 +1,19 @@
+.toolbar {
+  width: 100vw;
+  padding: 0.5rem 1rem 1rem;
+  background: linear-gradient(90deg, #007bc7 0%, #02588d 100%);
+  box-shadow: 0px 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0px 2px 4px -1px rgba(0, 0, 0, 0.06);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  align-items: center;
+  margin-bottom: 2.5rem;
+}
+
+.h2 {
+  color: #fff;
+  opacity: 0.9;
+  font-size: 2rem;
+  justify-self: center;
+  font-weight: 500;
+}

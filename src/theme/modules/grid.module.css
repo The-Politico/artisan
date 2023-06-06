@@ -1,0 +1,13 @@
+.grid {
+  display: grid;
+}
+
+.grid-cols-2 {
+  --grid-cols: 2;
+  grid-template-columns: repeat(var(--grid-cols), minmax(0, 1fr));
+}
+
+.grid-rows-2 {
+  --grid-rows: 2;
+  grid-template-rows: repeat(var(--grid-rows), minmax(0, 1fr));
+}

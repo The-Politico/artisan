@@ -1,0 +1,37 @@
+.tab-list {
+  --gap: .25rem;
+  position: relative;
+  display: flex;
+  align-items: center;
+  background-color: var(--slate-300);
+  border-radius: 8px;
+  padding: 3px;
+  column-gap: var(--gap);
+}
+
+.tab-list * {
+  z-index: 2;
+}
+
+.glider {
+  position: absolute;
+  display: flex;
+  height: 1.25rem;
+  width: 1.25rem;
+  padding: 4px 6px;
+  background-color: #fff;
+  box-sizing: content-box;
+  border-radius: 8px;
+  transition: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(calc(100% * var(--translate, 0) + calc(var(--gap) * var(--translate, 0))));
+  z-index: 1;
+}
+
+.transparent-bg {
+  background-color: rgba(255, 255, 255, .4);
+}
+
+.group-bg {
+  padding: .65rem;
+  background-image: linear-gradient(to right, var(--politico-blue), var(--politico-dark-blue));
+}

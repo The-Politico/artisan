@@ -1,0 +1,46 @@
+:root {
+  /* Brand Colors */
+  --politico-red: #dc0228;
+  --politico-dark-red: #ac0825;
+  --politico-light-background: #f4f5f7;
+  --politico-line: #e5e7eb;
+  --politico-light-gray-type: #b1b4bd;
+  --politico-dark-gray-type: #6e7381;
+  --politico-black: #282d40;
+  --politico-blue: #007bc7;
+  --politico-dark-blue: #02588d;
+  --politico-orange: #f86f00;
+  --politico-navy: #121522;
+  /* Tailwind.css colors */
+  --slate-50: #f8fafc;
+  --slate-100: #f1f5f9;
+  --slate-200: #e2e8f0;
+  --slate-300: #cbd5e1;
+  --slate-400: #94a3b8;
+  --slate-500: #64748b;
+  --slate-600: #475569;
+  --slate-700: #334155;
+  --slate-800: #1e293b;
+  --slate-900: #0f172a;
+  --emerald-50: #ecfdf5;
+  --emerald-100: #d1fae5;
+  --emerald-200: #a7f3d0;
+  --emerald-300: #6ee7b7;
+  --emerald-400: #34d399;
+  --emerald-500: #10b981;
+  --emerald-600: #059669;
+  --emerald-700: #047857;
+  --emerald-800: #065f46;
+  --emerald-900: #064e3b;
+  --red-50: #fef2f2;
+  --red-100: #fee2e2;
+  --red-200: #fecaca;
+  --red-300: #fca5a5;
+  --red-400: #f87171;
+  --red-500: #ef4444;
+  --red-600: #dc2626;
+  --red-700: #b91c1c;
+  --red-800: #991b1b;
+  --red-900: #7f1d1d;
+  --amber-500: #f59e0b;
+}

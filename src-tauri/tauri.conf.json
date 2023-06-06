@@ -1,0 +1,124 @@
+{
+  "$schema": "../node_modules/@tauri-apps/cli/schema.json",
+  "build": {
+    "beforeBuildCommand": "npm run build",
+    "beforeDevCommand": "npm run dev",
+    "devPath": "http://localhost:5173",
+    "distDir": "../dist"
+  },
+  "package": {
+    "productName": "Artisan",
+    "version": "2.0.0"
+  },
+  "tauri": {
+    "allowlist": {
+      "all": false,
+      "path": {
+        "all": true
+      },
+      "protocol": {
+        "asset": true,
+        "assetScope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*"]
+      },
+      "shell": {
+        "execute": true,
+        "open": "(^https?://)|(^/)",
+        "scope": [{
+          "name": "run-osascript",
+          "cmd": "osascript",
+          "args": true
+        },
+        {
+          "name": "start-local-server",
+          "cmd": "python3",
+          "args": true
+        },
+        {
+          "name": "kill-process",
+          "cmd": "kill",
+          "args": true
+        }
+      ]
+      },
+      "window": {
+        "all": true
+      },
+      "dialog": {
+        "all": false,
+        "ask": false,
+        "confirm": false,
+        "message": false,
+        "open": true,
+        "save": false
+      },
+      "fs": {
+        "all": false,
+        "copyFile": true,
+        "createDir": true,
+        "exists": true,
+        "readDir": true,
+        "readFile": true,
+        "removeDir": true,
+        "removeFile": true,
+        "renameFile": true,
+        "scope": ["$RESOURCE/**", "$DOCUMENT/**", "$HOME", "$HOME/*", "$HOME/**", "$HOME/**/**" ],
+        "writeFile": true
+      }
+    },
+    "bundle": {
+      "active": true,
+      "category": "DeveloperTool",
+      "copyright": "",
+      "deb": {
+        "depends": []
+      },
+      "externalBin": [],
+      "icon": [
+        "icons/32x32.png",
+        "icons/128x128.png",
+        "icons/128x128@2x.png",
+        "icons/icon.icns",
+        "icons/icon.ico"
+      ],
+      "identifier": "com.politico.artisan",
+      "longDescription": "",
+      "macOS": {
+        "entitlements": null,
+        "exceptionDomain": "",
+        "frameworks": [],
+        "providerShortName": null,
+        "signingIdentity": null
+      },
+      "resources": [
+        "resources/ai2html.js",
+        "resources/ai2html-config.json",
+        "resources/exportArtboards.js"
+      ],
+      "shortDescription": "",
+      "targets": "all",
+      "windows": {
+        "certificateThumbprint": null,
+        "digestAlgorithm": "sha256",
+        "timestampUrl": ""
+      }
+    },
+    "security": {
+      "dangerousDisableAssetCspModification": false,
+      "freezePrototype": false,
+      "csp": "default-src 'self' https://s3.us-east-1.amazonaws.com/artisan.politico.com/  https://s3.us-east-1.amazonaws.com/staging.interactives.politico.com/ https://s3.us-east-1.amazonaws.com/interactives.politico.com/; img-src 'self' asset: https://asset.localhost data:"
+    },
+    "updater": {
+      "active": false
+    },
+    "windows": [
+      {
+        "fullscreen": false,
+        "height": 800,
+        "resizable": false,
+        "title": "",
+        "theme": "Light",
+        "width": 780
+      }
+    ]
+  }
+}

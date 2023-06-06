@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  grid-column: span 3;
+  width: 95%;
+  height: 100%;
+}
+
+.empty-project {
+  background-color: #fff;
+  flex: 1 1 auto;
+}
+
+.center {
+  text-align: center;
+}

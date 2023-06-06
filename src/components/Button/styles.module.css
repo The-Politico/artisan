@@ -1,0 +1,41 @@
+.solid {
+  color: #fff;
+  background: linear-gradient(to right, var(--politico-blue), var(--politico-dark-blue));
+}
+
+.solid:hover {
+  filter: brightness(1.15);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.solid:active {
+  filter: brightness(0.9);
+  box-shadow: none;
+  transform: none;
+}
+
+.outline {
+  background-color: var(--slate-100);
+  font-weight: 500;
+  color: var(--slate-800);
+  border-width: 1px;
+  border-color: var(--slate-800);
+}
+
+.outline:hover {
+  color: var(--slate-100);
+  background-color: var(--slate-800);
+}
+
+.outline:active {
+  filter: brightness(1.33);
+}
+
+.ghost {
+  color: var(--slate-700);
+}
+
+.ghost:hover {
+  text-decoration: underline;
+}

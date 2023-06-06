@@ -1,0 +1,56 @@
+.container {
+  background-color: var(--slate-50) !important;
+  width: 230px;
+  height: 180px;
+  overflow: hidden;
+}
+
+.input-mode {
+  background-color: var(--slate-300) !important;
+}
+
+.container:not(.input-mode):hover {
+  background-color: var(--slate-200) !important;
+  color: var(--slate-800);
+}
+
+.icon-size {
+  width: 80px;
+  height: 80px;
+}
+
+.input-container {
+  width: 100%;
+  margin-top: auto;
+  background-color: var(--slate-200);
+}
+
+.input {
+  flex-grow: 1;
+  margin: .25rem;
+}
+
+/* Resize fix */
+.input input {
+  width: 0;
+  min-width: 100%;
+}
+
+.input br, .input span {
+  display: none;
+}
+
+.input-icon {
+  width: 1.75rem;
+  height: 1.75rem;
+  color: var(--slate-800);
+  margin-right: .25rem;
+}
+
+.input-icon:hover {
+  color: var(--politico-blue);
+}
+
+.doc-icon {
+  color: var(--slate-700);
+}

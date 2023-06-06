@@ -1,0 +1,17 @@
+.device-wrapper {
+  height: calc(100vh - 70px);
+  display: block;
+  position: relative;
+  margin: 0 auto;
+}
+
+.mockup {
+  z-index: 2;
+  position: absolute;
+  pointer-events: none;
+}
+
+.inner-content {
+  position: absolute;
+  z-index: 0;
+}

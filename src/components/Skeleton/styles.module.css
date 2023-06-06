@@ -1,0 +1,31 @@
+.skeleton {
+  background: var(--slate-300);
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
+}
+
+.skeleton::after {
+  animation: shine 1.6s linear 0.5s infinite;
+  background: linear-gradient(90deg, transparent, hsl(213, 27%, 77%), transparent);
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+}
+
+.circle {
+  border-radius: 100%;
+}
+
+@keyframes shine {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
