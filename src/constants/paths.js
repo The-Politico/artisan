@@ -24,11 +24,14 @@ export const PUBLISH_EMBED_PATH = 'interactives/artisan/embeds';
 // Directory on local where projects are stored
 export const LOCAL_PROJECTS_DIRECTORY = 'projects';
 
+// Common prefix for share page assetts
+export const SHARE_PAGE_ASSETS = 'interactives/artisan/common';
+
 // Path to common share page's JS file
-export const SHARE_PAGE_SCRIPTS = `interactives/artisan/common/bundle.js?v=${shareVersion}`;
+export const SHARE_PAGE_SCRIPTS = `${SHARE_PAGE_ASSETS}/bundle.js?v=${shareVersion}`;
 
 // Path to common share page's CSS (styles) file
-export const SHARE_PAGE_STYLES = `interactives/artisan/common/styles.css?v=${shareVersion}`;
+export const SHARE_PAGE_STYLES = `${SHARE_PAGE_ASSETS}/styles.css?v=${shareVersion}`;
 
 // Fallback image name
 export const FALLBACK_IMG_NAME = 'fallback.png';

@@ -115,3 +115,4 @@ typings/
 
 *.local
 /public/share/*
+dist/*

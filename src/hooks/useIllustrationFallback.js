@@ -1,9 +1,6 @@
 import { useState, useEffect } from 'react';
-import { readBinaryFile } from '@tauri-apps/api/fs';
-import { AWS_ARTISAN_BUCKET } from '../constants/aws';
-import bytesToBase64 from '../utils/fs/bytesToBase64';
-import s3 from '../utils/s3';
-import getPreviewKey from '../utils/paths/getPreviewKey';
+import { convertFileSrc } from '@tauri-apps/api/tauri';
+import { v4 as uuidv4 } from 'uuid';
 import getLocalFallbackPath from '../utils/paths/getLocalFallbackPath';
 import atoms from '../atoms';
 
@@ -26,29 +23,16 @@ export default function useIllustrationFallback(id) {
   );
 
   useEffect(() => {
-    const effect = async () => {
+    (async function updateSrc() {
       try {
+        const hash = uuidv4().split('-')[0];
         const fallbackPath = await getLocalFallbackPath(id);
-        const content = await readBinaryFile(fallbackPath);
-        setSrc(`data:image/png;base64,${bytesToBase64(content)}`);
-        return;
+        const fallbackSrc = `${convertFileSrc(fallbackPath)}?${hash}`;
+        setSrc(fallbackSrc);
       } catch (error) {
         /* Ignore Error */
       }
-
-      try {
-        const previewKey = await getPreviewKey(id);
-        const content = await s3.download({
-          bucket: AWS_ARTISAN_BUCKET,
-          key: previewKey,
-        });
-        setSrc(`data:image/png;base64,${bytesToBase64(content)}`);
-      } catch (error) {
-        /* Ignore Error */
-      }
-    };
-
-    effect();
+    }());
   }, [id, illoDetail]);
 
   return src;

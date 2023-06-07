@@ -13,10 +13,12 @@ import projectPublishedStatus from './selectors/projectPublishedStatus';
 import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
 import isConfigured from './selectors/isConfigured';
+import now from './now/atom';
 
 export default {
   illustrations,
   illustrationDetail,
+  now,
   settings: settingsAtom,
   preview: previewAtom,
   status: statusAtomFamily,
