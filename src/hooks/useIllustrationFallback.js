@@ -6,15 +6,10 @@ import atoms from '../atoms';
 
 /**
  * Proves a fallback image for the given illustration ID.
- * It will first check if a fallback image exists for the
- * given ID, and if it does, it will load the image source
- * as base64 data.
  *
- * @param {string} id - The illustration ID for which the fallback i
- *  mage should be used
- * @param {string} generatedTime - Last generated date time of the illustration
- * @return {string} src - The data URL of the fallback image,
- *  as a base64-encoded string
+ * @param {string} id - The illustration ID for which the fallback
+ *  image should be used
+ * @return {string} src - A URL for the fallback image
  */
 export default function useIllustrationFallback(id) {
   const [src, setSrc] = useState();

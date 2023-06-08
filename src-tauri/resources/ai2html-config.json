@@ -2,7 +2,8 @@
   "html_output_path": "./ai2html-output/",
   "html_output_extension": ".html",
   "show_completion_dialog_box": false,
-  "settings_block": ["image_format", "png_number_of_colors", "jpg_quality", "responsiveness"],
+  "image_format": ["png"],
+  "settings_block": ["png_number_of_colors", "jpg_quality", "responsiveness"],
 
   "config_file": [],
 

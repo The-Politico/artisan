@@ -3,12 +3,14 @@ import CopyToClipboard from './CopyToClipboard';
 import styles from './styles.module.css';
 import { FALLBACK_IMG_NAME } from '../../constants/paths';
 import slugify from '../../utils/text/slugify';
+import slugifyOutput from '../../utils/text/slugifyOuput';
 
 export default function EmbedCode({ embedUrl, selectedIllo, projectId }) {
   const projectSlug = slugify(projectId);
   const illoSlug = slugify(selectedIllo);
+  const illoFileSlug = slugifyOutput(selectedIllo);
 
-  const embedRoot = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoSlug}.html`;
+  const embedRoot = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
   const fallbackUrl = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${FALLBACK_IMG_NAME}`;
 
   return (
