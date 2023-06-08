@@ -9,11 +9,13 @@ export default function ArtboardPreview({
   selectedIllo,
 }) {
   const projectSlug = slugify(projectId);
+  const illoSlug = slugify(selectedIllo);
 
-  const imgSrc = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${selectedIllo}/${FALLBACK_IMG_NAME}`;
+  const imgSrc = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${FALLBACK_IMG_NAME}`;
+
   return (
     <div className={styles.previewContainer}>
-      <h3 className={styles.h3}>{selectedIllo.name}</h3>
+      <h3 className={styles.h3}>{selectedIllo}</h3>
       <div className={styles.imgWrapper}>
         <img
           src={imgSrc}
