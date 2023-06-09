@@ -1,7 +1,7 @@
 {
   "$schema": "../node_modules/@tauri-apps/cli/schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
+    "beforeBuildCommand": "npm run vite:build",
     "beforeDevCommand": "npm run dev",
     "devPath": "http://localhost:5173",
     "distDir": "../dist"
@@ -95,7 +95,9 @@
         "resources/exportArtboards.js"
       ],
       "shortDescription": "",
-      "targets": "all",
+      "targets": [
+        "dmg"
+      ],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
