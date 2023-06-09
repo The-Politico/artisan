@@ -23,7 +23,8 @@ export default function useIllustrationFallback(id) {
         const hash = uuidv4().split('-')[0];
         const fallbackPath = await getLocalFallbackPath(id);
         const fallbackSrc = `${convertFileSrc(fallbackPath)}?${hash}`;
-        setSrc(fallbackSrc);
+        const isGenerated = !!illoDetail.lastGeneratedDate;
+        setSrc(isGenerated ? fallbackSrc : null);
       } catch (error) {
         /* Ignore Error */
       }
