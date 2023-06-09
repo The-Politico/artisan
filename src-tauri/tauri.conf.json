@@ -95,9 +95,7 @@
         "resources/exportArtboards.js"
       ],
       "shortDescription": "",
-      "targets": [
-        "dmg"
-      ],
+      "targets": "all",
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
