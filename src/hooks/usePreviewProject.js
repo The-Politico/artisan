@@ -90,7 +90,7 @@ export default function usePreviewProject(projectId) {
       const webview = new WebviewWindow(
         'embed-preview',
         {
-          url: 'src/preview/index.html',
+          url: '/src/preview/index.html',
           hiddenTitle: true,
           resizable: true,
           width: 1400,

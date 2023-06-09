@@ -2,7 +2,7 @@
 import { loadConfig } from '@aws-sdk/node-config-provider';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
 import fs from 'node:fs/promises';
-import { AWS_PRODUCTION_BUCKET } from '../constants/aws.js';
+import { AWS_STAGING_BUCKET } from '../constants/aws.js';
 import {
   SHARE_PAGE_SCRIPTS,
   SHARE_PAGE_STYLES,
@@ -27,7 +27,7 @@ import {
   });
 
   const sharedCommand = {
-    Bucket: AWS_PRODUCTION_BUCKET,
+    Bucket: AWS_STAGING_BUCKET,
     StorageClass: 'STANDARD',
   };
 
@@ -45,6 +45,7 @@ import {
     Key: SHARE_PAGE_SCRIPTS.split('?')[0],
     Body: bundle,
     ContentType: 'text/javascript',
+    CacheControl: 'max-age=300',
     ...sharedCommand,
   });
 
@@ -52,6 +53,7 @@ import {
     Key: SHARE_PAGE_STYLES.split('?')[0],
     Body: styles,
     ContentType: 'text/css',
+    CacheControl: 'max-age=300',
     ...sharedCommand,
   });
 

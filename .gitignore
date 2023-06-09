@@ -115,5 +115,5 @@ typings/
 
 *.local
 /public/share/*
-dist/*
 src-tauri/target/*
+dist/*

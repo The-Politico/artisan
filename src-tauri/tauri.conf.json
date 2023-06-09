@@ -105,7 +105,7 @@
     "security": {
       "dangerousDisableAssetCspModification": false,
       "freezePrototype": false,
-      "csp": "default-src 'self' https://s3.us-east-1.amazonaws.com/artisan.politico.com/  https://s3.us-east-1.amazonaws.com/staging.interactives.politico.com/ https://s3.us-east-1.amazonaws.com/interactives.politico.com/; img-src 'self' asset: https://asset.localhost data:"
+      "csp": "default-src 'self' 'unsafe-inline' https://s3.us-east-1.amazonaws.com/artisan.politico.com/ https://s3.us-east-1.amazonaws.com/staging.interactives.politico.com/ https://s3.us-east-1.amazonaws.com/interactives.politico.com/ https://*.politico.com/ https://*.typekit.net/ http://localhost:*/; img-src 'self' https://*.politico.com/ asset: https://asset.localhost data:; script-src https://*.politico.com/ 'unsafe-eval'"
     },
     "updater": {
       "active": false

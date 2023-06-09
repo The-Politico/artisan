@@ -18,7 +18,7 @@ export default function EmbedCode({ embedUrl, selectedIllo, projectId }) {
       <h3 className={styles.h3}>CMS Embed Code</h3>
       <div className={styles.codeBlock}>
         {`
-<div id="${projectSlug}-embed-${illoSlug}" data-frame-src="${embedRoot}" data-frame-sandbox="allow-scripts allow-same-origin allow-top-navigation" data-frame-auto-initialized=""></div>
+<div id="${projectSlug}-embed-${illoSlug}" data-frame-src="${embedRoot}" data-frame-sandbox="allow-scripts allow-same-origin allow-top-navigation"></div>
 <script src="https://www.politico.com/interactives/cdn/js/frames.js"></script>
 <script>window.newswireFrames.autoInitFrames()</script>
         `.trim()}

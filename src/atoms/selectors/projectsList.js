@@ -19,7 +19,11 @@ const projectsList = selector({
       return acc;
     }, new Set());
 
-    return Array.from(projectSet);
+    const sortedList = Array
+      .from(projectSet)
+      .sort((a, b) => a - b);
+
+    return sortedList;
   },
 });
 

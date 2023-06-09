@@ -2,6 +2,7 @@ import getProjectSharePath from '../../utils/paths/getProjectSharePath';
 import {
   SHARE_PAGE_STYLES,
   SHARE_PAGE_SCRIPTS,
+  SHARE_PAGE_ASSETS,
   PUBLISH_EMBED_PATH,
 } from '../../constants/paths';
 import { AWS_STAGING_BUCKET } from '../../constants/aws';
@@ -37,6 +38,8 @@ export default async function shareProject(projectId) {
     <link rel="stylesheet" href="https://use.typekit.net/dsx2uhv.css" />
       <title>${projectId} | Artisan Share Page</title>
       <link rel="stylesheet" href="/${SHARE_PAGE_STYLES}"></link>
+      <link rel="icon" type="image/svg+xml" href="/${SHARE_PAGE_ASSETS}/favicon.svg">
+      <link rel="icon" type="image/x-icon" href="/${SHARE_PAGE_ASSETS}/favicon.ico">
       </head>
       <body>
         <div id="root"></div>
