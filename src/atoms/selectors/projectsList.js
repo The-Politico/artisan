@@ -21,7 +21,7 @@ const projectsList = selector({
 
     const sortedList = Array
       .from(projectSet)
-      .sort((a, b) => a - b);
+      .sort((a, b) => a.localeCompare(b));
 
     return sortedList;
   },
