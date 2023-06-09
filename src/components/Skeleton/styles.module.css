@@ -1,9 +1,12 @@
 .skeleton {
   background: var(--slate-300);
   -webkit-mask-image: -webkit-radial-gradient(white, black);
+  position: relative;
+  overflow: hidden;
 }
 
 .skeleton::after {
+  clip: rect(100%, 100%, 1px, 1px);
   animation: shine 1.6s linear 0.5s infinite;
   background: linear-gradient(90deg, transparent, hsl(213, 27%, 77%), transparent);
   content: '';
@@ -12,6 +15,7 @@
   left: 0;
   right: 0;
   top: 0;
+  overflow: hidden;
 }
 
 .circle {

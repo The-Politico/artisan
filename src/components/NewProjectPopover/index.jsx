@@ -51,12 +51,12 @@ export default function NewProjectPopover() {
               setValue={setNewIlloName}
             />
             <div className={cls(flex.flex, layout.justifyCenter)}>
-              <Popover.Button
-                as={Button}
+              <Button
                 variant="ghost"
+                onClick={() => close()}
               >
                 Cancel
-              </Popover.Button>
+              </Button>
               <Button
                 submit
                 variant="solid"
