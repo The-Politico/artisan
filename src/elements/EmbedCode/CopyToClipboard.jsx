@@ -4,17 +4,14 @@ import {
   ClipboardDocumentIcon,
 } from '@heroicons/react/24/solid';
 import styles from './styles.module.css';
+import { copyToClipboard } from '../../utils/copyToClipboard';
 
 export default function CopyToClipboard() {
   const [isCopied, setCopied] = useState(false);
   const handleClick = async ({ currentTarget }) => {
     const { parentElement } = currentTarget;
     const { firstChild } = parentElement;
-    await window.navigator.clipboard.writeText(firstChild.textContent);
-    setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
+    await copyToClipboard(firstChild.textContent, setCopied);
   };
 
   return (
