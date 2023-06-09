@@ -2,22 +2,14 @@ import { useState } from 'react';
 import cls from 'classnames';
 import { CheckIcon, LinkIcon } from '@heroicons/react/24/solid';
 import styles from './styles.module.css';
+import { copyToClipboard } from '../../utils/copyToClipboard';
 
 export default function ShareButton() {
   const [copied, setCopied] = useState(false);
 
   const handleClick = async () => {
     const url = window.location;
-    try {
-      await window.navigator.clipboard.writeText(url);
-      setCopied(true);
-      setTimeout(() => {
-        setCopied(false);
-      }, 2000);
-    } catch (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-    }
+    await copyToClipboard(url, setCopied);
   };
 
   return (
