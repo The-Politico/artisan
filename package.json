@@ -15,8 +15,8 @@
   },
   "license": "MIT",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.183.0",
-    "@aws-sdk/credential-providers": "^3.181.0",
+    "@aws-sdk/client-s3": "^3.350.0",
+    "@aws-sdk/credential-providers": "^3.351.0",
     "@aws-sdk/lib-storage": "^3.183.0",
     "@aws-sdk/node-config-provider": "^3.226.0",
     "@headlessui/react": "^1.7.3",
