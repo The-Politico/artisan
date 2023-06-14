@@ -39,6 +39,8 @@ export const TYPE_SETTINGS_STORE_KEYS = {
   'preferred-port': string(),
   'aws-id': string(),
   'aws-secret': string(),
+  'access-token': string(),
+  'refresh-token': string(),
 };
 
 // Valid object containing all the settings for a complete store
