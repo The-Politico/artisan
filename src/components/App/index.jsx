@@ -8,20 +8,18 @@ import { useActivateTime } from '../../atoms/now/init';
 import styles from './styles.module.css';
 import Button from '../Button';
 import atoms from '../../atoms';
+import { getProjectFolders } from '../../utils/box';
 
 export default function AppView() {
-  const settings = atoms.useRecoilValue(
-    atoms.settings,
-  );
+  const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
 
   useActivateTime();
 
   const handleClick = async () => {
-    console.log('CLICKED');
     const baseUrl = 'https://account.box.com/api/oauth2/authorize';
     const clientId = import.meta.env.VITE_BOX_CLIENT_ID;
     const authorizationUrl = `${baseUrl}?client_id=${clientId}&response_type=code`;
-    const webview = new WebviewWindow('oauth', {
+    const view = new WebviewWindow('oauth', {
       url: authorizationUrl,
       center: true,
       focus: true,
@@ -30,22 +28,35 @@ export default function AppView() {
   };
 
   const handleClick2 = async () => {
-    const oathWindow = WebviewWindow.getByLabel('oauth');
-    console.log(oathWindow);
+    console.log(settings);
+    await getProjectFolders();
+  };
+
+  const handleClick3 = async () => {
+    setSettings({
+      'access-token': '',
+    });
+    console.log(settings);
   };
 
   return (
     <div className={styles.grid}>
       <Sidebar>
         {!settings['access-token'] && (
-        <Button
-          onClick={handleClick}
-          value="Show OAuth"
-        />
+          <Button
+            onClick={handleClick}
+            value="Sign-in to Box"
+          />
         )}
+        <br />
         <Button
           onClick={handleClick2}
           value="log webview"
+        />
+        <br />
+        <Button
+          onClick={handleClick3}
+          value="delete token"
         />
         <ProjectList />
       </Sidebar>

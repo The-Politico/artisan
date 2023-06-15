@@ -18,27 +18,39 @@
       },
       "protocol": {
         "asset": true,
-        "assetScope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*", "$HOME/**", "$HOME/**/**"]
+        "assetScope": [
+          "$RESOURCE/*",
+          "$DOCUMENT/*",
+          "$HOME/*",
+          "$HOME/**",
+          "$HOME/**/**"
+        ]
+      },
+      "http": {
+        "all": false,
+        "request": true,
+        "scope": ["https://api.box.com/*"]
       },
       "shell": {
         "execute": true,
         "open": "(^https?://)|(^/)",
-        "scope": [{
-          "name": "run-osascript",
-          "cmd": "osascript",
-          "args": true
-        },
-        {
-          "name": "start-local-server",
-          "cmd": "python3",
-          "args": true
-        },
-        {
-          "name": "kill-process",
-          "cmd": "kill",
-          "args": true
-        }
-      ]
+        "scope": [
+          {
+            "name": "run-osascript",
+            "cmd": "osascript",
+            "args": true
+          },
+          {
+            "name": "start-local-server",
+            "cmd": "python3",
+            "args": true
+          },
+          {
+            "name": "kill-process",
+            "cmd": "kill",
+            "args": true
+          }
+        ]
       },
       "window": {
         "all": true
@@ -61,7 +73,14 @@
         "removeDir": true,
         "removeFile": true,
         "renameFile": true,
-        "scope": ["$RESOURCE/**", "$DOCUMENT/**", "$HOME", "$HOME/*", "$HOME/**", "$HOME/**/**" ],
+        "scope": [
+          "$RESOURCE/**",
+          "$DOCUMENT/**",
+          "$HOME",
+          "$HOME/*",
+          "$HOME/**",
+          "$HOME/**/**"
+        ],
         "writeFile": true
       }
     },
