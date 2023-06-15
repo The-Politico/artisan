@@ -1,4 +1,5 @@
 import { WebviewWindow } from '@tauri-apps/api/window';
+import { invoke } from '@tauri-apps/api/tauri';
 import ProjectList from '../ProjectList';
 import ArtisanProject from '../ArtisanProject';
 import Sidebar from '../Sidebar';
@@ -8,7 +9,6 @@ import { useActivateTime } from '../../atoms/now/init';
 import styles from './styles.module.css';
 import Button from '../Button';
 import atoms from '../../atoms';
-import { getProjectFolders } from '../../utils/box';
 
 export default function AppView() {
   const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
@@ -16,11 +16,9 @@ export default function AppView() {
   useActivateTime();
 
   const handleClick = async () => {
-    const baseUrl = 'https://account.box.com/api/oauth2/authorize';
-    const clientId = import.meta.env.VITE_BOX_CLIENT_ID;
-    const authorizationUrl = `${baseUrl}?client_id=${clientId}&response_type=code`;
+    const url = await invoke('get_auth_url');
     const view = new WebviewWindow('oauth', {
-      url: authorizationUrl,
+      url,
       center: true,
       focus: true,
       alwaysOnTop: true,
@@ -29,7 +27,6 @@ export default function AppView() {
 
   const handleClick2 = async () => {
     console.log(settings);
-    await getProjectFolders();
   };
 
   const handleClick3 = async () => {

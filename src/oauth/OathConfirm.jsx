@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import { appWindow } from '@tauri-apps/api/window';
+import { invoke } from '@tauri-apps/api/tauri';
 import atoms from '../atoms';
-import { fetchAccessToken } from '../utils/box';
 
 export default function OathConfirm() {
   const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
@@ -15,11 +14,13 @@ export default function OathConfirm() {
       const { code } = params;
       setOathCode(code);
     } else {
+      console.log('URL: ', window.location);
+      console.log('Code: ', oathCode);
       const getToken = async () => {
-        const data = await fetchAccessToken(oathCode);
+        const token = await invoke('request_token', { accessCode: oathCode });
+        console.log('Returned token: ', token);
         setSettings({
-          'access-token': data.access_token,
-          'refresh-token': data.refresh_token,
+          'access-token': token,
         });
       };
 
@@ -30,7 +31,7 @@ export default function OathConfirm() {
   useEffect(() => {
     if (settings['access-token'] !== '') {
       setTimeout(() => {
-        appWindow.close();
+        console.log(settings);
       }, 2000);
     }
   }, [settings]);
