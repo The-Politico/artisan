@@ -9,9 +9,10 @@ import { useActivateTime } from '../../atoms/now/init';
 import styles from './styles.module.css';
 import Button from '../Button';
 import atoms from '../../atoms';
+import { getProjectFolders } from '../../utils/box';
 
 export default function AppView() {
-  const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
+  const settings = atoms.useRecoilValue(atoms.settings);
 
   useActivateTime();
 
@@ -31,9 +32,8 @@ export default function AppView() {
   };
 
   const handleClick3 = async () => {
-    setSettings({
-      box_tokens: {},
-    });
+    const d = await getProjectFolders();
+    console.log(d);
   };
 
   return (
@@ -53,7 +53,7 @@ export default function AppView() {
         <br />
         <Button
           onClick={handleClick3}
-          value="delete token"
+          value="log folders"
         />
         <ProjectList />
       </Sidebar>
