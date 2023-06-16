@@ -1,4 +1,4 @@
-use dotenv_codegen::dotenv;
+use dotenvy_macro::dotenv;
 use oauth2::basic::BasicClient;
 use oauth2::{AuthType, AuthUrl, ClientId, ClientSecret, RedirectUrl, TokenUrl};
 

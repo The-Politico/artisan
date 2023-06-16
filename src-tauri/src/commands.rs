@@ -60,8 +60,7 @@ pub async fn request_token(
     // Addds the first access_token to the store
     with_store(app_handle, state, PathBuf::from(".settings"), |store| {
         store.insert("box_tokens".to_string(), json)
-    })
-    .map_err(|err| err.to_string())?;
+    }).map_err(|err| err.to_string())?;
 
     Ok(())
 }

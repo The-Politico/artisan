@@ -21,8 +21,7 @@ tauri-plugin-store = { git = "https://github.com/tauri-apps/plugins-workspace", 
 tauri-plugin-fs-watch = { git = "https://github.com/tauri-apps/plugins-workspace", branch = "dev" }
 md5 = "0.7.0"
 oauth2 = "4.4.1"
-dotenv = "0.15.0"
-dotenv_codegen = "0.15.0"
+dotenvy_macro = "0.15.7"
 
 [features]
 # by default Tauri runs in production mode
