@@ -41,7 +41,7 @@ pub async fn request_token(
     stores: State<'_, StoreCollection<Wry>>,
     client: State<'_, BasicClient>,
 ) -> Result<(), String> {
-
+    let path: PathBuf = PathBuf::from(".settings");
     // Define input from frontend as auth code
     let code = AuthorizationCode::new(access_code);
 
@@ -55,8 +55,7 @@ pub async fn request_token(
 
     // Serialize response to json
     // Expected API response: https://developer.box.com/reference/resources/access-token/
-    let data = serde_json::to_value(tokens_res).unwrap();
-    let path = PathBuf::from(".settings");
+    let data: Value = serde_json::to_value(tokens_res).unwrap();
 
     // Addds JSON data to the store
     with_store(app_handle, stores, path, |store| {
@@ -86,10 +85,10 @@ pub async fn refresh_token(
     })
     .map_err(|err| err.to_string())?;
 
-    let token_values: StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType> =
+    let token_res: StandardTokenResponse<EmptyExtraTokenFields, BasicTokenType> =
         serde_json::from_value(tokens.unwrap()).map_err(|err| err.to_string())?;
 
-    let refresh_token = token_values.refresh_token().unwrap();
+    let refresh_token = token_res.refresh_token().unwrap();
     let new_token_res = client
         .exchange_refresh_token(refresh_token)
         .request_async(async_http_client)
@@ -97,7 +96,7 @@ pub async fn refresh_token(
 
     let new_token_res = new_token_res.map_err(|err| err.to_string())?;
 
-    let data = serde_json::to_value(new_token_res).unwrap();
+    let data: Value = serde_json::to_value(new_token_res).unwrap();
 
     // Addds JSON data to the store
     with_store(app_handle, stores, path, |store| {
