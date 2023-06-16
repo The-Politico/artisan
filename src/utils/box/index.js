@@ -3,7 +3,9 @@ import store from '../../store';
 import { BOX_LIST_FOLDERS_API } from './constants';
 
 export async function getProjectFolders() {
-  const token = await store.settings.get('access-token');
+  const { access_toke: token, ...rest } = await store.settings.get(
+    'box_tokens',
+  );
 
   const r = await fetch(BOX_LIST_FOLDERS_API('210417182704'), {
     headers: {
@@ -11,7 +13,14 @@ export async function getProjectFolders() {
     },
   });
 
-  console.log(r.data);
+  if (!r.ok) {
+    // token probbly failed
+    // attempt token refresh here
+    // const { refresh_token } = rest;
+    // await invoke('refresh_token', refreshToken: refresh_token)
+  }
+
+  return r.data;
 }
 
 export async function fetchAccessToken(oauthCode, isRefresh = false) {

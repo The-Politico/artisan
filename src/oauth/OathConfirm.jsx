@@ -1,40 +1,24 @@
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
-import atoms from '../atoms';
 
 export default function OathConfirm() {
-  const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
-  const [oathCode, setOathCode] = useState();
+  const [authCode, setAuthCode] = useState();
 
   useEffect(() => {
-    if (!oathCode) {
+    if (!authCode) {
       const params = new Proxy(new URLSearchParams(window.location.search), {
         get: (searchParams, prop) => searchParams.get(prop),
       });
       const { code } = params;
-      setOathCode(code);
+      setAuthCode(code);
     } else {
-      console.log('URL: ', window.location);
-      console.log('Code: ', oathCode);
       const getToken = async () => {
-        const token = await invoke('request_token', { accessCode: oathCode });
-        console.log('Returned token: ', token);
-        setSettings({
-          'access-token': token,
-        });
+        await invoke('request_token', { accessCode: authCode });
       };
 
       getToken().catch(console.error);
     }
-  }, [oathCode]);
-
-  useEffect(() => {
-    if (settings['access-token'] !== '') {
-      setTimeout(() => {
-        console.log(settings);
-      }, 2000);
-    }
-  }, [settings]);
+  }, [authCode]);
 
   return <div>Success!</div>;
 }

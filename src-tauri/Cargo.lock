@@ -76,7 +76,6 @@ dependencies = [
  "tauri-build",
  "tauri-plugin-fs-watch",
  "tauri-plugin-store",
- "tokio",
 ]
 
 [[package]]

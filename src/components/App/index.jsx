@@ -17,6 +17,7 @@ export default function AppView() {
 
   const handleClick = async () => {
     const url = await invoke('get_auth_url');
+    // eslint-disable-next-line no-unused-vars
     const view = new WebviewWindow('oauth', {
       url,
       center: true,
@@ -31,15 +32,14 @@ export default function AppView() {
 
   const handleClick3 = async () => {
     setSettings({
-      'access-token': '',
+      box_tokens: {},
     });
-    console.log(settings);
   };
 
   return (
     <div className={styles.grid}>
       <Sidebar>
-        {!settings['access-token'] && (
+        {!settings.box_tokens.access_token && (
           <Button
             onClick={handleClick}
             value="Sign-in to Box"
