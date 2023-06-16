@@ -31,6 +31,9 @@ pub fn get_auth_url() -> String {
     authorize_url.to_string()
 }
 
+// This function is async so it doesn't block the main thread
+// We should ablo to continue to request new tokens without hitching any part
+// of the UI
 #[tauri::command(async)]
 pub async fn request_token(
     access_code: String,
@@ -39,20 +42,23 @@ pub async fn request_token(
 ) -> Result<(), String> {
     let client = box_client();
 
+    // Define input from frontend as auth code
     let code = AuthorizationCode::new(access_code);
+
+    // Async request to client
     let token_res = client
         .exchange_code(code.to_owned())
         .request_async(async_http_client)
         .await;
 
-    let path = PathBuf::from(".settings");
-
     let tokens = token_res.expect("Response should be valid tokens");
 
+    // Serialize response to json
+    // Expected API response: https://developer.box.com/reference/resources/access-token/
     let json = serde_json::to_value(tokens).unwrap();
 
     // Addds the first access_token to the store
-    with_store(app_handle, state, path, |store| {
+    with_store(app_handle, state, PathBuf::from(".settings"), |store| {
         store.insert("box_tokens".to_string(), json)
     })
     .map_err(|err| err.to_string())?;
