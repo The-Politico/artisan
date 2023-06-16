@@ -10,7 +10,7 @@ use dotenv_codegen::dotenv;
 use oauth2::reqwest::async_http_client;
 use oauth2::{
     AuthType, AuthUrl, AuthorizationCode, ClientId, ClientSecret, CsrfToken, RedirectUrl,
-    TokenResponse, TokenUrl, StandardTokenResponse,
+    StandardTokenResponse, TokenResponse, TokenUrl,
 };
 use tauri_plugin_store::{with_store, StoreCollection};
 
@@ -43,7 +43,7 @@ pub fn box_client() -> BasicClient {
         RedirectUrl::new("http://localhost:5173/src/oauth/index.html".to_string())
             .expect("Invalid redirect URL"),
     );
-    return client;
+    client
 }
 
 #[tauri::command]
@@ -54,8 +54,6 @@ pub fn get_auth_url() -> String {
 
     authorize_url.to_string()
 }
-
-
 
 #[tauri::command(async)]
 pub async fn request_token(
@@ -73,18 +71,16 @@ pub async fn request_token(
 
     let path = PathBuf::from(".settings");
 
-    let access_token = token_res.unwrap().access_token().secret().to_string();
+    let tokens = token_res.expect("Response should be valid tokens");
 
-    let refresh_token = token_res
-        .unwrap()
-        .refresh_token()
+    let json = serde_json::to_value(tokens).unwrap();
 
     // Addds the first access_token to the store
     with_store(app_handle, state, path, |store| {
-        store.insert("tokens".to_string(), json!({
-          "access_token": "foobar",
-          "refresh_token": "barfoo",
-        }))
+        store.insert(
+            "box_tokens".to_string(),
+            json,
+        )
     })
     .map_err(|err| err.to_string())?;
 

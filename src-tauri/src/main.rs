@@ -29,8 +29,7 @@ fn main() {
         ("first-run".to_string(), true.into()),
         ("aws-id".to_string(), "".into()),
         ("aws-secret".to_string(), "".into()),
-        ("access_token".to_string(), "".into()),
-        ("refresh_token".to_string(), "".into()),
+        ("box_tokens".to_string(), json!({})),
         ("preferred-port".to_string(), "8765".into()),
         (
             "working-directory".to_string(),
