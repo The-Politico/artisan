@@ -3,7 +3,6 @@
     windows_subsystem = "windows"
 )]
 
-use oauth2::StandardTokenResponse;
 use serde_json::json;
 use std::collections::HashMap;
 use tauri::{
@@ -12,6 +11,7 @@ use tauri::{
 };
 use tauri_plugin_store::StoreBuilder;
 mod commands;
+mod box_oauth;
 
 fn main() {
     let context = tauri::generate_context!();
@@ -67,7 +67,11 @@ fn main() {
             Ok(())
         })
         .plugin(tauri_plugin_fs_watch::init())
-        .invoke_handler(tauri::generate_handler![commands::get_etag, commands::get_auth_url, commands::request_token])
+        .invoke_handler(tauri::generate_handler![
+            commands::get_etag,
+            commands::get_auth_url,
+            commands::request_token
+        ])
         .run(context)
         .expect("error while running tauri application");
 }
