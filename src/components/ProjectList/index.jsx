@@ -4,11 +4,14 @@ import {
 } from '../../theme';
 import ProjectListItem from '../ProjectListItem';
 import atoms from '../../atoms';
+import boxprojectsAtom from '../../atoms/boxProjects/atom';
 
 export default function ProjectList() {
   const projectsList = atoms.useRecoilValue(
     atoms.projectsList,
   );
+
+  const boxes = atoms.useRecoilValue(boxprojectsAtom);
 
   return (
     <div>
@@ -33,6 +36,9 @@ export default function ProjectList() {
             key={id}
             id={id}
           />
+        ))}
+        {boxes.length > 0 && boxes.map((id) => (
+          <div key={id}>{id}</div>
         ))}
       </ul>
     </div>

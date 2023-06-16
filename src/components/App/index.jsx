@@ -12,7 +12,7 @@ import atoms from '../../atoms';
 import { getProjectFolders } from '../../utils/box';
 
 export default function AppView() {
-  const settings = atoms.useRecoilValue(atoms.settings);
+  const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
 
   useActivateTime();
 
@@ -39,7 +39,7 @@ export default function AppView() {
   return (
     <div className={styles.grid}>
       <Sidebar>
-        {!settings.box_tokens.access_token && (
+        {!settings.box_tokens?.access_token && (
           <Button
             onClick={handleClick}
             value="Sign-in to Box"

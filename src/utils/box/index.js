@@ -1,9 +1,11 @@
 import { fetch } from '@tauri-apps/api/http';
+import { invoke } from '@tauri-apps/api/tauri';
 import store from '../../store';
 import { BOX_LIST_FOLDERS_API } from './constants';
+import { handleInvalidTokenError } from './handleError';
 
 export async function getProjectFolders() {
-  const { access_token: token, ...rest } = await store.settings.get(
+  const { access_token: token } = await store.settings.get(
     'box_tokens',
   );
 
@@ -13,14 +15,13 @@ export async function getProjectFolders() {
     },
   });
 
-  console.log(r);
-
-  if (!r.ok) {
+  if (r.status === 401) {
     console.log(r);
-  // token probbly failed
-  // attempt token refresh here
-  // const { refresh_token } = rest;
-  // await invoke('refresh_token', refreshToken: refresh_token)
+
+    // token probbly failed
+    // attempt token refresh here
+    await invoke('refresh_token');
+    return getProjectFolders();
   }
 
   return r.data;

@@ -3,6 +3,7 @@
     windows_subsystem = "windows"
 )]
 
+use oauth2::basic::BasicClient;
 use serde_json::json;
 use std::collections::HashMap;
 use tauri::{
@@ -10,6 +11,8 @@ use tauri::{
     Env,
 };
 use tauri_plugin_store::StoreBuilder;
+
+use crate::box_oauth::box_client;
 mod commands;
 mod box_oauth;
 
@@ -42,7 +45,10 @@ fn main() {
         ("process".to_string(), json!(null)),
     ]);
 
+    let client: BasicClient = box_client();
+
     tauri::Builder::default()
+        .manage(client)
         .setup(|app| {
             let handle = app.handle();
             let settings = StoreBuilder::new(app.handle(), ".settings".parse()?)
@@ -70,7 +76,8 @@ fn main() {
         .invoke_handler(tauri::generate_handler![
             commands::get_etag,
             commands::get_auth_url,
-            commands::request_token
+            commands::request_token,
+            commands::refresh_token,
         ])
         .run(context)
         .expect("error while running tauri application");

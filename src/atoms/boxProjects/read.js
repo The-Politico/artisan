@@ -1,7 +1,12 @@
 import { getProjectFolders } from '../../utils/box';
 
 export default async function readIllustrations() {
-  const r = await getProjectFolders();
-  const items = Object.entries(r.entries).map((_, { name }) => name);
-  return items;
+  try {
+    const r = await getProjectFolders();
+    const items = r.entries.map(({ name }) => name);
+    return items;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
 }

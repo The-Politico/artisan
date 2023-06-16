@@ -1,5 +1,4 @@
 import { atom } from 'recoil';
-import atomSyncStoreEffect from '../../utils/store/atomSyncStoreEffect';
 import read from './read';
 
 const KEY = 'boxprojects';
@@ -17,7 +16,8 @@ const boxprojectsAtom = atom({
         console.log('Fetching folder list again');
         const data = await read();
         setSelf(data);
-      }, 15000);
+      }, 1800000);
+      return () => clearInterval(nIntervId);
     },
   ],
 });
