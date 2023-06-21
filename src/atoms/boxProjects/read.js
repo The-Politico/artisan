@@ -1,4 +1,4 @@
-import { getProjectFolders } from '../../utils/box';
+import { getProjectFolders } from '../../box-api';
 
 export default async function readIllustrations() {
   try {
@@ -6,7 +6,6 @@ export default async function readIllustrations() {
     const items = r.entries.map(({ name }) => name);
     return items;
   } catch (error) {
-    console.log(error);
     return [];
   }
 }

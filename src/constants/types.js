@@ -7,6 +7,7 @@ import {
   nullable,
   number,
   dict,
+  voidable,
 } from '@recoiljs/refine';
 import { ALL_STATUSES } from './statuses';
 
@@ -39,10 +40,11 @@ export const TYPE_SETTINGS_STORE_KEYS = {
   'preferred-port': string(),
   'aws-id': string(),
   'aws-secret': string(),
-  'box-client-id': string(),
-  'box-client-secret': string(),
-  'access-token': string(),
-  'refresh-token': string(),
+  stream_pos: string(),
+  box_tokens: voidable(object({
+    access_token: voidable(string()),
+    refresh_token: voidable(string()),
+  })),
 };
 
 // Valid object containing all the settings for a complete store

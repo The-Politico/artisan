@@ -1,7 +1,6 @@
 import { fetch } from '@tauri-apps/api/http';
-import { invoke } from '@tauri-apps/api/tauri';
-import store from '../../store';
-import { BOX_LIST_FOLDERS_API } from './constants';
+import store from '../store';
+import { BOX_LIST_FOLDERS_API, PROJECTS_FOLDER_ID_DEV } from './constants';
 import { handleInvalidTokenError } from './handleError';
 
 export async function getProjectFolders() {
@@ -9,19 +8,14 @@ export async function getProjectFolders() {
     'box_tokens',
   );
 
-  const r = await fetch(BOX_LIST_FOLDERS_API('210417182704'), {
+  const r = await fetch(BOX_LIST_FOLDERS_API(PROJECTS_FOLDER_ID_DEV), {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   });
 
   if (r.status === 401) {
-    console.log(r);
-
-    // token probbly failed
-    // attempt token refresh here
-    await invoke('refresh_token');
-    return getProjectFolders();
+    return handleInvalidTokenError(getProjectFolders);
   }
 
   return r.data;

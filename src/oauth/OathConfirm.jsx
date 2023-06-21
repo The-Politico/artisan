@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { invoke } from '@tauri-apps/api/tauri';
+import { appWindow } from '@tauri-apps/api/window';
 
 export default function OathConfirm() {
   const [authCode, setAuthCode] = useState();
@@ -14,11 +15,12 @@ export default function OathConfirm() {
     } else {
       const getToken = async () => {
         await invoke('request_token', { accessCode: authCode });
+        appWindow.close();
       };
 
       getToken().catch(console.error);
     }
   }, [authCode]);
 
-  return <div>Success!</div>;
+  return <div />;
 }

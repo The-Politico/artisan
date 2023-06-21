@@ -29,7 +29,6 @@ fn main() {
     .expect("failed to resolve path");
 
     let default_settings = HashMap::from([
-        ("first-run".to_string(), true.into()),
         ("aws-id".to_string(), "".into()),
         ("aws-secret".to_string(), "".into()),
         ("box_tokens".to_string(), json!({})),

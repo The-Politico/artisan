@@ -1,5 +1,6 @@
 import { atom } from 'recoil';
 import read from './read';
+import { subscribeToEvents } from '../../box-api/sync';
 
 const KEY = 'boxprojects';
 
@@ -12,12 +13,7 @@ const boxprojectsAtom = atom({
   default: read(),
   effects: [
     ({ setSelf }) => {
-      const nIntervId = setInterval(async () => {
-        console.log('Fetching folder list again');
-        const data = await read();
-        setSelf(data);
-      }, 1800000);
-      return () => clearInterval(nIntervId);
+      // subscribeToEvents(read, setSelf);
     },
   ],
 });

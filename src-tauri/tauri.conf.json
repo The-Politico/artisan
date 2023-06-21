@@ -29,7 +29,7 @@
       "http": {
         "all": false,
         "request": true,
-        "scope": ["https://api.box.com/*"]
+        "scope": ["https://api.box.com/*", " https://2.realtime.services.box.net/*"]
       },
       "shell": {
         "execute": true,
