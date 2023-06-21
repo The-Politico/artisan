@@ -1,6 +1,14 @@
 import { fetch } from '@tauri-apps/api/http';
 import store from '../store';
 
+/**
+ * This code is a WIP.
+ * It's a basic implimentation of long polling the events API
+ * using the realtime to wait for a 'new_change' response,
+ * which then requests the latest events from the API via the established
+ * stream posistion when the app boots
+ */
+
 export async function getUserEvents(streamPos) {
   const { access_token: token } = await store.settings.get('box_tokens');
 
@@ -25,7 +33,7 @@ export async function getUserEvents(streamPos) {
   return response.data;
 }
 
-export async function subscribeToEvents(read, setSelf) {
+export async function subscribeToEvents() {
   const { access_token: token } = await store.settings.get('box_tokens');
 
   const headers = { Authorization: `Bearer ${token}` };

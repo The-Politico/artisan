@@ -34,12 +34,6 @@ export default function AppView() {
     await subscribeToEvents();
   };
 
-  // log API call response
-  const handleClick3 = async () => {
-    const d = await getProjectFolders();
-    console.log(d);
-  };
-
   return (
     <div className={styles.grid}>
       <Sidebar>
@@ -72,11 +66,6 @@ export default function AppView() {
             },
           })}
           value="force token refresh"
-        />
-        <br />
-        <Button
-          onClick={handleClick3}
-          value="log folders"
         />
         <ProjectList />
       </Sidebar>

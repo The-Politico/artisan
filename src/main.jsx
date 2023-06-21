@@ -6,13 +6,13 @@ import App from './components/App';
 import './main.css';
 
 import fsSync from './sync/fs';
-import { getUserEvents } from './box-api/sync';
+// import { getUserEvents } from './box-api/sync';
 
 // Start FS Syncing
 fsSync();
 
 // Start box event stream posistion
-getUserEvents();
+// getUserEvents();
 
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
