@@ -11,7 +11,10 @@ const isConfigured = selector({
   key: KEY,
   get: ({ get }) => {
     const settings = get(settingsAtom);
-    return (!!settings['aws-id'] && !!settings['aws-secret']);
+    return (
+      !!settings['aws-id'] && !!settings['aws-secret']
+      && !!Object.keys(settings.box_tokens).length
+    );
   },
 });
 

@@ -1,5 +1,5 @@
-use std::path::PathBuf;
 use serde_json::Value;
+use std::path::PathBuf;
 use tauri::{AppHandle, State, Wry};
 use tauri_plugin_store::{with_store, StoreCollection};
 
@@ -86,10 +86,11 @@ pub async fn refresh_token(
     let new_token_res = client
         .exchange_refresh_token(refresh_token)
         .request_async(async_http_client)
-        .await;
+        .await
+        .map_err(|err| err.to_string())?;
 
-    // Unwraps token response result to type
-    let new_token_res = new_token_res.map_err(|err| err.to_string())?;
+    // Redeclares variable for unwrapping
+    let new_token_res = new_token_res;
 
     // Converts TokenResponse to JSON value
     let data: Value = serde_json::to_value(new_token_res).unwrap();

@@ -23,6 +23,8 @@ export async function getUserEvents(streamPos) {
     headers,
   });
 
+  // Sets initial stream posistion on app init
+  // For use in main.jsx
   if (!streamPos) {
     const pos = response.data.next_stream_position.toString();
     console.log('storing steam pos: ', pos);
@@ -38,13 +40,17 @@ export async function subscribeToEvents() {
 
   const headers = { Authorization: `Bearer ${token}` };
 
+  // OPTIONS request for real time servers
   const response = await fetch('https://api.box.com/2.0/events', {
     method: 'OPTIONS',
     headers,
   });
 
+  // Get first realtime server URL
   const { url } = response.data.entries[0];
 
+  // This connection remains open until a
+  // user event is triggered
   const rtResponse = await fetch(url, {
     method: 'GET',
   });
@@ -66,12 +72,13 @@ export async function subscribeToEvents() {
     const pos = await store.settings.get('stream_pos');
 
     // see the event(s)
-    const now = await getUserEvents(pos);
-    console.log(now);
+    const events = await getUserEvents(pos);
+    // doSomethingWithEvents(events)
+    console.log(events);
 
     // update with new stream event
     await store.settings.set({
-      stream_pos: now.next_stream_position.toString(),
+      stream_pos: events.next_stream_position.toString(),
     });
 
     // go again

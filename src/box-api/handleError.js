@@ -1,8 +1,11 @@
 import { invoke } from '@tauri-apps/api/tauri';
 
 export async function handleInvalidTokenError(cb) {
-  console.log('401 error caught, refreshing token');
-  await invoke('refresh_token');
-  console.log('token refresh complete, retrying api call');
+  try {
+    await invoke('refresh_token');
+  } catch (error) {
+    throw new Error('Unable to refresh access token, must sign in again');
+  }
+
   return cb();
 }

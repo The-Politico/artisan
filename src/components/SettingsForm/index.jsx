@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import cls from 'classnames';
+import { invoke } from '@tauri-apps/api';
+import { WebviewWindow } from '@tauri-apps/api/window';
 import styles from './styles.module.css';
 import { margin, padding, typography as type } from '../../theme';
 import Input from '../Input';
@@ -10,9 +12,7 @@ import atoms from '../../atoms';
 import ensureDir from '../../utils/fs/ensureDir';
 
 export default function SettingsForm({ isWelcome = false }) {
-  const [settings, setSettings] = atoms.useRecoilState(
-    atoms.settings,
-  );
+  const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
 
   const [awsId, setAwsId] = useState(settings['aws-id']);
   const [awsSecret, setAwsSecret] = useState(settings['aws-secret']);
@@ -28,9 +28,21 @@ export default function SettingsForm({ isWelcome = false }) {
       'aws-secret': awsSecret,
       'preferred-port': port,
       'working-directory': projectsDir,
+      box_tokens: {},
     });
 
     await ensureDir(projectsDir);
+
+    if (isWelcome) {
+      const url = await invoke('get_auth_url');
+      // eslint-disable-next-line no-unused-vars
+      const view = new WebviewWindow('oauth', {
+        url,
+        center: true,
+        focus: true,
+        alwaysOnTop: true,
+      });
+    }
   };
 
   return (
@@ -70,7 +82,7 @@ export default function SettingsForm({ isWelcome = false }) {
         variant="solid"
         onClick={handleClick}
       >
-        {isWelcome ? 'Start' : 'Save'}
+        {isWelcome ? 'Sign in to Box' : 'Save'}
       </Button>
     </>
   );

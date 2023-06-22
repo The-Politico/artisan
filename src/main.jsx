@@ -11,9 +11,6 @@ import fsSync from './sync/fs';
 // Start FS Syncing
 fsSync();
 
-// Start box event stream posistion
-// getUserEvents();
-
 ReactDOM.createRoot(window.document.getElementById('root')).render(
   <React.StrictMode>
     <RecoilRoot>
