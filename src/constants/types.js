@@ -42,7 +42,7 @@ export const TYPE_SETTINGS_STORE_KEYS = {
   'aws-secret': string(),
   stream_pos: string(),
   box_tokens: voidable(object({
-    access_token: voidable(string()),
+    access_token: voidable(string()), // These are voidable just for testing
     refresh_token: voidable(string()),
   })),
 };
