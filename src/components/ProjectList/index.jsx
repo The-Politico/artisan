@@ -31,12 +31,12 @@ export default function ProjectList() {
         </h4>
       </div>
       <ul>
-        {projectsList.length > 0 && projectsList.map((id) => (
+        {/* {projectsList.length > 0 && projectsList.map((id) => (
           <ProjectListItem
             key={id}
             id={id}
           />
-        ))}
+        ))} */}
         {boxes.length > 0 && boxes.map((id) => (
           <div key={id}>{id}</div>
         ))}
