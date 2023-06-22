@@ -4,7 +4,7 @@ import read from './read';
 const KEY = 'boxprojects';
 
 /**
- * The list of illustrations
+ * A testing atom for the API
  * @type {atom}
  */
 const boxprojectsAtom = atom({
