@@ -6,7 +6,6 @@ import App from './components/App';
 import './main.css';
 
 import fsSync from './sync/fs';
-// import { getUserEvents } from './box-api/sync';
 
 // Start FS Syncing
 fsSync();
