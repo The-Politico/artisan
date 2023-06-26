@@ -53,6 +53,8 @@ export default function AppView() {
       headers,
     });
     console.log(locks.data);
+    // Lock ID comes either from initial create repsone or
+    // via `GET` on a given folder ID
     // const r = await fetch(`${BOX_LOCK_FOLDER}/2805965804`, {
     //   headers,
     //   method: 'DELETE',
