@@ -15,7 +15,7 @@ use tauri::{
 };
 use tauri_plugin_store::StoreBuilder;
 
-use crate::commands::get_etag;
+use crate::commands::hash;
 use crate::commands::oauth::{get_auth_url, refresh_token, request_token};
 use crate::oauth_client::box_client;
 
@@ -76,7 +76,7 @@ fn main() {
         })
         .plugin(tauri_plugin_fs_watch::init())
         .invoke_handler(tauri::generate_handler![
-            get_etag,
+            hash::md5,
             get_auth_url,
             request_token,
             refresh_token

@@ -18,7 +18,7 @@ pub fn box_client() -> BasicClient {
     )
     .set_auth_type(AuthType::RequestBody)
     .set_redirect_uri(
-        RedirectUrl::new("http://localhost:5173/src/oauth/index.html".to_string())
+        RedirectUrl::new("http://localhost:5173/oauth/".to_string())
             .expect("Invalid redirect URL"),
     )
 }
