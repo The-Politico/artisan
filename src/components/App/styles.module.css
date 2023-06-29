@@ -1,8 +1,16 @@
 .grid {
-  min-height: 100vh;
+  min-height: calc(100vh);
   display: grid;
   grid-template-columns: 240px repeat(3, minmax(0, 1fr));
-  grid-template-rows: repeat(1, minmax(0, 1fr));
+  grid-template-rows: 1.75rem repeat(1, minmax(0, 1fr));
   justify-items: center;
   align-items: center;
+}
+
+.titlebar {
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 100%;
+  -webkit-user-select: none;
+  cursor: default;
 }

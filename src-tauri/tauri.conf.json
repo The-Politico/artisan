@@ -134,7 +134,9 @@
         "fullscreen": false,
         "height": 800,
         "resizable": false,
-        "title": "",
+        "hiddenTitle": true,
+        "titleBarStyle": "Overlay",
+        "acceptFirstMouse": true,
         "theme": "Light",
         "width": 780
       }
