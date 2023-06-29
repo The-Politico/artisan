@@ -16,6 +16,7 @@ export const TYPE_STORE_NAME = stringLiterals({
   settings: 'settings',
   illustrations: 'illustrations',
   preview: 'preview',
+  auth: 'auth',
 });
 
 // A collection of illustration IDs
@@ -58,6 +59,17 @@ export const TYPE_PREVIEW_STORE_KEYS = {
 
 // Valid object containing all the values for a complete preview
 export const TYPE_PREVIEW_STORE = object(TYPE_PREVIEW_STORE_KEYS);
+
+export const TYPE_AUTH_STORE_KEYS = {
+  box_tokens: voidable(object({
+    access_token: voidable(string()), // These are voidable just for testing
+    refresh_token: voidable(string()),
+  })),
+  username: string(),
+  user_id: string(),
+};
+
+export const TYPE_AUTH_STORE = object(TYPE_AUTH_STORE_KEYS);
 
 // Valid status type for projects and illustrations
 export const TYPE_ENTITY_STATUS = stringLiterals(

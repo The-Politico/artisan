@@ -30,7 +30,7 @@ pub async fn request_token(
     stores: State<'_, StoreCollection<Wry>>,
     client: State<'_, BasicClient>,
 ) -> Result<(), String> {
-    let path: PathBuf = PathBuf::from(".settings");
+    let path: PathBuf = PathBuf::from(".auth");
     // Define input from frontend as auth code
     let code = AuthorizationCode::new(access_code);
 
@@ -67,7 +67,7 @@ pub async fn refresh_token(
     stores: State<'_, StoreCollection<Wry>>,
     client: State<'_, BasicClient>,
 ) -> Result<(), String> {
-    let path: PathBuf = PathBuf::from(".settings");
+    let path: PathBuf = PathBuf::from(".auth");
 
     // Retrieve tokens from the store
     let tokens: Option<Value> = with_store(app_handle.clone(), stores.clone(), &path, |store| {
