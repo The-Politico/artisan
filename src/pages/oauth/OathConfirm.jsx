@@ -10,7 +10,7 @@ export default function OathConfirm() {
     const { code } = params;
     const getToken = async () => {
       await invoke('request_token', { accessCode: code });
-      appWindow.close();
+      await appWindow.close();
     };
 
     getToken().catch(console.error);
