@@ -1,4 +1,4 @@
-import { getProjectFolders } from '../../box-api';
+import { getProjectFolders } from '../../box';
 
 export default async function readIllustrations() {
   try {

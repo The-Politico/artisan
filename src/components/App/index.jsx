@@ -1,5 +1,3 @@
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import { appWindow } from '@tauri-apps/api/window';
 import { useEffect } from 'react';
 import { fetch } from '@tauri-apps/api/http';
 import ProjectList from '../ProjectList';
@@ -11,13 +9,15 @@ import { useActivateTime } from '../../atoms/now/init';
 import styles from './styles.module.css';
 import Button from '../Button';
 import atoms from '../../atoms';
-import { BOX_BASE_API } from '../../box-api/constants';
+import { BOX_BASE_API } from '../../box/DEV_constants';
+import Titlebar from '../Titlebar';
 
 export default function AppView() {
   const [auth, setAuth] = atoms.useRecoilState(atoms.auth);
 
   useActivateTime();
 
+  // DEV
   useEffect(() => {
     const getUserData = async () => {
       if (auth.username === '') {
@@ -41,16 +41,10 @@ export default function AppView() {
 
   return (
     <div className={styles.grid}>
-      <div
-        className={styles.titlebar}
-        onMouseDown={async (e) => {
-          console.log('mouse down');
-          e.preventDefault();
-          await appWindow.startDragging();
-        }}
-      />
+      <Titlebar />
       <Sidebar>
-        {/* <Button
+        {/* DEV START */}
+        <Button
           onClick={() => console.log(auth)}
           value="Log auth"
         />
@@ -73,7 +67,8 @@ export default function AppView() {
             },
           })}
           value="Force token refresh"
-        /> */}
+        />
+        {/* DEV END */}
         <ProjectList />
       </Sidebar>
       <ArtisanProject />

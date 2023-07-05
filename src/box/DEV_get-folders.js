@@ -1,6 +1,6 @@
 import { fetch } from '@tauri-apps/api/http';
 import store from '../store';
-import { BOX_LIST_FOLDERS_API, PROJECTS_FOLDER_ID_DEV } from './constants';
+import { BOX_LIST_FOLDERS_API, PROJECTS_FOLDER_ID_DEV } from './DEV_constants';
 import { handleInvalidTokenError } from './handleError';
 
 export async function getProjectFolders() {

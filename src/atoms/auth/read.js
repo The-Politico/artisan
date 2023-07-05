@@ -1,7 +1,7 @@
 import store from '../../store';
 
 /**
- * Gets the user's active settings
+ * Gets the user's auth config
  * @function
  * @returns {Object}
  */
