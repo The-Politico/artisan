@@ -15,8 +15,10 @@ use tauri::{
 };
 use tauri_plugin_store::StoreBuilder;
 
-use crate::commands::hash;
-use crate::commands::oauth::{get_auth_url, refresh_token, request_token};
+use crate::commands::{
+    hash,
+    oauth::{get_auth_url, refresh_token, request_token},
+};
 use crate::oauth_client::box_client;
 
 fn main() {
@@ -46,7 +48,7 @@ fn main() {
         ("process".to_string(), json!(null)),
     ]);
 
-    let default_auth = HashMap::from ([
+    let default_auth = HashMap::from([
         ("box_tokens".to_string(), json!({})),
         ("username".to_string(), "".into()),
         ("user_id".to_string(), "".into()),
@@ -69,8 +71,8 @@ fn main() {
             let illustrations = StoreBuilder::new(app.handle(), ".illustrations".parse()?).build();
 
             let auth = StoreBuilder::new(app.handle(), ".auth".parse()?)
-            .defaults(default_auth)
-            .build();
+                .defaults(default_auth)
+                .build();
 
             std::thread::spawn(move || {
                 handle.plugin(
