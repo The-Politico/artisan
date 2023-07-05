@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "vite build -c=vite.config.js",
-    "preview": "vite preview",
+    "vite:build": "vite build -c=vite.config.js",
+    "vite:preview": "vite preview",
     "tauri": "tauri",
     "lint-scripts": "npx eslint \"./src/**/*.js?(x)\"",
     "share:dev": "npx vite dev src/share -c=vite.config.share.js",
