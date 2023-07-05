@@ -20,9 +20,7 @@ export async function getProjectFolders() {
       return f;
     } catch (error) {
       // If unable to refresh token, prompt for re-sign in.
-      await store.settings.set({
-        box_tokens: {},
-      });
+      await store.auth.reset();
       return [];
     }
   }

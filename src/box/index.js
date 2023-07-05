@@ -1,1 +1,1 @@
-export * from './test-get-folders';
+export * from './DEV_get-folders';
