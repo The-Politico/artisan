@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
-import ids from '../utils/ids';
-import getLocalPreviewUrl from '../utils/paths/getLocalPreviewUrl';
+import ids from '../../utils/ids';
+import getLocalPreviewUrl from '../../utils/paths/getLocalPreviewUrl';
 
-import store from '../store';
+import store from '../../store';
 import styles from './styles.module.css';
-import IllustrationPreview from '../components/IllustrationPreview';
-import PreviewToolbar from '../components/PreviewToolbar';
+import IllustrationPreview from '../../components/IllustrationPreview';
+import PreviewToolbar from '../../components/PreviewToolbar';
 
 import {
   NO_BREAKPOINT,
   MOBILE_PORTRAIT,
   TABLET_PORTRAIT,
-} from '../components/IllustrationPreview/_constants/breakpoints';
+} from '../../components/IllustrationPreview/_constants/breakpoints';
 
 const embedList = [
   'standard',
@@ -112,7 +112,7 @@ function PreviewWindow() {
         setTimeout(() => {
           window.newswireFrames.autoInitFrames();
         }, 1000);
-  
+
 
         </script>
       `}

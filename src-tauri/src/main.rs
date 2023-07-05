@@ -15,8 +15,10 @@ use tauri::{
 };
 use tauri_plugin_store::StoreBuilder;
 
-use crate::commands::get_etag;
-use crate::commands::oauth::{get_auth_url, refresh_token, request_token};
+use crate::commands::{
+    hash,
+    oauth::{get_auth_url, refresh_token, request_token},
+};
 use crate::oauth_client::box_client;
 
 fn main() {
@@ -34,7 +36,6 @@ fn main() {
     let default_settings = HashMap::from([
         ("aws-id".to_string(), "".into()),
         ("aws-secret".to_string(), "".into()),
-        ("box_tokens".to_string(), json!({})),
         ("preferred-port".to_string(), "8765".into()),
         (
             "working-directory".to_string(),
@@ -45,6 +46,12 @@ fn main() {
     let default_preview = HashMap::from([
         ("project".to_string(), json!(null)),
         ("process".to_string(), json!(null)),
+    ]);
+
+    let default_auth = HashMap::from([
+        ("box_tokens".to_string(), json!({})),
+        ("username".to_string(), "".into()),
+        ("user_id".to_string(), "".into()),
     ]);
 
     let client: BasicClient = box_client();
@@ -63,10 +70,14 @@ fn main() {
 
             let illustrations = StoreBuilder::new(app.handle(), ".illustrations".parse()?).build();
 
+            let auth = StoreBuilder::new(app.handle(), ".auth".parse()?)
+                .defaults(default_auth)
+                .build();
+
             std::thread::spawn(move || {
                 handle.plugin(
                     tauri_plugin_store::Builder::default()
-                        .stores([settings, illustrations, preview])
+                        .stores([settings, illustrations, preview, auth])
                         .freeze()
                         .build(),
                 )
@@ -76,7 +87,7 @@ fn main() {
         })
         .plugin(tauri_plugin_fs_watch::init())
         .invoke_handler(tauri::generate_handler![
-            get_etag,
+            hash::md5,
             get_auth_url,
             request_token,
             refresh_token

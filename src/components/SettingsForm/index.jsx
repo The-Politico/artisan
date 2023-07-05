@@ -28,7 +28,6 @@ export default function SettingsForm({ isWelcome = false }) {
       'aws-secret': awsSecret,
       'preferred-port': port,
       'working-directory': projectsDir,
-      box_tokens: {},
     });
 
     await ensureDir(projectsDir);

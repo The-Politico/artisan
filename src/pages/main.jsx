@@ -2,10 +2,10 @@ import React from 'react';
 import { RecoilRoot } from 'recoil';
 import ReactDOM from 'react-dom/client';
 
-import App from './components/App';
+import App from '../components/App';
 import './main.css';
 
-import fsSync from './sync/fs';
+import fsSync from '../sync/fs';
 
 // Start FS Syncing
 fsSync();

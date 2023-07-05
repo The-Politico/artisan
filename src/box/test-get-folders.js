@@ -4,7 +4,7 @@ import { BOX_LIST_FOLDERS_API, PROJECTS_FOLDER_ID_DEV } from './constants';
 import { handleInvalidTokenError } from './handleError';
 
 export async function getProjectFolders() {
-  const { access_token: token } = await store.settings.get(
+  const { access_token: token } = await store.auth.get(
     'box_tokens',
   );
 

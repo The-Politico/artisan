@@ -1,4 +1,4 @@
-@import './theme';
+@import '../theme';
 
 body {
   background-color: var(--slate-200);
