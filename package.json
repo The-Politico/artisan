@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "vite:build": "vite build -c=vite.config.js",
+    "vite:build": "vite build",
     "vite:preview": "vite preview",
     "tauri": "tauri",
     "lint-scripts": "npx eslint \"./src/**/*.js?(x)\"",
