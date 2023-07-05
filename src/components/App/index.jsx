@@ -18,13 +18,15 @@ export default function AppView() {
   useActivateTime();
 
   // DEV
+  // Adds Box user info to .auth store after sign-in
   useEffect(() => {
     const getUserData = async () => {
       if (auth.username === '') {
+        const { access_token: token } = auth.box_tokens;
         const r = await fetch(`${BOX_BASE_API}/users/me`, {
           method: 'GET',
           headers: {
-            Authorization: `Bearer ${auth.box_tokens.access_token}`,
+            Authorization: `Bearer ${token}`,
           },
         });
         const { id, name: username } = r.data;
