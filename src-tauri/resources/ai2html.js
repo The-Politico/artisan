@@ -57,7 +57,7 @@ function main() {
     "settings_version": scriptVersion,
     "create_promo_image": false,
     "promo_image_width": 1024,
-    "image_format": ["auto"],  // Options: auto, png, png24, jpg, svg
+    "image_format": ["png"],  // Options: auto, png, png24, jpg, svg
     "write_image_files": true,
     "responsiveness": "fixed", // Options: fixed, dynamic
     "max_width": "",
@@ -3251,12 +3251,7 @@ function main() {
   }
   
   function getPromoImageFormat(ab, settings) {
-    var fmt = settings.image_format[0];
-    if (fmt == 'svg' || !fmt) {
-      fmt = 'png';
-    } else {
-      fmt = resolveArtboardImageFormat(fmt, ab);
-    }
+    var fmt = 'png';
     return fmt;
   }
   
@@ -3264,7 +3259,7 @@ function main() {
   function resolveArtboardImageFormat(setting, ab) {
     var fmt;
     if (setting == 'auto') {
-      fmt = artboardContainsVisibleRasterImage(ab) ? 'jpg' : 'png';
+      fmt = 'png';
     } else {
       fmt = setting;
     }
