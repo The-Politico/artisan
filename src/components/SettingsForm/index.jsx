@@ -2,9 +2,7 @@ import { useState } from 'react';
 import cls from 'classnames';
 import { invoke } from '@tauri-apps/api';
 import { WebviewWindow } from '@tauri-apps/api/window';
-import styles from './styles.module.css';
 import { margin, padding, typography as type } from '../../theme';
-import Input from '../Input';
 import Advanced from './Advanced';
 import Button from '../Button';
 import WorkingDir from './WorkingDir';
@@ -14,9 +12,6 @@ import ensureDir from '../../utils/fs/ensureDir';
 export default function SettingsForm({ isWelcome = false }) {
   const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
 
-  const [awsId, setAwsId] = useState(settings['aws-id']);
-  const [awsSecret, setAwsSecret] = useState(settings['aws-secret']);
-
   const [projectsDir, setProjectsDir] = useState(
     settings['working-directory'],
   );
@@ -24,8 +19,6 @@ export default function SettingsForm({ isWelcome = false }) {
 
   const handleClick = async () => {
     setSettings({
-      'aws-id': awsId,
-      'aws-secret': awsSecret,
       'preferred-port': port,
       'working-directory': projectsDir,
     });
@@ -46,21 +39,6 @@ export default function SettingsForm({ isWelcome = false }) {
 
   return (
     <>
-      <Input
-        label="AWS Access Key Id"
-        setValue={setAwsId}
-        value={awsId}
-        type="password"
-        className={styles.settingsInput}
-      />
-      <Input
-        label="AWS Secret Access Key"
-        setValue={setAwsSecret}
-        value={awsSecret}
-        type="password"
-        className={styles.settingsInput}
-      />
-      <div className={styles.divider} />
       {!isWelcome ? (
         <Advanced
           projectsDir={projectsDir}
