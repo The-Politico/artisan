@@ -11,7 +11,11 @@ import getIllosInProject from '../../utils/store/getIllosInProject';
 import ids from '../../utils/ids';
 import publishIllustration from '../illustrations/publishIllustration';
 
-import atoms from '../../atoms';
+import getProjectStatus from './getProjectStatus';
+import {
+  STATUS_PROJECT_PUBLISHED,
+  STATUS_PROJECT_CHANGES,
+} from '../../constants/statuses';
 
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
@@ -19,12 +23,17 @@ export default async function shareProject(projectId) {
   const illustrations = await getIllosInProject(projectId);
   const illoIds = illustrations.map(([id]) => ids.parse(id).illustration);
 
+  const projectStatus = await getProjectStatus(projectId);
+
   const config = {
     projectId,
     embedUrl: PUBLISH_EMBED_PATH,
     illos: illoIds,
-    pubStatus: atoms.useRecoilValue(atoms.projectPublishedStatus(projectId)),
+    isPublished: projectStatus === STATUS_PROJECT_PUBLISHED
+      || projectStatus === STATUS_PROJECT_CHANGES,
   };
+
+  console.log({ config });
 
   const sharePageHTML = `<!DOCTYPE html>
       <html>
