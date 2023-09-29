@@ -11,6 +11,8 @@ import getIllosInProject from '../../utils/store/getIllosInProject';
 import ids from '../../utils/ids';
 import publishIllustration from '../illustrations/publishIllustration';
 
+import atoms from '../../atoms';
+
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
 
@@ -21,6 +23,7 @@ export default async function shareProject(projectId) {
     projectId,
     embedUrl: PUBLISH_EMBED_PATH,
     illos: illoIds,
+    pubStatus: atoms.useRecoilValue(atoms.projectPublishedStatus(projectId)),
   };
 
   const sharePageHTML = `<!DOCTYPE html>

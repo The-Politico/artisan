@@ -11,12 +11,15 @@ export default function ArtboardPreview({
   projectId,
   embedUrl,
   selectedIllo,
+  pubStatus,
 }) {
   const projectSlug = slugify(projectId);
   const illoSlug = slugify(selectedIllo);
   const illoFileSlug = slugifyOutput(selectedIllo);
 
-  const embedRoot = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
+  const embedRoot = pubStatus ? `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`
+    : `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
+
   const imgSrc = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${FALLBACK_IMG_NAME}`;
 
   return (
