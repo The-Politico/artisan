@@ -12,10 +12,6 @@ import ids from '../../utils/ids';
 import publishIllustration from '../illustrations/publishIllustration';
 
 import getProjectStatus from './getProjectStatus';
-import {
-  STATUS_PROJECT_PUBLISHED,
-  STATUS_PROJECT_CHANGES,
-} from '../../constants/statuses';
 
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
@@ -29,11 +25,9 @@ export default async function shareProject(projectId) {
     projectId,
     embedUrl: PUBLISH_EMBED_PATH,
     illos: illoIds,
-    isPublished: projectStatus === STATUS_PROJECT_PUBLISHED
-      || projectStatus === STATUS_PROJECT_CHANGES,
-  };
+    projectStatus,
 
-  console.log({ config });
+  };
 
   const sharePageHTML = `<!DOCTYPE html>
       <html>

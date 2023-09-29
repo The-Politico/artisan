@@ -4,9 +4,17 @@ import ExportToolbar from '../ExportToolbar';
 import ArtboardPreview from '../ArtboadPreview';
 import EmbedCode from '../EmbedCode';
 
+import {
+  STATUS_PROJECT_UNKNOWN,
+  STATUS_PROJECT_PUBLISHED,
+  STATUS_PROJECT_CHANGES,
+} from '../../constants/statuses';
+
 export default function ExportPage({ config }) {
   const illosList = config.illos;
   const [selectedIllo, setSelectedIllo] = useState(illosList[0]);
+
+  if (config.projectStatus === STATUS_PROJECT_UNKNOWN) return null;
 
   return (
     <div>
@@ -21,11 +29,15 @@ export default function ExportPage({ config }) {
           {...config}
           selectedIllo={selectedIllo}
         />
-        <EmbedCode
-          selectedIllo={selectedIllo}
-          projectId={config.projectId}
-          embedUrl={config.embedUrl}
-        />
+
+        {config.projectStatus === STATUS_PROJECT_PUBLISHED
+        || config.projectStatus === STATUS_PROJECT_CHANGES ? (
+          <EmbedCode
+            selectedIllo={selectedIllo}
+            projectId={config.projectId}
+            embedUrl={config.embedUrl}
+          />
+          ) : null }
       </div>
     </div>
   );
