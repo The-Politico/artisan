@@ -9,12 +9,14 @@ export default async function upload({
   storageClass = 'STANDARD',
   metadata,
 }) {
+  console.log('Utils / S3 / Upload / Line 12');
   const client = await getClient();
 
   if (!client) {
     return false;
   }
 
+  console.log('Utils / S3 / Upload / Line 19');
   const commandInput = {
     Bucket: bucket,
     Key: key,
@@ -25,7 +27,9 @@ export default async function upload({
   };
 
   const command = new PutObjectCommand(commandInput);
-  await client.send(command);
+  const resp = await client.send(command);
+  console.log('Utils / S3 / Upload / Line 31');
+  console.log(resp);
 
   return true;
 }
