@@ -69,7 +69,7 @@ function main() {
     "image_output_path": "",
     "image_source_path": null,
     "image_alt_text": "",
-    "cache_bust_token": null,  // Append a token to the url of image urls: ?v=<cache_bust_token>
+    "cache_bust_token": 1,  // Append a token to the url of image urls: ?v=<cache_bust_token>
     "create_config_file": false,
     "config_file_path": "",
     "local_preview_template": "",
@@ -3561,7 +3561,6 @@ function main() {
     });
     return imgHtml;
   }
-  
   
   // Create an <img> tag for the artboard image
   function generateImageHtml(imgFile, imgId, imgClass, imgStyle, ab, settings) {
