@@ -40,13 +40,11 @@ export default function ArtboardPreview({
         {projectStatus === STATUS_PROJECT_DRAFT
         || projectStatus === STATUS_PROJECT_CHANGES
           ? (<a href={stagingLink}>See staged</a>) : null}
+        <br />
         {projectStatus === STATUS_PROJECT_PUBLISHED
         || projectStatus === STATUS_PROJECT_CHANGES
           ? (
-            <span>
-              <br />
-              <a href={liveLink}>See published</a>
-            </span>
+            <a href={liveLink}>See published</a>
           ) : null}
       </div>
     </div>
