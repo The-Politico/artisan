@@ -16,7 +16,6 @@ export default function AppView() {
 
   useActivateTime();
 
-  // DEV
   // Adds Box user info to .auth store after sign-in
   useEffect(() => {
     const getUserData = async () => {
