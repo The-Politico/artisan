@@ -50,10 +50,6 @@
   transform: rotate(180deg);
 }
 
-.dir-container {
-  margin-top: 1rem;
-}
-
 .dir {
   font-size: 12px;
   color: white;

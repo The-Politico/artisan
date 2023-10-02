@@ -52,7 +52,7 @@ export default function SettingsForm({ isWelcome = false }) {
         />
       )}
       <Button
-        className={cls(margin.mt4, {
+        className={cls(margin.mt6, {
           [type.textXl]: isWelcome,
           [padding.px8]: isWelcome,
         })}
