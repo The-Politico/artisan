@@ -4064,29 +4064,42 @@ function main() {
     // var css = "\t<style type='text/css'>\r";
     var css = ""; 
     var artboardInfo = getArtboardInfo(settings);
-  
+
+    var maximumMobileArtboardSize = 480; // anything bigger does not suite mobile
+    var mobileArtboardExists = false; 
+    
     for (i = 0; i < artboardInfo.length; i++){
-  
-      var mediaWidth = artboardInfo[i].effectiveWidth;
-      css += "\t@media (min-width: " + mediaWidth + "px) {\r";
-      
-      for (j= 0; j < artboardInfo.length; j++){
-  
-        var artboardWidth = artboardInfo[j].effectiveWidth;
-        var artboardID = doc.artboards[artboardInfo[j].id]
-        css += "\t\t#" + nameSpace + getArtboardFullName(artboardID, settings) + " {\r"; 
-  
-        if (mediaWidth == artboardInfo[j].effectiveWidth){
-          css += "\t\t\tdisplay: block;\r"; 
+    
+        var mediaWidth = artboardInfo[i].effectiveWidth;
+
+        // adjusting min width logic so that mobile artboard always gets min-width of 300px
+        if (mediaWidth < maximumMobileArtboardSize) {
+          mobileArtboardExists = true;
+          css += "\t@media (min-width: " + 300 + "px) {\r";
         } else {
-          css += "\t\t\tdisplay: none;\r"; 
+          css += "\t@media (min-width: " + mediaWidth + "px) {\r";
         }
-        css += "\t\t}\r"; 
-      }
-    css += "\t}\r"; 
+        
+        for (j= 0; j < artboardInfo.length; j++){
+    
+          var artboardWidth = artboardInfo[j].effectiveWidth;
+          var artboardID = doc.artboards[artboardInfo[j].id]
+          css += "\t\t#" + nameSpace + getArtboardFullName(artboardID, settings) + " {\r"; 
+    
+          if (mediaWidth == artboardInfo[j].effectiveWidth){
+            css += "\t\t\tdisplay: block;\r"; 
+          } else {
+            css += "\t\t\tdisplay: none;\r"; 
+          }
+          css += "\t\t}\r"; 
+        }
+      css += "\t}\r"; 
+    }
+  if (!mobileArtboardExists) {
+    alert('You do not have an artboard appropriate for mobile sizes (smaller than 480px), and therefore, will experience display errors when using Preview for mobile devices.')
+
   }
-    // css += "\t</style>"; 
-    return css;
+  return css;
   
   }
   
