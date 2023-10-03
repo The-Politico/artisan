@@ -41,7 +41,6 @@ export const TYPE_SETTINGS_STORE_KEYS = {
   'preferred-port': string(),
   'aws-id': string(),
   'aws-secret': string(),
-  stream_pos: string(),
   box_tokens: voidable(object({
     access_token: voidable(string()), // These are voidable just for testing
     refresh_token: voidable(string()),
