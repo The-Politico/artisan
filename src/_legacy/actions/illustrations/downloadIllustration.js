@@ -7,7 +7,7 @@ import {
 import ensureDir from '../../utils/fs/ensureDir';
 import s3 from '../../utils/s3';
 import getEtag from '../../utils/fs/getEtag';
-import getIllustrationStatus from './getIllustrationStatus';
+import getIllustrationStatus from '../../actions/illustrations/getIllustrationStatus';
 import getIllustrationPath from '../../utils/paths/getIllustrationPath';
 import getIllustrationKey from '../../utils/paths/getIllustrationKey';
 import getIllustrationFilePath

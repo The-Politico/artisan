@@ -1,6 +1,8 @@
 // Bucket name for staging output bucket
 export const AWS_STAGING_BUCKET = 'staging.interactives.politico.com';
 
+export const AWS_TEST_BUCKET = 'politico-archives';
+
 // Bucket name for production output bucket
 export const AWS_PRODUCTION_BUCKET = 'interactives.politico.com';
 

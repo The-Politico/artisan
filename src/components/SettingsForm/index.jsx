@@ -8,6 +8,7 @@ import Button from '../Button';
 import WorkingDir from './WorkingDir';
 import atoms from '../../atoms';
 import ensureDir from '../../utils/fs/ensureDir';
+import store from '../../store';
 
 export default function SettingsForm({ isWelcome = false }) {
   const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
@@ -37,6 +38,10 @@ export default function SettingsForm({ isWelcome = false }) {
     }
   };
 
+  const handleSignOut = async () => {
+    await store.auth.reset();
+  };
+
   return (
     <>
       {!isWelcome ? (
@@ -61,6 +66,18 @@ export default function SettingsForm({ isWelcome = false }) {
       >
         {isWelcome ? 'Sign in to Box' : 'Save'}
       </Button>
+      {!isWelcome && (
+        <Button
+          className={cls(margin.mt6, {
+            [type.textXl]: isWelcome,
+            [padding.px8]: isWelcome,
+          })}
+          variant="solid"
+          onClick={handleSignOut}
+        >
+          Sign Out
+        </Button>
+      )}
     </>
   );
 }

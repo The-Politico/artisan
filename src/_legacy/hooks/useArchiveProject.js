@@ -1,6 +1,6 @@
 import { useCallback } from 'react';
 
-import atoms from '../atoms';
+import atoms from '../../atoms';
 import archiveIllustration from '../actions/illustrations/archiveIllustration';
 import archiveProject from '../actions/projects/archiveProject';
 

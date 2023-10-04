@@ -1,8 +1,8 @@
 /* eslint-disable import/prefer-default-export */
-import { ARCHIVE_PROJECTS_DIRECTORY } from '../../constants/paths';
-import { AWS_ARTISAN_BUCKET } from '../../constants/aws';
-import s3 from '../s3';
-import ids from '../ids';
+import { ARCHIVE_PROJECTS_DIRECTORY } from '../../../constants/paths';
+import { AWS_ARTISAN_BUCKET } from '../../../constants/aws';
+import s3 from '../../../utils/s3';
+import ids from '../../../utils/ids';
 
 /**
  * Fetches all illustrations in the archive.

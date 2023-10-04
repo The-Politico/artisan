@@ -1,6 +1,6 @@
-import fetchArchive from '../utils/archive/fetchArchive';
-import deleteValue from './delete';
-import updateDict from './updateDict';
+import fetchArchive from '../../utils/archive/fetchArchive';
+import deleteValue from '../../store/delete';
+import updateDict from '../../store/updateDict';
 
 /**
  * Refreshes just a single IDd entity, to update it's data

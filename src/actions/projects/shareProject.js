@@ -5,11 +5,11 @@ import {
   SHARE_PAGE_ASSETS,
   PUBLISH_EMBED_PATH,
 } from '../../constants/paths';
-import { AWS_STAGING_BUCKET } from '../../constants/aws';
-import s3 from '../../utils/s3';
+import { AWS_STAGING_BUCKET, AWS_TEST_BUCKET } from '../../constants/aws';
 import getIllosInProject from '../../utils/store/getIllosInProject';
 import ids from '../../utils/ids';
 import publishIllustration from '../illustrations/publishIllustration';
+import fetchHermes from '../../hermes/fetchHermes';
 
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
@@ -56,10 +56,17 @@ export default async function shareProject(projectId) {
     },
   ));
 
-  await s3.upload({
-    bucket: AWS_STAGING_BUCKET,
-    key: shareKey,
+  await fetchHermes({
+    route: 'aws/upload',
+    method: 'POST',
     body: sharePageHTML,
     contentType: 'text/html',
+
+    bucket: AWS_TEST_BUCKET,
+    key: `testing/artisan/${shareKey}`,
+
+    // TODO: Bucket Swap
+    // bucket: AWS_STAGING_BUCKET,
+    // key: shareKey,
   });
 }

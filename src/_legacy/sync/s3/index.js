@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* TODO: Cloud Sync: Ignore this file for now */
 
-import store from '../../store';
+import store from '../../../store';
 
 export default async function s3SyncInterval() {
   // const syncs = () => {
