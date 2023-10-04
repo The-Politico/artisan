@@ -11,7 +11,7 @@ export default async function fetchHermes(args = {}) {
     contentType,
     method = 'GET',
     bodyType = 'text',
-    responseType = ResponseType.Text,
+    responseType: responseTypeOption,
     retry = true,
     ...options
   } = args;
@@ -30,7 +30,7 @@ export default async function fetchHermes(args = {}) {
       body: bodyContent
         ? Body[bodyType](bodyContent)
         : undefined,
-      responseType,
+      responseType: ResponseType[responseTypeOption],
     },
   );
 
