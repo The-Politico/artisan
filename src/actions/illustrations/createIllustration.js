@@ -1,5 +1,5 @@
 import { writeBinaryFile } from '@tauri-apps/api/fs';
-import { fetch, Body, ResponseType } from '@tauri-apps/api/http';
+import { ResponseType } from '@tauri-apps/api/http';
 import store from '../../store';
 import ensureDir from '../../utils/fs/ensureDir';
 import ids from '../../utils/ids';

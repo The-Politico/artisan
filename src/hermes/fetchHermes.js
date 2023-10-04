@@ -4,11 +4,6 @@ import store from '../store';
 
 const HERMES_BASE_API = 'https://47fw4xs4ofawc7gk5curn24ixm0gjfis.lambda-url.us-east-1.on.aws';
 
-const BODY_PARSERS = {
-  text: Body.text,
-  bytes: Body.bytes,
-};
-
 export default async function fetchHermes(args = {}) {
   const {
     route,
@@ -33,13 +28,11 @@ export default async function fetchHermes(args = {}) {
         ...options,
       },
       body: bodyContent
-        ? BODY_PARSERS[bodyType](bodyContent)
+        ? Body[bodyType](bodyContent)
         : undefined,
       responseType,
     },
   );
-
-  console.log({ resp });
 
   if (resp.status === 200) {
     return resp.data;
