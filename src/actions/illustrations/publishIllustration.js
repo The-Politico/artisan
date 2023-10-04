@@ -1,4 +1,6 @@
 import { readBinaryFile, readDir, exists } from '@tauri-apps/api/fs';
+import { Body } from '@tauri-apps/api/http';
+
 import mime from 'mime/lite';
 import {
   AWS_PRODUCTION_BUCKET,
@@ -74,7 +76,7 @@ export default async function publishIllustration(id, {
       body,
       bucket: BUCKETS[bucket],
       contentType,
-      bodyType: 'bytes',
+      bodyType: Body.bytes,
 
       key: `testing/artisan/${outputKey}`,
 

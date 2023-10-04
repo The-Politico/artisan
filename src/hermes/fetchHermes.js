@@ -10,8 +10,8 @@ export default async function fetchHermes(args = {}) {
     body: bodyContent,
     contentType,
     method = 'GET',
-    bodyType = 'text',
-    responseType: responseTypeOption,
+    bodyType = Body.text,
+    responseType = ResponseType.Text,
     retry = true,
     ...options
   } = args;
@@ -28,9 +28,9 @@ export default async function fetchHermes(args = {}) {
         ...options,
       },
       body: bodyContent
-        ? Body[bodyType](bodyContent)
+        ? bodyType(bodyContent)
         : undefined,
-      responseType: ResponseType[responseTypeOption],
+      responseType,
     },
   );
 

@@ -29,7 +29,7 @@ export default async function createIllustration(projectId, illoName) {
     route: 'aws/download',
     bucket: AWS_TEST_BUCKET,
     key: 'testing/artisan/templates/base.ai',
-    responseType: 'Binary',
+    responseType: ResponseType.Binary,
   });
 
   const illoPath = await getIllustrationPath(illoId);
