@@ -61,12 +61,7 @@ export default async function shareProject(projectId) {
     method: 'POST',
     body: sharePageHTML,
     contentType: 'text/html',
-
-    bucket: AWS_TEST_BUCKET,
-    key: `testing/artisan/${shareKey}`,
-
-    // TODO: Bucket Swap
-    // bucket: AWS_STAGING_BUCKET,
-    // key: shareKey,
+    bucket: AWS_STAGING_BUCKET,
+    key: shareKey,
   });
 }

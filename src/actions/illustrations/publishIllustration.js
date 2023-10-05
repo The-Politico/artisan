@@ -5,7 +5,6 @@ import mime from 'mime/lite';
 import {
   AWS_PRODUCTION_BUCKET,
   AWS_STAGING_BUCKET,
-  AWS_TEST_BUCKET,
 } from '../../constants/aws';
 import getIllustrationOutputKey
   from '../../utils/paths/getIllustrationOutputKey';
@@ -14,13 +13,9 @@ import getIllustrationOutputPath
 import store from '../../store';
 import fetchHermes from '../../hermes/fetchHermes';
 
-// TODO: Bucket Swap
 const BUCKETS = {
-  // staging: AWS_STAGING_BUCKET,
-  // production: AWS_PRODUCTION_BUCKET,
-
-  staging: AWS_TEST_BUCKET,
-  production: AWS_TEST_BUCKET,
+  staging: AWS_STAGING_BUCKET,
+  production: AWS_PRODUCTION_BUCKET,
 };
 
 export default async function publishIllustration(id, {
@@ -77,11 +72,7 @@ export default async function publishIllustration(id, {
       bucket: BUCKETS[bucket],
       contentType,
       bodyType: Body.bytes,
-
-      key: `testing/artisan/${outputKey}`,
-
-      // TODO: Bucket Swap
-      // key: outputKey,
+      key: outputKey,
     });
   }));
 

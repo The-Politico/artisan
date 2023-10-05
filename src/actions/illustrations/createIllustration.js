@@ -12,7 +12,6 @@ import fetchHermes from '../../hermes/fetchHermes';
 import {
   ARTISAN_BASE_TEMPLATE_NAME,
   AWS_ARTISAN_BUCKET,
-  AWS_TEST_BUCKET,
 } from '../../constants/aws';
 import {
   ARCHIVE_TEMPLATES_DIRECTORY,
@@ -24,11 +23,10 @@ export default async function createIllustration(projectId, illoName) {
     illustration: illoName,
   });
 
-  // TODO: Bucket Swap
   const template = await fetchHermes({
     route: 'aws/download',
-    bucket: AWS_TEST_BUCKET,
-    key: 'testing/artisan/templates/base.ai',
+    bucket: AWS_ARTISAN_BUCKET,
+    key: `${ARCHIVE_TEMPLATES_DIRECTORY}/${ARTISAN_BASE_TEMPLATE_NAME}`,
     responseType: ResponseType.Binary,
   });
 

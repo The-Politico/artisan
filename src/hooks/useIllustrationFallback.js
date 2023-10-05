@@ -26,6 +26,7 @@ export default function useIllustrationFallback(id) {
         const isGenerated = !!illoDetail.lastGeneratedDate;
         setSrc(isGenerated ? fallbackSrc : null);
       } catch (error) {
+        console.error(error);
         /* Ignore Error */
       }
     }());
