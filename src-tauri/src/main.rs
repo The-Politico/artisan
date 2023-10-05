@@ -34,8 +34,6 @@ fn main() {
     .expect("failed to resolve path");
 
     let default_settings = HashMap::from([
-        ("aws-id".to_string(), "".into()),
-        ("aws-secret".to_string(), "".into()),
         ("preferred-port".to_string(), "8765".into()),
         (
             "working-directory".to_string(),

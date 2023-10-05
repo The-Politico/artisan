@@ -5,7 +5,7 @@ import store from '../../store';
  * @function
  * @returns {Object}
  */
-export default async function readSettings() {
-  const settingsEntries = await store.auth.get();
-  return Object.fromEntries(settingsEntries);
+export default async function readAuth() {
+  const authEntries = await store.auth.get();
+  return Object.fromEntries(authEntries);
 }
