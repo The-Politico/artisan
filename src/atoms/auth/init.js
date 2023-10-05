@@ -7,10 +7,8 @@ import authAtom from './atom';
 export default function useGetUserAuthData() {
   const [auth, setAuth] = useRecoilState(authAtom);
   useEffect(() => {
-    console.log('Auth changed?');
     const getUserData = async () => {
       if (auth.username === '') {
-        console.log('Updating user name?');
         const { access_token: token } = auth.box_tokens;
         const r = await fetch(`${BOX_BASE_API}/users/me`, {
           method: 'GET',
@@ -26,6 +24,7 @@ export default function useGetUserAuthData() {
         });
       }
     };
+    // eslint-disable-next-line no-console
     getUserData().catch(console.error);
   }, [auth]);
 }
