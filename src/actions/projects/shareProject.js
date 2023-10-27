@@ -5,7 +5,7 @@ import {
   SHARE_PAGE_ASSETS,
   PUBLISH_EMBED_PATH,
 } from '../../constants/paths';
-import { AWS_STAGING_BUCKET, AWS_TEST_BUCKET } from '../../constants/aws';
+import { AWS_STAGING_BUCKET } from '../../constants/aws';
 import getIllosInProject from '../../utils/store/getIllosInProject';
 import ids from '../../utils/ids';
 import publishIllustration from '../illustrations/publishIllustration';
