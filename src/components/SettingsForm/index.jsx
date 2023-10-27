@@ -14,7 +14,6 @@ import store from '../../store';
 import {
   flex, margin, padding, typography as type,
 } from '../../theme';
-import store from '../../store';
 
 export default function SettingsForm({ isWelcome = false }) {
   const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
