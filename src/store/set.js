@@ -1,14 +1,11 @@
 /* eslint-disable consistent-return */
 import { assertion } from '@recoiljs/refine';
-import {
-  SETTINGS, ILLUSTRATIONS, PREVIEW, AUTH,
-} from './init';
+import { SETTINGS, ILLUSTRATIONS, PREVIEW } from './init';
 import {
   TYPE_STORE_NAME,
   TYPE_SETTINGS_STORE_KEYS,
   TYPE_ILLUSTRATION_STORE_ITEM,
   TYPE_PREVIEW_STORE_KEYS,
-  TYPE_AUTH_STORE_KEYS,
 } from '../constants/types';
 
 /**
@@ -55,20 +52,6 @@ export default async function set(storeName, values, { save = true } = {}) {
 
     if (save) {
       await SETTINGS.save();
-    }
-
-    return;
-  }
-
-  if (storeName === 'auth') {
-    Object.entries(values).forEach(([key, value]) => {
-      assertion(TYPE_AUTH_STORE_KEYS[key])(value);
-
-      AUTH.set(key, value);
-    });
-
-    if (save) {
-      await AUTH.save();
     }
 
     return;

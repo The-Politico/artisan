@@ -1,7 +1,0 @@
-.titlebar {
-  grid-column: 1 / -1;
-  width: 100%;
-  height: 100%;
-  -webkit-user-select: none;
-  cursor: default;
-}

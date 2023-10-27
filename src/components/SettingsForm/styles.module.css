@@ -29,6 +29,7 @@
   justify-content: space-between;
   align-items: center;
   border-radius: 6px;
+  padding: .1rem .25rem;
 }
 
 .button-dropdown:hover {
@@ -47,6 +48,10 @@
 
 .icon-reverse {
   transform: rotate(180deg);
+}
+
+.dir-container {
+  margin-top: 1rem;
 }
 
 .dir {
