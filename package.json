@@ -11,7 +11,8 @@
     "share:dev": "npx vite dev src/share -c=vite.config.share.js",
     "share:build": "npx vite build -c=vite.config.share.js",
     "share:publish": "node src/share/publish.mjs",
-    "build": "tauri build --target x86_64-apple-darwin; tauri build --target aarch64-apple-darwin;"
+    "build": "tauri build --target x86_64-apple-darwin; tauri build --target aarch64-apple-darwin;",
+    "build:debug": "tauri build --target x86_64-apple-darwin --debug"
   },
   "license": "MIT",
   "dependencies": {
@@ -23,7 +24,7 @@
     "@heroicons/react": "^2.0.11",
     "@newswire/frames": "^1.0.0",
     "@recoiljs/refine": "^0.1.1",
-    "@tauri-apps/api": "^1.2.0",
+    "@tauri-apps/api": "^1.4.0",
     "buffer": "^6.0.3",
     "classnames": "^2.3.2",
     "date-fns": "^2.29.3",
@@ -43,7 +44,7 @@
   },
   "devDependencies": {
     "@politico/eslint-config-interactives": "^1.0.2",
-    "@tauri-apps/cli": "^1.2.3",
+    "@tauri-apps/cli": "^1.4.0",
     "@types/react": "^18.0.17",
     "@types/react-dom": "^18.0.6",
     "@vitejs/plugin-react": "^2.1.0",

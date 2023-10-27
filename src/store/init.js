@@ -19,6 +19,12 @@ export const ILLUSTRATIONS = new Store('.illustrations');
 export const PREVIEW = new Store('.preview');
 
 /**
+ * Use to access the auth store instance and its methods
+ * @type {Store}
+ */
+export const AUTH = new Store('.auth');
+
+/**
  * Interface to access store via unique key
  * @type {Object}
  */
@@ -26,4 +32,5 @@ export const MAP = {
   settings: SETTINGS,
   illustrations: ILLUSTRATIONS,
   preview: PREVIEW,
+  auth: AUTH,
 };
