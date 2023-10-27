@@ -3,7 +3,7 @@ import store from '../../store';
 import {
   STATUS_ILLUSTRATION_OK,
 } from '../../constants/statuses';
-import getIllustrationStatus from './getIllustrationStatus';
+import getIllustrationStatus from '../../actions/illustrations/getIllustrationStatus';
 import getIllustrationPath from '../../utils/paths/getIllustrationPath';
 
 /**

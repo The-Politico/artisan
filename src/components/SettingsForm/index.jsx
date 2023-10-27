@@ -9,6 +9,7 @@ import WorkingDir from './WorkingDir';
 
 import atoms from '../../atoms';
 import ensureDir from '../../utils/fs/ensureDir';
+import store from '../../store';
 
 import {
   flex, margin, padding, typography as type,

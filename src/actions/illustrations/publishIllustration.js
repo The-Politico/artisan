@@ -1,15 +1,17 @@
 import { readBinaryFile, readDir, exists } from '@tauri-apps/api/fs';
+import { Body } from '@tauri-apps/api/http';
+
 import mime from 'mime/lite';
 import {
   AWS_PRODUCTION_BUCKET,
   AWS_STAGING_BUCKET,
 } from '../../constants/aws';
-import s3 from '../../utils/s3';
 import getIllustrationOutputKey
   from '../../utils/paths/getIllustrationOutputKey';
 import getIllustrationOutputPath
   from '../../utils/paths/getIllustrationOutputPath';
 import store from '../../store';
+import fetchHermes from '../../hermes/fetchHermes';
 
 const BUCKETS = {
   staging: AWS_STAGING_BUCKET,
@@ -63,11 +65,14 @@ export default async function publishIllustration(id, {
       file.name,
     ].join('/');
 
-    await s3.upload({
-      bucket: BUCKETS[bucket],
-      key: outputKey,
-      contentType,
+    await fetchHermes({
+      route: 'aws/upload',
+      method: 'POST',
       body,
+      bucket: BUCKETS[bucket],
+      contentType,
+      bodyType: Body.bytes,
+      key: outputKey,
     });
   }));
 
