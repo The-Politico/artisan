@@ -7,7 +7,7 @@ import { invoke } from '@tauri-apps/api/tauri';
  * @returns {Promise<strong>} - A Promise that resolves to the ETag
  */
 export default function getEtag(path) {
-  return invoke('get_etag', {
+  return invoke('md5', {
     path,
   });
 }

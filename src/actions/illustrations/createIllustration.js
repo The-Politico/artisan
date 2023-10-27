@@ -1,12 +1,13 @@
 import { writeBinaryFile } from '@tauri-apps/api/fs';
+import { ResponseType } from '@tauri-apps/api/http';
 import store from '../../store';
 import ensureDir from '../../utils/fs/ensureDir';
 import ids from '../../utils/ids';
 import getIllustrationFilePath
   from '../../utils/paths/getIllustrationFilePath';
 import getIllustrationPath from '../../utils/paths/getIllustrationPath';
-import s3 from '../../utils/s3';
 import shareProject from '../projects/shareProject';
+import fetchHermes from '../../hermes/fetchHermes';
 
 import {
   ARTISAN_BASE_TEMPLATE_NAME,
@@ -22,9 +23,11 @@ export default async function createIllustration(projectId, illoName) {
     illustration: illoName,
   });
 
-  const template = await s3.download({
+  const template = await fetchHermes({
+    route: 'aws/download',
     bucket: AWS_ARTISAN_BUCKET,
     key: `${ARCHIVE_TEMPLATES_DIRECTORY}/${ARTISAN_BASE_TEMPLATE_NAME}`,
+    responseType: ResponseType.Binary,
   });
 
   const illoPath = await getIllustrationPath(illoId);
