@@ -39,13 +39,6 @@ export const TYPE_ILLUSTRATION_STORE = dict(TYPE_ILLUSTRATION_STORE_ITEM);
 export const TYPE_SETTINGS_STORE_KEYS = {
   'working-directory': string(),
   'preferred-port': string(),
-  'aws-id': string(),
-  'aws-secret': string(),
-  stream_pos: string(),
-  box_tokens: voidable(object({
-    access_token: voidable(string()), // These are voidable just for testing
-    refresh_token: voidable(string()),
-  })),
 };
 
 // Valid object containing all the settings for a complete store
@@ -61,10 +54,12 @@ export const TYPE_PREVIEW_STORE_KEYS = {
 export const TYPE_PREVIEW_STORE = object(TYPE_PREVIEW_STORE_KEYS);
 
 export const TYPE_AUTH_STORE_KEYS = {
-  box_tokens: voidable(object({
-    access_token: voidable(string()), // These are voidable just for testing
-    refresh_token: voidable(string()),
-  })),
+  box_tokens: voidable(
+    object({
+      access_token: voidable(string()), // These are voidable just for testing
+      refresh_token: voidable(string()),
+    }),
+  ),
   username: string(),
   user_id: string(),
 };

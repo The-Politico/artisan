@@ -10,6 +10,14 @@ pub fn box_client() -> BasicClient {
     let token_url = TokenUrl::new("https://api.box.com/oauth2/token".to_string())
         .expect("Invalid token endpoint URL");
 
+    let lifecycle = std::option_env!("npm_lifecycle_script").unwrap();
+
+    let url = if lifecycle.contains("dev") {
+        "http://localhost:5173/oauth/"
+    } else {
+        "tauri://localhost/oauth/"
+    };
+
     BasicClient::new(
         box_client_id,
         Some(box_client_secret),
@@ -18,7 +26,6 @@ pub fn box_client() -> BasicClient {
     )
     .set_auth_type(AuthType::RequestBody)
     .set_redirect_uri(
-        RedirectUrl::new("http://localhost:5173/oauth/".to_string())
-            .expect("Invalid redirect URL"),
+        RedirectUrl::new(url.to_string()).expect("Invalid redirect URL"),
     )
 }

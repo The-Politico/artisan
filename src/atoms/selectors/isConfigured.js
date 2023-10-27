@@ -11,7 +11,7 @@ const isConfigured = selector({
   key: KEY,
   get: ({ get }) => {
     const auth = get(authAtom);
-    return (!!Object.keys(auth.box_tokens).length);
+    return (Object.keys(auth.box_tokens).length > 0);
   },
 });
 
