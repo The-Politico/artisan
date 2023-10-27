@@ -25,7 +25,7 @@ export default function WorkingDir({ projectsDir, setProjectsDir }) {
   };
 
   return (
-    <div>
+    <div className={styles.dirContainer}>
       <h2 className={cls(type.textLg, type.fontSemibold, colors.textSlate700)}>
         Projects Folder
       </h2>

@@ -18,7 +18,7 @@ export default function ProjectToolbar() {
 
   return (
     <div
-      className={cls(flex.flex, flex.flexRow, layout.itemsCenter, margin.mb2)}
+      className={cls(flex.flex, flex.flexRow, layout.itemsCenter, margin.my2)}
     >
       <ProjectStatusIcon
         id={activeProject}

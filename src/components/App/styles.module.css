@@ -1,8 +1,8 @@
 .grid {
-  min-height: calc(100vh);
+  min-height: 100vh;
   display: grid;
   grid-template-columns: 240px repeat(3, minmax(0, 1fr));
-  grid-template-rows: 1.75rem repeat(1, minmax(0, 1fr));
+  grid-template-rows: repeat(1, minmax(0, 1fr));
   justify-items: center;
   align-items: center;
 }

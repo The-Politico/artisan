@@ -14,7 +14,6 @@ import illustrationsInProject from './selectors/illustrationsInProject';
 import isPreviewActive from './selectors/isPreviewActive';
 import isConfigured from './selectors/isConfigured';
 import now from './now/atom';
-import authAtom from './auth/atom';
 
 export default {
   illustrations,
@@ -22,7 +21,6 @@ export default {
   now,
   settings: settingsAtom,
   preview: previewAtom,
-  auth: authAtom,
   status: statusAtomFamily,
   activeProject: activeProjectAtom,
   projectsList,

@@ -1,5 +1,5 @@
 import { selector } from 'recoil';
-import authAtom from '../auth/atom';
+import settingsAtom from '../settings/atom';
 
 const KEY = 'isConfigured';
 
@@ -10,8 +10,8 @@ const KEY = 'isConfigured';
 const isConfigured = selector({
   key: KEY,
   get: ({ get }) => {
-    const auth = get(authAtom);
-    return (Object.keys(auth.box_tokens).length > 0);
+    const settings = get(settingsAtom);
+    return (!!settings['aws-id'] && !!settings['aws-secret']);
   },
 });
 

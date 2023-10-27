@@ -26,12 +26,8 @@ export default defineConfig({
   // to make use of `TAURI_PLATFORM`, `TAURI_ARCH`, `TAURI_FAMILY`,
   // `TAURI_PLATFORM_VERSION`, `TAURI_PLATFORM_TYPE` and `TAURI_DEBUG`
   // env variables
-  root: './src/pages',
   envPrefix: ['VITE_', 'TAURI_'],
-  publicDir: '../../public',
   build: {
-    outDir: '../../dist',
-    emptyOutDir: true,
     // Tauri supports es2021
     target: ['es2021', 'chrome100', 'safari13'],
     // don't minify for debug builds
@@ -40,9 +36,8 @@ export default defineConfig({
     sourcemap: !!process.env.TAURI_DEBUG,
     rollupOptions: {
       input: {
-        main: resolve(__dirname, 'src/pages/index.html'),
-        preview: resolve(__dirname, 'src/pages/preview/index.html'),
-        oauth: resolve(__dirname, 'src/pages/oauth/index.html'),
+        main: resolve(__dirname, 'index.html'),
+        preview: resolve(__dirname, 'src/preview/index.html'),
       },
     },
   },
