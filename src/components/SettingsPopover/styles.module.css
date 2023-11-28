@@ -3,4 +3,5 @@
   position: absolute;
   bottom: 2rem;
   z-index: 3;
+  min-width: 245px;
 }

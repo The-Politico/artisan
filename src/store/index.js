@@ -19,4 +19,5 @@ export default {
   settings: makeBasicOperations('settings'),
   preview: makeBasicOperations('preview'),
   illustrations: makeBasicOperations('illustrations'),
+  auth: makeBasicOperations('auth'),
 };

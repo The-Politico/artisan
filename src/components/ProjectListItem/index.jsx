@@ -39,7 +39,6 @@ export default function ProjectListItem({
 
   return (
     <>
-      <div className={styles.divider} />
       <li>
         {!id ? (
           <div

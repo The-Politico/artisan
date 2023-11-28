@@ -1,55 +1,54 @@
 import { useState } from 'react';
 import cls from 'classnames';
-import styles from './styles.module.css';
-import { margin, padding, typography as type } from '../../theme';
-import Input from '../Input';
+import { invoke } from '@tauri-apps/api';
+import { WebviewWindow } from '@tauri-apps/api/window';
+
 import Advanced from './Advanced';
 import Button from '../Button';
 import WorkingDir from './WorkingDir';
+
 import atoms from '../../atoms';
 import ensureDir from '../../utils/fs/ensureDir';
+import store from '../../store';
+
+import {
+  flex, margin, padding, typography as type,
+} from '../../theme';
 
 export default function SettingsForm({ isWelcome = false }) {
-  const [settings, setSettings] = atoms.useRecoilState(
-    atoms.settings,
-  );
-
-  const [awsId, setAwsId] = useState(settings['aws-id']);
-  const [awsSecret, setAwsSecret] = useState(settings['aws-secret']);
+  const [settings, setSettings] = atoms.useRecoilState(atoms.settings);
 
   const [projectsDir, setProjectsDir] = useState(
     settings['working-directory'],
   );
   const [port, setPort] = useState(settings['preferred-port']);
 
-  const handleClick = async () => {
+  const handleSave = async () => {
     setSettings({
-      'aws-id': awsId,
-      'aws-secret': awsSecret,
       'preferred-port': port,
       'working-directory': projectsDir,
     });
 
     await ensureDir(projectsDir);
+
+    if (isWelcome) {
+      const url = await invoke('get_auth_url');
+      // eslint-disable-next-line no-unused-vars
+      const view = new WebviewWindow('oauth', {
+        url,
+        center: true,
+        focus: true,
+        alwaysOnTop: true,
+      });
+    }
+  };
+
+  const handleSignOut = async () => {
+    await store.auth.reset();
   };
 
   return (
     <>
-      <Input
-        label="AWS Access Key Id"
-        setValue={setAwsId}
-        value={awsId}
-        type="password"
-        className={styles.settingsInput}
-      />
-      <Input
-        label="AWS Secret Access Key"
-        setValue={setAwsSecret}
-        value={awsSecret}
-        type="password"
-        className={styles.settingsInput}
-      />
-      <div className={styles.divider} />
       {!isWelcome ? (
         <Advanced
           projectsDir={projectsDir}
@@ -62,16 +61,25 @@ export default function SettingsForm({ isWelcome = false }) {
           setProjectsDir={setProjectsDir}
         />
       )}
-      <Button
-        className={cls(margin.mt4, {
-          [type.textXl]: isWelcome,
-          [padding.px8]: isWelcome,
-        })}
-        variant="solid"
-        onClick={handleClick}
-      >
-        {isWelcome ? 'Start' : 'Save'}
-      </Button>
+      <div className={cls(flex.flex, flex.flexCenter, margin.mt6)}>
+        <Button
+          className={cls(margin.mr1, {
+            [type.textXl]: isWelcome,
+            [padding.px8]: isWelcome,
+          })}
+          variant="solid"
+          onClick={handleSave}
+        >
+          {isWelcome ? 'Sign in to Box' : 'Save'}
+        </Button>
+        {!isWelcome && (
+          <Button
+            variant="ghost"
+            value="Sign out of Box"
+            onClick={handleSignOut}
+          />
+        )}
+      </div>
     </>
   );
 }
