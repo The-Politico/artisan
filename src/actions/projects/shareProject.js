@@ -11,16 +11,22 @@ import ids from '../../utils/ids';
 import publishIllustration from '../illustrations/publishIllustration';
 import fetchHermes from '../../hermes/fetchHermes';
 
+import getProjectStatus from './getProjectStatus';
+
 export default async function shareProject(projectId) {
   const shareKey = getProjectSharePath(projectId);
 
   const illustrations = await getIllosInProject(projectId);
   const illoIds = illustrations.map(([id]) => ids.parse(id).illustration);
 
+  const projectStatus = await getProjectStatus(projectId);
+
   const config = {
     projectId,
     embedUrl: PUBLISH_EMBED_PATH,
     illos: illoIds,
+    projectStatus,
+
   };
 
   const sharePageHTML = `<!DOCTYPE html>
