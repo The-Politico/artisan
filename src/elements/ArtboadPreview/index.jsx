@@ -42,9 +42,9 @@ export default function ArtboardPreview({
         />
       </div>
       <div className={styles.outputLink}>
-        {showStaging && <a href={stagingLink}>See staged</a>}
+        {showStaging && <a href={stagingLink}>Staged Preview</a>}
         <br />
-        {showLive && <a href={liveLink}>See published</a>}
+        {showLive && <a href={liveLink}>Published Preview</a>}
       </div>
     </div>
   );
