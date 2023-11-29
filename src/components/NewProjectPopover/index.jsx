@@ -1,6 +1,7 @@
 import { Fragment, useState } from 'react';
 import cls from 'classnames';
 import { Popover, Transition } from '@headlessui/react';
+import { message } from '@tauri-apps/api/dialog';
 import Button from '../Button';
 import styles from './styles.module.css';
 import {
@@ -33,7 +34,11 @@ export default function NewProjectPopover() {
 
   const handleCreate = async (close) => {
     setIsCreating(true);
-    await create(newIlloName, { newProject: newProjectName });
+    try {
+      await create(newIlloName, { newProject: newProjectName });
+    } catch (error) {
+      await message(error, { type: 'error' });
+    }
     setIsCreating(false);
     close();
   };
