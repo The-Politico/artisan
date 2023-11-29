@@ -106,7 +106,6 @@ function main() {
     // List of settings to include in the "ai2html-settings" text block
     "settings_block": [
       "settings_version",
-      "image_format",
       "responsiveness",
       "output",
       "html_output_path",
@@ -3251,7 +3250,12 @@ function main() {
   }
   
   function getPromoImageFormat(ab, settings) {
-    var fmt = 'png';
+    var fmt = settings.image_format[0];
+    if (fmt == 'svg' || !fmt) {
+      fmt = 'png';
+    } else {
+      fmt = resolveArtboardImageFormat(fmt, ab);
+    }
     return fmt;
   }
   
@@ -3259,7 +3263,7 @@ function main() {
   function resolveArtboardImageFormat(setting, ab) {
     var fmt;
     if (setting == 'auto') {
-      fmt = 'png';
+      fmt = artboardContainsVisibleRasterImage(ab) ? 'jpg' : 'png';
     } else {
       fmt = setting;
     }
