@@ -16,6 +16,9 @@ export default function ExportPage({ config }) {
 
   if (config.projectStatus === STATUS_PROJECT_UNKNOWN) return null;
 
+  const showEmbedCode = config.projectStatus === STATUS_PROJECT_PUBLISHED
+  || config.projectStatus === STATUS_PROJECT_CHANGES;
+
   return (
     <div>
       <ExportToolbar
@@ -30,14 +33,14 @@ export default function ExportPage({ config }) {
           selectedIllo={selectedIllo}
         />
 
-        {config.projectStatus === STATUS_PROJECT_PUBLISHED
-        || config.projectStatus === STATUS_PROJECT_CHANGES ? (
+        {showEmbedCode
+          && (
           <EmbedCode
             selectedIllo={selectedIllo}
             projectId={config.projectId}
             embedUrl={config.embedUrl}
           />
-          ) : null }
+          )}
       </div>
     </div>
   );

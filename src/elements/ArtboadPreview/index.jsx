@@ -27,6 +27,11 @@ export default function ArtboardPreview({
   const stagingLink = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
   const imgSrc = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${FALLBACK_IMG_NAME}`;
 
+  const showStaging = projectStatus === STATUS_PROJECT_DRAFT
+    || projectStatus === STATUS_PROJECT_CHANGES;
+  const showLive = projectStatus === STATUS_PROJECT_PUBLISHED
+    || projectStatus === STATUS_PROJECT_CHANGES;
+
   return (
     <div className={styles.previewContainer}>
       <h3 className={styles.h3}>{selectedIllo}</h3>
@@ -37,15 +42,9 @@ export default function ArtboardPreview({
         />
       </div>
       <div className={styles.outputLink}>
-        {projectStatus === STATUS_PROJECT_DRAFT
-        || projectStatus === STATUS_PROJECT_CHANGES
-          ? (<a href={stagingLink}>See staged</a>) : null}
+        {showStaging && <a href={stagingLink}>See staged</a>}
         <br />
-        {projectStatus === STATUS_PROJECT_PUBLISHED
-        || projectStatus === STATUS_PROJECT_CHANGES
-          ? (
-            <a href={liveLink}>See published</a>
-          ) : null}
+        {showLive && <a href={liveLink}>See published</a>}
       </div>
     </div>
   );
