@@ -1,6 +1,6 @@
 {
   "name": "@politico/artisan",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,8 @@
     "share:dev": "npx vite dev src/share -c=vite.config.share.js",
     "share:build": "npx vite build -c=vite.config.share.js",
     "share:publish": "node src/share/publish.mjs",
-    "build": "tauri build --target x86_64-apple-darwin; tauri build --target aarch64-apple-darwin;",
+    "build:x86": "tauri build --target x86_64-apple-darwin",
+    "build:aarch64": "tauri build --target aarch64-apple-darwin;",
     "build:debug": "tauri build --target x86_64-apple-darwin --debug"
   },
   "license": "MIT",
