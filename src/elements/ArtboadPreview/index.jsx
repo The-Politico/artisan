@@ -7,17 +7,30 @@ import slugify from '../../utils/text/slugify';
 import { FALLBACK_IMG_NAME } from '../../constants/paths';
 import slugifyOutput from '../../utils/text/slugifyOuput';
 
+import {
+  STATUS_PROJECT_DRAFT,
+  STATUS_PROJECT_PUBLISHED,
+  STATUS_PROJECT_CHANGES,
+} from '../../constants/statuses';
+
 export default function ArtboardPreview({
   projectId,
   embedUrl,
   selectedIllo,
+  projectStatus,
 }) {
   const projectSlug = slugify(projectId);
   const illoSlug = slugify(selectedIllo);
   const illoFileSlug = slugifyOutput(selectedIllo);
 
-  const embedRoot = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
+  const liveLink = `${AWS_PRODUCTION_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
+  const stagingLink = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${illoFileSlug}.html`;
   const imgSrc = `${AWS_STAGING_BASE_URL}${embedUrl}/${projectSlug}/${illoSlug}/${FALLBACK_IMG_NAME}`;
+
+  const showStaging = projectStatus === STATUS_PROJECT_DRAFT
+    || projectStatus === STATUS_PROJECT_CHANGES;
+  const showLive = projectStatus === STATUS_PROJECT_PUBLISHED
+    || projectStatus === STATUS_PROJECT_CHANGES;
 
   return (
     <div className={styles.previewContainer}>
@@ -29,7 +42,9 @@ export default function ArtboardPreview({
         />
       </div>
       <div className={styles.outputLink}>
-        <a href={embedRoot}>See live preview</a>
+        {showStaging && <a href={stagingLink}>Staged Preview</a>}
+        <br />
+        {showLive && <a href={liveLink}>Published Preview</a>}
       </div>
     </div>
   );

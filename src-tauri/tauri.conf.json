@@ -18,27 +18,43 @@
       },
       "protocol": {
         "asset": true,
-        "assetScope": ["$RESOURCE/*", "$DOCUMENT/*", "$HOME/*", "$HOME/**", "$HOME/**/**"]
+        "assetScope": [
+          "$RESOURCE/*",
+          "$DOCUMENT/*",
+          "$HOME/*",
+          "$HOME/**",
+          "$HOME/**/**"
+        ]
+      },
+      "http": {
+        "all": false,
+        "request": true,
+        "scope": [
+          "https://api.box.com/*",
+          "https://2.realtime.services.box.net/*",
+          "https://47fw4xs4ofawc7gk5curn24ixm0gjfis.lambda-url.us-east-1.on.aws/*"
+        ]
       },
       "shell": {
         "execute": true,
         "open": "(^https?://)|(^/)",
-        "scope": [{
-          "name": "run-osascript",
-          "cmd": "osascript",
-          "args": true
-        },
-        {
-          "name": "start-local-server",
-          "cmd": "python3",
-          "args": true
-        },
-        {
-          "name": "kill-process",
-          "cmd": "kill",
-          "args": true
-        }
-      ]
+        "scope": [
+          {
+            "name": "run-osascript",
+            "cmd": "osascript",
+            "args": true
+          },
+          {
+            "name": "start-local-server",
+            "cmd": "python3",
+            "args": true
+          },
+          {
+            "name": "kill-process",
+            "cmd": "kill",
+            "args": true
+          }
+        ]
       },
       "window": {
         "all": true
@@ -47,7 +63,7 @@
         "all": false,
         "ask": false,
         "confirm": false,
-        "message": false,
+        "message": true,
         "open": true,
         "save": false
       },
@@ -61,7 +77,14 @@
         "removeDir": true,
         "removeFile": true,
         "renameFile": true,
-        "scope": ["$RESOURCE/**", "$DOCUMENT/**", "$HOME", "$HOME/*", "$HOME/**", "$HOME/**/**" ],
+        "scope": [
+          "$RESOURCE/**",
+          "$DOCUMENT/**",
+          "$HOME",
+          "$HOME/*",
+          "$HOME/**",
+          "$HOME/**/**"
+        ],
         "writeFile": true
       }
     },
@@ -95,7 +118,9 @@
         "resources/exportArtboards.js"
       ],
       "shortDescription": "",
-      "targets": "all",
+      "targets": [
+        "dmg"
+      ],
       "windows": {
         "certificateThumbprint": null,
         "digestAlgorithm": "sha256",
@@ -115,7 +140,9 @@
         "fullscreen": false,
         "height": 800,
         "resizable": false,
-        "title": "",
+        "hiddenTitle": true,
+        "titleBarStyle": "Overlay",
+        "acceptFirstMouse": true,
         "theme": "Light",
         "width": 780
       }

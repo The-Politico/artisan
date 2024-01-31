@@ -57,7 +57,7 @@ function main() {
     "settings_version": scriptVersion,
     "create_promo_image": false,
     "promo_image_width": 1024,
-    "image_format": ["auto"],  // Options: auto, png, png24, jpg, svg
+    "image_format": ["png"],  // Options: auto, png, png24, jpg, svg
     "write_image_files": true,
     "responsiveness": "fixed", // Options: fixed, dynamic
     "max_width": "",
@@ -69,7 +69,7 @@ function main() {
     "image_output_path": "",
     "image_source_path": null,
     "image_alt_text": "",
-    "cache_bust_token": null,  // Append a token to the url of image urls: ?v=<cache_bust_token>
+    "cache_bust_token": 1,  // Append a token to the url of image urls: ?v=<cache_bust_token>
     "create_config_file": false,
     "config_file_path": "",
     "local_preview_template": "",
@@ -106,7 +106,6 @@ function main() {
     // List of settings to include in the "ai2html-settings" text block
     "settings_block": [
       "settings_version",
-      "image_format",
       "responsiveness",
       "output",
       "html_output_path",
@@ -3567,7 +3566,6 @@ function main() {
     return imgHtml;
   }
   
-  
   // Create an <img> tag for the artboard image
   function generateImageHtml(imgFile, imgId, imgClass, imgStyle, ab, settings) {
     var imgDir = settings.image_source_path,
@@ -4070,29 +4068,42 @@ function main() {
     // var css = "\t<style type='text/css'>\r";
     var css = ""; 
     var artboardInfo = getArtboardInfo(settings);
-  
+
+    var maximumMobileArtboardSize = 480; // anything bigger does not suite mobile
+    var mobileArtboardExists = false; 
+    
     for (i = 0; i < artboardInfo.length; i++){
-  
-      var mediaWidth = artboardInfo[i].effectiveWidth;
-      css += "\t@media (min-width: " + mediaWidth + "px) {\r";
-      
-      for (j= 0; j < artboardInfo.length; j++){
-  
-        var artboardWidth = artboardInfo[j].effectiveWidth;
-        var artboardID = doc.artboards[artboardInfo[j].id]
-        css += "\t\t#" + nameSpace + getArtboardFullName(artboardID, settings) + " {\r"; 
-  
-        if (mediaWidth == artboardInfo[j].effectiveWidth){
-          css += "\t\t\tdisplay: block;\r"; 
+    
+        var mediaWidth = artboardInfo[i].effectiveWidth;
+
+        // adjusting min width logic so that mobile artboard always gets min-width of 300px
+        if (mediaWidth < maximumMobileArtboardSize) {
+          mobileArtboardExists = true;
+          css += "\t@media (min-width: " + 300 + "px) {\r";
         } else {
-          css += "\t\t\tdisplay: none;\r"; 
+          css += "\t@media (min-width: " + mediaWidth + "px) {\r";
         }
-        css += "\t\t}\r"; 
-      }
-    css += "\t}\r"; 
+        
+        for (j= 0; j < artboardInfo.length; j++){
+    
+          var artboardWidth = artboardInfo[j].effectiveWidth;
+          var artboardID = doc.artboards[artboardInfo[j].id]
+          css += "\t\t#" + nameSpace + getArtboardFullName(artboardID, settings) + " {\r"; 
+    
+          if (mediaWidth == artboardInfo[j].effectiveWidth){
+            css += "\t\t\tdisplay: block;\r"; 
+          } else {
+            css += "\t\t\tdisplay: none;\r"; 
+          }
+          css += "\t\t}\r"; 
+        }
+      css += "\t}\r"; 
+    }
+  if (!mobileArtboardExists) {
+    alert('You do not have an artboard appropriate for mobile sizes (smaller than 480px), and therefore, will experience display errors when using Preview for mobile devices.')
+
   }
-    // css += "\t</style>"; 
-    return css;
+  return css;
   
   }
   
