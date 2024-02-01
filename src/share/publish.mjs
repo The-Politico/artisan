@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
-import { loadConfig } from '@aws-sdk/node-config-provider';
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+// eslint-disable-next-line import/no-extraneous-dependencies
+import * as hermes from '@politico/hermes';
 import fs from 'node:fs/promises';
 import { AWS_STAGING_BUCKET } from '../constants/aws.js';
 import {
@@ -9,27 +9,7 @@ import {
 } from '../constants/paths.js';
 
 (async function publish() {
-  const getCredentials = await loadConfig(
-    {
-      configFileSelector: (profile) => ({
-        accessKeyId: profile.aws_access_key_id,
-        secretAccessKey: profile.aws_secret_access_key,
-      }),
-    },
-    { profile: 'publishing' },
-  );
-
-  const credentials = await getCredentials();
-
-  const s3Client = new S3Client({
-    region: 'us-east-1',
-    credentials,
-  });
-
-  const sharedCommand = {
-    Bucket: AWS_STAGING_BUCKET,
-    StorageClass: 'STANDARD',
-  };
+  const s3 = await hermes.clients.aws.s3();
 
   const bundle = await fs.readFile(
     `${process.cwd()}/public/share/bundle.iife.js`,
@@ -41,22 +21,21 @@ import {
     'utf-8',
   );
 
-  const uploadBundleCommand = new PutObjectCommand({
-    Key: SHARE_PAGE_SCRIPTS.split('?')[0],
-    Body: bundle,
-    ContentType: 'text/javascript',
-    CacheControl: 'max-age=300',
-    ...sharedCommand,
+  await s3.upload({
+    bucket: AWS_STAGING_BUCKET,
+    key: SHARE_PAGE_SCRIPTS.split('?')[0],
+    body: bundle,
+    contentType: 'text/javascript',
+    cacheControl: 'max-age=300',
+    StorageClass: 'STANDARD',
   });
 
-  const uploadStylesCommand = new PutObjectCommand({
-    Key: SHARE_PAGE_STYLES.split('?')[0],
-    Body: styles,
-    ContentType: 'text/css',
-    CacheControl: 'max-age=300',
-    ...sharedCommand,
+  await s3.upload({
+    bucket: AWS_STAGING_BUCKET,
+    key: SHARE_PAGE_STYLES.split('?')[0],
+    body: styles,
+    contentType: 'text/css',
+    cacheControl: 'max-age=300',
+    StorageClass: 'STANDARD',
   });
-
-  await s3Client.send(uploadBundleCommand);
-  await s3Client.send(uploadStylesCommand);
 }());

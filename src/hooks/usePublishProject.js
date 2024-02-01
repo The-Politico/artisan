@@ -6,6 +6,7 @@ import getIllustrationStatus
   from '../actions/illustrations/getIllustrationStatus';
 import generateIllustration
   from '../actions/illustrations/generateIllustration';
+import shareProject from '../actions/projects/shareProject';
 
 export default function usePublishProject(projectId) {
   const illustrations = atoms.useRecoilValue(
@@ -24,5 +25,7 @@ export default function usePublishProject(projectId) {
         await publishIllustration(illoId, { production: true });
       })),
     );
+
+    await shareProject(projectId);
   }, [illustrations]);
 }
