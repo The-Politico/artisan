@@ -15,6 +15,7 @@ A content management tool for creating, editing, and publishing responsive Adobe
   - [Developing the Share Bundle](#developing-the-share-bundle)
 - [Deployment](#deployment)
   - [Deploying Share Bundle](#deploying-share-bundle)
+- [Users \& Permissions](#users--permissions)
 
 ## Why This?
 
@@ -67,10 +68,14 @@ We're currently experimenting with using Tauri's updating feature. Until then, d
 
 To create a new build run
 ```
-npm run tauri build
+npm run tauri build:universal
 ```
 
 You'll then find the DMG in ...
+
+```
+src-tauri/target/universal-apple-darwin/release/bundle/dmg/
+```
 
 
 ## Deploying Share Bundle
@@ -80,5 +85,8 @@ If you've made a change to the share bundle, first update the version in `src/sh
 ```
 npm run share:build; npm run share:publish;
 ```
+
+# Users & Permissions
+Artisan uses hermes on the cloud for authenticating users. To add users to the list of authorized Artisan users, add their POLITICO email [to this list.](https://github.com/The-Politico/tool_hermes-cloud/blob/%40sprint/oprah/src/auth/users.js#L43-L54)
 
 *Note: You'll need an AWS profile named `publishing` configured in your aws credentials files. This will work as expected if you've already set up Loki properly.*
