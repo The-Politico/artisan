@@ -54,6 +54,7 @@ export default async function publishIllustration(id, {
   const uploadableContents = contents
     .filter(
       (file) => file.path.endsWith('.png')
+        || file.path.endsWith('.jpg')
         || file.path.endsWith('.html'),
     );
 
