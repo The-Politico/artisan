@@ -4080,7 +4080,7 @@ function main() {
         // adjusting min width logic so that mobile artboard always gets min-width of 300px
         if (mediaWidth < maximumMobileArtboardSize) {
           mobileArtboardExists = true;
-          css += "\t@media (min-width: " + 275 + "px) {\r";
+          css += "\t@media (min-width: " + 200 + "px) {\r";
         } else {
           css += "\t@media (min-width: " + mediaWidth + "px) {\r";
         }
